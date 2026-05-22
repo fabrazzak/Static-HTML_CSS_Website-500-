@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - The Grounds Roastery | Get In Touch</title>
+    <meta name="description"
+        content="Contact The Grounds Roastery. Visit our South Yarra location, call us, or send a message. We'd love to hear from you about coffee, events, catering, or wholesale inquiries.">
+    <meta name="keywords"
+        content="contact The Grounds, South Yarra location, coffee shop contact, wholesale inquiries, event bookings, catering services, customer service">
+    <link rel="canonical" href="http://groundsfoodandcoffee.com/contact/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-coffee: #4a2c2a;
+            --secondary-coffee: #8B4513;
+            --accent-gold: #D4AF37;
+            --warm-cream: #F5F2E8;
+            --rich-brown: #3C1810;
+            --medium-roast: #6B4423;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            color: #fff;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        .animate-slide-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2) { top: 8px; }
+        .hamburger span:nth-child(3) { top: 16px; }
+
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Form Styles */
+        .form-input, .form-textarea, .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Contact Cards */
+        .contact-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        /* Success/Error Messages */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            color: #22c55e;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid rgba(239, 68, 68, 0.5);
+            color: #ef4444;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(34, 197, 94, 0.95);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: rgba(239, 68, 68, 0.95);
+        }
+
+        .toast .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast .toast-message {
+            font-weight: 500;
+        }
+
+        /* Button Loading State */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hours Table */
+        .hours-table {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row.today {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Close Button -->
+        <button class="absolute top-6 right-6 text-3xl text-white hover:text-yellow-400 transition-colors z-10"
+            onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Home</a>
+            <a href="/shop/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Shop</a>
+            <a href="/about/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">About</a>
+            <a href="/blog/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Blog</a>
+            <a href="/contact/" class="block text-3xl font-bold mb-8 text-yellow-400"
+                onclick="closeMobileMenu()">Contact</a>
+        </nav>
+        
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-50">
+        <!-- Main Navigation -->
+        <nav class="glass py-4 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold playfair text-yellow-400">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="/" class="hover:text-yellow-400 transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="hover:text-yellow-400 transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="hover:text-yellow-400 transition-colors font-medium">About</a>
+                    <a href="/blog/" class="hover:text-yellow-400 transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="text-yellow-400 font-medium">Contact</a>
+                </div>
+
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-yellow-400 transition-colors" onclick="toggleCart()">
+                        <a href="/cart/">
+                         <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cartBadge" class="cart-badge hidden">0</span>
+                       </a>
+                    </button>
+
+                    <!-- Mobile Hamburger -->
+                    <div class="lg:hidden hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[50vh] flex items-center justify-center px-4">
+            <div class="text-center max-w-4xl mx-auto animate-slide-up">
+                <nav class="text-sm mb-6">
+                    <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                    <span class="text-gray-400 mx-2">/</span>
+                    <span class="text-yellow-400">Contact</span>
+                </nav>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 animate-float">
+                    <span class="text-yellow-400">Get</span> In Touch
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                    We'd love to hear from you. Whether you have questions about our coffee, want to discuss catering, or need support, we're here to help.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Cards -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <!-- Visit Us -->
+                    <div class="contact-card glass-dark p-8 rounded-2xl text-center">
+                        <div class="text-5xl text-yellow-400 mb-6 animate-pulse">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-4">Visit Us</h3>
+                        <p class="text-gray-300 mb-4">163 Commercial Rd<br>South Yarra VIC 3141<br>Australia</p>
+                        
+                    </div>
+
+                    <!-- Call Us -->
+                    <div class="contact-card glass-dark p-8 rounded-2xl text-center">
+                        <div class="text-5xl text-yellow-400 mb-6 animate-pulse">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-4">Call Us</h3>
+                        <p class="text-gray-300 mb-4">
+                            <a href="tel:+61382908220" class="hover:text-yellow-400 transition-colors text-lg font-semibold">+61 3 8290 8220</a>
+                        </p>
+                        <p class="text-gray-300 text-sm">Mon-Fri: 7:00 AM - 5:00 PM<br>Sat-Sun: 8:00 AM - 4:00 PM</p>
+                    </div>
+
+                    <!-- Email Us -->
+                    <div class="contact-card glass-dark p-8 rounded-2xl text-center px-2 overflow-hidden">
+                        <div class="text-5xl text-yellow-400 mb-6 animate-pulse">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-4">Email Us</h3>
+                        <p class="text-gray-300 mb-4">
+                            <a href="mailto:info@groundsfoodandcoffee.com" class="hover:text-yellow-400 transition-colors font-semibold">info@groundsfoodandcoffee.com</a>
+                        </p>
+                        <p class="text-gray-300 text-sm">We'll respond within 24 hours</p>
+                    </div>
+
+                    <!-- Follow Us -->
+                    <div class="contact-card glass-dark p-8 rounded-2xl text-center">
+                        <div class="text-5xl text-yellow-400 mb-6 animate-pulse">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-4">Follow Us</h3>
+                        <div class="flex justify-center space-x-4 mb-4">
+                            <a href="https://www.facebook.com/thegrounds" class="text-2xl hover:text-yellow-400 transition-colors">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.instagram.com/thegrounds/" class="text-2xl hover:text-yellow-400 transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ" class="text-2xl hover:text-yellow-400 transition-colors">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 text-sm">Stay updated with our latest news and coffee adventures!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form & Info -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <!-- Contact Form -->
+                    <div class="animate-slide-left">
+                        <div class="glass-dark rounded-2xl p-8">
+                            <h2 class="text-3xl md:text-4xl font-bold playfair mb-6 text-yellow-400">Send us a Message</h2>
+                            <p class="text-gray-300 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
+                            
+                            <form id="contactForm" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-yellow-400 mb-2">First Name *</label>
+                                        <input type="text" name="firstName" required class="form-input w-full" placeholder="Enter your first name">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-yellow-400 mb-2">Last Name *</label>
+                                        <input type="text" name="lastName" required class="form-input w-full" placeholder="Enter your last name">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-yellow-400 mb-2">Email Address *</label>
+                                    <input type="email" name="email" required class="form-input w-full" placeholder="Enter your email address">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-yellow-400 mb-2">Phone Number</label>
+                                    <input type="tel" name="phone" class="form-input w-full" placeholder="Enter your phone number">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-yellow-400 mb-2">Inquiry Type *</label>
+                                    <select name="inquiryType" required class="form-select w-full">
+                                        <option value="">Select inquiry type</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="events">Event Booking</option>
+                                        <option value="catering">Catering Services</option>
+                                        <option value="wholesale">Wholesale Partnership</option>
+                                        <option value="careers">Career Opportunities</option>
+                                        <option value="feedback">Feedback/Complaint</option>
+                                        <option value="media">Media/Press</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-yellow-400 mb-2">Message *</label>
+                                    <textarea name="message" required class="form-textarea w-full" placeholder="Tell us more about your inquiry..."></textarea>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <input type="checkbox" id="newsletter" name="newsletter" class="mt-1 mr-3 text-yellow-400">
+                                    <label for="newsletter" class="text-sm text-gray-300">
+                                        I'd like to receive updates about new products, events, and special offers from The Grounds.
+                                    </label>
+                                </div>
+
+                                <button type="submit" id="submitBtn" class="w-full bg-yellow-400 text-black py-4 text-lg font-semibold hover:bg-yellow-300 transition-all duration-300 rounded-full animate-glow">
+                                    Send Message
+                                </button>
+
+                                <p class="text-xs text-gray-400 text-center">
+                                    By submitting this form, you agree to our Privacy Policy and Terms of Service.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Store Info & Hours -->
+                    <div class="animate-slide-right space-y-8">
+                        <!-- Store Hours -->
+                        <div class="glass-dark rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-6">Opening Hours</h3>
+                            <div class="hours-table" id="hoursTable">
+                                <!-- Hours will be populated by JavaScript -->
+                            </div>
+                            <div class="mt-6 p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20">
+                                <p class="text-sm text-gray-300">
+                                    <i class="fas fa-info-circle text-yellow-400 mr-2"></i>
+                                    Hours may vary during holidays and special events. Please call ahead to confirm.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Quick Services -->
+                        <div class="glass-dark rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-6">Our Services</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-coffee text-yellow-400 mr-4 text-xl"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Premium Coffee & Food</h4>
+                                        <p class="text-sm text-gray-400">Freshly roasted coffee and artisan food daily</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-calendar-alt text-yellow-400 mr-4 text-xl"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Event Hosting</h4>
+                                        <p class="text-sm text-gray-400">Weddings, corporate events, and private functions</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-truck text-yellow-400 mr-4 text-xl"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Catering Services</h4>
+                                        <p class="text-sm text-gray-400">Gourmet catering for any occasion</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-handshake text-yellow-400 mr-4 text-xl"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Wholesale Partnership</h4>
+                                        <p class="text-sm text-gray-400">Premium coffee supply for cafes and restaurants</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Getting Here -->
+                        <div class="glass-dark rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-6">Getting Here</h3>
+                            <div class="space-y-4 text-sm">
+                                <div>
+                                    <h4 class="font-semibold text-white mb-2">
+                                        <i class="fas fa-train text-yellow-400 mr-2"></i>By Train
+                                    </h4>
+                                    <p class="text-gray-300">South Yarra Station is a 5-minute walk. Take the Sandringham, Frankston, or Pakenham/Cranbourne lines.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white mb-2">
+                                        <i class="fas fa-car text-yellow-400 mr-2"></i>By Car
+                                    </h4>
+                                    <p class="text-gray-300">Street parking available on Commercial Road. Wilson Parking nearby for longer stays.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white mb-2">
+                                        <i class="fas fa-wheelchair text-yellow-400 mr-2"></i>Accessibility
+                                    </h4>
+                                    <p class="text-gray-300">Wheelchair accessible entrance and facilities available. Guide dogs welcome.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-dark py-16 px-4 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                    <p class="text-gray-300">Crafting exceptional coffee experiences since 2012. From bean to bag, every
+                        cup tells a story.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thegrounds"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thegrounds/"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                        <a href="/shop/" class="text-gray-300 hover:text-yellow-400 transition-colors">Shop</a>
+                        <a href="/about/" class="text-gray-300 hover:text-yellow-400 transition-colors">About</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-yellow-400 transition-colors">Blog</a>
+                        <a href="/contact/" class="text-yellow-400">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Customer Service</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/privacy/" class="text-gray-300 hover:text-yellow-400 transition-colors">Privacy
+                            Policy</a>
+                        <a href="/terms/" class="text-gray-300 hover:text-yellow-400 transition-colors">Terms of
+                            Service</a>
+                        <a href="/cookies/" class="text-gray-300 hover:text-yellow-400 transition-colors">Cookie
+                            Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-300 flex items-start">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1"></i>
+                            163 Commercial Rd, South Yarra VIC 3141
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-phone text-yellow-400 mr-3"></i>
+                            +61 3 8290 8220
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-envelope text-yellow-400 mr-3"></i>
+                            info@groundsfoodandcoffee.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 The Grounds Roastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let cart = JSON.parse(localStorage.getItem('groundsCart')) || [];
+        let scene, camera, renderer;
+
+        // Store hours data
+        const storeHours = [
+            { day: 'Monday', hours: '7:00 AM - 5:00 PM', isToday: false },
+            { day: 'Tuesday', hours: '7:00 AM - 5:00 PM', isToday: false },
+            { day: 'Wednesday', hours: '7:00 AM - 5:00 PM', isToday: false },
+            { day: 'Thursday', hours: '7:00 AM - 5:00 PM', isToday: false },
+            { day: 'Friday', hours: '7:00 AM - 5:00 PM', isToday: false },
+            { day: 'Saturday', hours: '8:00 AM - 4:00 PM', isToday: false },
+            { day: 'Sunday', hours: '8:00 AM - 4:00 PM', isToday: false }
+        ];
+
+        // Initialize Three.js Scene
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create floating coffee beans
+            const geometry = new THREE.SphereGeometry(0.08, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8B4513, transparent: true, opacity: 0.4 });
+
+            for (let i = 0; i < 25; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.x = (Math.random() - 0.5) * 15;
+                bean.position.y = (Math.random() - 0.5) * 15;
+                bean.position.z = (Math.random() - 0.5) * 15;
+                bean.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01
+                    )
+                };
+                scene.add(bean);
+            }
+
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate coffee beans
+            scene.children.forEach(bean => {
+                if (bean.userData && bean.userData.velocity) {
+                    bean.position.add(bean.userData.velocity);
+                    bean.rotation.x += 0.005;
+                    bean.rotation.y += 0.005;
+
+                    // Reset position if out of bounds
+                    if (Math.abs(bean.position.x) > 8) bean.userData.velocity.x *= -1;
+                    if (Math.abs(bean.position.y) > 8) bean.userData.velocity.y *= -1;
+                    if (Math.abs(bean.position.z) > 8) bean.userData.velocity.z *= -1;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 50, density: { enable: true, value_area: 800 } },
+                    color: { value: "#D4AF37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: false },
+                    size: { value: 2, random: true },
+                    line_linked: { enable: true, distance: 120, color: "#D4AF37", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Cart Functions
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+            updateCartDisplay();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            cartItems.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="flex items-center space-x-4 p-4 glass rounded-lg">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white">${item.name}</h4>
+                            <p class="text-gray-400">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('groundsCart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartBadge();
+        }
+
+        // Load Store Hours
+        function loadStoreHours() {
+            const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+            const adjustedToday = today === 0 ? 6 : today - 1; // Adjust so Monday = 0
+
+            // Mark today
+            storeHours[adjustedToday].isToday = true;
+
+            const container = document.getElementById('hoursTable');
+            container.innerHTML = storeHours.map(day => `
+                <div class="hours-row ${day.isToday ? 'today' : ''}">
+                    <span class="font-semibold">${day.day}</span>
+                    <span>${day.hours}</span>
+                </div>
+            `).join('');
+        }
+
+        // Toast Notification Function
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <div class="toast-icon">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    </div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Hide toast after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 400);
+            }, 4000);
+        }
+
+        // Form Submission
+        function handleFormSubmission() {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Show loading state
+                submitBtn.classList.add('btn-loading');
+                submitBtn.textContent = '';
+
+                // Get form data
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+
+                try {
+                    // Simulate form submission (in real app, this would be an API call)
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+
+                    // Show success toast
+                    showToast('Thank you for your message! We\'ll get back to you within 24 hours.', 'success');
+                    form.reset();
+
+                    // Track form submission (you can add analytics here)
+                    console.log('Form submitted:', data);
+
+                } catch (error) {
+                    // Show error toast
+                    showToast('Sorry, there was a problem sending your message. Please try again or call us directly.', 'error');
+                    console.error('Form submission error:', error);
+                } finally {
+                    // Reset button state
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.textContent = 'Send Message';
+                }
+            });
+        }
+
+        // Intersection Observer for animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initThreeJS();
+            initParticles();
+            loadStoreHours();
+            handleFormSubmission();
+            updateCartBadge();
+            initScrollAnimations();
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

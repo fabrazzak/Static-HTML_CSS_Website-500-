@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grounds Roastery - Premium Coffee Experience | South Yarra</title>
+    <meta name="description"
+        content="Discover The Grounds Roastery in South Yarra - Premium coffee beans, artisan roasts, and exceptional brewing experiences. From bean to bag, every cup tells a story of quality and passion.">
+    <meta name="keywords"
+        content="coffee roastery, premium coffee, specialty coffee, South Yarra coffee, artisan coffee, coffee beans, espresso, single origin, coffee subscription, Melbourne coffee">
+    <link rel="canonical" href="http://groundsfoodandcoffee.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-coffee: #4a2c2a;
+            --secondary-coffee: #8B4513;
+            --accent-gold: #D4AF37;
+            --warm-cream: #F5F2E8;
+            --rich-brown: #3C1810;
+            --medium-roast: #6B4423;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            color: #fff;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 8px;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 16px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        /* Close button hover effect */
+        .mobile-menu button:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+
+        /* Ensure close button is always visible */
+        .mobile-menu .absolute {
+            z-index: 1001;
+        }
+
+
+        /* Product Cards */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Newsletter Form */
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 15px 25px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Close Button -->
+        <button class="absolute top-6 right-6 text-3xl text-white hover:text-yellow-400 transition-colors z-10"
+            onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Home</a>
+            <a href="/shop/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Shop</a>
+            <a href="/about/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">About</a>
+            <a href="/blog/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Blog</a>
+            <a href="/contact/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Contact</a>
+        </nav>
+        
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-50">
+
+        <!-- Main Navigation -->
+        <nav class="glass py-4 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold playfair text-yellow-400">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="/" class="hover:text-yellow-400 transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="hover:text-yellow-400 transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="hover:text-yellow-400 transition-colors font-medium">About</a>
+                    <a href="/blog/" class="hover:text-yellow-400 transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-yellow-400 transition-colors">
+                        <a href="/cart/">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cartBadge" class="cart-badge hidden">0</span>
+                        </a>
+                    </button>
+
+                    <!-- Mobile Hamburger -->
+                    <div class="lg:hidden hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] md:min-h-screen flex items-center justify-center px-4">
+            <div class="text-center max-w-6xl mx-auto animate-slide-up">
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 animate-float">
+                    <span class="text-yellow-400">Premium</span> Coffee<br>
+                    <span class="text-white">Experience</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-3xl mx-auto">
+                    Discover the magic of The Grounds, where every cup tells a story of passion, quality, and
+                    craftsmanship from bean to bag.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <button
+                        class="glass-dark px-12 py-4 text-lg font-semibold text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300 animate-glow rounded-full">
+                        <a href="/shop/">
+                            Explore Collection
+                        </a>
+                    </button>
+                    <button
+                        class="border-2 border-yellow-400 px-12 py-4 text-lg font-semibold text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300 rounded-full">
+                        <a href="/about/">
+                            Learn About Us
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">Featured Roasts</h2>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Handpicked selections from our master roasters,
+                        each blend crafted with precision and passion.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="featuredProducts">
+                    <!-- Products will be dynamically loaded -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Preview -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair text-yellow-400">Our Story</h2>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        Established in 2012 out of pure passion for coffee, The Grounds Roastery embraces the philosophy
+                        that goes beyond perfecting each roast. We celebrate the everyday occasions, special moments,
+                        and daily rituals that coffee enhances.
+                    </p>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        From sparking friendships to inspiring art and building empires - every conversation over our
+                        coffee has the power to change the world, one cup at a time.
+                    </p>
+                    <a href="/about/"
+                        class="inline-block glass-dark px-8 py-4 text-lg font-semibold text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300 rounded-full">
+                        Learn More About Us
+                    </a>
+                </div>
+                <div class="relative">
+                    <div class="glass-dark p-8 rounded-2xl animate-float">
+                        <img src="/assets/images/coffee-beans-roasting.webp" alt="Coffee beans being roasted"
+                            class="w-full h-80 object-cover rounded-lg mb-6">
+                        <h3 class="text-2xl font-bold playfair text-yellow-400 mb-4">Artisan Roasting</h3>
+                        <p class="text-gray-300">Every batch is carefully crafted by our master roasters using
+                            traditional techniques combined with modern precision.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coffee Process -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">From Bean to Cup</h2>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Follow the journey of our premium coffee from
+                        carefully selected farms to your perfect cup.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div
+                        class="text-center glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-seedling"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Sourcing</h3>
+                        <p class="text-gray-300">Carefully selected from the world's finest coffee growing regions with
+                            sustainable practices.</p>
+                    </div>
+                    <div
+                        class="text-center glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-fire"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Roasting</h3>
+                        <p class="text-gray-300">Expertly roasted in small batches to unlock the unique flavors and
+                            aromas of each bean.</p>
+                    </div>
+                    <div
+                        class="text-center glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-box"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Packaging</h3>
+                        <p class="text-gray-300">Immediately sealed in premium packaging to preserve freshness and
+                            flavor integrity.</p>
+                    </div>
+                    <div
+                        class="text-center glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-mug-hot"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Brewing</h3>
+                        <p class="text-gray-300">Delivered fresh to you for the perfect brewing experience at home or in
+                            our venues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">What Our Customers Say</h2>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Real reviews from coffee lovers who trust The
+                        Grounds for their daily dose of perfection.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-dark p-8 rounded-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="flex text-yellow-400 mr-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-300">5.0</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"The best coffee I've ever tasted! The subscription service
+                            is incredibly convenient, and the quality is consistently outstanding. Every cup is a
+                            perfect start to my day."</p>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold mr-4">
+                                SM
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Sarah Mitchell</h4>
+                                <p class="text-sm text-gray-400">Melbourne, VIC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-dark p-8 rounded-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="flex text-yellow-400 mr-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-300">5.0</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"Exceptional quality and service! I love trying their
+                            different single origins. Each one tells its own story through amazing flavors and aromas.
+                            Highly recommended!"</p>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold mr-4">
+                                DJ
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">David Johnson</h4>
+                                <p class="text-sm text-gray-400">Sydney, NSW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-dark p-8 rounded-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="flex text-yellow-400 mr-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-300">5.0</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"The Grounds has transformed my morning routine. Their
+                            coffee is rich, smooth, and perfectly roasted. The packaging keeps it fresh for weeks.
+                            Absolutely love it!"</p>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold mr-4">
+                                EC
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Emma Chen</h4>
+                                <p class="text-sm text-gray-400">Brisbane, QLD</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">Stay Connected</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Subscribe to our newsletter for exclusive offers, brewing tips, and the latest updates from The
+                    Grounds Roastery.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="Enter your email address" class="newsletter-input flex-1" required>
+                    <button type="submit"
+                        class="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition-all duration-300 rounded-full">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-dark py-16 px-4 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                    <p class="text-gray-300">Crafting exceptional coffee experiences since 2012. From bean to bag, every
+                        cup tells a story.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thegrounds"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thegrounds/"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                        <a href="/shop/" class="text-gray-300 hover:text-yellow-400 transition-colors">Shop</a>
+                        <a href="/about/" class="text-gray-300 hover:text-yellow-400 transition-colors">About</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-yellow-400 transition-colors">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-yellow-400 transition-colors">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Customer Service</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/privacy/" class="text-gray-300 hover:text-yellow-400 transition-colors">Privacy
+                            Policy</a>
+                        <a href="/terms/" class="text-gray-300 hover:text-yellow-400 transition-colors">Terms of
+                            Service</a>
+                        <a href="/cookies/" class="text-gray-300 hover:text-yellow-400 transition-colors">Cookie
+                            Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-300 flex items-start">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1"></i>
+                            163 Commercial Rd, South Yarra VIC 3141
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-phone text-yellow-400 mr-3"></i>
+                            +61 3 8290 8220
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-envelope text-yellow-400 mr-3"></i>
+                            info@groundsfoodandcoffee.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 The Grounds Roastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let cart = JSON.parse(localStorage.getItem('groundsCart')) || [];
+        let scene, camera, renderer, particles;
+
+        // Featured Products Data
+        const featuredProducts = [
+            {
+                id: 1,
+                name: "Huntley Street Blend",
+                price: 28.50,
+                image: "/assets/images/huntley-street-blend.jpg",
+                description: "Our signature blend with notes of chocolate and caramel"
+            },
+            {
+                id: 2,
+                name: "The Stationmaster",
+                price: 32.00,
+                image: "/assets/images/stationmaster-coffee.jpg",
+                description: "Bold and robust with hints of dark chocolate"
+            },
+            {
+                id: 3,
+                name: "Beanstalker Single Origin",
+                price: 35.75,
+                image: "/assets/images/beanstalker-origin.jpg",
+                description: "Ethiopian single origin with floral and citrus notes"
+            },
+            {
+                id: 4,
+                name: "Experimental Roast",
+                price: 42.00,
+                image: "/assets/images/experimental-roast.jpg",
+                description: "Limited edition experimental roast for adventurous palates"
+            },
+            {
+                id: 5,
+                name: "Morning Glory Blend",
+                price: 26.90,
+                image: "/assets/images/morning-glory.jpg",
+                description: "Perfect morning blend with smooth, balanced flavors"
+            },
+            {
+                id: 6,
+                name: "Midnight Roast",
+                price: 29.75,
+                image: "/assets/images/midnight-roast.webp",
+                description: "Dark roast with intense, smoky flavors"
+            }
+        ];
+
+        // Initialize Three.js Scene
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create floating coffee beans
+            const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8B4513, transparent: true, opacity: 0.6 });
+
+            for (let i = 0; i < 50; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.x = (Math.random() - 0.5) * 20;
+                bean.position.y = (Math.random() - 0.5) * 20;
+                bean.position.z = (Math.random() - 0.5) * 20;
+                bean.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.02,
+                        (Math.random() - 0.5) * 0.02,
+                        (Math.random() - 0.5) * 0.02
+                    )
+                };
+                scene.add(bean);
+            }
+
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate coffee beans
+            scene.children.forEach(bean => {
+                if (bean.userData && bean.userData.velocity) {
+                    bean.position.add(bean.userData.velocity);
+                    bean.rotation.x += 0.01;
+                    bean.rotation.y += 0.01;
+
+                    // Reset position if out of bounds
+                    if (Math.abs(bean.position.x) > 10) bean.userData.velocity.x *= -1;
+                    if (Math.abs(bean.position.y) > 10) bean.userData.velocity.y *= -1;
+                    if (Math.abs(bean.position.z) > 10) bean.userData.velocity.z *= -1;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#D4AF37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: false },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#D4AF37", opacity: 0.4, width: 1 },
+                    move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close Mobile Menu (new function)
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Enhanced click outside handler
+        document.addEventListener('click', function (event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+
+        // Cart Functions
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+            updateCartDisplay();
+        }
+
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            localStorage.setItem('groundsCart', JSON.stringify(cart));
+            updateCartBadge();
+
+            // Show success message
+            showNotification('Product added to cart!');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('groundsCart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            cartItems.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="flex items-center space-x-4 p-4 glass rounded-lg">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white">${item.name}</h4>
+                            <p class="text-gray-400">${item.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = `${total.toFixed(2)}`;
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg z-50 transition-all duration-300';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Load Featured Products
+        function loadFeaturedProducts() {
+            const container = document.getElementById('featuredProducts');
+            container.innerHTML = featuredProducts.map(product => `
+                <div class="product-card glass-dark rounded-2xl overflow-hidden">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-2">${product.name}</h3>
+                        <p class="text-gray-300 mb-4">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">${product.price.toFixed(2)}</span>
+                            <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="bg-yellow-400 text-black px-6 py-2 font-semibold hover:bg-yellow-300 transition-all duration-300 rounded-full">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Newsletter Subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+
+            // Simulate subscription (in real app, this would make an API call)
+            showNotification('Thank you for subscribing to our newsletter!');
+            event.target.reset();
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initThreeJS();
+            initParticles();
+            loadFeaturedProducts();
+            updateCartBadge();
+
+            // Add scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

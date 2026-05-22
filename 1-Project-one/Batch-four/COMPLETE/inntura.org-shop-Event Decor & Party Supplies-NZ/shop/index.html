@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>inntura</title>
+    <meta
+      name="description"
+      content="Browse our collection of handmade artisan products from New Zealand. Discover unique jewelry, home decor, and sustainable gifts."
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Internal CSS */
+      :root {
+        --primary-color:#B33771;
+        --secondary-color: #e8c07d;
+        --accent-color: #9c6644;
+        --light-color: #f9f5f0;
+        --dark-color: #182C61;
+        --white: #fff;
+        --gray: #777;
+        --light-gray: rgba(254,242,242);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-color);
+        line-height: 1.6;
+        background-color: var(--light-color);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent-color);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background-color: var(--accent-color);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Header Styles (same as main page) */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 600;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        bottom: -5px;
+        left: 0;
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Main Content */
+      .main {
+        padding: 120px 0 60px;
+      }
+
+      /* Shop Page Styles */
+      .shop-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .shop-header h1 {
+        font-size: 36px;
+        margin-bottom: 15px;
+      }
+
+      .shop-header p {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--gray);
+      }
+
+      /* Shop Filters */
+      .shop-filters {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .filter-select {
+        padding: 10px 15px;
+        border: 1px solid var(--light-gray);
+        border-radius: 4px;
+        background-color: var(--white);
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-color);
+      }
+
+      .filter-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .filter-tag {
+        padding: 8px 15px;
+        background-color: var(--white);
+        border: 1px solid var(--light-gray);
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .filter-tag:hover,
+      .filter-tag.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-color: var(--primary-color);
+      }
+
+      .search-box {
+        position: relative;
+        min-width: 250px;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 10px 15px 10px 40px;
+        border: 1px solid var(--light-gray);
+        border-radius: 4px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray);
+      }
+
+      /* Products Grid */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .product-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 1;
+      }
+
+      .product-image {
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-image img {
+        transform: scale(1.05);
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-info h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .product-category {
+        color: var(--gray);
+        font-size: 14px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .product-price {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+      }
+
+      .current-price {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--accent-color);
+      }
+
+      .original-price {
+        font-size: 14px;
+        color: var(--gray);
+        text-decoration: line-through;
+      }
+
+      .product-rating {
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
+      .page-numbers {
+        display: flex;
+        gap: 10px;
+      }
+
+      .page-number {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        background-color: var(--white);
+        color: var(--dark-color);
+        transition: var(--transition);
+      }
+
+      .page-number:hover,
+      .page-number.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--white);
+        font-family: "Playfair Display", serif;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .footer-logo span {
+        color: var(--secondary-color);
+      }
+
+      .footer-about p {
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+      }
+
+      .footer-links h3 {
+        color: var(--white);
+        font-size: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-links h3::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .footer-links ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .footer-contact p {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray);
+        font-size: 14px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .shop-filters {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .filter-group {
+          width: 100%;
+          flex-wrap: wrap;
+        }
+
+        .search-box {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          transition: var(--transition);
+          padding: 30px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .cart-icon {
+          margin-left: auto;
+          margin-right: 20px;
+        }
+
+        .shop-header h1 {
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .shop-header h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Inntura <span>Shop</span></a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/cart/">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="container">
+        <div class="shop-header">
+          <h1>Event Decor & Party Supplies</h1>
+          <p>
+            Explore our curated selection of festive decorations, party essentials, and unique event styling accessories to make every celebration unforgettable.
+          </p>
+        </div>
+    
+        <!-- Shop Filters -->
+        <div class="shop-filters">
+          <div class="filter-group">
+            <select class="filter-select" id="category-filter">
+              <option value="all">All Categories</option>
+              <option value="birthday">Birthday Decor</option>
+              <option value="wedding">Wedding Decor</option>
+              <option value="essentials">Party Essentials</option>
+              <option value="lighting">Lighting & Effects</option>
+              <option value="packaging">Gift Packaging</option>
+            </select>
+    
+            <select class="filter-select" id="sort-by">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="newest">Newest Arrivals</option>
+              <option value="rating">Highest Rated</option>
+            </select>
+          </div>
+    
+          <div class="filter-group">
+            <div class="filter-tags">
+              <div class="filter-tag active">All</div>
+              <div class="filter-tag">Trending</div>
+              <div class="filter-tag">New Arrivals</div>
+              <div class="filter-tag">Sale</div>
+              <div class="filter-tag">Sustainable</div>
+            </div>
+    
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="Search party supplies...">
+            </div>
+          </div>
+        </div>
+    
+        <!-- Products Grid -->
+        <div class="products-grid" id="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card" data-category="wedding" data-tags="trending">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Elegant Wedding Centerpiece">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Wedding Decor</span>
+              <h3>Elegant Floral Centerpiece</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(34)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$85.00</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+    
+          <!-- Product 2 -->
+          <div class="product-card" data-category="birthday" data-tags="new-arrivals">
+            <div class="product-badge">New</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Birthday Balloon Set">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Birthday Decor</span>
+              <h3>Premium Balloon Arch Kit</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(18)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$49.99</span>
+                <span class="original-price">$65.00</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card" data-category="essentials" data-tags="trending sustainable">
+            <div class="product-badge">Eco</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Bamboo Tableware Set">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Party Essentials</span>
+              <h3>Bamboo Tableware Set</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(42)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$32.50</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="product-card" data-category="lighting" data-tags="trending">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Fairy Light Backdrop">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Lighting & Effects</span>
+              <h3>Fairy Light Photo Backdrop</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(56)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$67.90</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div class="product-card" data-category="packaging" data-tags="sustainable">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1430&q=80" alt="Kraft Gift Boxes">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Gift Packaging</span>
+              <h3>Premium Kraft Gift Box Set</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(29)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$24.99</span>
+                <span class="original-price">$34.99</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Product 6 -->
+          <div class="product-card" data-category="wedding" data-tags="new-arrivals">
+            <div class="product-badge">New</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1519659528534-7fd733a832a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Wedding Table Runner">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Wedding Decor</span>
+              <h3>Lace Table Runner Set</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(12)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$45.00</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Product 7 -->
+          <div class="product-card" data-category="essentials" data-tags="sale">
+            <div class="product-badge">Sale</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Disposable Party Plates">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Party Essentials</span>
+              <h3>Elegant Disposable Tableware</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(38)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$18.75</span>
+                <span class="original-price">$25.00</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Product 8 -->
+          <div class="product-card" data-category="lighting" data-tags="trending">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1527583426979-dbc5ad7026a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="LED Candles">
+            </div>
+            <div class="product-info">
+              <span class="product-category">Lighting & Effects</span>
+              <h3>Flickering LED Candles Set</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(64)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">$39.99</span>
+              </div>
+              <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Pagination -->
+        <div class="pagination">
+          <div class="page-numbers">
+            <a href="" class="page-number"><i class="fas fa-chevron-left"></i></a>
+            <a href="" class="page-number active">1</a>
+            <a href="" class="page-number">2</a>
+            <a href="" class="page-number">3</a>
+            <a href="" class="page-number"><i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-about">
+            <a href="/" class="footer-logo">Inntura <span>Shop</span></a>
+            <p>
+              Your destination for premium event decor and party supplies. We help you create unforgettable celebrations with our curated collections.
+            </p>
+            <div class="social-links">
+              <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://pinterest.com/" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+              <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+    
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">Our Story</a></li>
+              <li><a href="/blog/">Event Ideas</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+    
+          <div class="footer-links">
+            <h3>Customer Care</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+            </ul>
+          </div>
+    
+          <div class="footer-contact">
+            <h3>Get in Touch</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 88 Celebration Street, Event City, NZ</p>
+            <p><i class="fas fa-phone"></i> +64 123 456 789</p>
+            <p><i class="fas fa-envelope"></i> events@inntura.org</p>
+            <p><i class="fas fa-clock"></i> Mon-Fri: 9am-5pm</p>
+          </div>
+        </div>
+    
+        <div class="footer-bottom">
+          <p>&copy; 2025 Inntura Events. All rights reserved. Designed for memorable celebrations.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+        const nav = document.querySelector("nav");
+
+        mobileMenuBtn.addEventListener("click", function () {
+          nav.classList.toggle("active");
+        });
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartCount = document.querySelector(".cart-count");
+        const addToCartBtns = document.querySelectorAll(".add-to-cart");
+
+        // Update cart count
+        function updateCartCount() {
+          const totalItems = cart.reduce(
+            (total, item) => total + item.quantity,
+            0
+          );
+          cartCount.textContent = totalItems;
+        }
+
+        // Add to cart functionality
+        addToCartBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const productCard = this.closest(".product-card");
+            const productName = productCard.querySelector("h3").textContent;
+            const productPrice = parseFloat(
+              productCard
+                .querySelector(".current-price")
+                .textContent.replace("$", "")
+            );
+            const productImage =
+              productCard.querySelector(".product-image img").src;
+            const productCategory =
+              productCard.querySelector(".product-category").textContent;
+
+            // Check if product already in cart
+            const existingItem = cart.find((item) => item.name === productName);
+
+            if (existingItem) {
+              existingItem.quantity++;
+            } else {
+              cart.push({
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                category: productCategory,
+                quantity: 1,
+              });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+
+            // Show notification
+            alert(`${productName} has been added to your cart!`);
+          });
+        });
+
+        // Initialize cart count
+        updateCartCount();
+
+        // Filter functionality
+        const categoryFilter = document.getElementById("category-filter");
+        const filterTags = document.querySelectorAll(".filter-tag");
+        const productCards = document.querySelectorAll(".product-card");
+
+        categoryFilter.addEventListener("change", filterProducts);
+
+        filterTags.forEach((tag) => {
+          tag.addEventListener("click", function () {
+            filterTags.forEach((t) => t.classList.remove("active"));
+            this.classList.add("active");
+            filterProducts();
+          });
+        });
+
+        function filterProducts() {
+          const selectedCategory = categoryFilter.value;
+          const selectedTag = document
+            .querySelector(".filter-tag.active")
+            .textContent.toLowerCase()
+            .replace(" ", "-");
+
+          productCards.forEach((card) => {
+            const cardCategory = card.dataset.category;
+            const cardTags = card.dataset.tags;
+
+            const categoryMatch =
+              selectedCategory === "all" || cardCategory === selectedCategory;
+            const tagMatch =
+              selectedTag === "all" ||
+              (cardTags && cardTags.includes(selectedTag));
+
+            if (categoryMatch && tagMatch) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        }
+
+        // Sort functionality
+        const sortBy = document.getElementById("sort-by");
+        sortBy.addEventListener("change", sortProducts);
+
+        function sortProducts() {
+          const sortValue = sortBy.value;
+          const productsGrid = document.getElementById("products-grid");
+          const productCards = Array.from(
+            document.querySelectorAll(".product-card")
+          );
+
+          productCards.sort((a, b) => {
+            const priceA = parseFloat(
+              a.querySelector(".current-price").textContent.replace("$", "")
+            );
+            const priceB = parseFloat(
+              b.querySelector(".current-price").textContent.replace("$", "")
+            );
+            const ratingA = parseInt(
+              a
+                .querySelector(".product-rating span")
+                .textContent.replace(/[()]/g, "")
+            );
+            const ratingB = parseInt(
+              b
+                .querySelector(".product-rating span")
+                .textContent.replace(/[()]/g, "")
+            );
+
+            switch (sortValue) {
+              case "price-low":
+                return priceA - priceB;
+              case "price-high":
+                return priceB - priceA;
+              case "rating":
+                return ratingB - ratingA;
+              case "newest":
+                // Assuming newer products have "new-arrivals" tag
+                const isNewA =
+                  a.dataset.tags && a.dataset.tags.includes("new-arrivals")
+                    ? 1
+                    : 0;
+                const isNewB =
+                  b.dataset.tags && b.dataset.tags.includes("new-arrivals")
+                    ? 1
+                    : 0;
+                return isNewB - isNewA;
+              default:
+                return 0; // Featured - keep original order
+            }
+          });
+
+          // Re-append sorted products
+          productCards.forEach((card) => productsGrid.appendChild(card));
+        }
+
+        // Search functionality
+        const searchInput = document.querySelector(".search-box input");
+        searchInput.addEventListener("input", searchProducts);
+
+        function searchProducts() {
+          const searchTerm = searchInput.value.toLowerCase();
+
+          productCards.forEach((card) => {
+            const productName = card
+              .querySelector("h3")
+              .textContent.toLowerCase();
+            const productCategory = card
+              .querySelector(".product-category")
+              .textContent.toLowerCase();
+
+            if (
+              productName.includes(searchTerm) ||
+              productCategory.includes(searchTerm)
+            ) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

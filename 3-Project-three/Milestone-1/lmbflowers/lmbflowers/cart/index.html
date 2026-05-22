@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | LMB Flowers London</title>
+    <meta name="description" content="Review your selection of premium native Australian flowers at LMB Flowers. Secure checkout and fast London delivery.">
+    <meta name="keywords" content="flower cart london, australian flowers cart, checkout native flowers, flower delivery london, buy flowers online, premium florist london">
+    <link rel="canonical" href="https://lmbflowers.com/cart/">
+    <link rel="icon" type="image/x-icon" href="/image/logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'sage': '#9CAF88',
+                        'eucalyptus': '#7A9B76',
+                        'terracotta': '#C67B5C',
+                        'cream': '#F7F5F3',
+                        'charcoal': '#2C3E50'
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .cart-animation {
+            animation: cartBounce 0.6s ease;
+        }
+        
+        @keyframes cartBounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+        
+        .notification {
+            animation: slideInRight 0.5s ease;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .empty-cart {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-cream font-sans">
+    <!-- Cookie Notice -->
+    <div id="cookie-notice" class="fixed top-0 left-0 right-0 bg-charcoal text-white p-4 z-50 transform -translate-y-full transition-transform duration-500">
+        <div class="container mx-auto flex justify-between items-center">
+            <p class="text-sm">We use cookies to enhance your experience. By continuing to browse, you agree to our <a href="/cookies/" class="text-sage underline">Cookie Policy</a>.</p>
+            <button id="accept-cookies" class="bg-sage text-white px-4 py-2 rounded hover:bg-eucalyptus transition-colors">Accept</button>
+        </div>
+    </div>
+    
+    <!-- Header Top Bar -->
+  <div class="bg-charcoal text-white py-2 text-sm hidden md:block">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <span class="flex items-center">
+                    <i class="fas fa-map-marker-alt mr-2 text-sage"></i>
+                    221B Baker Street, London, NW1 6XE
+                </span>
+                <span class="flex items-center">
+                    <i class="fas fa-phone mr-2 text-sage"></i>
+                    +44 20 7946 0958
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://www.facebook.com/thelittlemarketbunch" class="hover:text-sage transition-colors">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/homehardware/" class="hover:text-sage transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/littlemktbunch" class="hover:text-sage transition-colors">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="/" class="flex items-center">
+                     <a href="/">
+                         <img src="/image/logo.png" alt="LMB Flowers Logo" class="h-16 w-auto mr-3">
+                    </a>
+                    
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-charcoal hover:text-sage transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="text-charcoal hover:text-sage transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="text-charcoal hover:text-sage transition-colors font-medium">About</a>
+                    <a href="/blog/" class="text-charcoal hover:text-sage transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="text-charcoal hover:text-sage transition-colors font-medium">Contact</a>
+                </nav>
+                
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <a href="/cart/" id="cart-btn" class="relative bg-sage text-white px-4 py-2 rounded-full hover:bg-eucalyptus transition-colors inline-flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Cart <span id="cart-count"> 0</span>
+                        <span id="cart-total" class="ml-2 font-bold">£0.00</span>
+                    </a>
+                    
+                    <!-- Mobile Hamburger -->
+                    <button id="mobile-menu-btn" class="lg:hidden flex flex-col space-y-1 p-2">
+                        <span class="hamburger-line w-6 h-0.5 bg-charcoal"></span>
+                        <span class="hamburger-line w-6 h-0.5 bg-charcoal"></span>
+                        <span class="hamburger-line w-6 h-0.5 bg-charcoal"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <nav id="mobile-nav" class="lg:hidden hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">Home</a>
+                    <a href="/shop/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">Shop</a>
+                    <a href="/about/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">About</a>
+                    <a href="/blog/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">Blog</a>
+                    <a href="/contact/" class="text-charcoal hover:text-sage transition-colors py-2">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Cart Header -->
+    <section class="py-12 bg-gradient-to-r from-sage to-eucalyptus text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-4">Your Cart</h2>
+            <p class="text-xl">Review your selection of native Australian blooms</p>
+        </div>
+    </section>
+    
+    <!-- Cart Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div id="cart-empty" class="hidden text-center py-16">
+                <div class="empty-cart inline-block p-8 bg-white rounded-full shadow-lg mb-6">
+                    <i class="fas fa-shopping-cart text-6xl text-gray-300"></i>
+                </div>
+                <h3 class="text-3xl font-serif font-bold text-charcoal mb-4">Your cart is empty</h3>
+                <p class="text-gray-600 mb-8 max-w-md mx-auto">It looks like you haven't added any beautiful native flowers to your cart yet.</p>
+                <a href="/shop/" class="bg-sage text-white px-8 py-3 rounded-full hover:bg-eucalyptus transition-colors font-semibold inline-flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                </a>
+            </div>
+            
+            <div id="cart-with-items" class="hidden">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Cart Items -->
+                    <div class="lg:w-2/3">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-2xl font-serif font-bold text-charcoal">Shopping Cart</h3>
+                                <p class="text-gray-600" id="cart-items-count">3 items</p>
+                            </div>
+                            <div class="divide-y divide-gray-200" id="cart-items-container">
+                                <!-- Cart items will be dynamically loaded -->
+                            </div>
+                        </div>
+                        
+                        <!-- Promo Code -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden mt-8">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-charcoal mb-4">Apply Promo Code</h3>
+                                <div class="flex">
+                                    <input type="text" placeholder="Enter promo code" class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                    <button class="bg-sage text-white px-6 py-3 rounded-r-lg hover:bg-eucalyptus transition-colors font-semibold">
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="lg:w-1/3">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden sticky top-32">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-2xl font-serif font-bold text-charcoal">Order Summary</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-gray-600">Subtotal</span>
+                                    <span class="font-semibold" id="cart-subtotal">£0.00</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-gray-600">Delivery</span>
+                                    <span class="font-semibold" id="cart-delivery">£0.00</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-gray-600">Tax</span>
+                                    <span class="font-semibold" id="cart-tax">£0.00</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-6 pt-4 border-t border-gray-200">
+                                    <span class="text-lg font-semibold text-charcoal">Total</span>
+                                    <span class="text-2xl font-bold text-sage" id="cart-total-amount">£0.00</span>
+                                </div>
+                                
+                                <a href="/checkout/" class="block w-full bg-sage text-white text-center py-4 rounded-lg hover:bg-eucalyptus transition-colors font-semibold mb-4">
+                                    Proceed to Checkout
+                                </a>
+                                
+                                <div class="text-center">
+                                    <p class="text-sm text-gray-600 mb-2">We accept:</p>
+                                    <div class="flex justify-center space-x-4">
+                                        <i class="fab fa-cc-visa text-2xl text-gray-600"></i>
+                                        <i class="fab fa-cc-mastercard text-2xl text-gray-600"></i>
+                                        <i class="fab fa-cc-amex text-2xl text-gray-600"></i>
+                                        <i class="fab fa-cc-paypal text-2xl text-gray-600"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Security Badges -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden mt-8 p-6 text-center">
+                            <div class="flex justify-center space-x-6 mb-4">
+                                <i class="fas fa-lock text-2xl text-sage"></i>
+                                <i class="fas fa-shield-alt text-2xl text-sage"></i>
+                                <i class="fas fa-check-circle text-2xl text-sage"></i>
+                            </div>
+                            <p class="text-sm text-gray-600">Secure checkout. All transactions are encrypted and secure.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recently Viewed -->
+                <div class="mt-16">
+                    <h3 class="text-2xl font-serif font-bold text-charcoal mb-6">Recently Viewed</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="recently-viewed">
+                        <!-- Recently viewed items will be dynamically loaded -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-charcoal text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-4xl font-serif font-bold mb-4">Stay In Bloom</h3>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Subscribe to receive care tips, new arrival notifications, and exclusive offers on native flower arrangements.</p>
+            
+            <div class="max-w-md mx-auto">
+                <div class="flex">
+                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-l-full text-charcoal focus:outline-none focus:ring-2 focus:ring-sage">
+                    <button class="bg-sage px-8 py-3 rounded-r-full hover:bg-eucalyptus transition-colors font-semibold">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                         <img src="/image/logo.png" alt="LMB Flowers Logo" class="h-16 w-auto mr-3">
+                    </a>
+                       
+                    </div>
+                    <p class="text-gray-400 mb-6">Bringing the beauty of Australian native flora to London with premium quality arrangements and exceptional service.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thelittlemarketbunch" class="text-sage hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/homehardware/" class="text-sage hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://x.com/littlemktbunch" class="text-sage hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-6">Quick Links</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="text-gray-400 hover:text-sage transition-colors">Home</a></li>
+                        <li><a href="/shop/" class="text-gray-400 hover:text-sage transition-colors">Shop</a></li>
+                        <li><a href="/about/" class="text-gray-400 hover:text-sage transition-colors">About</a></li>
+                       
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-6">Customer Care</h5>
+                    <ul class="space-y-3">
+                         <li><a href="/blog/" class="text-gray-400 hover:text-sage transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="text-gray-400 hover:text-sage transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-6">Contact Info</h5>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-sage mr-3 mt-1"></i>
+                            <div>
+                                <p class="text-gray-400">221B Baker Street</p>
+                                <p class="text-gray-400">London, NW1 6XE</p>
+                                <p class="text-gray-400">United Kingdom</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-sage mr-3"></i>
+                            <a href="tel:+442079460958" class="text-gray-400 hover:text-sage transition-colors">+44 20 7946 0958</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-sage mr-3"></i>
+                            <a href="mailto:info@lmbflowers.com" class="text-gray-400 hover:text-sage transition-colors">info@lmbflowers.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 LMB Flowers. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="/privacy/" class="text-gray-400 hover:text-sage transition-colors">Privacy Policy</a>
+                    <a href="/terms/" class="text-gray-400 hover:text-sage transition-colors">Terms of Service</a>
+                    <a href="/cookies/" class="text-gray-400 hover:text-sage transition-colors">Cookies Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Notification -->
+    <div id="notification" class="fixed top-20 right-4 bg-sage text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300">
+        <i class="fas fa-check mr-2"></i>
+        <span id="notification-text">Item removed from cart!</span>
+    </div>
+
+    <script>
+        // Sample recently viewed products
+      
+        // Cart Management
+        let cart = JSON.parse(localStorage.getItem('lmb-cart')) || [];
+        
+        function updateCartDisplay() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('cart-count').textContent = cartCount;
+            document.getElementById('cart-total').textContent = `£${cartTotal.toFixed(2)}`;
+            
+            // Show empty cart or cart with items
+            if (cartCount === 0) {
+                document.getElementById('cart-empty').classList.remove('hidden');
+                document.getElementById('cart-with-items').classList.add('hidden');
+            } else {
+                document.getElementById('cart-empty').classList.add('hidden');
+                document.getElementById('cart-with-items').classList.remove('hidden');
+                
+                // Update cart items count
+                document.getElementById('cart-items-count').textContent = `${cartCount} ${cartCount === 1 ? 'item' : 'items'}`;
+                
+                // Render cart items
+                renderCartItems();
+                
+                // Update order summary
+                updateOrderSummary(cartTotal);
+            }
+            
+            // Render recently viewed items
+            renderRecentlyViewed();
+        }
+        
+        function renderCartItems() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'p-6 flex flex-col md:flex-row items-center';
+                itemElement.innerHTML = `
+                    <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                        <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h4 class="text-lg font-semibold text-charcoal">${item.name}</h4>
+                        <p class="text-sage font-bold">£${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="flex items-center mt-4 md:mt-0">
+                        <div class="flex items-center border border-gray-300 rounded-lg mr-4">
+                            <button class="quantity-btn decrease px-3 py-1 text-gray-600 hover:bg-gray-100" data-id="${item.id}">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" min="1" value="${item.quantity}" class="quantity-input w-12 text-center border-x border-gray-300 py-1" data-id="${item.id}">
+                            <button class="quantity-btn increase px-3 py-1 text-gray-600 hover:bg-gray-100" data-id="${item.id}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <button class="remove-btn text-terracotta hover:text-red-700" data-id="${item.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(itemElement);
+            });
+            
+            // Add event listeners to buttons
+            document.querySelectorAll('.quantity-btn.decrease').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.increase').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const newQuantity = parseInt(this.value);
+                    
+                    if (newQuantity < 1) {
+                        this.value = 1;
+                        updateQuantity(id, 0, 1);
+                    } else {
+                        updateQuantity(id, 0, newQuantity);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        function renderRecentlyViewed() {
+            const container = document.getElementById('recently-viewed');
+            container.innerHTML = '';
+            
+            recentlyViewed.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'bg-white rounded-lg shadow-lg overflow-hidden card-hover';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h4 class="text-md font-semibold text-charcoal mb-1">${product.name}</h4>
+                        <p class="text-sage font-bold">£${product.price.toFixed(2)}</p>
+                        <button class="add-recent-btn mt-2 w-full bg-sage text-white py-2 rounded hover:bg-eucalyptus transition-colors text-sm font-semibold" data-id="${product.id}">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+                container.appendChild(productElement);
+            });
+            
+            // Add event listeners to "Add to Cart" buttons
+            document.querySelectorAll('.add-recent-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    addToCart(id);
+                });
+            });
+        }
+        
+        function updateOrderSummary(subtotal) {
+            const delivery = subtotal > 0 ? 5.95 : 0;
+            const tax = subtotal * 0.2; // 20% VAT
+            const total = subtotal + delivery + tax;
+            
+            document.getElementById('cart-subtotal').textContent = `£${subtotal.toFixed(2)}`;
+            document.getElementById('cart-delivery').textContent = `£${delivery.toFixed(2)}`;
+            document.getElementById('cart-tax').textContent = `£${tax.toFixed(2)}`;
+            document.getElementById('cart-total-amount').textContent = `£${total.toFixed(2)}`;
+        }
+        
+        function updateQuantity(id, change, setQuantity = null) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                if (setQuantity !== null) {
+                    item.quantity = setQuantity;
+                } else {
+                    item.quantity += change;
+                }
+                
+                if (item.quantity < 1) {
+                    removeFromCart(id);
+                    return;
+                }
+                
+                localStorage.setItem('lmb-cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('lmb-cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification('Item removed from cart!');
+        }
+        
+        function addToCart(productId) {
+            // In a real implementation, you would fetch product details from your products array
+            // For this example, we'll use a simplified version
+            const product = recentlyViewed.find(p => p.id === productId);
+            
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('lmb-cart', JSON.stringify(cart));
+                updateCartDisplay();
+                showNotification('Item added to cart!');
+                
+                // Add cart animation
+                document.getElementById('cart-btn').classList.add('cart-animation');
+                setTimeout(() => {
+                    document.getElementById('cart-btn').classList.remove('cart-animation');
+                }, 600);
+            }
+        }
+        
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notification-text').textContent = message;
+            notification.classList.remove('translate-x-full');
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+            }, 3000);
+        }
+        
+        // Cookie Management
+        function showCookieNotice() {
+            if (!localStorage.getItem('cookies-accepted')) {
+                document.getElementById('cookie-notice').style.transform = 'translateY(0)';
+            }
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            showCookieNotice();
+            
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                this.classList.toggle('hamburger-active');
+                document.getElementById('mobile-nav').classList.toggle('hidden');
+            });
+            
+            // Cookie acceptance
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                localStorage.setItem('cookies-accepted', 'true');
+                document.getElementById('cookie-notice').style.transform = 'translateY(-100%)';
+            });
+        });
+    </script>
+</body>
+</html>

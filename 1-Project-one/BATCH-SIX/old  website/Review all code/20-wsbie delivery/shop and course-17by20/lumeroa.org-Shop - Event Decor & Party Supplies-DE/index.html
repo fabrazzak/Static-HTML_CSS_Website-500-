@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumeroa - Event Decor & Party Supplies</title>
+    <meta
+      name="description"
+      content="Lumeroa offers premium event decor and party supplies for all occasions. From birthdays to weddings, we have everything to make your event special."
+    />
+    <meta
+      name="keywords"
+      content="event decor, party supplies, wedding decorations, birthday party, balloon decor, table settings, event planning, party accessories"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #fff;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #2a2a2a;
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #ff6b6b;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .btn:hover {
+        background-color: #ff5252;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid #ff6b6b;
+        color: #ff6b6b;
+      }
+
+      .btn-outline:hover {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #ff6b6b;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      /* Header Styles */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ff6b6b;
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: #2a2a2a;
+      }
+
+      nav ul {
+        display: flex;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+        position: relative;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #ff6b6b;
+        transition: width 0.3s ease;
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        font-size: 1.3rem;
+        cursor: pointer;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #ff6b6b;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: bold;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Cart Dropdown */
+      .cart-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 350px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 20px;
+        z-index: 100;
+        display: none;
+      }
+
+      .cart-dropdown.active {
+        display: block;
+      }
+
+      .cart-items {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .cart-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 15px;
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .cart-item-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .cart-item-price {
+        color: #ff6b6b;
+        font-weight: 600;
+      }
+
+      .remove-item {
+        color: #999;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .remove-item:hover {
+        color: #ff6b6b;
+      }
+
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .cart-actions .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")
+            no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding-top: 80px;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      /* About Section */
+      .about {
+        background-color: #f9f9f9;
+      }
+
+      .about-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-image {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Services Section */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .service-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .service-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .service-card:hover .service-img img {
+        transform: scale(1.1);
+      }
+
+      .service-content {
+        padding: 20px;
+      }
+
+      .service-content h3 {
+        margin-bottom: 10px;
+      }
+
+      /* Features Section */
+      .features {
+        background-color: #f9f9f9;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+      }
+
+      .feature-card {
+        text-align: center;
+        padding: 30px 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: #ff6b6b;
+        margin-bottom: 20px;
+      }
+
+      /* Testimonials Section */
+      .testimonials-slider {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .testimonial {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        margin: 0 15px;
+      }
+
+      .testimonial-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 20px;
+      }
+
+      .testimonial-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+
+      .testimonial-author {
+        font-weight: 600;
+      }
+
+      /* Blog Section */
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .blog-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .blog-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .blog-card:hover .blog-img img {
+        transform: scale(1.1);
+      }
+
+      .blog-content {
+        padding: 20px;
+      }
+
+      .blog-date {
+        font-size: 0.9rem;
+        color: #777;
+        margin-bottom: 10px;
+      }
+
+      .blog-content h3 {
+        margin-bottom: 10px;
+      }
+
+      /* CTA Section */
+      .cta {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")
+            no-repeat center center/cover;
+        color: white;
+        text-align: center;
+        padding: 100px 0;
+      }
+
+      .cta h2 {
+        color: white;
+        margin-bottom: 20px;
+      }
+
+      .cta p {
+        max-width: 700px;
+        margin: 0 auto 30px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #2a2a2a;
+        color: white;
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column h3 {
+        color: white;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: #ff6b6b;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a:hover {
+        color: #ff6b6b;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background-color: #ff6b6b;
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background-color: white;
+        max-width: 800px;
+        margin: 50px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-header {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #eee;
+        position: relative;
+      }
+
+      .modal-title {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+      }
+
+      .modal-date {
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #999;
+        transition: color 0.3s;
+      }
+
+      .close-modal:hover {
+        color: #ff6b6b;
+      }
+
+      .modal-body {
+        padding: 30px;
+      }
+
+      .modal-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+
+      /* Checkout Form Modal */
+      .checkout-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        overflow-y: auto;
+      }
+
+      .checkout-content {
+        background-color: white;
+        max-width: 600px;
+        margin: 50px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .checkout-header {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #eee;
+        position: relative;
+      }
+
+      .checkout-title {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+      }
+
+      .checkout-form {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      /* Thank You Modal */
+      .thankyou-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+      }
+
+      .thankyou-content {
+        background-color: white;
+        max-width: 500px;
+        margin: 100px auto;
+        padding: 40px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .thankyou-icon {
+        font-size: 4rem;
+        color: #4CAF50;
+        margin-bottom: 20px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .section-title h2 {
+          font-size: 2rem;
+        }
+
+        .hero h1 {
+          font-size: 2.8rem;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+
+        .cart-dropdown {
+          width: 300px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 80%;
+          height: calc(100vh - 80px);
+          background-color: white;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          padding: 20px;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .section {
+          padding: 60px 0;
+        }
+
+        .modal-content {
+          margin: 20px auto;
+        }
+
+        .modal-image {
+          height: 250px;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title h2 {
+          font-size: 1.8rem;
+        }
+
+        .btn {
+          padding: 10px 25px;
+        }
+
+        .cart-dropdown {
+          width: 280px;
+          right: -50px;
+        }
+
+        .thankyou-content {
+          margin: 50px auto;
+          padding: 20px;
+        }
+      }
+      
+   .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Lumeroa<span>.</span></a>
+
+        <nav id="main-nav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li>
+              <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cart-count">0</span>
+                <div class="cart-dropdown" id="cart-dropdown">
+                  <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be added here dynamically -->
+                    <p class="empty-cart-message">Your cart is empty</p>
+                  </div>
+                  <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                  </div>
+                  <div class="cart-actions">
+                    <button class="btn" id="proceed-checkout">Proceed to Checkout</button>
+                    <a href="/cart/" class="btn btn-outline">View Cart</a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="mobile-menu-btn" id="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Transform Your Events With Stunning Decor</h1>
+          <p>
+            Premium party supplies and event decorations for weddings,
+            birthdays, corporate events and more. Make your special occasions
+            unforgettable with Lumeroa.
+          </p>
+          <a href="/shop/" class="btn">Shop Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about">
+      <div class="container">
+        <div class="section-title">
+          <h2>About Lumeroa</h2>
+        </div>
+
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              Founded in 2020, Lumeroa has quickly become a leading provider of
+              high-quality event decor and party supplies. Our mission is to
+              help you create memorable events with our carefully curated
+              selection of decorations, tableware, and party essentials.
+            </p>
+            <p>
+              We believe that every event, no matter how big or small, deserves
+              beautiful decor that reflects your personal style and vision. Our
+              team of event specialists is always ready to help you find the
+              perfect pieces for your celebration.
+            </p>
+            <a href="/about/" class="btn btn-outline">Learn More</a>
+          </div>
+
+          <div class="about-image">
+            <img
+              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+              alt="Event decoration setup"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Our Services</h2>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-img">
+              <img
+                src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Wedding Decor"
+              />
+            </div>
+            <div class="service-content">
+              <h3>Wedding Decor</h3>
+              <p>
+                Complete wedding decoration packages including centerpieces,
+                aisle decor, backdrops and more to make your special day
+                perfect.
+              </p>
+              <div class="product-actions">
+                <span class="price">$299.99</span>
+                <button class="btn add-to-cart" data-id="1" data-name="Wedding Decor Package" data-price="299.99" data-image="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-img">
+              <img
+                src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Birthday Party Supplies"
+              />
+            </div>
+            <div class="service-content">
+              <h3>Birthday Party Supplies</h3>
+              <p>
+                Everything you need for an amazing birthday celebration - themed
+                decorations, tableware, balloons and party favors.
+              </p>
+              <div class="product-actions">
+                <span class="price">$149.99</span>
+                <button class="btn add-to-cart" data-id="2" data-name="Birthday Party Package" data-price="149.99" data-image="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-img">
+              <img
+                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Corporate Events"
+              />
+            </div>
+            <div class="service-content">
+              <h3>Corporate Events</h3>
+              <p>
+                Professional decor solutions for corporate events, product
+                launches, conferences and office parties.
+              </p>
+              <div class="product-actions">
+                <span class="price">$399.99</span>
+                <button class="btn add-to-cart" data-id="3" data-name="Corporate Event Package" data-price="399.99" data-image="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features">
+      <div class="container">
+        <div class="section-title">
+          <h2>Why Choose Lumeroa</h2>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>Premium Quality</h3>
+            <p>
+              We source only the highest quality materials for our decor items
+              to ensure they look stunning and last.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <h3>Custom Options</h3>
+            <p>
+              Many of our products can be customized to match your event's color
+              scheme and theme.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3>Fast Shipping</h3>
+            <p>
+              Most orders ship within 24 hours so you get your decor in time for
+              your event.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Expert Support</h3>
+            <p>
+              Our event specialists are available to help you choose the perfect
+              decor for your occasion.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>What Our Customers Say</h2>
+        </div>
+
+        <div class="testimonials-slider">
+          <div class="testimonial">
+            <div class="testimonial-img">
+              <img
+                src="https://randomuser.me/api/portraits/women/43.jpg"
+                alt="Sarah Johnson"
+              />
+            </div>
+            <p class="testimonial-text">
+              "The wedding decorations from Lumeroa were absolutely stunning! We
+              received so many compliments from our guests. The quality exceeded
+              our expectations."
+            </p>
+            <h4 class="testimonial-author">Sarah Johnson</h4>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+
+          <div class="testimonial" style="display: none">
+            <div class="testimonial-img">
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="Michael Chen"
+              />
+            </div>
+            <p class="testimonial-text">
+              "Our corporate gala looked incredible thanks to Lumeroa's decor.
+              The team was professional and helped us create exactly the look we
+              wanted."
+            </p>
+            <h4 class="testimonial-author">Michael Chen</h4>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+
+          <div class="testimonial" style="display: none">
+            <div class="testimonial-img">
+              <img
+                src="https://randomuser.me/api/portraits/women/65.jpg"
+                alt="Emily Rodriguez"
+              />
+            </div>
+            <p class="testimonial-text">
+              "My daughter's birthday party was magical with the princess-themed
+              decorations from Lumeroa. Everything arrived on time and was
+              exactly as pictured."
+            </p>
+            <h4 class="testimonial-author">Emily Rodriguez</h4>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Latest From Our Blog</h2>
+        </div>
+
+        <div class="blog-grid">
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+                alt="Wedding Trends"
+              />
+            </div>
+            <div class="blog-content">
+              <p class="blog-date">Jan 15, 2025</p>
+              <h3>2025 Wedding Decor Trends You'll Love</h3>
+              <p>
+                Discover the hottest wedding decor trends for 2025 that will
+                make your special day unforgettable.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="1">Read More</button>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Birthday Party Ideas"
+              />
+            </div>
+            <div class="blog-content">
+              <p class="blog-date">May 28, 2025</p>
+              <h3>10 Unique Birthday Party Themes for Adults</h3>
+              <p>
+                Move beyond traditional birthday parties with these creative
+                theme ideas that will impress your guests.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="2">Read More</button>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Corporate Event Tips"
+              />
+            </div>
+            <div class="blog-content">
+              <p class="blog-date">May 10, 2025</p>
+              <h3>Corporate Event Decor: Making the Right Impression</h3>
+              <p>
+                Learn how to choose decor that aligns with your brand and
+                creates the perfect atmosphere for your corporate event.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="3">Read More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to Elevate Your Next Event?</h2>
+        <p>
+          Browse our collection of premium event decor and party supplies, or
+          contact our team for personalized recommendations.
+        </p>
+        <div style="display: flex; gap: 20px; justify-content: center">
+          <a href="/shop/" class="btn">Shop Now</a>
+          <a href="/contact/" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Lumeroa</h3>
+            <p>
+              Premium event decor and party supplies for all occasions. Making
+              your special moments unforgettable.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/services/">Services</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+ 
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul>
+              <li>
+                <i class="fas fa-map-marker-alt"></i> Schloßpl. 1, 08648 Bad
+                Brambach, Germany
+              </li>
+              <li><i class="fas fa-phone"></i> +49 160 469 7373</li>
+              <li><i class="fas fa-envelope"></i> info@lumeroa.org</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Lumeroa. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Checkout Form Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+      <div class="checkout-content">
+        <div class="checkout-header">
+          <h3 class="checkout-title">Checkout</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <form id="checkout-form" class="checkout-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" required>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" required>
+            </div>
+            <div class="form-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" required>
+              <option value="">Select Country</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="DE">Germany</option>
+              <option value="FR">France</option>
+              <option value="CA">Canada</option>
+              <option value="AU">Australia</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes">Special Instructions (Optional)</label>
+            <textarea id="notes" rows="3"></textarea>
+          </div>
+          
+          <button type="submit" class="btn">Place Order</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Thank You Modal -->
+    <div class="thankyou-modal" id="thankyou-modal">
+      <div class="thankyou-content">
+        <div class="thankyou-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Thank You for Your Order!</h3>
+        <p>Your order has been received and is being processed. We'll send you a confirmation email shortly.</p>
+        <p>Order Number: <strong id="order-number">#LUM20250001</strong></p>
+        <button class="btn" id="close-thankyou">Continue Shopping</button>
+      </div>
+    </div>
+
+
+    <!-- Blog Modals -->
+    <div class="modal" id="blog-modal-1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">2025 Wedding Decor Trends You'll Love</h3>
+          <p class="modal-date">Jan 15, 2025</p>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Wedding Trends" class="modal-image">
+          <p>As we step into 2025, wedding decor trends are taking a bold turn towards sustainability, personalization, and immersive experiences. Couples are moving away from traditional themes and embracing unique expressions of their love stories through decor.</p>
+          <h4>Sustainable Elegance</h4>
+          <p>Eco-conscious weddings are no longer just a trend but a movement. Couples are opting for decor elements made from recycled materials, biodegradable floral arrangements, and upcycled furniture. Think bamboo table numbers, seed paper invitations that can be planted, and floral installations using seasonal, locally-sourced blooms.</p>
+          <h4>Maximalist Color Palettes</h4>
+          <p>While pastels will always have their place, 2025 is seeing a rise in rich, saturated color schemes. Deep jewel tones like emerald green, sapphire blue, and amethyst purple are being paired with metallic accents for a luxurious feel. Bold color blocking techniques are also making waves in table settings and floral arrangements.</p>
+          <h4>Interactive Food & Drink Stations</h4>
+          <p>Wedding decor is becoming more interactive, with food and drink stations doubling as design elements. Custom cocktail bars with personalized mixology, dessert walls with edible flowers, and cheese towers with hanging grapes are becoming focal points of reception decor.</p>
+          <h4>Lighting as a Centerpiece</h4>
+          <p>Lighting is being used more creatively than ever before. From cascading fairy light installations to geometric neon signs displaying the couple's names, lighting is no longer just functional but a key decor element that sets the mood and creates stunning photo backdrops.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="blog-modal-2">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">10 Unique Birthday Party Themes for Adults</h3>
+          <p class="modal-date">May 28, 2025</p>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Birthday Party Ideas" class="modal-image">
+          <p>Gone are the days when adult birthday parties meant just dinner and drinks. In 2025, themed parties are making a huge comeback, offering creative ways to celebrate that reflect your personality and interests. Here are 10 unique themes to inspire your next birthday bash.</p>
+          <h4>1. Vintage Carnival</h4>
+          <p>Transform your space into a nostalgic carnival with striped tents, popcorn machines, and carnival games. Encourage guests to dress in vintage circus attire or 1920s carnival outfits. Decorate with colorful bunting, oversized playing cards, and stuffed animal prizes.</p>
+          <h4>2. Around the World</h4>
+          <p>Celebrate your love of travel with different areas representing various countries. Serve signature cocktails from different nations, decorate with flags and landmarks, and encourage guests to dress in attire from their favorite culture or country they've visited.</p>
+          <h4>3. Neon Glow Party</h4>
+          <p>Blacklights, neon decorations, and glow sticks create an electrifying atmosphere. Provide white clothing that glows under blacklight and set up a UV body paint station. The decor possibilities are endless with fluorescent flowers, glowing centerpieces, and illuminated furniture.</p>
+          <h4>4. Great Gatsby Speakeasy</h4>
+          <p>Channel the roaring 20s with art deco decorations, champagne towers, and jazz music. Encourage flapper dresses and dapper suits, and consider password entry for an authentic speakeasy feel. Gold and black color schemes with feather centerpieces complete the look.</p>
+          <h4>5. Bohemian Garden Party</h4>
+          <p>Create a whimsical outdoor space with mismatched vintage furniture, hanging macramé, and plenty of greenery and flowers. Incorporate elements like a flower crown station, herbal cocktail bar, and cozy lounge areas with floor cushions and rugs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="blog-modal-3">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Corporate Event Decor: Making the Right Impression</h3>
+          <p class="modal-date">May 10, 2025</p>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Corporate Event Tips" class="modal-image">
+          <p>Corporate events are powerful opportunities to strengthen your brand, impress clients, and motivate employees. The right decor can transform a mundane gathering into an unforgettable experience that aligns with your company's values and goals. Here's how to make the right impression with your corporate event decor in 2025.</p>
+          <h4>Brand-Conscious Design</h4>
+          <p>Every element of your decor should reflect your brand identity. Use your company colors strategically throughout the venue, but avoid being too literal. Instead of just slapping your logo everywhere, think about how to incorporate your brand's visual language through patterns, textures, and design motifs that represent your company values.</p>
+          <h4>Interactive Tech Elements</h4>
+          <p>Incorporate technology that engages attendees and enhances the experience. Digital photo walls with branded filters, AR experiences that reveal hidden content when viewed through smartphones, and interactive touchscreen displays showing company achievements or event schedules are all innovative ways to blend decor with technology.</p>
+          <h4>Sustainable Solutions</h4>
+          <p>With corporate social responsibility being more important than ever, opt for eco-friendly decor options. Use digital signage instead of printed materials, choose reusable or biodegradable tableware, and decorate with living plants that can be replanted after the event. These choices not only reduce waste but also communicate your company's commitment to sustainability.</p>
+          <h4>Flexible Spaces</h4>
+          <p>Modern corporate events are moving away from rigid seating arrangements. Create versatile spaces with modular furniture that can be rearranged for different purposes throughout the event. Lounge areas with comfortable seating encourage networking, while standing tables with charging stations facilitate quick conversations.</p>
+          <h4>Lighting for Atmosphere</h4>
+          <p>Professional lighting can completely transform a space. Use colored uplighting to create depth, spotlight key areas like registration or product displays, and consider dynamic lighting that changes throughout the event to match different segments or moods. Intelligent lighting systems can be programmed to respond to music or presentations for maximum impact.</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/script.js">
+      
+    </script>
+
+  </body>
+</html>

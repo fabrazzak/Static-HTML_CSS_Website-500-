@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hockey Hype App - Ultimate Hockey Companion</title>
+    <meta name="description" content="Hockey Hype App is your ultimate companion for hockey stats, live scores, team management, and player analytics. Download now for iOS and Android.">
+    <meta name="keywords" content="hockey app, hockey stats, live scores, team management, player analytics, hockey news, NHL tracker, hockey community, hockey Australia">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #1a2a57;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #1a2a57;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #d52b1e;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #d52b1e;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #b82217;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #d52b1e;
+            color: #d52b1e;
+        }
+        
+        .btn-outline:hover {
+            background-color: #d52b1e;
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #d52b1e;
+            margin: 15px auto 0;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a2a57;
+        }
+        
+        .logo span {
+            color: #d52b1e;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #1a2a57;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://xbotgo.com/cdn/shop/articles/2eba6c2f-8e24-4c5e-89f8-1b37c6c0aaf9.png?v=1733972358&width=1000');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: #f1f5f9;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #d52b1e;
+            margin-bottom: 20px;
+        }
+        
+        /* Services Section */
+        .services-preview {
+            background-color: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #f1f5f9;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* News Section */
+        .news {
+            background-color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-date {
+            color: #d52b1e;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-content h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(26, 42, 87, 0.9), rgba(26, 42, 87, 0.9)), url('https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a2a57;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #b3b9c5;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #d52b1e;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b3b9c5;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .features-grid,
+            .services-grid,
+            .testimonials-grid,
+            .news-grid,
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .features-grid,
+            .services-grid,
+            .testimonials-grid,
+            .news-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Hockey<span>Hype</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Your Ultimate Hockey Companion</h1>
+            <p>Track live games, analyze player stats, manage your team, and connect with hockey fans worldwide. All in one powerful app.</p>
+            <div class="hero-buttons">
+                <a href="https://play.google.com/store/apps/details?id=com.distinctivegames.hockey2019&hl=en" target="_blank" class="btn">Download Now</a>
+                <a href="/about/" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about">
+        <div class="container">
+            <h2 class="section-title">About Hockey Hype</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hockey Hype App was founded  by a team of passionate hockey players and tech enthusiasts in Sydney, Australia. We noticed a gap in the market for a comprehensive hockey app that could serve both casual fans and serious players.</p>
+                    <p>Our mission is to bring the global hockey community closer together through technology. Whether you're a player, coach, or fan, Hockey Hype provides the tools you need to stay connected to the game you love.</p>
+                    <p>With over 50,000 active users across Australia and growing international presence, we're quickly becoming the go-to platform for hockey enthusiasts worldwide.</p>
+                    <a href="/about/" class="btn" style="margin-top: 20px;">Our Story</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0402%2Fr1312899_1296x729_16%2D9.jpg" alt="Hockey team celebrating">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Hockey Hype</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Real-time Stats</h3>
+                    <p>Get live updates on games, player performance, and team standings as they happen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Team Management</h3>
+                    <p>Organize your team roster, schedule games, and track attendance all in one place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Deep dive into player and team statistics with our powerful analytics tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Community Hub</h3>
+                    <p>Connect with other hockey fans, share highlights, and discuss the latest games.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Custom Alerts</h3>
+                    <p>Set notifications for your favorite teams, players, or when games are about to start.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Cross-Platform</h3>
+                    <p>Available on iOS, Android, and web so you never miss a moment of the action.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="section services-preview">
+        <div class="container">
+            <h2 class="section-title">Our Premium Features</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://exefeed.com/wp-content/uploads/2021/03/tracker_top5.png" alt="Live Game Tracking">
+                    </div>
+                    <div class="service-content">
+                        <h3>Live Game Tracking</h3>
+                        <p>Follow games in real-time with our advanced play-by-play tracking system. Never miss a goal, save, or penalty again.</p>
+                        <a href="/services/" class="btn" style="margin-top: 15px; display: inline-block;">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://cdn.shopify.com/s/files/1/0479/5242/9217/files/Analytics_in_Hockey_600x600.png?v=1690532461" alt="Player Analytics">
+                    </div>
+                    <div class="service-content">
+                        <h3>Player Analytics</h3>
+                        <p>Detailed performance metrics for every player. Track progress over time and identify areas for improvement.</p>
+                        <a href="/services/" class="btn" style="margin-top: 15px; display: inline-block;">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://thumbnails.yayimages.com/1600/10/eea/10eea386.jpg" alt="Team Management">
+                    </div>
+                    <div class="service-content">
+                        <h3>Team Management</h3>
+                        <p>Complete tools for coaches and team managers. Schedule, communicate, and organize your team efficiently.</p>
+                        <a href="/services/" class="btn" style="margin-top: 15px; display: inline-block;">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>"Hockey Hype has completely transformed how I follow the game. The real-time stats and analytics are unmatched by any other app I've tried."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Johnson">
+                        <div class="author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Head Coach, Sydney Stingrays</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>"As a hockey parent, this app makes it so easy to track my son's progress and game schedule. The team communication features are fantastic."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Thompson">
+                        <div class="author-info">
+                            <h4>Sarah Thompson</h4>
+                            <p>Hockey Parent</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>"The analytics tools helped me identify weaknesses in my game that I didn't even know I had. My performance has improved dramatically since using Hockey Hype."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Chen">
+                        <div class="author-info">
+                            <h4>David Chen</h4>
+                            <p>Professional Player</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section news">
+        <div class="container">
+            <h2 class="section-title">Latest Hockey News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6u_fBXjUiMe0-DUWaf5RssM5eUGZuYNXfkA&s" alt="Australian Hockey League">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Jan 15, 2025</p>
+                        <h3>Australian Hockey League Announces Expansion Teams</h3>
+                        <p>The AHL will add two new teams for the 2025-2026 season, bringing more high-level hockey to Australian fans.</p>
+                        <a href="/blog/" class="btn" style="margin-top: 15px; display: inline-block;">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj97BIydRhBGeH-e_z6oRpxJyaPuoaxQLjqw&s" alt="Hockey Technology">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Jan 10, 2025</p>
+                        <h3>How Technology is Changing Hockey Training</h3>
+                        <p>New advancements in wearable tech and analytics are revolutionizing how players train and improve.</p>
+                        <a href="/blog/" class="btn" style="margin-top: 15px; display: inline-block;">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Youth Hockey">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Jan 5, 2025</p>
+                        <h3>Youth Hockey Participation Hits Record High</h3>
+                        <p>Australia sees 15% increase in youth hockey registration, signaling bright future for the sport.</p>
+                        <a href="/blog/" class="btn" style="margin-top: 15px; display: inline-block;">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Elevate Your Hockey Experience?</h2>
+            <p>Join thousands of hockey enthusiasts who are already using Hockey Hype to stay connected to the game they love.</p>
+            <a href="/contact/" class="btn" style="margin-top: 30px;">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hockey Hype</h3>
+                    <p>Your ultimate companion for hockey stats, live scores, team management, and player analytics.</p>
+                    <div class="social-links" style="margin-top: 20px;">
+
+
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/services/">Live Game Tracking</a></li>
+                        <li><a href="/services/">Player Analytics</a></li>
+                        <li><a href="/services/">Team Management</a></li>
+                        <li><a href="/services/">Community Features</a></li>
+                        <li><a href="/services/">Premium Subscriptions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <address>
+                        Level 10/50 Pitt St<br>
+                        Sydney NSW 2000<br>
+                        Australia<br><br>
+                        Phone: +612 8080 7900<br>
+                        Email: info@hockeyhypeapp.org
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hockey Hype App. All rights reserved. <a href="/privacy/" style="color: #b3b9c5;">Privacy Policy</a> | <a href="/terms/" style="color: #b3b9c5;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+        
+        // Simple cart simulation for "Add to cart" buttons
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Item added to your cart!');
+            });
+        });
+    </script>
+</body>
+</html>

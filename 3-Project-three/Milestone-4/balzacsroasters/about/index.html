@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn about Balzac's Coffee Roasters - our story, mission, and commitment to crafting exceptional coffee experiences since day one.">
+    <meta name="keywords"
+        content="about coffee roasters, our story, coffee mission, sustainable coffee, artisan roasting, Canadian coffee">
+    <link rel="canonical" href="https://balzacsroasters.com/about/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>About Us | Balzac's Coffee Roasters</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3d2817;
+            --secondary-color: #6b4423;
+            --accent-color: #c9a96e;
+            --dark-bg: #1a1410;
+            --light-cream: #f5f1e8;
+            --text-dark: #2c1810;
+            --text-light: #e8dfd2;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas - Full Page & Visible */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas - Full Page & Visible */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Glass Effect Utility */
+        .glass {
+            background: rgba(29, 20, 16, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(201, 169, 110, 0.15);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: -100px;
+            right: 20px;
+            background: rgba(61, 40, 23, 0.95);
+            backdrop-filter: blur(20px);
+            color: var(--text-light);
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 300px;
+            transition: var(--transition);
+            border: 1px solid var(--accent-color);
+        }
+
+        .toast.show {
+            top: 100px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .toast i {
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+
+        .toast-content h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .toast-content p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -100px;
+                opacity: 0;
+            }
+
+            to {
+                top: 100px;
+                opacity: 1;
+            }
+        }
+
+        /* Header Styles */
+        .top-header {
+            background: rgba(29, 20, 16, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--accent-color);
+        }
+
+        .header-info i {
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--accent-color);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(29, 20, 16, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .main-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 22px;
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Hamburger Menu - Perfect Cross */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            position: absolute;
+            left: 0;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger span:nth-child(3) {
+            bottom: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: rgba(29, 20, 16, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 80px 30px 30px;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            border-left: 1px solid rgba(201, 169, 110, 0.3);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 28px;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(201, 169, 110, 0.1);
+        }
+
+        .mobile-close:hover {
+            transform: rotate(90deg);
+            background: rgba(201, 169, 110, 0.2);
+        }
+
+        .mobile-nav {
+            list-style: none;
+            margin-top: 40px;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 25px;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+            padding: 12px 0;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 120px 0 80px;
+            position: relative;
+            text-align: center;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(29, 20, 16, 0.7), rgba(107, 68, 35, 0.5));
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .page-title {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: var(--accent-color);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            color: var(--accent-color);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--light-cream);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: rgba(26, 20, 16, 0.3);
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 500px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-text h2 {
+            font-size: 42px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .story-text p {
+            font-size: 16px;
+            color: var(--light-cream);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .story-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon i {
+            font-size: 24px;
+            color: var(--dark-bg);
+        }
+
+        .feature-text h4 {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .feature-text p {
+            font-size: 14px;
+            color: var(--light-cream);
+            margin: 0;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background: rgba(61, 40, 23, 0.2);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .mission-card {
+            text-align: center;
+            padding: 50px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: var(--transition);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mission-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mission-icon i {
+            font-size: 36px;
+            color: var(--dark-bg);
+        }
+
+        .mission-card h3 {
+            font-size: 24px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .mission-card p {
+            font-size: 16px;
+            color: var(--light-cream);
+            line-height: 1.7;
+        }
+
+        /* Values Section */
+        .values-section {
+            background: rgba(26, 20, 16, 0.4);
+        }
+
+        .values-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .values-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: var(--transition);
+        }
+
+        .value-item:hover {
+            transform: translateX(10px);
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .value-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: 700;
+            color: var(--dark-bg);
+            font-size: 20px;
+        }
+
+        .value-text h3 {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .value-text p {
+            font-size: 15px;
+            color: var(--light-cream);
+            line-height: 1.6;
+        }
+
+        .values-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 500px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .values-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: rgba(107, 68, 35, 0.25);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .team-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 30px;
+        }
+
+        .team-info h3 {
+            font-size: 22px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            color: var(--accent-color);
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-bio {
+            font-size: 14px;
+            color: var(--light-cream);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .team-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(201, 169, 110, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 16px;
+            transition: var(--transition);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .team-social a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        /* Process Section */
+        .process-section {
+            background: rgba(26, 20, 16, 0.3);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            counter-reset: process-counter;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 40px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .process-step::before {
+            counter-increment: process-counter;
+            content: counter(process-counter);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-bg);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .process-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: rgba(201, 169, 110, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-color);
+        }
+
+        .process-icon i {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .process-step h3 {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .process-step p {
+            font-size: 14px;
+            color: var(--light-cream);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(61, 40, 23, 0.3);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--dark-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(201, 169, 110, 0.1);
+            color: var(--text-light);
+            border: 2px solid var(--accent-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(26, 20, 16, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 80px 0 30px;
+            border-top: 2px solid var(--accent-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand img {
+            height: 70px;
+            margin-bottom: 25px;
+        }
+
+        .footer-brand p {
+            font-size: 15px;
+            color: var(--light-cream);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(201, 169, 110, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: var(--transition);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--light-cream);
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--light-cream);
+            line-height: 1.7;
+        }
+
+        .footer-contact i {
+            color: var(--accent-color);
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: var(--light-cream);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page-title {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 40px;
+            }
+
+            .story-content,
+            .values-content {
+                grid-template-columns: 1fr;
+            }
+
+            .story-features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                display: none;
+            }
+
+            .main-header-content {
+                padding: 0 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header {
+                padding: 100px 0 60px;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .page-subtitle {
+                font-size: 18px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .mission-grid,
+            .team-grid,
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 45px;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .story-image,
+            .values-image {
+                height: 300px;
+            }
+
+            .feature-item,
+            .value-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .toast {
+                min-width: 280px;
+                right: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles.js Canvas -->
+    <div id="particles-js"></div>
+
+    <!-- Top Header (Hide on mobile) -->
+    <div class="top-header">
+        <div class="top-header-content">
+            <div class="header-left">
+                <div class="header-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>9 Don Valley Pkwy, Sunnyside, MB R5R 0E1, Canada</span>
+                </div>
+                <div class="header-info">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (204) 222-5294</span>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/balzacscoffee/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/balzacscoffee/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://ca.pinterest.com/balzacs/_created/" target="_blank"><i
+                        class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="main-header-content">
+            <a href="/" class="logo">
+                <img src="/assets/images/logo.png" alt="Balzac's Coffee Roasters Logo">
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop/">Shop</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+
+            <div class="header-icons">
+                <a href="/cart/" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <i class="fas fa-times mobile-close" id="mobile-close"></i>
+        <ul class="mobile-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/cart/">Cart</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Our Story</h1>
+            <p class="page-subtitle">
+                From a small roastery in Sunnyside to becoming one of Canada's most beloved coffee brands, discover the
+                passion and dedication behind every cup of Balzac's coffee.
+            </p>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section story-section">
+        <div class="container">
+            <div class="story-content">
+                <div class="story-image">
+                    <img src="/assets/images/founder-story.jpeg" alt="Balzac's Coffee Roasters Founder">
+                </div>
+                <div class="story-text">
+                    <p class="section-subtitle">Our Journey</p>
+                    <h2>Crafting Excellence Since 1993</h2>
+                    <p>
+                        Balzac's Coffee Roasters began as a dream in a small garage in Sunnyside, Manitoba. Our founder,
+                        Jacques Balzac, a third-generation coffee roaster from France, believed that Canadians deserved
+                        access to exceptional, ethically sourced coffee.
+                    </p>
+                    <p>
+                        What started as a passion project quickly grew into a community staple. Jacques' commitment to
+                        quality and his innovative roasting techniques soon caught the attention of coffee enthusiasts
+                        across the province.
+                    </p>
+                    <p>
+                        Today, while we've grown beyond that humble garage, we've never lost sight of our roots. Every
+                        batch of coffee we roast carries the same dedication to quality, sustainability, and community
+                        that Jacques instilled in our company from day one.
+                    </p>
+
+                    <div class="story-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Sustainable Sourcing</h4>
+                                <p>Ethically sourced from certified farms worldwide</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Artisan Roasting</h4>
+                                <p>Small-batch roasted for optimal flavor development</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Quality Certified</h4>
+                                <p>Multiple award-winning blends and single origins</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Community Focused</h4>
+                                <p>Supporting local communities and initiatives</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section mission-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Our Commitment</p>
+                <h2 class="section-title">What Drives Us</h2>
+                <p class="section-description">
+                    At the heart of everything we do are three core principles that guide our decisions, our roasting,
+                    and our relationships.
+                </p>
+            </div>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <h3>Uncompromising Quality</h3>
+                    <p>
+                        We believe that exceptional coffee starts with exceptional beans. That's why we travel the world
+                        to source only the finest, ethically grown coffee beans, then roast them in small batches to
+                        ensure peak freshness and flavor.
+                    </p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>Sustainable Practices</h3>
+                    <p>
+                        From farm to cup, we're committed to sustainable and ethical practices. We work directly with
+                        farmers who share our values, ensuring fair wages and environmentally responsible farming
+                        methods.
+                    </p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Connection</h3>
+                    <p>
+                        Coffee brings people together. We're proud to be part of communities across Canada, creating
+                        spaces where people can connect, share stories, and build relationships over great coffee.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="values-content">
+                <div class="values-list">
+                    <div class="section-header" style="text-align: left; margin-bottom: 40px;">
+                        <p class="section-subtitle">Our Values</p>
+                        <h2 class="section-title">The Principles That Guide Us</h2>
+                    </div>
+
+                    <div class="value-item">
+                        <div class="value-number">01</div>
+                        <div class="value-text">
+                            <h3>Quality Above All</h3>
+                            <p>
+                                We never compromise on quality. From bean selection to final roast, every step is
+                                meticulously controlled to ensure you receive the finest coffee experience possible.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="value-item">
+                        <div class="value-number">02</div>
+                        <div class="value-text">
+                            <h3>Transparency & Trust</h3>
+                            <p>
+                                We believe in complete transparency about our sourcing, roasting processes, and business
+                                practices. When you choose Balzac's, you know exactly what you're getting.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="value-item">
+                        <div class="value-number">03</div>
+                        <div class="value-text">
+                            <h3>Innovation & Tradition</h3>
+                            <p>
+                                While we honor traditional roasting techniques, we're constantly innovating to improve
+                                our processes and develop new, exciting coffee experiences for our customers.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="value-item">
+                        <div class="value-number">04</div>
+                        <div class="value-text">
+                            <h3>Environmental Stewardship</h3>
+                            <p>
+                                We're committed to reducing our environmental footprint through sustainable packaging,
+                                energy-efficient roasting, and supporting reforestation projects in coffee-growing
+                                regions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="values-image">
+                    <img src="/assets/images/roasting-values.webp" alt="Coffee Roasting Process">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section process-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Our Craft</p>
+                <h2 class="section-title">The Art of Coffee Roasting</h2>
+                <p class="section-description">
+                    Discover the meticulous process that transforms green coffee beans into the rich, flavorful coffee
+                    you love.
+                </p>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Careful Selection</h3>
+                    <p>
+                        We sample hundreds of coffee lots each year, selecting only the top 2% that meet our strict
+                        quality standards for flavor profile and ethical sourcing.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h3>Precision Weighing</h3>
+                    <p>
+                        Each batch is carefully weighed to ensure consistency and optimal roasting conditions for that
+                        specific bean variety and origin.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <h3>Artisan Roasting</h3>
+                    <p>
+                        Our master roasters use their expertise to develop each bean's unique characteristics, carefully
+                        monitoring temperature and time.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3>Rapid Cooling</h3>
+                    <p>
+                        Immediately after roasting, beans are rapidly cooled to lock in flavors and prevent
+                        over-roasting, preserving the delicate aromas and tastes.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-glass-whiskey"></i>
+                    </div>
+                    <h3>Cupping & Quality Control</h3>
+                    <p>
+                        Every batch undergoes rigorous tasting and quality control to ensure it meets our standards
+                        before being approved for packaging.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Fresh Packaging</h3>
+                    <p>
+                        We package our coffee in specially designed bags with one-way valves to preserve freshness and
+                        ensure you receive coffee at its peak.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <p class="section-subtitle">Join Our Journey</p>
+                <h2 class="section-title">Experience the Difference</h2>
+                <p class="section-description">
+                    Ready to taste coffee the way it was meant to be? Explore our collection of carefully roasted beans
+                    and discover your new favorite brew.
+                </p>
+
+                <div class="cta-buttons">
+                    <a href="/shop/" class="btn btn-primary">Shop Our Coffee</a>
+                    <a href="/contact/" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/">
+                        <img src="/assets/images/logo.png" alt="Balzac's Coffee Roasters">
+                    </a>
+                    <p>
+                        Crafting exceptional coffee experiences since day one. We source the finest beans and roast them
+                        to perfection, bringing you the taste of quality in every cup.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/balzacscoffee/" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/balzacscoffee/" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://ca.pinterest.com/balzacs/_created/" target="_blank"><i
+                                class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/shop/">Shop Coffee</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section footer-contact">
+                    <h3>Contact Info</h3>
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>9 Don Valley Pkwy, Sunnyside, MB R5R 0E1, Canada</span>
+                    </p>
+                    <p>
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (204) 222-5294</span>
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@balzacsroasters.com</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Balzac's Coffee Roasters. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Initialize Cart from Local Storage
+        let cart = JSON.parse(localStorage.getItem('balzacsCart')) || [];
+        updateCartCount();
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Update Cart Count
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        // Three.js Scene - Enhanced Visibility
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('three-canvas'),
+            alpha: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create coffee bean-like particles with higher visibility
+        const geometry = new THREE.SphereGeometry(0.15, 8, 8);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xc9a96e,
+            transparent: true,
+            opacity: 0.7  // Increased opacity
+        });
+
+        const beans = [];
+        for (let i = 0; i < 100; i++) {  // Increased particle count
+            const bean = new THREE.Mesh(geometry, material);
+            bean.position.x = Math.random() * 50 - 25;
+            bean.position.y = Math.random() * 50 - 25;
+            bean.position.z = Math.random() * 50 - 25;
+            scene.add(bean);
+            beans.push(bean);
+        }
+
+        camera.position.z = 15;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            beans.forEach(bean => {
+                bean.rotation.x += 0.002;
+                bean.rotation.y += 0.002;
+                bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.002;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Particles.js Configuration - Enhanced Visibility
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 120,  // Increased particle count
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#c9a96e'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,  // Increased opacity
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.3,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 4,  // Increased size
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 2,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#c9a96e',  // Changed to accent color
+                    opacity: 0.4,  // Increased opacity
+                    width: 1.5  // Increased width
+                },
+                move: {
+                    enable: true,
+                    speed: 2,  // Increased speed
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 200,
+                        line_linked: {
+                            opacity: 0.8
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>

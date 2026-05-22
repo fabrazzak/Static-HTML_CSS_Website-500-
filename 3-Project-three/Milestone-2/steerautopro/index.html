@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steer Auto Pro - Premier Automotive Repair Services | London</title>
+    <meta name="description" content="Steer Auto Pro is the UK's leading automotive repair business with accident repair centres across London. Expert technicians, carbon-neutral operations, and exceptional .">
+    <meta name="keywords" content="automotive repair, car bodyshop, accident repair, vehicle maintenance, London car repair, carbon neutral, paintless dent removal, alloy wheel repair, parking sensors, air conditioning">
+    <link rel="canonical" href="https://steerautopro.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a73e8',
+                        secondary: '#34d399',
+                        dark: '#0f172a',
+                        darker: '#020617'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        html,body{
+            overflow-x: hidden
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #1a73e8; }
+            to { box-shadow: 0 0 30px #1a73e8, 0 0 40px #1a73e8; }
+        }
+        
+        .hamburger {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .hamburger-box {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .hamburger-inner {
+            display: block;
+            top: 50%;
+            margin-top: -2px;
+        }
+        
+        .hamburger-inner,
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            width: 30px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            position: absolute;
+            transition-property: transform;
+            transition-duration: 0.15s;
+            transition-timing-function: ease;
+        }
+        
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            content: "";
+            display: block;
+        }
+        
+        .hamburger-inner::before {
+            top: -8px;
+        }
+        
+        .hamburger-inner::after {
+            bottom: -8px;
+        }
+        
+        .hamburger.is-active .hamburger-inner {
+            transform: rotate(45deg);
+        }
+        
+        .hamburger.is-active .hamburger-inner::before {
+            top: 0;
+            transform: rotate(-90deg);
+        }
+        
+        .hamburger.is-active .hamburger-inner::after {
+            bottom: 0;
+            transform: rotate(-90deg);
+        }
+        
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .section-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cookie-popup {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-dark text-white overflow-x-hidden">
+    <!-- Three.js Background -->
+    <canvas class="three-canvas" id="three-canvas"></canvas>
+    
+    <!-- Cookie Popup -->
+    <div id="cookie-popup" class="cookie-popup fixed bottom-0 left-0 right-0 bg-darker border-t border-gray-700 p-4 z-50">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between">
+            <p class="text-sm text-gray-300 mb-4 sm:mb-0">
+                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+            </p>
+            <div class="flex space-x-4">
+                <button id="accept-cookies" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    Accept All
+                </button>
+                <button id="decline-cookies" class="border border-gray-600 text-gray-300 px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-40">
+        <!-- Top Bar -->
+        <div class="bg-darker/80 backdrop-blur-md border-b border-gray-800" style="display: none;">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                    <div class="flex items-center space-x-6 mb-2 sm:mb-0">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-2"></i>
+                            <span class="text-gray-300">50 Oxford Street, Soho, London, W1D 1BS, UK</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary mr-2"></i>
+                            <span class="text-gray-300">+44 20 7636 7700</span>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="bg-dark/90 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center py-4">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                       <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-14">
+                       </a>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <a href="/" class="text-white font-medium hover:text-primary transition-colors">Home</a>
+                        <a href="/locations/" class="text-gray-300 hover:text-primary transition-colors">Locations</a>
+                        <a href="/corporate/" class="text-gray-300 hover:text-primary transition-colors">Corporate</a>
+                        <a href="/commercial/" class="text-gray-300 hover:text-primary transition-colors">Commercial</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-primary transition-colors">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-primary transition-colors">Contact</a>
+                       
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button id="mobile-menu-btn" class="hamburger">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu  fixed top-0 right-0 h-full w-full  bg-darker border-l border-gray-800 lg:hidden z-50">
+                <div class="p-6 bg-dark">
+                    <div class="flex justify-between items-center mb-8">
+                       <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-12 sm:h-14">
+                       </a>
+                        <button id="mobile-menu-close" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    <nav class="space-y-6">
+                        <a href="/" class="block text-white font-medium py-2 border-b border-gray-800">Home</a>
+                        <a href="/locations/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Locations</a>
+                        <a href="/corporate/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Corporate</a>
+                        <a href="/commercial/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Commercial</a>
+                        <a href="/blog/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Blog</a>
+                        <a href="/contact/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Contact</a>
+                         
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+   <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-center bg-cover bg-no-repeat" style="background-image: url('/assets/home-bg.webp');">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Particles (still above the background but below content) -->
+    <div id="particles-js" class="absolute inset-0"></div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="max-w-4xl mx-auto section-animate">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                MEASURABLY DIFFERENT
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-300 mb-8 font-light">
+                Repairing the Vehicles of Today and Tomorrow
+            </p>
+            <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                The UK's leading automotive repair business with accident repair centres across the UK. 
+                Our highly qualified technicians deliver true excellence on every job.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="/corporate/">
+                    <button class="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-all transform hover:scale-105 animate-glow">
+                        Request Free Quote
+                    </button>
+                </a>
+                <a href="/locations/">
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-dark transition-all transform hover:scale-105">
+                        Find Nearest Location
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Down Icon -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+        <i class="fas fa-chevron-down text-white text-2xl"></i>
+    </div>
+</section>
+
+
+    <!-- About Section -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="section-animate">
+                    <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Who We Are
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                        Steer is the UK's premier automotive repair business, with accident repair centres strategically 
+                        located across the nation. You're never far from a Steer Automotive Group bodyshop.
+                    </p>
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                        Our highly qualified technicians deliver exceptional excellence on every project. Our customer 
+                        service philosophy is built on respect and integrity, ensuring every client receives the treatment they deserve.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="glass-effect rounded-lg p-6 text-center">
+                            <i class="fas fa-users text-primary text-3xl mb-3"></i>
+                            <h4 class="text-2xl font-bold text-white">Expert Team</h4>
+                            <p class="text-gray-400">Certified Technicians</p>
+                        </div>
+                        <div class="glass-effect rounded-lg p-6 text-center">
+                            <i class="fas fa-award text-secondary text-3xl mb-3"></i>
+                            <h4 class="text-2xl font-bold text-white">Quality Work</h4>
+                            <p class="text-gray-400">Excellence Guaranteed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-animate">
+                    <div class="relative">
+                        <div class="glass-effect rounded-2xl p-8 animate-float">
+                            <img src="/assets/about-steer-automotive.jpg" alt="Steer Automotive Professional Team" class="w-full rounded-lg mb-6">
+                            <div class="text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">Professional Excellence</h3>
+                                <p class="text-gray-400">Delivering superior automotive repair services across the UK</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Our Services
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    From accident repairs to premium maintenance services, we provide comprehensive 
+                    automotive solutions with cutting-edge technology and expert craftsmanship.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-effect rounded-xl p-8 text-center hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-primary to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-wrench text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Accident Repair</h3>
+                    <p class="text-gray-400">Professional collision repair services with state-of-the-art equipment and techniques.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-secondary to-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-paint-brush text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Paintless Dent Removal</h3>
+                    <p class="text-gray-400">Advanced dent removal techniques that preserve your vehicle's original paint finish.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-circle text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Alloy Wheel Repair</h3>
+                    <p class="text-gray-400">Expert restoration of damaged alloy wheels to factory-fresh condition.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-snowflake text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Air Conditioning</h3>
+                    <p class="text-gray-400">Complete AC system servicing and repairs to keep you comfortable year-round.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Steer Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="section-animate">
+                    <img src="/assets/why-choose-steer-automotive.jpg" alt="Advanced Automotive Repair Technology" class="rounded-2xl  shadow-2xl">
+                </div>
+                <div class="section-animate">
+                    <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Why Choose Steer?
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        Whether you've experienced an accident, have scratches or scrapes, or need your vehicle 
+                        repairs completed privately, you've come to the right place!
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary rounded-full p-2 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Direct Services You Can Trust</h4>
+                                <p class="text-gray-400">Honest, transparent service with no hidden costs or surprises.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-secondary rounded-full p-2 mt-1">
+                                <i class="fas fa-leaf text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Environmentally Responsible</h4>
+                                <p class="text-gray-400">Carbon-neutral operations in accordance with PAS2060 standards.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-purple-500 rounded-full p-2 mt-1">
+                                <i class="fas fa-tools text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Advanced Technology</h4>
+                                <p class="text-gray-400">State-of-the-art equipment and cutting-edge repair techniques.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="/commercial/">
+                        <button class="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-all transform hover:scale-105 mt-8">
+                        Request Free Estimate
+                    </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carbon Neutral Section -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <div class="inline-flex items-center bg-secondary/20 rounded-full px-6 py-3 mb-6">
+                    <i class="fas fa-leaf text-secondary mr-3"></i>
+                    <span class="text-secondary font-semibold">Carbon Neutral Certified</span>
+                </div>
+                <h2 class="text-5xl font-bold mb-6 text-white">
+                    Environmental Leadership
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Carbon Neutral in Accordance with PAS2060. We're committed to sustainable repair solutions 
+                    and environmental responsibility across all operations.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-secondary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-recycle text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Sustainable Practices</h3>
+                    <p class="text-gray-400">Implementing eco-friendly repair methods and materials to minimize environmental impact.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-secondary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">5% Reduction Target</h3>
+                    <p class="text-gray-400">Achieving organic carbon emission reductions through planned environmental initiatives.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-secondary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-globe text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Zero Carbon Footprint</h3>
+                    <p class="text-gray-400">Taking positive action across all operations to achieve complete carbon neutrality.</p>
+                </div>
+            </div>
+            
+            <div class="glass-effect rounded-2xl p-8 mt-12 text-center section-animate">
+                <blockquote class="text-2xl text-gray-300 italic mb-6">
+                    "We have an obligation to future generations to leave the environment better than we found it."
+                </blockquote>
+                <div class="flex items-center justify-center">
+                    <img src="/assets/richard-steer-ceo.png" alt="Richard Steer CEO" class="w-16 h-16 rounded-full mr-4">
+                    <div class="text-left">
+                        <p class="text-white font-semibold">Richard Steer</p>
+                        <p class="text-gray-400">Chief Executive Officer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Insights Section -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    News & Insights
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Stay updated with our latest developments, industry insights, and company achievements.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+
+                 <!-- Article 1 -->
+                <article class="blog-card glass-effect rounded-xl overflow-hidden section-animate" data-category="industry">
+                    <div class="relative overflow-hidden">
+                        <img src="/assets/blog/industry-leading-esg-rating-blog.jpg" alt="Industry Leading ESG Rating Achievement" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-secondary text-white px-3 py-1 rounded-lg text-sm font-semibold">Industry News</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-400 mb-3">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <span>11 September  l 2025</span>
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>5 min read</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 hover:text-primary transition-colors">
+                            Industry Leading ESG Rating Achievement
+                        </h3>
+                        <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                            Our commitment to environmental, social, and governance excellence has earned us industry recognition and top ratings.
+                        </p>
+                        <a href="/blog/industry-leading-esg-rating/" class="text-primary hover:text-blue-400 font-semibold text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card glass-effect rounded-xl overflow-hidden section-animate" data-category="industry">
+                    <div class="relative overflow-hidden">
+                        <img src="/assets/blog/steer-luxury-south-blog.webp" alt="Steer Luxury South Location Opening" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-primary text-white px-3 py-1 rounded-lg text-sm font-semibold">Company News</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-400 mb-3">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <span>11 September   2025</span>
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>4 min read</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 hover:text-primary transition-colors">
+                            Announcing Steer Luxury South Opening
+                        </h3>
+                        <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                            We're excited to announce the opening of our premium luxury vehicle service center in South London.
+                        </p>
+                        <a href="/blog/steer-luxury-south/" class="text-primary hover:text-blue-400 font-semibold text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card glass-effect rounded-xl overflow-hidden section-animate" data-category="maintenance">
+                    <div class="relative overflow-hidden">
+                        <img src="/assets/blog/winter-vehicle-maintenance.jpg" alt="Winter Vehicle Maintenance Guide" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-purple-500 text-white px-3 py-1 rounded-lg text-sm font-semibold">Maintenance</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-400 mb-3">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <span>5 September  2025</span>
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>7 min read</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 hover:text-primary transition-colors">
+                            Winter Vehicle Maintenance: Complete Checklist
+                        </h3>
+                        <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                            Prepare your vehicle for winter conditions with our comprehensive maintenance checklist and expert tips.
+                        </p>
+                        <a href="/blog/winter-vehicle-maintenance/" class="text-primary hover:text-blue-400 font-semibold text-sm">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Reviews Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    What Our Customers Say
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Don't just take our word for it. See what our satisfied customers have to say about our services.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-xl p-8 section-animate">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 mr-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-400">5.0</span>
+                    </div>
+                    <blockquote class="text-gray-300 mb-6 italic">
+                        "Exceptional service from start to finish. The team at Steer Auto Pro handled my vehicle repairs professionally and efficiently. Highly recommended!"
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="/assets/reviews/customer-review-sarah.jpg" alt="Sarah Thompson Customer Review" class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <p class="text-white font-semibold">Sarah Thompson</p>
+                            <p class="text-gray-400 text-sm">London Resident</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 section-animate">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 mr-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-400">5.0</span>
+                    </div>
+                    <blockquote class="text-gray-300 mb-6 italic">
+                        "Outstanding workmanship and customer service. They restored my car to perfect condition after an accident. Couldn't be happier with the results."
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="/assets/reviews/customer-review-james.jpeg" alt="James Wilson Customer Review" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="text-white font-semibold">James Wilson</p>
+                            <p class="text-gray-400 text-sm">Business Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 section-animate">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 mr-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-400">5.0</span>
+                    </div>
+                    <blockquote class="text-gray-300 mb-6 italic">
+                        "The environmental commitment and quality of service make Steer Auto Pro stand out. Transparent pricing and excellent communication throughout."
+                    </blockquote>
+                    <div class="flex items-center">
+                        <img src="/assets/reviews/customer-review-emily.png" alt="Emily Davis Customer Review" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="text-white font-semibold">Emily Davis</p>
+                            <p class="text-gray-400 text-sm">Marketing Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-800">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-14">
+                       </a>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
+                        The UK's leading automotive repair business, committed to excellence, 
+                        environmental responsibility, and exceptional customer service.
+                    </p>
+                   
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Quick Links</h4>
+                    <nav class="space-y-3">
+                        <a href="/locations/" class="block text-gray-400 hover:text-primary transition-colors">Locations</a>
+                        <a href="/corporate/" class="block text-gray-400 hover:text-primary transition-colors">Corporate</a>
+                        <a href="/commercial/" class="block text-gray-400 hover:text-primary transition-colors">Commercial</a>
+                        <a href="/blog/" class="block text-gray-400 hover:text-primary transition-colors">Blog</a>
+                        <a href="/contact/" class="block text-gray-400 hover:text-primary transition-colors">Contact</a>
+                    </nav>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Legal</h4>
+                    <nav class="space-y-3">
+                        <a href="/privacy/" class="block text-gray-400 hover:text-primary transition-colors">Privacy Policy</a>
+                        <a href="/terms/" class="block text-gray-400 hover:text-primary transition-colors">Terms of Service</a>
+                        <a href="/cookies/" class="block text-gray-400 hover:text-primary transition-colors">Cookies Policy</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Steer Auto Pro. All rights reserved. | Carbon Neutral in Accordance with PAS2060
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Three.js Background Animation
+        let scene, camera, renderer, particles;
+        
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Create particles
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            
+            for (let i = 0; i < 5000; i++) {
+                vertices.push(
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000
+                );
+            }
+            
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            const material = new THREE.PointsMaterial({ color: 0x1a73e8, size: 2 });
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+            
+            camera.position.z = 1000;
+            animate();
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.x += 0.0005;
+            particles.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#1a73e8" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#1a73e8", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 400 }, "bubble": { "distance": 400, "size": 40 }, "repulse": { "distance": 200 } }
+            },
+            "retina_detect": true
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+            mobileMenuBtn.classList.add('is-active');
+        });
+        
+        mobileMenuClose.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBtn.classList.remove('is-active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('is-active');
+            }
+        });
+        
+        // Scroll animations
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.section-animate');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Cookie popup functionality
+        const cookiePopup = document.getElementById('cookie-popup');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const declineCookies = document.getElementById('decline-cookies');
+        
+        // Show cookie popup if no preference is stored
+        if (!localStorage.getItem('cookiePreference')) {
+            setTimeout(() => {
+                cookiePopup.classList.add('show');
+            }, 2000);
+        }
+        
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookiePreference', 'accepted');
+            cookiePopup.classList.remove('show');
+        });
+        
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookiePreference', 'declined');
+            cookiePopup.classList.remove('show');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initThree();
+            revealOnScroll();
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+    </script>
+</body>
+</html>

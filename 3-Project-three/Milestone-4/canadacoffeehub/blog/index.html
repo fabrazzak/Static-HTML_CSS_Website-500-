@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Canada Coffee Hub Blog - Discover coffee brewing tips, industry insights, recipes, and stories from our coffee experts.">
+    <meta name="keywords"
+        content="coffee blog, brewing tips, coffee recipes, coffee industry, barista techniques, coffee education, canada coffee hub blog">
+    <link rel="canonical" href="https://canadacoffeehub.com/blog/">
+    <title>Canada Coffee Hub Blog - Coffee Tips, Recipes & Industry Insights</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --dark-bg: #1a0f0a;
+            --light-bg: #2d1810;
+            --text-light: #f5f5f5;
+            --text-dark: #1a0f0a;
+            --gold: #DAA520;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: var(--dark-bg);
+        }
+
+        /* Canvas Background */
+        #particles-js,
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .contact-info i {
+            color: var(--gold);
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(26, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Add this rule to hide hamburger when menu is active */
+.hamburger.active {
+    display: none;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+.close-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--gold);
+    cursor: pointer;
+    z-index: 1002;
+}
+
+/* Add this to show close menu when nav is active */
+nav.active ~ .close-menu {
+    display: block;
+}
+
+        /* Blog Hero */
+        .blog-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+            background-image: url('/assets/images/blog-hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 15, 10, 0.85) 0%, rgba(45, 24, 16, 0.75) 100%);
+            z-index: 0;
+        }
+
+        .blog-hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .blog-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Blog Content */
+        .blog-content {
+            padding: 80px 20px;
+            background: rgba(26, 15, 10, 0.8);
+        }
+
+        .blog-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* Featured Blog */
+        .featured-blog {
+            margin-bottom: 80px;
+        }
+
+        .featured-card {
+            background: linear-gradient(135deg, rgba(45, 24, 16, 0.9), rgba(26, 15, 10, 0.9));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(218, 165, 32, 0.3);
+            border-color: var(--gold);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-card:hover .featured-image img {
+            transform: scale(1.1);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .featured-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: rgba(245, 245, 245, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-meta i {
+            color: var(--gold);
+        }
+
+        .featured-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: rgba(245, 245, 245, 0.8);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        /* Regular Blogs */
+        .regular-blogs {
+            margin-bottom: 60px;
+        }
+
+        .blogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .blog-card {
+            background: linear-gradient(135deg, rgba(45, 24, 16, 0.9), rgba(26, 15, 10, 0.9));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(218, 165, 32, 0.3);
+            border-color: var(--gold);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-card-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .blog-card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .blog-card-content p {
+            color: rgba(245, 245, 245, 0.8);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(218, 165, 32, 0.6);
+        }
+
+        .btn-small {
+            padding: 10px 25px;
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 80px 20px;
+            background: rgba(45, 24, 16, 0.6);
+            text-align: center;
+        }
+
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: rgba(245, 245, 245, 0.8);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 25px;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            background: rgba(26, 15, 10, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(245, 245, 245, 0.5);
+        }
+
+        .newsletter-form button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 15, 10, 0.98);
+            padding: 60px 20px 20px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(245, 245, 245, 0.7);
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .footer-section p i {
+            color: var(--gold);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(218, 165, 32, 0.2);
+            color: rgba(245, 245, 245, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(26, 15, 10, 0.98);
+                padding: 80px 30px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 25px;
+                align-items: flex-start;
+            }
+
+            .close-menu {
+                display: block;
+            }
+
+            .blog-hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .blog-hero p {
+                font-size: 1.1rem;
+            }
+
+            .featured-card {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 300px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .top-header {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .blogs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-content h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .featured-content {
+                padding: 25px;
+            }
+
+            .blog-card-content {
+                padding: 25px;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle.js Background -->
+    <div id="particles-js"></div>
+
+    <!-- Three.js Background -->
+    <div id="three-container"></div>
+
+    <div class="content-wrapper">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="top-header-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> 2551 Priest Ave, Merritt, BC V1K 1B3</span>
+                    <span><i class="fas fa-phone"></i> +1 (250) 378-6966</span>
+                    <span><i class="fas fa-envelope"></i> info@canadacoffeehub.com</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                </a>
+
+                <nav id="mainNav">
+                    <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li class="cart-icon">
+                            <a href="/cart/">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Blog Hero -->
+        <section class="blog-hero">
+            <div class="blog-hero-content">
+                <h2>Coffee Insights & Stories</h2>
+                <p>Discover brewing tips, industry news, and expert advice from Canada Coffee Hub's passionate team of coffee enthusiasts.</p>
+            </div>
+        </section>
+
+        <!-- Blog Content -->
+        <section class="blog-content">
+            <div class="blog-container">
+                <!-- Featured Blog -->
+                <div class="featured-blog">
+                    <h2 class="section-title">Featured Article</h2>
+                    <div class="featured-card">
+                        <div class="featured-image">
+                            <img src="/assets/images/art-of-coffee-roasting.jpeg" alt="The Art of Coffee Roasting">
+                            <span class="featured-badge">Featured</span>
+                        </div>
+                        <div class="featured-content">
+                            <div>
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> September 15, 2025</span>
+                                    <span><i class="far fa-clock"></i> 8 min read</span>
+                                    <span><i class="far fa-user"></i> James Thompson</span>
+                                </div>
+                                <h3>The Art and Science of Coffee Roasting: From Green Bean to Perfect Cup</h3>
+                                <p>Discover the fascinating journey of coffee beans from raw green seeds to aromatic roasted perfection. Learn how temperature, time, and technique transform the chemical composition of beans to create the complex flavors we love in our daily brew. Our master roaster shares decades of expertise in this comprehensive guide to understanding roast profiles, from light city roasts to dark French roasts.</p>
+                            </div>
+                            <a href="/blog/art-of-coffee-roasting/" class="btn btn-primary">Read Full Article</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Blogs -->
+                <div class="regular-blogs">
+                    <h2 class="section-title">Latest Articles</h2>
+                    <div class="blogs-grid">
+                        <!-- Blog 1 -->
+                        <div class="blog-card">
+                            <div class="blog-image">
+                                <img src="/assets/images/cold-brew-guide.webp" alt="Ultimate Cold Brew Guide">
+                            </div>
+                            <div class="blog-card-content">
+                                <div>
+                                    <div class="blog-meta">
+                                        <span><i class="far fa-calendar"></i> September 10, 2025</span>
+                                        <span><i class="far fa-clock"></i> 5 min read</span>
+                                    </div>
+                                    <h3>The Ultimate Guide to Perfect Cold Brew Coffee at Home</h3>
+                                    <p>Master the art of cold brew with our step-by-step guide. Learn the best beans, ratios, and techniques for creating smooth, low-acidity cold brew that rivals your favorite coffee shop.</p>
+                                </div>
+                                <a href="/blog/cold-brew-guide/" class="btn btn-primary btn-small">Read More</a>
+                            </div>
+                        </div>
+
+                        <!-- Blog 2 -->
+                        <div class="blog-card">
+                            <div class="blog-image">
+                                <img src="/assets/images/espresso-techniques.jpg" alt="Espresso Mastery Techniques">
+                            </div>
+                            <div class="blog-card-content">
+                                <div>
+                                    <div class="blog-meta">
+                                        <span><i class="far fa-calendar"></i> September 5, 2025</span>
+                                        <span><i class="far fa-clock"></i> 6 min read</span>
+                                    </div>
+                                    <h3>Espresso Mastery: 5 Techniques to Improve Your Home Barista Skills</h3>
+                                    <p>Elevate your espresso game with professional techniques you can practice at home. From proper tamping to milk texturing, discover how to create café-quality espresso drinks.</p>
+                                </div>
+                                <a href="/blog/espresso-mastery/" class="btn btn-primary btn-small">Read More</a>
+                            </div>
+                        </div>
+
+                        <!-- Blog 3 -->
+                        <div class="blog-card">
+                            <div class="blog-image">
+                                <img src="/assets/images/sustainable-coffee.webp" alt="Sustainable Coffee Future">
+                            </div>
+                            <div class="blog-card-content">
+                                <div>
+                                    <div class="blog-meta">
+                                        <span><i class="far fa-calendar"></i> September 28, 2025</span>
+                                        <span><i class="far fa-clock"></i> 7 min read</span>
+                                    </div>
+                                    <h3>Sustainable Coffee: How Your Morning Cup Can Support Farmers and the Planet</h3>
+                                    <p>Explore the world of ethical coffee sourcing and learn how choosing certified coffees makes a real difference in coffee-growing communities and environmental conservation.</p>
+                                </div>
+                                <a href="/blog/sustainable-coffee/" class="btn btn-primary btn-small">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="newsletter-container">
+                <h2>Stay Updated with Coffee Insights</h2>
+                <p>Subscribe to our newsletter and receive the latest brewing tips, new product announcements, and exclusive content directly to your inbox.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                    </div>
+                    <p>Premium coffee roasting and distribution since 1970. Serving coffee lovers across Canada with the
+                        finest arabica beans and equipment.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="/">Home</a>
+                    <a href="/shop/">Shop</a>
+                    <a href="/about/">About Us</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/cookies/">Cookie Policy</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>2551 Priest Ave, Merritt, BC V1K 1B3, Canada</p>
+                    <p><i class="fas fa-phone"></i>+1 (250) 378-6966</p>
+                    <p><i class="fas fa-envelope"></i> info@canadacoffeehub.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Canada Coffee Hub. All rights reserved. Crafted with passion for coffee lovers.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#DAA520' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#CD853F',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize Three.js
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create coffee bean particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 1000; i++) {
+            vertices.push(
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000
+            );
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0xDAA520, size: 2, transparent: true, opacity: 0.6 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 500;
+
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animateThree();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Cart Functions
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('mainNav');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+        });
+
+        // Newsletter Form
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = e.target.querySelector('input');
+            const button = e.target.querySelector('button');
+            const originalText = button.textContent;
+
+            button.textContent = 'Subscribed!';
+            button.style.background = '#28a745';
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+                input.value = '';
+            }, 2000);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        updateCartCount();
+    </script>
+</body>
+
+</html>

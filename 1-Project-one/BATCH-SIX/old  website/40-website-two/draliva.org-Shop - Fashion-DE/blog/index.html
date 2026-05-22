@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draliva - Fashion Blog</title>
+    <meta
+      name="description"
+      content="Stay updated with the latest fashion trends, style tips, and industry insights from Draliva's fashion experts."
+    />
+    <meta
+      name="keywords"
+      content="fashion blog, style tips, trends, fashion news, draliva, clothing advice"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2a2a2a;
+        --secondary-color: #e83e8c;
+        --accent-color: #f8f9fa;
+        --text-color: #333;
+        --light-text: #777;
+        --white: #fff;
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        background-color: #d42d7b;
+        color: var(--white);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--secondary-color);
+        color: var(--secondary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color);
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      nav ul {
+        display: flex;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        font-size: 15px;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      /* Blog Page Specific Styles */
+      .blog-header {
+        background: url("https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1530&q=80")
+          no-repeat center center/cover;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-top: 70px;
+      }
+
+      .blog-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .blog-header-content {
+        position: relative;
+        z-index: 1;
+        color: var(--white);
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .blog-header-content h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .blog-header-content p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Blog Grid */
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+      }
+
+      .blog-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .blog-img {
+        height: 250px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .blog-card:hover .blog-img img {
+        transform: scale(1.05);
+      }
+
+      .blog-info {
+        padding: 25px;
+      }
+
+      .blog-category {
+        display: inline-block;
+        padding: 5px 15px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+      }
+
+      .blog-date {
+        font-size: 0.9rem;
+        color: var(--light-text);
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .blog-info h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+      }
+
+      .blog-excerpt {
+        color: var(--light-text);
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      .read-more {
+        font-weight: 600;
+        color: var(--secondary-color);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .read-more i {
+        transition: var(--transition);
+      }
+
+      .read-more:hover i {
+        transform: translateX(5px);
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+        gap: 10px;
+      }
+
+      .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+        color: var(--text-color);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .page-link:hover,
+      .page-link.active {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      /* Newsletter */
+      .newsletter {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0;
+      }
+
+      .newsletter .section-title {
+        color: var(--white);
+      }
+
+      .newsletter .section-title::after {
+        background-color: var(--white);
+      }
+
+      .newsletter p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+        text-align: center;
+        opacity: 0.8;
+      }
+
+      .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        font-size: 1rem;
+      }
+
+      .newsletter-form button {
+        padding: 15px 25px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+        transition: var(--transition);
+      }
+
+      .newsletter-form button:hover {
+        background-color: #d42d7b;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-col h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--secondary-color);
+      }
+
+      .footer-col p {
+        margin-bottom: 15px;
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: var(--white);
+        opacity: 0.8;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-5px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      /* Blog Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background-color: var(--white);
+        max-width: 800px;
+        margin: 50px auto;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.8);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .close-modal:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .modal-body {
+        padding: 40px;
+      }
+
+      .modal-img {
+        height: 400px;
+        overflow: hidden;
+      }
+
+      .modal-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .modal-header {
+        margin-bottom: 30px;
+      }
+
+      .modal-category {
+        display: inline-block;
+        padding: 5px 15px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+      }
+
+      .modal-date {
+        font-size: 0.9rem;
+        color: var(--light-text);
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .modal-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      .modal-content p {
+        margin-bottom: 20px;
+        line-height: 1.8;
+        color: var(--light-text);
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .blog-header-content h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-padding {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .blog-header {
+          height: 350px;
+        }
+
+        .blog-header-content h1 {
+          font-size: 2rem;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 70px);
+          background-color: var(--white);
+          transition: var(--transition);
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          padding: 30px;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .newsletter-form input {
+          border-radius: 4px;
+          margin-bottom: 10px;
+        }
+
+        .newsletter-form button {
+          border-radius: 4px;
+        }
+
+        .modal-body {
+          padding: 30px 20px;
+        }
+
+        .modal-img {
+          height: 250px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .blog-header-content h1 {
+          font-size: 1.8rem;
+        }
+
+        .btn {
+          padding: 10px 20px;
+          font-size: 13px;
+        }
+
+        .modal-title {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Dral<span>iva</span></a>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/" class="active">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/cart/">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+      <div class="blog-header-content">
+        <h1>Fashion Insights & Trends</h1>
+        <p>
+          Discover the latest fashion trends, styling tips, and industry news
+          from our experts
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="section-padding">
+      <div class="container">
+        <h2 class="section-title">Latest Articles</h2>
+
+        <div class="blog-grid">
+          <!-- Blog Post 1 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Summer Trends"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-category">Trends</span>
+              <span class="blog-date">Jan  15, 2025</span>
+              <h3>Top Summer Fashion Trends for 2025</h3>
+              <p class="blog-excerpt">
+                This summer is all about bold colors, lightweight fabrics, and
+                sustainable fashion choices. Discover how to incorporate these
+                trends into your wardrobe...
+              </p>
+              <a href="/" class="read-more" data-blog-id="1"
+                >Read more <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Blog Post 2 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Sustainable Fashion"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-category">Sustainability</span>
+              <span class="blog-date">March 28, 2025</span>
+              <h3>The Rise of Sustainable Fashion</h3>
+              <p class="blog-excerpt">
+                How eco-conscious brands are changing the industry and what you
+                can do to support the movement towards a more sustainable
+                fashion future...
+              </p>
+              <a href="/" class="read-more" data-blog-id="2"
+                >Read more <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Blog Post 3 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                alt="Wardrobe Essentials"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-category">Style Guide</span>
+              <span class="blog-date">April 10, 2025</span>
+              <h3>10 Wardrobe Essentials Every Woman Needs</h3>
+              <p class="blog-excerpt">
+                Build a versatile closet with these timeless pieces that work
+                for any occasion, from casual outings to formal events. Our
+                must-have list will help you create a capsule wardrobe...
+              </p>
+              <a href="/" class="read-more" data-blog-id="3"
+                >Read more <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Blog Post 4 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Accessories"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-category">Accessories</span>
+              <span class="blog-date">March 22, 2025</span>
+              <h3>How to Accessorize Like a Pro</h3>
+              <p class="blog-excerpt">
+                The right accessories can transform any outfit. Learn the art of
+                accessorizing with our expert tips on choosing and combining
+                jewelry, bags, scarves, and more...
+              </p>
+              <a href="/" class="read-more" data-blog-id="4"
+                >Read more <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Blog Post 5 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1526&q=80"
+                alt="Men's Fashion"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-category">Men's Fashion</span>
+              <span class="blog-date">February 15, 2025</span>
+              <h3>Spring 2025: Men's Fashion Trends to Watch</h3>
+              <p class="blog-excerpt">
+                From relaxed tailoring to bold prints, discover the key trends
+                that will define men's fashion this spring. Our style guide
+                helps you stay ahead of the curve...
+              </p>
+              <a href="/" class="read-more" data-blog-id="5"
+                >Read more <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Blog Post 6 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1636&q=80"
+                alt="Denim Guide"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-category">Denim Guide</span>
+              <span class="blog-date">January 30, 2025</span>
+              <h3>The Ultimate Denim Fit Guide</h3>
+              <p class="blog-excerpt">
+                Finding the perfect pair of jeans can be challenging. Our
+                comprehensive guide helps you navigate cuts, washes, and styles
+                to find your ideal fit based on your body type...
+              </p>
+              <a href="/" class="read-more" data-blog-id="6"
+                >Read more <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <a href="/" class="page-link active">1</a>
+          <a href="/" class="page-link">2</a>
+          <a href="/" class="page-link">3</a>
+          <a href="/" class="page-link">4</a>
+          <a href="/" class="page-link">5</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <div class="container">
+        <h2 class="section-title">Stay Updated</h2>
+        <p>
+          Subscribe to our newsletter to receive exclusive offers, fashion tips,
+          and updates on new arrivals.
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <!-- Column 1 -->
+          <div class="footer-col">
+            <h3>Draliva</h3>
+            <p>
+              Premium fashion for the modern individual. Quality, style, and
+              sustainability at the core of everything we do.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/" class="active">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="footer-col">
+            <h3>Customer Service</h3>
+            <ul class="footer-links">
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+              <li><a href="/">Shipping Policy</a></li>
+              <li><a href="/">Returns & Exchanges</a></li>
+              <li><a href="/">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="footer-col">
+            <h3>Contact Info</h3>
+            <p>Schloßpl. 1, 08648 Bad Brambach, Germany</p>
+            <p>Phone: +49 160 4697373</p>
+            <p>Email: info@draliva.org</p>
+            <p>Open: Mon-Fri, 9:00-18:00</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Draliva. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Blog Modal -->
+    <div class="modal" id="blogModal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-img">
+          <img id="modalBlogImg" src="" alt="" />
+        </div>
+        <div class="modal-body">
+          <div class="modal-header">
+            <span id="modalBlogCategory" class="modal-category">Category</span>
+            <span id="modalBlogDate" class="modal-date">Date</span>
+            <h2 id="modalBlogTitle" class="modal-title">Blog Title</h2>
+          </div>
+          <div id="modalBlogContent">
+            <!-- Blog content will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Blog data - in a real app this would come from a database
+      const blogPosts = {
+        1: {
+          title: "Top Summer Fashion Trends for 2025",
+          category: "Trends",
+          date: "Jan  15, 2025",
+          image:
+            "https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          content: `
+            <p>This summer is all about embracing bold colors, lightweight fabrics, and sustainable fashion choices. The 2025 summer collections showcase a vibrant palette of citrus hues, ocean blues, and sunset tones that bring energy to any wardrobe.</p>
+            
+            <p>Key trends to watch for include:</p>
+            
+            <ul>
+              <li><strong>Fluid Silhouettes:</strong> Flowing dresses and wide-leg pants dominate the scene, offering both comfort and style.</li>
+              <li><strong>Crochet Details:</strong> Handcrafted elements add texture and artisanal charm to summer outfits.</li>
+              <li><strong>Bold Stripes:</strong> Vertical and horizontal stripes in contrasting colors make a strong statement.</li>
+              <li><strong>Sustainable Swimwear:</strong> Eco-friendly materials and timeless designs lead the swimwear category.</li>
+              <li><strong>Oversized Accessories:</strong> From statement hats to chunky jewelry, accessories are bigger than ever.</li>
+            </ul>
+            
+            <p>To incorporate these trends into your wardrobe, start with one statement piece and build around it. A brightly colored midi dress can be paired with neutral sandals for daytime, then dressed up with bold accessories for evening. Remember, summer fashion should be fun and expressive!</p>
+            
+            <p>Our stylists recommend investing in a few high-quality pieces that can be mixed and matched throughout the season. Look for natural fabrics like linen and organic cotton that breathe well in the heat while being kind to the environment.</p>
+          `,
+        },
+        2: {
+          title: "The Rise of Sustainable Fashion",
+          category: "Sustainability",
+          date: "March 28, 2025",
+          image:
+            "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          content: `
+            <p>The fashion industry is undergoing a significant transformation as sustainability becomes a priority for both brands and consumers. With growing awareness of environmental issues, eco-conscious brands are leading the charge towards a more responsible fashion future.</p>
+            
+            <p>Several key developments are shaping sustainable fashion:</p>
+            
+            <ul>
+              <li><strong>Circular Fashion:</strong> Brands are implementing take-back programs where customers can return used clothing for recycling or resale.</li>
+              <li><strong>Innovative Materials:</strong> From mushroom leather to pineapple fiber, new sustainable materials are replacing traditional fabrics.</li>
+              <li><strong>Slow Fashion Movement:</strong> Consumers are shifting towards quality over quantity, investing in timeless pieces that last.</li>
+              <li><strong>Transparent Supply Chains:</strong> Brands are becoming more open about their manufacturing processes and labor conditions.</li>
+              <li><strong>Waterless Dyeing:</strong> New technologies are reducing the massive water consumption traditionally associated with fabric dyeing.</li>
+            </ul>
+            
+            <p>As a consumer, you can support this movement by:</p>
+            
+            <ol>
+              <li>Researching brands' sustainability practices before purchasing</li>
+              <li>Choosing quality over quantity</li>
+              <li>Supporting local designers and artisans</li>
+              <li>Learning basic repair skills to extend garment life</li>
+              <li>Participating in clothing swaps or second-hand shopping</li>
+            </ol>
+            
+            <p>At Draliva, we're committed to sustainability through our use of organic materials, ethical manufacturing, and timeless designs meant to last beyond seasonal trends. We believe fashion can be both beautiful and responsible.</p>
+          `,
+        },
+        3: {
+          title: "10 Wardrobe Essentials Every Woman Needs",
+          category: "Style Guide",
+          date: "April 10, 2025",
+          image:
+            "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+          content: `
+            <p>Building a versatile wardrobe starts with investing in high-quality essentials that form the foundation of countless outfits. These timeless pieces work for any occasion, from casual outings to formal events, and can be mixed and matched to create fresh looks season after season.</p>
+            
+            <p>Here are the 10 must-have items for every woman's closet:</p>
+            
+            <ol>
+              <li><strong>The Perfect White Shirt:</strong> Crisp, tailored, and versatile enough for work or weekend.</li>
+              <li><strong>Little Black Dress:</strong> A simple, well-fitting LBD that can be dressed up or down.</li>
+              <li><strong>Tailored Blazer:</strong> Instantly elevates any outfit, from jeans to dresses.</li>
+              <li><strong>Dark Wash Jeans:</strong> A flattering pair that fits perfectly and never goes out of style.</li>
+              <li><strong>Neutral Cardigan:</strong> Perfect for layering in any season.</li>
+              <li><strong>Classic Trench Coat:</strong> Timeless outerwear that works for rain or shine.</li>
+              <li><strong>Black Pumps:</strong> A comfortable yet elegant pair for formal occasions.</li>
+              <li><strong>White Sneakers:</strong> For casual days without sacrificing style.</li>
+              <li><strong>Structured Handbag:</strong> A medium-sized bag in a neutral color that goes with everything.</li>
+              <li><strong>Simple Jewelry:</strong> Pearl studs, a delicate necklace, and a classic watch.</li>
+            </ol>
+            
+            <p>When building your capsule wardrobe, focus on neutral colors for these foundational pieces, then add personality with accessories and seasonal items. Quality is more important than quantity - it's better to have one perfect white shirt than five mediocre ones.</p>
+            
+            <p>Our stylists recommend trying on each essential item with multiple pieces from your existing wardrobe before purchasing to ensure maximum versatility. Remember, these are investments that should last for years, so take your time finding the perfect versions of each piece.</p>
+          `,
+        },
+        4: {
+          title: "How to Accessorize Like a Pro",
+          category: "Accessories",
+          date: "March 22, 2025",
+          image:
+            "https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          content: `
+            <p>Accessories have the power to transform any outfit from ordinary to extraordinary. The right combination can express your personality, update old favorites, and even make budget pieces look expensive. Mastering the art of accessorizing is key to developing your personal style.</p>
+            
+            <h3>The Golden Rules of Accessorizing</h3>
+            
+            <p><strong>1. Balance is Key:</strong> Pair statement pieces with simpler ones. If you're wearing bold earrings, opt for a delicate necklace or none at all.</p>
+            
+            <p><strong>2. Consider Proportions:</strong> Petite frames should avoid oversized accessories that overwhelm, while taller individuals can carry larger pieces.</p>
+            
+            <p><strong>3. Mix Textures:</strong> Combine smooth leather with rough metals, or soft fabrics with structured bags for visual interest.</p>
+            
+            <p><strong>4. Mind the Occasion:</strong> Daytime calls for simpler accessories, while evening allows for more drama.</p>
+            
+            <p><strong>5. The Power of Three:</strong> Odd numbers are more visually appealing. Try combining three complementary pieces.</p>
+            
+            <h3>Essential Accessories Every Woman Should Own</h3>
+            
+            <ul>
+              <li>A quality leather handbag in a neutral color</li>
+              <li>Pearl or diamond stud earrings</li>
+              <li>A delicate pendant necklace</li>
+              <li>A classic watch</li>
+              <li>A silk scarf</li>
+              <li>A statement cocktail ring</li>
+              <li>A wide-brimmed hat for summer</li>
+              <li>A leather belt that fits perfectly</li>
+            </ul>
+            
+            <p>Remember that accessories should complement your outfit, not compete with it. When in doubt, remove one piece before leaving the house. At Draliva, we offer personalized styling consultations to help you build an accessory collection that works with your lifestyle and existing wardrobe.</p>
+          `,
+        },
+        5: {
+          title: "Spring 2025: Men's Fashion Trends to Watch",
+          category: "Men's Fashion",
+          date: "February 15, 2025",
+          image:
+            "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1526&q=80",
+          content: `
+            <p>Spring 2025 brings a fresh perspective to men's fashion, blending relaxed tailoring with bold statements and sustainable innovations. This season celebrates individuality while maintaining a sharp, put-together aesthetic.</p>
+            
+            <h3>Key Trends for Spring 2025</h3>
+            
+            <p><strong>1. Relaxed Tailoring:</strong> Suits are getting more comfortable with looser fits and softer shoulders, perfect for both office and casual settings.</p>
+            
+            <p><strong>2. Earth Tones with Pops of Color:</strong> While neutral palettes dominate, vibrant accents in citrus and sky blue add freshness.</p>
+            
+            <p><strong>3. Technical Fabrics:</strong> Performance materials are being incorporated into everyday wear for comfort and durability.</p>
+            
+            <p><strong>4. Bold Stripes and Checks:</strong> From subtle pinstripes to dramatic windowpanes, patterned suits and separates make a statement.</p>
+            
+            <p><strong>5. Sustainable Denim:</strong> Eco-friendly washes and cuts that flatter all body types are leading the denim category.</p>
+            
+            <h3>Must-Have Pieces for the Season</h3>
+            
+            <ul>
+              <li>An unstructured linen blazer in beige or light gray</li>
+              <li>High-quality white sneakers that transition from day to night</li>
+              <li>A lightweight trench coat in a neutral shade</li>
+              <li>Cropped trousers that hit just above the ankle</li>
+              <li>Several well-fitting t-shirts in solid colors</li>
+              <li>A statement watch with interchangeable straps</li>
+            </ul>
+            
+            <p>To incorporate these trends, start with one or two pieces that speak to your personal style. A relaxed blazer paired with dark denim and crisp white sneakers creates an effortlessly stylish look. Remember, fit is always more important than trends - even the most fashionable item won't look good if it doesn't fit properly.</p>
+          `,
+        },
+        6: {
+          title: "The Ultimate Denim Fit Guide",
+          category: "Denim Guide",
+          date: "January 30, 2025",
+          image:
+            "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1636&q=80",
+          content: `
+            <p>Finding the perfect pair of jeans can feel like searching for a needle in a haystack. With so many cuts, rises, and washes available, it's easy to feel overwhelmed. This comprehensive guide breaks down everything you need to know to find your ideal fit.</p>
+            
+            <h3>Understanding Denim Cuts</h3>
+            
+            <p><strong>Skinny:</strong> Fitted through the thigh and leg. Best for leaner body types or those who prefer a tight fit.</p>
+            
+            <p><strong>Slim:</strong> Slightly tapered but not restrictive. A modern, versatile option for most body types.</p>
+            
+            <p><strong>Straight:</strong> Consistent width from thigh to ankle. A classic cut that works for nearly everyone.</p>
+            
+            <p><strong>Bootcut:</strong> Fitted through the thigh with a slight flare at the leg opening. Great for balancing wider hips.</p>
+            
+            <p><strong>Wide-leg:</strong> Relaxed through the entire leg. On-trend and comfortable, but can overwhelm petite frames.</p>
+            
+            <h3>Finding the Right Rise</h3>
+            
+            <p><strong>High-rise:</strong> Sits at or above the natural waist. Elongates legs and provides tummy control.</p>
+            
+            <p><strong>Mid-rise:</strong> Hits just below the belly button. The most universally flattering option.</p>
+            
+            <p><strong>Low-rise:</strong> Sits on the hips. Best for those with a straight torso or who prefer a casual look.</p>
+            
+            <h3>Denim Shopping Tips</h3>
+            
+            <ul>
+              <li>Always try jeans on before buying - sizes vary widely between brands</li>
+              <li>Move around in the dressing room to test comfort and mobility</li>
+              <li>Check rear view to ensure proper fit and no "whiskering"</li>
+              <li>Consider stretch content - 1-2% elastane provides comfort without losing shape</li>
+              <li>Dark washes are more versatile and dressier than light washes</li>
+              <li>Invest in quality denim that will maintain its shape wash after wash</li>
+            </ul>
+            
+            <p>At Draliva, we offer complimentary denim consultations where our stylists help you find the perfect cut and wash for your body type and lifestyle. Remember, the best jeans are the ones that make you feel confident and comfortable!</p>
+          `,
+        },
+      };
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = mainNav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Close mobile menu when clicking a link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mainNav.classList.contains("active")) {
+            mainNav.classList.remove("active");
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      });
+
+      // Blog Modal functionality
+      const readMoreBtns = document.querySelectorAll(".read-more");
+      const blogModal = document.getElementById("blogModal");
+      const closeModal = document.querySelector(".close-modal");
+
+      readMoreBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const blogId = btn.getAttribute("data-blog-id");
+          const blogData = blogPosts[blogId];
+
+          if (blogData) {
+            document.getElementById("modalBlogImg").src = blogData.image;
+            document.getElementById("modalBlogImg").alt = blogData.title;
+            document.getElementById("modalBlogCategory").textContent =
+              blogData.category;
+            document.getElementById("modalBlogDate").textContent =
+              blogData.date;
+            document.getElementById("modalBlogTitle").textContent =
+              blogData.title;
+            document.getElementById("modalBlogContent").innerHTML =
+              blogData.content;
+
+            blogModal.style.display = "block";
+            document.body.style.overflow = "hidden";
+          }
+        });
+      });
+
+      closeModal.addEventListener("click", () => {
+        blogModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+
+      window.addEventListener("click", (e) => {
+        if (e.target === blogModal) {
+          blogModal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+
+      // Simple cart count functionality
+      const addToCartBtns = document.querySelectorAll(".product-card .btn");
+      const cartCount = document.querySelector(".cart-count");
+      let count = 0;
+
+      // Newsletter form submission
+      const newsletterForm = document.querySelector(".newsletter-form");
+      newsletterForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const emailInput = newsletterForm.querySelector("input[type='email']");
+
+        // Simple validation
+        if (emailInput.value && emailInput.value.includes("@")) {
+          alert("Thank you for subscribing to our newsletter!");
+          emailInput.value = "";
+        } else {
+          alert("Please enter a valid email address.");
+        }
+      });
+
+      // Pagination functionality
+      const pageLinks = document.querySelectorAll(".page-link");
+      pageLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          pageLinks.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+          // In a real app, this would load new content
+        });
+      });
+    </script>
+  </body>
+</html>

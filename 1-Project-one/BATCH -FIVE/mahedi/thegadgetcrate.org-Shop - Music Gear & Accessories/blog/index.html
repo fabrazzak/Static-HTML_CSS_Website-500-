@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Gear Blog - The Gadget Crate</title>
+    <meta name="description" content="Read the latest articles, reviews, and guides about music gear, instruments, and accessories from The Gadget Crate.">
+    <meta name="keywords" content="music blog, gear reviews, instrument guides, music tutorials, musician tips">
+    <style>
+        /* Internal CSS - Reusing most styles from home page */
+        :root {
+            --primary-color: #5c2d91;
+            --secondary-color: #ff6b00;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .cart-icon {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e05d00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        /* Blog-specific styles */
+        .blog-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1458560871784-56d23406c091?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .blog-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-header p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .blog-posts {
+            display: grid;
+            gap: 2.5rem;
+        }
+        
+        .blog-post {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-post-img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .blog-post-content {
+            padding: 2rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .post-meta span {
+            margin-right: 1rem;
+        }
+        
+        .post-meta i {
+            margin-right: 0.3rem;
+        }
+        
+        .blog-post-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .blog-post-excerpt {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .read-more {
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .read-more:hover {
+            color: #e05d00;
+            text-decoration: underline;
+        }
+        
+        .sidebar {
+            display: grid;
+            gap: 2rem;
+            align-content: start;
+        }
+        
+        .sidebar-widget {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .recent-posts-list {
+            list-style: none;
+        }
+        
+        .recent-post {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .recent-post a {
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .recent-post a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .recent-post-date {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-top: 0.3rem;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .categories-list a {
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .categories-list a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .categories-list span {
+            background-color: var(--light-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .newsletter {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #e05d00;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+        
+        .page-numbers {
+            display: flex;
+            list-style: none;
+        }
+        
+        .page-numbers li {
+            margin: 0 0.3rem;
+        }
+        
+        .page-numbers a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .page-numbers a:hover,
+        .page-numbers .current {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .blog-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 5px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .newsletter-form button {
+                border-radius: 5px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">The<span>Gadget</span>Crate</a>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Products</a></li>
+                    <li><a href="/blog/" class="active">Blog</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li class="cart-icon">
+                        <a href="/cart/"><i class="fas fa-shopping-cart"></i></a>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="blog-header">
+        <div class="blog-header-content">
+            <h1>The Gadget Crate Blog</h1>
+            <p>Discover the latest gear reviews, tutorials, and industry insights for musicians of all levels.</p>
+           
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="blog-container">
+            <div class="blog-posts" id="featured-posts">
+                <article class="blog-post">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Guitar Amp Review" class="blog-post-img">
+                    <div class="blog-post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> Jan 15, 2025</span>
+                            <span><i class="far fa-user"></i> By Alex Johnson</span>
+                            <span><i class="far fa-folder"></i> Gear Reviews</span>
+                        </div>
+                        <h2 class="blog-post-title">Top 5 Guitar Amps for Home Recording in 2025</h2>
+                        <p class="blog-post-excerpt">Finding the perfect guitar amp for home recording can be challenging with so many options available. We've tested and reviewed the top 5 amps that deliver professional tone without breaking the bank. From tube warmth to digital versatility, discover which amp suits your recording needs...</p>
+                        <a href="/blog/top-5-guitar-amps-2025/" class="read-more">Read More &raquo;</a>
+                    </div>
+                </article>
+                
+                <article class="blog-post">
+                    <img src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Keyboard Buying Guide" class="blog-post-img">
+                    <div class="blog-post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> Jan 28, 2025</span>
+                            <span><i class="far fa-user"></i> By Sarah Miller</span>
+                            <span><i class="far fa-folder"></i> Buying Guides</span>
+                        </div>
+                        <h2 class="blog-post-title">Digital Piano vs. Keyboard: Which One Should You Choose?</h2>
+                        <p class="blog-post-excerpt">The age-old debate continues: should you invest in a digital piano or a keyboard? Our comprehensive guide breaks down the key differences, pros and cons, and ideal use cases for each instrument. Whether you're a beginner or an experienced player, this article will help you make the right choice...</p>
+                        <a href="/blog/digital-piano-vs-keyboard/" class="read-more">Read More &raquo;</a>
+                    </div>
+                </article>
+                
+                <article class="blog-post">
+                    <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Drum Maintenance" class="blog-post-img">
+                    <div class="blog-post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> Jan 12, 2025</span>
+                            <span><i class="far fa-user"></i> By Mike Thompson</span>
+                            <span><i class="far fa-folder"></i> Maintenance Tips</span>
+                        </div>
+                        <h2 class="blog-post-title">Essential Drum Maintenance: Keep Your Kit Sounding Great</h2>
+                        <p class="blog-post-excerpt">Your drum kit is an investment that deserves proper care. Learn the essential maintenance routines that will keep your drums sounding their best for years to come. From head replacement to hardware lubrication, we cover all the steps you need to know, plus some pro tips from touring drummers...</p>
+                        <a href="/blog/drum-maintenance-guide/" class="read-more">Read More &raquo;</a>
+                    </div>
+                </article>
+                
+                <div class="pagination">
+                    <ul class="page-numbers">
+                        <li><a href="/blog/page/1/">&laquo;</a></li>
+                        <li><a href="/blog/page/1/">1</a></li>
+                        <li><span class="current">2</span></li>
+                        <li><a href="/blog/page/3/">3</a></li>
+                        <li><a href="/blog/page/4/">4</a></li>
+                        <li><a href="/blog/page/3/">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">About The Blog</h3>
+                    <p>Welcome to The Gadget Crate Blog, your go-to resource for music gear reviews, tutorials, and industry news. Our team of musicians and gear experts share their knowledge to help you make informed decisions and get the most out of your equipment.</p>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <ul class="recent-posts-list">
+                        <li class="recent-post">
+                            <a href="/blog/">Top 5 Guitar Amps for Home Recording in 2025</a>
+                            <div class="recent-post-date">Jan 15, 2025</div>
+                        </li>
+                        <li class="recent-post">
+                            <a href="/blog/">Digital Piano vs. Keyboard: Which One Should You Choose?</a>
+                            <div class="recent-post-date">Jan 28, 2025</div>
+                        </li>
+                        <li class="recent-post">
+                            <a href="/blog">Best Budget Microphones for Home Studios</a>
+                            <div class="recent-post-date">Jan 10, 2025</div>
+                        </li>
+                        <li class="recent-post">
+                            <a href="/blog/">5 Essential Guitar Pedals Every Player Should Own</a>
+                            <div class="recent-post-date">Jan 22, 2025</div>
+                        </li>
+                        <li class="recent-post">
+                            <a href="/blog/">Essential Drum Maintenance: Keep Your Kit Sounding Great</a>
+                            <div class="recent-post-date">Jan 12, 2025</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="/blog/">Gear Reviews <span>24</span></a></li>
+                        <li><a href="/blog/">Buying Guides <span>18</span></a></li>
+                        <li><a href="/blog/">Tutorials <span>15</span></a></li>
+                        <li><a href="/blog/">Maintenance Tips <span>12</span></a></li>
+                        <li><a href="/blog/">Industry News <span>9</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Popular Tags</h3>
+                    <div class="tags">
+                        <a href="/blog/" class="tag">Guitar</a>
+                        <a href="/blog/" class="tag">Keyboard</a>
+                        <a href="/blog/" class="tag">Drums</a>
+                        <a href="/blog/" class="tag">Recording</a>
+                        <a href="/blog/" class="tag">Beginner</a>
+                        <a href="/blog/" class="tag">Pro</a>
+                        <a href="/blog/t" class="tag">Studio</a>
+                        <a href="/blog/" class="tag">Live</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Join Our Newsletter</h2>
+            <p>Subscribe to get updates on new articles, gear reviews, and exclusive offers.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>The Gadget Crate</h3>
+                    <p>Your one-stop shop for premium music gear and accessories. Quality products for musicians at every level.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/thegadgetcrate" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/thegadgetcrate" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/thegadgetcrate" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/thegadgetcrate" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="/shop/">All Products</a></li>
+                        <li><a href="/shop/">Guitars</a></li>
+                        <li><a href="/shop/">Keyboards</a></li>
+                        <li><a href="/shop/?">Drums</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="/terms/">Terms & Conditions</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/shipping/">Shipping Info</a></li>
+                        <li><a href="/returns/">Returns</a></li>
+                        <li><a href="/contact/">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>Schloßpl. 1,<br>08648 Bad Brambach<br>Germany</li>
+                        <li>Phone: +49 160 4697373</li>
+                        <li>Email: info@thegadgetcrate.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Gadget Crate. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Update cart count in header
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+                cartCount.textContent = totalItems;
+            }
+        }
+
+        // Initialize cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            
+            // Newsletter form submission
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input').value;
+                    alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

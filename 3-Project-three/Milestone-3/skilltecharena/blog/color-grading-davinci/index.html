@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Color Grading in DaVinci Resolve - SkillTechArena Blog</title>
+    <meta name="description" content="Learn professional color grading techniques in DaVinci Resolve. Create stunning cinematic looks for your videos with our comprehensive step-by-step guide.">
+    <meta name="keywords" content="color grading, DaVinci Resolve, video editing, cinematic looks, color correction, post-production">
+    <link rel="canonical" href="http://skilltecharena.com/blog/color-grading-davinci/">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0a0e1a;
+            --secondary-bg: #0f1425;
+            --accent-bg: #151b30;
+            --card-bg: #1a2340;
+            --primary-color: #00e5ff;
+            --secondary-color: #8b5cf6;
+            --accent-color: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, #00e5ff 0%, #8b5cf6 100%);
+            --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: #1e293b;
+            --success-color: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header-top {
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+        }
+
+        .header-top .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .header-info-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .header-info-item i {
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        .header-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-social a {
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .header-social a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .main-header {
+            background: rgba(15, 20, 37, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+        }
+
+        .main-header .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 85px;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            object-fit: cover;
+        }
+        .main-nav {
+            display: flex;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            padding: 13px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 35px;
+            height: 28px;
+            position: relative;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 0;
+            width: 100%;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 12px;
+            width: 75%;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 24px;
+            width: 100%;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 12px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 12px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 85px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 85px);
+            background: linear-gradient(180deg, var(--secondary-bg) 0%, var(--primary-bg) 100%);
+            padding: 40px 30px;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-menu nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .mobile-menu nav a:hover {
+            background: var(--accent-bg);
+            color: var(--primary-color);
+            transform: translateX(10px);
+            border-color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .page-hero {
+            background: var(--secondary-bg);
+            padding: 80px 0 60px;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            font-size: 15px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-meta i {
+            color: var(--primary-color);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .blog-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-article {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .blog-article h2 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin: 50px 0 25px;
+            font-weight: 800;
+        }
+
+        .blog-article h3 {
+            font-size: 24px;
+            color: var(--text-primary);
+            margin: 40px 0 20px;
+            font-weight: 700;
+        }
+
+        .blog-article p {
+            margin-bottom: 25px;
+        }
+
+        .blog-article ul, .blog-article ol {
+            margin: 25px 0;
+            padding-left: 30px;
+        }
+
+        .blog-article li {
+            margin-bottom: 12px;
+        }
+
+        .highlight-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 0 12px 12px 0;
+            margin: 40px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .color-swatch {
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .comparison-item {
+            text-align: center;
+        }
+
+        .comparison-label {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .comparison-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: var(--secondary-bg);
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--accent-bg) 100%);
+            padding: 60px 50px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-card h2 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 22px;
+        }
+
+        .cta-card p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .cta-badge {
+            display: inline-block;
+            background: var(--gradient-secondary);
+            color: var(--text-primary);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 70px 0 35px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            font-size: 22px;
+            margin-bottom: 28px;
+        }
+
+        .footer-col p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 14px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 8px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 35px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .footer-disclaimer {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--secondary-bg);
+            border-top: 3px solid var(--primary-color);
+            padding: 30px;
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .cookie-text p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-buttons button {
+            padding: 12px 28px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+        }
+
+        .cookie-decline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .cookie-learn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .cookie-buttons button:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-hero h1 {
+                font-size: 36px;
+            }
+
+            .blog-image {
+                height: 300px;
+            }
+
+            .blog-article h2 {
+                font-size: 28px;
+            }
+
+            .blog-article h3 {
+                font-size: 22px;
+            }
+
+            .before-after {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .color-palette {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-top">
+        <div class="container">
+            <div class="header-info">
+                <div class="header-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>490 Chem. de Vassan, Val-d'Or, QC J9P 0C1, Canada</span>
+                </div>
+                <div class="header-info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (819) 824-3146</span>
+                </div>
+            </div>
+             
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+             <a href="/">
+                <img class="logo" src="/assets/images/SkillTechArena.png" alt="logo">
+            </a>
+            
+            <nav class="main-nav">
+                <a href="/">Home</a>
+                <a href="/courses/">Courses</a>
+                <a href="/about/">About</a>
+                <a href="/blog/" class="active">Blog</a>
+                <a href="/contact/">Contact</a>
+                <a href="/apply/" class="btn-primary">Get Started</a>
+            </nav>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="mobile-menu">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/courses/">Courses</a>
+                <a href="/about/">About</a>
+                <a href="/blog/">Blog</a>
+                <a href="/contact/">Contact</a>
+                <a href="/apply/" class="btn-primary">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="blog-meta">
+                <span><i class="fas fa-calendar"></i> September 12, 2025</span>
+                <span><i class="fas fa-folder"></i> Video Editing</span>
+                <span><i class="fas fa-clock"></i> 7 min read</span>
+            </div>
+            <h1>Mastering Color Grading in <span class="gradient-text">DaVinci Resolve</span></h1>
+            <p class="blog-intro">A comprehensive guide to professional color grading techniques in DaVinci Resolve. Learn how to create stunning cinematic looks for your videos with step-by-step instructions.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="blog-content">
+                <div class="blog-image">
+                    <img src="/assets/images/Mastering Color Grading.jpg" alt="Color Grading in DaVinci Resolve">
+                </div>
+
+                <div class="blog-article">
+                    <p>Color grading is the secret ingredient that transforms ordinary footage into cinematic masterpieces. DaVinci Resolve has become the industry standard for professional color grading, offering powerful tools that can seem intimidating at first. In this comprehensive guide, we'll break down the essential techniques you need to master color grading in DaVinci Resolve.</p>
+
+                    <h2>Understanding the Color Grading Workflow</h2>
+                    <p>Before diving into specific techniques, it's crucial to understand the proper workflow for color grading. A systematic approach will save you time and ensure consistent results across your projects.</p>
+                    
+                    <p>The standard workflow follows these stages: organization and preparation, primary correction, secondary correction, creative looks, and final output. Each stage builds upon the previous one, creating a solid foundation for your final grade.</p>
+
+                    <div class="highlight-box">
+                        <p>Professional colorists spend 70% of their time on primary correction and 30% on creative grading.</p>
+                    </div>
+
+                    <h2>Primary Correction: The Foundation</h2>
+                    <p>Primary correction is where you fix technical issues and establish a neutral starting point. This includes balancing exposure, adjusting white balance, and ensuring proper contrast.</p>
+
+                    <h3>Using the Color Wheels</h3>
+                    <p>The color wheels in DaVinci Resolve are your most fundamental tools for primary correction. Start with the Lift wheel to set your black levels, then use the Gamma wheel for midtones, and finally adjust the Gain wheel for highlights.</p>
+
+                    <h3>Waveform Monitor and Vectorscope</h3>
+                    <p>Learn to read the waveform monitor for exposure and the vectorscope for color balance. These tools provide objective measurements that help you make accurate adjustments regardless of your monitor's calibration.</p>
+
+                    <h2>Secondary Correction: Targeted Adjustments</h2>
+                    <p>Once your primary correction is complete, you can move on to secondary corrections. These are targeted adjustments that affect specific areas of your image without impacting the entire frame.</p>
+
+                    <h3>Using Qualifiers</h3>
+                    <p>Qualifiers allow you to select specific colors or luminance ranges for adjustment. This is perfect for enhancing skies, making skin tones pop, or correcting problematic colors.</p>
+
+                    <h3>Power Windows</h3>
+                    <p>Power windows let you create masks for specific areas of your frame. Use these to draw attention to your subject, darken distracting backgrounds, or create custom vignettes.</p>
+
+                    <h2>Creating Cinematic Looks</h2>
+                    <p>This is where the creative magic happens. Cinematic looks often involve specific color palettes, contrast relationships, and stylistic choices that evoke particular emotions or time periods.</p>
+
+                    <h3>Teal and Orange Look</h3>
+                    <p>The teal and orange look remains popular because it creates natural-looking skin tones while adding visual interest to the environment. To achieve this look, push shadows and midtones toward teal while keeping skin tones in the orange range.</p>
+
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background-color: #008080; color: white;">Teal<br>#008080</div>
+                        <div class="color-swatch" style="background-color: #FFA500; color: black;">Orange<br>#FFA500</div>
+                        <div class="color-swatch" style="background-color: #2F4F4F; color: white;">Dark Slate<br>#2F4F4F</div>
+                        <div class="color-swatch" style="background-color: #FFD700; color: black;">Golden<br>#FFD700</div>
+                        <div class="color-swatch" style="background-color: #191970; color: white;">Midnight Blue<br>#191970</div>
+                    </div>
+
+                    <h3>Vintage Film Look</h3>
+                    <p>For a vintage film look, reduce saturation slightly, add a subtle warm tint, introduce film grain, and create gentle highlight roll-off. You can also add slight chromatic aberration and vignetting for authenticity.</p>
+
+                    <h2>Advanced Techniques</h2>
+                    <p>Once you've mastered the basics, you can explore more advanced techniques that will take your color grading to the next level.</p>
+
+                    <h3>Node-Based Workflow</h3>
+                    <p>DaVinci Resolve's node-based system offers incredible flexibility. Learn to use serial nodes, parallel nodes, and layer nodes to create complex grading operations while maintaining a non-destructive workflow.</p>
+
+                    <h3>Tracking and Stabilization</h3>
+                    <p>Use the built-in tracker to apply color corrections to moving subjects. This is essential for maintaining consistent looks on actors or objects that move throughout the frame.</p>
+
+                    <h3>HDR Grading</h3>
+                    <p>As HDR content becomes more prevalent, understanding how to grade for high dynamic range displays is increasingly important. DaVinci Resolve offers comprehensive HDR tools for this purpose.</p>
+
+                    <h2>Optimizing Your Workflow</h2>
+                    <p>Efficiency is key in professional color grading. Here are some tips to optimize your workflow:</p>
+
+                    <ul>
+                        <li>Use stills and power grades to save and reuse your favorite looks</li>
+                        <li>Create custom keyboard shortcuts for frequently used operations</li>
+                        <li>Use versioning to experiment with different looks without losing your work</li>
+                        <li>Set up your workspace for optimal efficiency with frequently used panels</li>
+                        <li>Use remote grading for collaboration with directors and clients</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p>Professional colorists can grade an entire feature film in 2-3 weeks, while a commercial might take just 1-2 days.</p>
+                    </div>
+
+                    <h2>Common Mistakes to Avoid</h2>
+                    <p>Even experienced colorists can fall into common traps. Here are some mistakes to watch out for:</p>
+
+                    <ol>
+                        <li><strong>Over-saturating colors:</strong> This can make your footage look unnatural and amateurish.</li>
+                        <li><strong>Crushing blacks:</strong> Losing detail in shadows can make your image look flat and uninteresting.</li>
+                        <li><strong>Ignoring scopes:</strong> Relying solely on your monitor can lead to inconsistent results.</li>
+                        <li><strong>Overusing effects:</strong> Sometimes subtlety is more effective than dramatic transformations.</li>
+                        <li><strong>Forgetting about delivery format:</strong> Always grade with your final output format in mind.</li>
+                    </ol>
+
+                    <h2>Conclusion</h2>
+                    <p>Mastering color grading in DaVinci Resolve is a journey that requires both technical knowledge and artistic sensibility. Start with solid primary correction, build your skills with secondary adjustments, and gradually develop your unique creative style.</p>
+
+                    <p>Remember that the best color grading serves the story and enhances the emotional impact of your footage without drawing attention to itself. With practice and patience, you'll develop the skills to transform your footage into cinematic works of art.</p>
+
+                    <div class="highlight-box">
+                        <p>The most effective color grading is often the most subtle - it should enhance the story without distracting from it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card">
+                <span class="cta-badge">SPECIAL OFFER</span>
+                <h2>Ready to Master DaVinci Resolve?</h2>
+                <p>Join our Complete DaVinci Resolve Masterclass and learn professional color grading techniques from industry experts.</p>
+                <a href="/apply/" class="btn-primary" style="padding: 16px 45px; font-size: 18px;">Enroll Now to Get Bonus</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="/">
+                <img class="logo" src="/assets/images/SkillTechArena.png" alt="logo">
+            </a>
+                    <p>Your premier destination for online courses, digital templates, and premium software memberships. Empowering creators and professionals worldwide.</p>
+                     
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/courses/">Courses</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/apply/">Get Started</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="/courses/">Online Courses</a></li>
+                        <li><a href="/courses/">Digital Templates</a></li>
+                        <li><a href="/courses/">Software Memberships</a></li>
+                        <li><a href="/courses/">Creative Tools</a></li>
+                        <li><a href="/blog/">Blog & Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt" style="color: var(--primary-color); margin-right: 10px;"></i>490 Chem. de Vassan, Val-d'Or, QC J9P 0C1, Canada</li>
+                        <li><i class="fas fa-phone" style="color: var(--primary-color); margin-right: 10px;"></i>+1 (819) 824-3146</li>
+                        <li><i class="fas fa-envelope" style="color: var(--primary-color); margin-right: 10px;"></i>info@skilltecharena.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SkillTechArena. All rights reserved.</p>
+                <p class="footer-disclaimer">We are not an affiliate agency. All products are sold independently through our platform.</p>
+                <p style="margin-top: 10px;">
+                    <a href="/privacy/" style="color: var(--text-muted); margin: 0 15px;">Privacy Policy</a>
+                    <a href="/terms/" style="color: var(--text-muted); margin: 0 15px;">Terms of Service</a>
+                    <a href="/cookies/" style="color: var(--text-muted); margin: 0 15px;">Cookie Policy</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>We Value Your Privacy</h3>
+                <p>We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By clicking "Accept All", you consent to our use of cookies.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-accept" id="acceptCookies">Accept All</button>
+                <button class="cookie-decline" id="declineCookies">Decline</button>
+                <button class="cookie-learn" id="learnMore">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Cookie Consent
+        const cookieConsent = document.getElementById('cookieConsent');
+        const acceptCookies = document.getElementById('acceptCookies');
+        const declineCookies = document.getElementById('declineCookies');
+        const learnMore = document.getElementById('learnMore');
+
+        window.addEventListener('load', function() {
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            if (!cookieChoice) {
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1500);
+            }
+        });
+
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            localStorage.setItem('cookieDate', new Date().toISOString());
+            cookieConsent.classList.remove('show');
+        });
+
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'declined');
+            localStorage.setItem('cookieDate', new Date().toISOString());
+            cookieConsent.classList.remove('show');
+        });
+
+        learnMore.addEventListener('click', function() {
+            window.location.href = '/cookies/';
+        });
+
+        // Track page views
+        function trackPageView() {
+            const pageData = {
+                page: 'blog-details-color-grading',
+                visitTime: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                pageUrl: window.location.href
+            };
+            
+            let sessions = JSON.parse(localStorage.getItem('userSessions') || '[]');
+            sessions.push(pageData);
+            
+            if (sessions.length > 10) {
+                sessions = sessions.slice(-10);
+            }
+            
+            localStorage.setItem('userSessions', JSON.stringify(sessions));
+        }
+
+        trackPageView();
+    </script>
+</body>
+</html>

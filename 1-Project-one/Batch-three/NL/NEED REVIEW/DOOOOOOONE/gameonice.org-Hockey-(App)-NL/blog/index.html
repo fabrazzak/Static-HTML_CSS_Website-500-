@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hockey Blog - GameOnIce | News, Tips & Training Advice</title>
+    <meta name="description" content="Get the latest hockey news, training tips, and expert advice from the Netherlands hockey community on the GameOnIce blog.">
+    <meta name="keywords" content="hockey blog, ice hockey tips, Netherlands hockey news, hockey training advice, hockey drills">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #1a2a57;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #e63946;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #c1121f;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #e63946;
+            color: #e63946;
+        }
+        
+        .btn-outline:hover {
+            background-color: #e63946;
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2a57;
+        }
+        
+        .logo span {
+            color: #e63946;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #e63946;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a2a57;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(26, 42, 87, 0.8), rgba(26, 42, 87, 0.8)), url('https://images.sidearmdev.com/convert?url=https%3a%2f%2fdxbhsrqyrr690.cloudfront.net%2fsidearm.nextgen.sites%2fcornellbigred.com%2fimages%2f2019%2f7%2f25%2fDodson_01.jpg&type=webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 20px 80px;
+            margin-top: 70px;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            font-size: 16px;
+        }
+        
+        .breadcrumb li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            position: absolute;
+            right: -12px;
+            color: #b3b8c2;
+        }
+        
+        .breadcrumb li:last-child:after {
+            display: none;
+        }
+        
+        .breadcrumb a {
+            color: #b3b8c2;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #e63946;
+        }
+        
+        /* Blog Main Content */
+        .blog-main {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .blog-post {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 40px;
+        }
+        
+        .post-image {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .post-image img {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .post-date {
+            color: #e63946;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .post-category {
+            background-color: #f1f5f9;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .post-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .blog-post:hover .post-content h3 {
+            color: #e63946;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .read-more {
+            color: #e63946;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-post:hover .read-more i {
+            transform: translateX(3px);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .page-numbers {
+            display: flex;
+            list-style: none;
+        }
+        
+        .page-numbers li {
+            margin: 0 5px;
+        }
+        
+        .page-numbers a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .page-numbers a:hover, .page-numbers .current {
+            background-color: #e63946;
+            color: white;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .sidebar-widget {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        .widget-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e63946;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: #555;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list a:hover {
+            color: #e63946;
+        }
+        
+        .categories-list span {
+            background-color: #e63946;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        .recent-posts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .recent-post {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 15px;
+        }
+        
+        .recent-post img {
+            border-radius: 4px;
+            height: 60px;
+            object-fit: cover;
+        }
+        
+        .recent-post h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .recent-post:hover h4 {
+            color: #e63946;
+        }
+        
+        .recent-post .post-date {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background-color: #e63946;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background-color: #1a2a57;
+            transform: translateY(-2px);
+        }
+        
+        /* Newsletter */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(rgba(26, 42, 87, 0.9), rgba(26, 42, 87, 0.9)), url('https://images.unsplash.com/photo-1483721310020-03333e577078?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a2a57;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: #e63946;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #b3b8c2;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #e63946;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #b3b8c2;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #e63946;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #b3b8c2;
+        }
+        
+        .footer-contact i {
+            color: #e63946;
+            margin-top: 3px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b3b8c2;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 30px;
+            }
+        
+            nav ul li {
+                margin: 0 0 20px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .breadcrumb {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .breadcrumb li {
+                margin: 5px 0;
+            }
+            
+            .breadcrumb li:after {
+                display: none;
+            }
+            
+            .blog-post {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-image {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                padding: 130px 20px 60px;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Game<span>OnIce</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Hockey Blog</h1>
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li>Blog</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Blog Main Content -->
+    <section class="blog-main">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Hockey News & Tips</h2>
+                <p>Stay updated with the latest hockey training advice, Netherlands hockey news, and expert insights</p>
+            </div>
+            <div class="blog-container">
+                <main class="blog-posts">
+                    <!-- Blog Post 1 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://www.hockeyskillstraining.com/wp-content/uploads/2020/12/Article-Choosing-off-Ice-hockey-trainer.jpg" alt="Off-season training">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">Mar 15, 2025</span>
+                                <span class="post-category">Training</span>
+                            </div>
+                            <h3>Essential Off-Season Training for Hockey Players</h3>
+                            <p class="post-excerpt">Discover the best off-ice exercises to maintain your hockey skills during the summer break and come back stronger next season.</p>
+                            <a href="/about/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 2 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://www.sourceforsports.ca/cdn/shop/articles/Blog-Fitness-Nutrition-Nutrition-For-Hockey-Players.jpg?v=1638249622" alt="Nutrition guide">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">Feb 28, 2025</span>
+                                <span class="post-category">Nutrition</span>
+                            </div>
+                            <h3>The Complete Nutrition Guide for Competitive Hockey Players</h3>
+                            <p class="post-excerpt">Learn what to eat before, during, and after games to optimize your performance and recovery on the ice.</p>
+                            <a href="/about/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 3 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://media.assettype.com/outlookindia/2025-02-23/mqh3jf2v/indiawomen-hockey-x.jpg?w=801&auto=format%2Ccompress&fit=max&format=webp&dpr=1.0" alt="Dutch hockey league">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">Feb 10, 2025</span>
+                                <span class="post-category">News</span>
+                            </div>
+                            <h3>2025 Dutch Hockey League Season Preview and Predictions</h3>
+                            <p class="post-excerpt">Get insights on the upcoming season, key players to watch, and our predictions for the top teams in the Netherlands.</p>
+                            <a href="/about/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 4 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://cdn1.sportngin.com/attachments/news_article/3990/7189/105967038_large.jpg" alt="Stick handling">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">Jan 25, 2025</span>
+                                <span class="post-category">Skills</span>
+                            </div>
+                            <h3>5 Stick Handling Drills to Improve Your Puck Control</h3>
+                            <p class="post-excerpt">Master these essential drills used by top Dutch players to enhance your stick handling and puck control skills.</p>
+                            <a href="/about/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 5 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://www.frontiersin.org/files/Articles/653004/fpsyg-12-653004-HTML-r1/image_m/fpsyg-12-653004-g001.jpg" alt="Youth hockey">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span class="post-date">Jan 12, 2025</span>
+                                <span class="post-category">Youth</span>
+                            </div>
+                            <h3>How to Support Your Child's Hockey Development in the Netherlands</h3>
+                            <p class="post-excerpt">Expert advice for parents on fostering a love for hockey while ensuring proper skill development and balance.</p>
+                            <a href="/about/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    
+                </main>
+                
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Search</h3>
+                        <form class="search-form">
+                            <input type="text" placeholder="Search articles...">
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Search</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="/about/">Training <span>12</span></a></li>
+                            <li><a href="/about/">Skills <span>8</span></a></li>
+                            <li><a href="/about/">Nutrition <span>5</span></a></li>
+                            <li><a href="/about/">Equipment <span>7</span></a></li>
+                            <li><a href="/about/">Youth Hockey <span>9</span></a></li>
+                            <li><a href="/about/">Netherlands News <span>15</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Recent Posts</h3>
+                        <div class="recent-posts">
+                            <div class="recent-post">
+                                <img src="https://media.licdn.com/dms/image/v2/D5612AQH5_XQYQU5y2w/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1655932315769?e=2147483647&v=beta&t=tQTHldM6qFe_af7FXMCibhXj7jl9N62Q22NLbvKeQKY" alt="Team building">
+                                <div>
+                                    <h4>Building Team Chemistry: Lessons from Dutch Hockey</h4>
+                                    <span class="post-date">Mar 5, 2025</span>
+                                </div>
+                            </div>
+                            <div class="recent-post">
+                                <img src="https://drijvergoalieacademy.com/wp-content/uploads/2022/08/2022KS_img_6819-scaled.jpg" alt="Goalie training">
+                                <div>
+                                    <h4>Goalie-Specific Training Drills from Dutch Coaches</h4>
+                                    <span class="post-date">Feb 20, 2025</span>
+                                </div>
+                            </div>
+                            <div class="recent-post">
+                                <img src="https://icehockeypro.com/wp-content/uploads/2018/10/STR02903-scaled.jpg" alt="Hockey camp">
+                                <div>
+                                    <h4>Top 5 Summer Hockey Camps in the Netherlands</h4>
+                                    <span class="post-date">Feb 5, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Popular Tags</h3>
+                        <div class="tags">
+                            <a href="/services/" class="tag">Drills</a>
+                            <a href="/services/" class="tag">Training</a>
+                            <a href="/services/" class="tag">Nederland</a>
+                            <a href="/services/" class="tag">Coaching</a>
+                            <a href="/services/" class="tag">Offseason</a>
+                            <a href="/services/" class="tag">Performance</a>
+                            <a href="/services/" class="tag">Youth</a>
+                            <a href="/services/" class="tag">Equipment</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Newsletter</h3>
+                        <p>Get the latest hockey tips and news from the Netherlands delivered to your inbox.</p>
+                        <form class="newsletter-form">
+                            <input type="text" placeholder="Your Name">
+                            <input type="email" placeholder="Your Email">
+                            <button type="submit" class="btn">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Elevate Your Hockey Game?</h2>
+            <p>Join thousands of Dutch players who are already improving their skills with GameOnIce training tools and resources.</p>
+            <a href="/services/" class="btn">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Game<span>OnIce</span></div>
+                    <p>Empowering hockey players in the Netherlands with innovative training tools and a supportive community since 2022.</p>
+                    <div class="social-links">
+ <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                   
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/services/">Training App</a></li>
+                        <li><a href="/services/">Online Coaching</a></li>
+                        <li><a href="/services/">Player Community</a></li>
+                        <li><a href="/services/">Team Solutions</a></li>
+                        <li><a href="/services/">Skill Camps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone-alt"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@gameonice.org</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 - 17:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GameOnIce. All Rights Reserved. | <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

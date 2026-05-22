@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - The Grounds Roastery | South Yarra</title>
+    <meta name="description"
+        content="Learn about The Grounds Roastery's cookie policy, how we use cookies to enhance your browsing experience, and how to manage your cookie preferences.">
+    <meta name="keywords"
+        content="cookie policy, cookies, tracking, The Grounds Roastery, web cookies, privacy, data collection, user experience">
+    <link rel="canonical" href="http://groundsfoodandcoffee.com/cookies/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-coffee: #4a2c2a;
+            --secondary-coffee: #8B4513;
+            --accent-gold: #D4AF37;
+            --warm-cream: #F5F2E8;
+            --rich-brown: #3C1810;
+            --medium-roast: #6B4423;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            color: #fff;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2) { top: 8px; }
+        .hamburger span:nth-child(3) { top: 16px; }
+
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Cookie Page Specific Styles */
+        .cookie-section {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .cookie-section h2 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-section h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .cookie-section h3 {
+            color: var(--accent-gold);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-section h3 {
+                font-size: 1.25rem;
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-section h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        .cookie-section p,
+        .cookie-section li {
+            color: #e5e5e5;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-section p,
+            .cookie-section li {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+        }
+
+        .cookie-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-section ul {
+                margin-left: 1rem;
+            }
+        }
+
+        .cookie-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .last-updated {
+                padding: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .breadcrumb {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .breadcrumb {
+                padding: 0.5rem 1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .breadcrumb a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #f1c40f;
+        }
+
+        .cookie-type-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-type-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-type-card {
+                padding: 0.75rem;
+            }
+        }
+
+        .cookie-type-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-type-card:hover {
+                transform: none;
+            }
+        }
+
+        .cookie-type-card h4 {
+            color: var(--accent-gold);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-type-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-type-card h4 {
+                font-size: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+
+        .cookie-type-card .icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-type-card .icon {
+                margin-right: 0;
+                margin-bottom: 0.25rem;
+            }
+        }
+
+        .highlight-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--accent-gold);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .highlight-box {
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .highlight-box {
+                padding: 0.5rem;
+                border-left-width: 3px;
+            }
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .info-box {
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info-box {
+                padding: 0.5rem;
+                border-left-width: 3px;
+            }
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .warning-box {
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .warning-box {
+                padding: 0.5rem;
+                border-left-width: 3px;
+            }
+        }
+
+        /* Cookie Settings Panel */
+        .cookie-settings {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-settings {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-settings {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        @media (max-width: 480px) {
+            .toggle-switch {
+                width: 50px;
+                height: 28px;
+            }
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 480px) {
+            .slider:before {
+                height: 20px;
+                width: 20px;
+            }
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-gold);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        @media (max-width: 480px) {
+            input:checked + .slider:before {
+                transform: translateX(22px);
+            }
+        }
+
+        .cookie-setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-setting-item {
+                padding: 0.75rem 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+        }
+
+        .cookie-setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+            margin-right: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .setting-info {
+                margin-right: 0;
+            }
+        }
+
+        .setting-title {
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .setting-title {
+                font-size: 1rem;
+            }
+        }
+
+        .setting-description {
+            color: #e5e5e5;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .setting-description {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Cookie Details Cards */
+        .cookie-detail-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-detail-card {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-detail-card {
+                padding: 0.75rem;
+            }
+        }
+
+        .cookie-detail-card h5 {
+            color: var(--accent-gold);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-detail-card h5 {
+                font-size: 0.9rem;
+            }
+        }
+
+        .cookie-detail-card p {
+            color: #e5e5e5;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-detail-card p {
+                font-size: 0.8rem;
+            }
+        }
+
+        .cookie-detail-card .duration {
+            color: #fbbf24;
+            font-weight: 500;
+        }
+
+        /* Contact Information Responsive */
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .contact-item i {
+            flex-shrink: 0;
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 480px) {
+            .contact-item i {
+                margin-right: 0;
+                margin-bottom: 0.25rem;
+            }
+        }
+
+        /* Page Title Responsive */
+        .page-title {
+            font-size: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Close Button -->
+        <button class="absolute top-6 right-6 text-3xl text-white hover:text-yellow-400 transition-colors z-10"
+            onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Home</a>
+            <a href="/shop/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Shop</a>
+            <a href="/about/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">About</a>
+            <a href="/blog/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Blog</a>
+            <a href="/contact/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Contact</a>
+        </nav>
+         
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-50">
+        <!-- Main Navigation -->
+        <nav class="glass py-4 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold playfair text-yellow-400">
+                    <img class="w-32 md:w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="/" class="hover:text-yellow-400 transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="hover:text-yellow-400 transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="hover:text-yellow-400 transition-colors font-medium">About</a>
+                    <a href="/blog/" class="hover:text-yellow-400 transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-yellow-400 transition-colors">
+                        <a href="/cart/">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cartBadge" class="cart-badge hidden">0</span>
+                        </a>
+                    </button>
+
+                    <!-- Mobile Hamburger -->
+                    <div class="lg:hidden hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12 md:py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb animate-slide-up">
+                <a href="/" class="hover:underline">Home</a>
+                <span class="mx-2 text-gray-400">/</span>
+                <span class="text-gray-300">Cookie Policy</span>
+            </div>
+
+            <!-- Page Title -->
+            <div class="text-center mb-8 md:mb-12 animate-slide-up">
+                <h1 class="page-title font-bold playfair mb-4 md:mb-6 text-yellow-400">Cookie Policy</h1>
+                <p class="page-subtitle text-gray-300 max-w-2xl mx-auto px-4">
+                    Learn how we use cookies to enhance your browsing experience and how you can manage your preferences.
+                </p>
+            </div>
+
+            <!-- Last Updated -->
+            <div class="last-updated animate-slide-up">
+                <p class="text-yellow-400 font-semibold text-sm md:text-base">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Last updated: September 1, 2025
+                </p>
+            </div>
+
+            <!-- Cookie Policy Content -->
+            <div class="space-y-6 md:space-y-8">
+                <!-- Introduction -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">What Are Cookies?</h2>
+                    <p>
+                        Cookies are small text files that are stored on your device (computer, smartphone, or tablet) when you visit our website. They are widely used to make websites work more efficiently and to provide information to website owners about how users interact with their sites.
+                    </p>
+                    <p>
+                        At The Grounds Roastery, we use cookies to enhance your browsing experience, remember your preferences, and provide you with personalized content and relevant advertisements.
+                    </p>
+                    <div class="info-box">
+                        <p class="mb-0"><strong>Did you know?</strong> The term "cookie" comes from the computing term "magic cookie," which refers to a packet of data a program receives and sends back unchanged.</p>
+                    </div>
+                </div>
+
+                <!-- Why We Use Cookies -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Why We Use Cookies</h2>
+                    <p>We use cookies for several important reasons:</p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mt-6">
+                        <div class="cookie-type-card">
+                            <h4><i class="fas fa-cog icon"></i><span>Essential Functionality</span></h4>
+                            <p class="text-gray-300 mb-0">Enable core website features like shopping cart, user login, and secure checkout processes.</p>
+                        </div>
+                        
+                        <div class="cookie-type-card">
+                            <h4><i class="fas fa-user icon"></i><span>Personalization</span></h4>
+                            <p class="text-gray-300 mb-0">Remember your preferences, language settings, and customize your experience.</p>
+                        </div>
+                        
+                        <div class="cookie-type-card">
+                            <h4><i class="fas fa-chart-bar icon"></i><span>Analytics & Performance</span></h4>
+                            <p class="text-gray-300 mb-0">Understand how you use our site to improve performance and user experience.</p>
+                        </div>
+                        
+                        <div class="cookie-type-card">
+                            <h4><i class="fas fa-bullhorn icon"></i><span>Marketing & Advertising</span></h4>
+                            <p class="text-gray-300 mb-0">Show you relevant content and advertisements based on your interests.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Types of Cookies -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Types of Cookies We Use</h2>
+                    
+                    <h3 class="font-semibold">1. Strictly Necessary Cookies</h3>
+                    <p>These cookies are essential for our website to function properly. They enable basic functions like page navigation, access to secure areas, and shopping cart functionality. Our website cannot function properly without these cookies.</p>
+                    
+                    <div class="space-y-3 mt-4">
+                        <div class="cookie-detail-card">
+                            <h5>PHPSESSID</h5>
+                            <p><strong>Purpose:</strong> Maintains user session</p>
+                            <p class="duration"><strong>Duration:</strong> Session only</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>cart_token</h5>
+                            <p><strong>Purpose:</strong> Preserves shopping cart contents</p>
+                            <p class="duration"><strong>Duration:</strong> 30 days</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>security_token</h5>
+                            <p><strong>Purpose:</strong> CSRF protection for secure forms</p>
+                            <p class="duration"><strong>Duration:</strong> Session only</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>cookie_consent</h5>
+                            <p><strong>Purpose:</strong> Remembers your cookie preferences</p>
+                            <p class="duration"><strong>Duration:</strong> 1 year</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold">2. Performance Cookies</h3>
+                    <p>These cookies collect information about how you use our website, such as which pages you visit most often and if you get error messages. This helps us improve how our website works.</p>
+                    
+                    <div class="space-y-3 mt-4">
+                        <div class="cookie-detail-card">
+                            <h5>_ga (Google Analytics)</h5>
+                            <p><strong>Purpose:</strong> Tracks user interactions and website usage</p>
+                            <p class="duration"><strong>Duration:</strong> 2 years</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>_gid (Google Analytics)</h5>
+                            <p><strong>Purpose:</strong> Distinguishes unique users for analytics</p>
+                            <p class="duration"><strong>Duration:</strong> 24 hours</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>_gat (Google Analytics)</h5>
+                            <p><strong>Purpose:</strong> Throttles request rate to prevent overloading</p>
+                            <p class="duration"><strong>Duration:</strong> 1 minute</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold">3. Functionality Cookies</h3>
+                    <p>These cookies allow our website to remember choices you make (like your username, language preferences, or region) and provide enhanced, more personal features.</p>
+                    
+                    <div class="space-y-3 mt-4">
+                        <div class="cookie-detail-card">
+                            <h5>user_preferences</h5>
+                            <p><strong>Purpose:</strong> Stores user preferences and personalized settings</p>
+                            <p class="duration"><strong>Duration:</strong> 1 year</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>language</h5>
+                            <p><strong>Purpose:</strong> Remembers your language preference</p>
+                            <p class="duration"><strong>Duration:</strong> 1 year</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>recently_viewed</h5>
+                            <p><strong>Purpose:</strong> Tracks recently viewed products for recommendations</p>
+                            <p class="duration"><strong>Duration:</strong> 30 days</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold">4. Targeting/Advertising Cookies</h3>
+                    <p>These cookies are used to deliver relevant advertisements and track the effectiveness of advertising campaigns. They remember that you have visited our website and this information is shared with other organizations such as advertisers.</p>
+                    
+                    <div class="space-y-3 mt-4">
+                        <div class="cookie-detail-card">
+                            <h5>_fbp (Facebook Pixel)</h5>
+                            <p><strong>Purpose:</strong> Tracks conversions and user interactions for Facebook ads</p>
+                            <p class="duration"><strong>Duration:</strong> 90 days</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>ads_preferences</h5>
+                            <p><strong>Purpose:</strong> Personalizes advertising content based on interests</p>
+                            <p class="duration"><strong>Duration:</strong> 1 year</p>
+                        </div>
+                        <div class="cookie-detail-card">
+                            <h5>retargeting_id</h5>
+                            <p><strong>Purpose:</strong> Enables retargeting campaigns across websites</p>
+                            <p class="duration"><strong>Duration:</strong> 30 days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third-Party Cookies -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Third-Party Cookies</h2>
+                    <p>We also use cookies from trusted third-party services to enhance your experience:</p>
+                    
+                    <h3 class="font-semibold">Google Analytics</h3>
+                    <p>We use Google Analytics to understand how visitors interact with our website. This helps us improve our content and user experience. Google Analytics uses cookies to collect data anonymously.</p>
+                    
+                    <h3 class="font-semibold">Social Media Platforms</h3>
+                    <p>When you interact with social media features on our site (like sharing buttons), cookies from platforms like Facebook, Instagram, and YouTube may be set.</p>
+                    
+                    <h3 class="font-semibold">Payment Processors</h3>
+                    <p>Our payment partners (PayPal, Stripe) use cookies to ensure secure transactions and fraud prevention.</p>
+                    
+                    <h3 class="font-semibold">Advertising Partners</h3>
+                    <p>We work with advertising networks that use cookies to show you relevant ads across the web based on your interests.</p>
+
+                    <div class="info-box">
+                        <p class="mb-0"><strong>Note:</strong> Third-party cookies are governed by the respective privacy policies of these service providers.</p>
+                    </div>
+                </div>
+
+                <!-- Browser Settings -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Browser Cookie Controls</h2>
+                    <p>You can also manage cookies directly through your browser settings. Here's how to do it in popular browsers:</p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mt-6">
+                        <div class="cookie-type-card">
+                            <h4><i class="fab fa-chrome icon"></i><span>Google Chrome</span></h4>
+                            <p class="text-gray-300 text-sm mb-0">Settings → Privacy and Security → Cookies and other site data</p>
+                        </div>
+                        
+                        <div class="cookie-type-card">
+                            <h4><i class="fab fa-firefox icon"></i><span>Mozilla Firefox</span></h4>
+                            <p class="text-gray-300 text-sm mb-0">Preferences → Privacy & Security → Cookies and Site Data</p>
+                        </div>
+                        
+                        <div class="cookie-type-card">
+                            <h4><i class="fab fa-safari icon"></i><span>Safari</span></h4>
+                            <p class="text-gray-300 text-sm mb-0">Preferences → Privacy → Manage Website Data</p>
+                        </div>
+                        
+                        <div class="cookie-type-card">
+                            <h4><i class="fab fa-edge icon"></i><span>Microsoft Edge</span></h4>
+                            <p class="text-gray-300 text-sm mb-0">Settings → Cookies and site permissions → Cookies and site data</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p class="mb-0"><strong>Important:</strong> Disabling cookies may affect the functionality of our website and limit your user experience.</p>
+                    </div>
+                </div>
+
+                <!-- Cookie Lifespan -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Cookie Lifespan</h2>
+                    <p>Cookies have different lifespans depending on their purpose:</p>
+                    
+                    <h3 class="font-semibold">Session Cookies</h3>
+                    <p>These are temporary cookies that are deleted when you close your browser. They help maintain your session while browsing our site.</p>
+                    
+                    <h3 class="font-semibold">Persistent Cookies</h3>
+                    <p>These remain on your device for a set period or until you delete them. They remember your preferences between visits.</p>
+                    
+                    <div class="highlight-box">
+                        <p class="mb-0"><strong>Automatic Cleanup:</strong> We regularly review and remove outdated cookies to protect your privacy.</p>
+                    </div>
+                </div>
+
+                <!-- Mobile Devices -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Cookies on Mobile Devices</h2>
+                    <p>Mobile browsers also support cookies, but the management options may be different:</p>
+                    
+                    <h3 class="font-semibold">Mobile Safari (iOS)</h3>
+                    <p>Settings → Safari → Privacy & Security → Block All Cookies</p>
+                    
+                    <h3 class="font-semibold">Chrome Mobile (Android)</h3>
+                    <p>Chrome menu → Settings → Privacy → Clear browsing data</p>
+                    
+                    <h3 class="font-semibold">Mobile App</h3>
+                    <p>If you're using our mobile app, similar tracking technologies may be used. You can manage these in your device's privacy settings.</p>
+                </div>
+
+                <!-- Updates to Cookie Policy -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Updates to This Policy</h2>
+                    <p>We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our business practices. When we make changes, we will:</p>
+                    <ul>
+                        <li>Update the "Last Updated" date at the top of this page</li>
+                        <li>Notify you through our website or email if changes are significant</li>
+                        <li>Request new consent if required by law</li>
+                        <li>Provide advance notice when possible</li>
+                    </ul>
+                    <p>We encourage you to review this policy periodically to stay informed about how we use cookies.</p>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="cookie-section animate-slide-up">
+                    <h2 class="font-bold playfair">Questions About Cookies?</h2>
+                    <p>If you have any questions about our use of cookies or this Cookie Policy, please don't hesitate to contact us:</p>
+                    
+                    <div class="mt-4 space-y-3 md:space-y-4">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope text-yellow-400 mr-3 text-lg"></i>
+                            <div>
+                                <strong>Email:</strong>
+                                <a href="mailto:privacy@groundsfoodandcoffee.com" class="text-yellow-400 hover:text-yellow-300 ml-2">privacy@groundsfoodandcoffee.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone text-yellow-400 mr-3 text-lg"></i>
+                            <div>
+                                <strong>Phone:</strong>
+                                <span class="ml-2">+61 3 8290 8220</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 text-lg"></i>
+                            <div>
+                                <strong>Address:</strong><br>
+                                The Grounds Roastery Pty Ltd<br>
+                                163 Commercial Rd<br>
+                                South Yarra VIC 3141<br>
+                                Australia
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p class="mb-0">Our privacy team is here to help you understand and manage your data preferences. We typically respond to inquiries within 2 business days.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-dark py-12 md:py-16 px-4 mt-12 md:mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
+                <!-- Company Info -->
+                <div class="space-y-4 md:col-span-2 lg:col-span-1">
+                    <img class="w-32 md:w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                    <p class="text-gray-300 text-sm md:text-base">Crafting exceptional coffee experiences since 2012. From bean to bag, every cup tells a story.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thegrounds"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thegrounds/"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Home</a>
+                        <a href="/shop/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Shop</a>
+                        <a href="/about/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">About</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Customer Service</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/privacy/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Privacy Policy</a>
+                        <a href="/terms/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Terms of Service</a>
+                        <a href="/cookies/" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm md:text-base">Cookie Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-300 flex items-start text-sm md:text-base">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>163 Commercial Rd, South Yarra VIC 3141</span>
+                        </p>
+                        <p class="text-gray-300 flex items-center text-sm md:text-base">
+                            <i class="fas fa-phone text-yellow-400 mr-3 flex-shrink-0"></i>
+                            <span>+61 3 8290 8220</span>
+                        </p>
+                        <p class="text-gray-300 flex items-center text-sm md:text-base">
+                            <i class="fas fa-envelope text-yellow-400 mr-3 flex-shrink-0"></i>
+                            <span class="break-all">info@groundsfoodandcoffee.com</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 md:pt-8 text-center">
+                <p class="text-gray-400 text-sm md:text-base">&copy; 2025 The Grounds Roastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let cart = JSON.parse(localStorage.getItem('groundsCart')) || [];
+        let scene, camera, renderer;
+
+        // Initialize Three.js Scene
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create floating coffee beans
+            const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8B4513, transparent: true, opacity: 0.6 });
+
+            for (let i = 0; i < 50; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.x = (Math.random() - 0.5) * 20;
+                bean.position.y = (Math.random() - 0.5) * 20;
+                bean.position.z = (Math.random() - 0.5) * 20;
+                bean.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.02,
+                        (Math.random() - 0.5) * 0.02,
+                        (Math.random() - 0.5) * 0.02
+                    )
+                };
+                scene.add(bean);
+            }
+
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate coffee beans
+            scene.children.forEach(bean => {
+                if (bean.userData && bean.userData.velocity) {
+                    bean.position.add(bean.userData.velocity);
+                    bean.rotation.x += 0.01;
+                    bean.rotation.y += 0.01;
+
+                    // Reset position if out of bounds
+                    if (Math.abs(bean.position.x) > 10) bean.userData.velocity.x *= -1;
+                    if (Math.abs(bean.position.y) > 10) bean.userData.velocity.y *= -1;
+                    if (Math.abs(bean.position.z) > 10) bean.userData.velocity.z *= -1;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#D4AF37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: false },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#D4AF37", opacity: 0.4, width: 1 },
+                    move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close Mobile Menu
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Update Cart Badge
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initThreeJS();
+            initParticles();
+            updateCartBadge();
+
+            // Add scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.cookie-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

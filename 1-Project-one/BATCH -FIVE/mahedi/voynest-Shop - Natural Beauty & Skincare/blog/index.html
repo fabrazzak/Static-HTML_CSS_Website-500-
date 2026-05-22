@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Voynest Natural Beauty</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #7a9b76;
+            --secondary: #d8c3a5;
+            --dark: #3a4a2e;
+            --light: #f9f7f3;
+            --text: #333333;
+            --white: #ffffff;
+            --gray: #eeeeee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Helvetica', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--dark);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .announcement-bar {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+        }
+        
+        .nav-icons a {
+            margin-left: 20px;
+            font-size: 20px;
+            color: var(--dark);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        .breadcrumb li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            position: absolute;
+            right: -15px;
+            color: var(--primary);
+        }
+        
+        .breadcrumb li:last-child:after {
+            display: none;
+        }
+        
+        /* Blog Content */
+        .blog-container {
+            display: flex;
+            gap: 50px;
+            padding: 80px 0;
+        }
+        
+        .blog-posts {
+            flex: 2;
+        }
+        
+        .blog-sidebar {
+            flex: 1;
+        }
+        
+        /* Blog Posts */
+        .blog-post {
+            margin-bottom: 60px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .post-image {
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .post-image img {
+            transform: scale(1.03);
+        }
+        
+        .post-content {
+            padding: 30px;
+        }
+        
+        .post-meta {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .post-meta span {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .post-content h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .read-more {
+            display: inline-block;
+            font-weight: 500;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .read-more::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -2px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .read-more:hover::after {
+            width: 100%;
+        }
+        
+        /* Blog Sidebar */
+        .sidebar-widget {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-widget h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-widget h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        /* Search Widget */
+        .search-form {
+            display: flex;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        
+        .search-form button {
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        /* Categories Widget */
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text);
+        }
+        
+        .category-list a:hover {
+            color: var(--primary);
+        }
+        
+        /* Recent Posts Widget */
+        .recent-post {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .recent-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-post-content h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-date {
+            font-size: 13px;
+            color: #777;
+        }
+        
+        /* Tags Widget */
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag-cloud a {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light);
+            color: var(--text);
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .tag-cloud a:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Newsletter Widget */
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .pagination a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a.active,
+        .pagination a:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin: 20px 0;
+            }
+            
+            .nav-links li {
+                margin: 0 15px;
+            }
+            
+            .blog-container {
+                flex-direction: column;
+            }
+            
+            .post-image {
+                height: 250px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <span class="logo-icon">V</span>
+                    <span class="logo-text">Voynest</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+                <div class="nav-icons">
+ 
+                    <a href=""><i class="fas fa-shopping-bag"></i></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        
+    </section>
+
+    <!-- Blog Content -->
+    <div class="blog-container">
+        <div class="container">
+            <div class="blog-posts">
+                <!-- Blog Post 1 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Natural Skincare Routine">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                            <span><i class="far fa-user"></i> By Sophia Chen</span>
+                            <span><i class="far fa-comment"></i> 5 Comments</span>
+                        </div>
+                        <h2><a href="/blog/">The Ultimate Natural Skincare Routine for Glowing Skin</a></h2>
+                        <p class="post-excerpt">
+                            Discover our step-by-step guide to creating a natural skincare routine that nourishes your skin with plant-based ingredients. Learn which products to use and when for maximum benefits.
+                        </p>
+                        <a href="/blog/" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 2 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Essential Oils for Skin">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> May 28, 2023</span>
+                            <span><i class="far fa-user"></i> By Ethan Johnson</span>
+                            <span><i class="far fa-comment"></i> 12 Comments</span>
+                        </div>
+                        <h2><a href="/blog/">5 Essential Oils That Transform Your Skin Health</a></h2>
+                        <p class="post-excerpt">
+                            Essential oils have remarkable benefits for skin when used properly. We explore the top 5 oils for different skin types and how to incorporate them into your routine safely.
+                        </p>
+                        <a href="/blog/" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 3 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sustainable Beauty">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> April 10, 2023</span>
+                            <span><i class="far fa-user"></i> By Aisha Williams</span>
+                            <span><i class="far fa-comment"></i> 8 Comments</span>
+                        </div>
+                        <h2><a href="/blog/">How to Build a Sustainable Beauty Routine</a></h2>
+                        <p class="post-excerpt">
+                            Sustainability is more than a trend—it's a lifestyle. Learn how to make eco-conscious choices in your beauty routine without compromising on results or luxury.
+                        </p>
+                        <a href="/blog/" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 4 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="DIY Face Masks">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> March 22, 2023</span>
+                            <span><i class="far fa-user"></i> By David Kim</span>
+                            <span><i class="far fa-comment"></i> 3 Comments</span>
+                        </div>
+                        <h2><a href="/blog/">3 Easy DIY Face Masks with Kitchen Ingredients</a></h2>
+                        <p class="post-excerpt">
+                            Pamper your skin with these simple, effective face masks you can make at home. Using common kitchen ingredients, these treatments deliver spa-quality results.
+                        </p>
+                        <a href="/blog/" class="read-more">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="">&laquo;</a>
+                    <a href="" class="active">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">&raquo;</a>
+                </div>
+            </div>
+            
+            <!-- Blog Sidebar -->
+            <aside class="blog-sidebar">
+                <!-- Search Widget -->
+                <div class="sidebar-widget">
+                    <h3>Search</h3>
+                    <form class="search-form">
+                        <input type="text" placeholder="Search articles...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3>Categories</h3>
+                    <ul class="category-list">
+                        <li><a href="">Skincare Tips <span>(12)</span></a></li>
+                        <li><a href="">Natural Ingredients <span>(8)</span></a></li>
+                        <li><a href="">Product Guides <span>(5)</span></a></li>
+                        <li><a href="">Sustainability <span>(7)</span></a></li>
+                        <li><a href="">DIY Recipes <span>(4)</span></a></li>
+                        <li><a href="">Wellness <span>(6)</span></a></li>
+                    </ul>
+                </div>
+                
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3>Recent Posts</h3>
+                    <div class="recent-post">
+                        <div class="recent-post-img">
+                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Recent Post">
+                        </div>
+                        <div class="recent-post-content">
+                            <h4><a href="">The Ultimate Natural Skincare Routine</a></h4>
+                            <div class="recent-post-date">June 15, 2023</div>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <div class="recent-post-img">
+                            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Recent Post">
+                        </div>
+                        <div class="recent-post-content">
+                            <h4><a href="">5 Essential Oils for Skin Health</a></h4>
+                            <div class="recent-post-date">May 28, 2023</div>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <div class="recent-post-img">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Recent Post">
+                        </div>
+                        <div class="recent-post-content">
+                            <h4><a href="">Sustainable Beauty Routine</a></h4>
+                            <div class="recent-post-date">April 10, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3>Tags</h3>
+                    <div class="tag-cloud">
+                        <a href="">Skincare</a>
+                        <a href="">Natural</a>
+                        <a href="">Organic</a>
+                        <a href="">DIY</a>
+                        <a href="">Wellness</a>
+                        <a href="">Sustainability</a>
+                        <a href="">Routine</a>
+                        <a href="">Ingredients</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get skincare tips and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon">V</span>
+                        <span class="footer-logo-text">Voynest</span>
+                    </div>
+                    <p>Pure, organic skincare crafted with nature's finest ingredients for your healthiest glow.</p>
+                    <div class="social-links">
+                        <a href=""><i class="fab fa-instagram"></i></a>
+                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                        <a href=""><i class="fab fa-twitter"></i></a>
+                        <a href=""><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="">All Products</a></li>
+                        <li><a href="">Facial Care</a></li>
+                        <li><a href="">Body Care</a></li>
+                        <li><a href="">Gift Sets</a></li>
+                        <li><a href="">Best Sellers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Customer Service</h3>
+                    <ul>
+                 <li><a href="/contact/">Contact Us</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Voynest Natural Beauty & Skincare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Search Form Submission
+        const searchForm = document.querySelector('.search-form');
+        
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = this.querySelector('input').value;
+            // In a real implementation, this would search the blog
+            console.log('Searching for:', searchTerm);
+            alert('Search functionality would show results for: ' + searchTerm);
+            this.reset();
+        });
+        
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            // In a real implementation, this would subscribe the user
+            console.log('Subscribed email:', email);
+            alert('Thank you for subscribing to our newsletter!');
+            this.reset();
+        });
+        
+        // Mobile Menu Toggle (would need hamburger icon added for mobile)
+        // This is a placeholder for mobile menu functionality
+    </script>
+</body>
+</html>

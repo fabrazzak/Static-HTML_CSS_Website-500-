@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Ostria Hotel & Apartments - Luxury Accommodation in Gavrio</title>
+    <meta name="description" content="Explore our stunning photo gallery showcasing Ostria Hotel & Apartments in Gavrio. See our luxurious rooms, outdoor pool, amenities, and beautiful surroundings.">
+    <meta name="keywords" content="Ostria gallery, hotel photos Gavrio, room pictures, pool photos, hotel amenities images, Greek island hotel gallery">
+    <link rel="canonical" href="https://ostriaescape.com/gallery/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'luxury-gold': '#C9A96E',
+                        'luxury-blue': '#1E3A8A',
+                        'luxury-navy': '#0F172A',
+                        'luxury-cream': '#FDF6E3',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .luxury-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #3B82F6 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .menu-line {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        
+        .menu-toggle.active .menu-line:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .menu-toggle.active .menu-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active .menu-line:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .gallery-filter {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-filter.active {
+            background: linear-gradient(135deg, #C9A96E 0%, #E5C890 100%);
+            color: #0F172A;
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-category {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .gallery-category.active {
+            display: grid;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 80%;
+            margin-top: 5%;
+            border-radius: 8px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #C9A96E;
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .nav-btn {
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            color: #C9A96E;
+        }
+        
+        .caption-container {
+            text-align: center;
+            padding: 10px 20px;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .cookies-popup {
+            bottom: -100%;
+            transition: bottom 0.5s ease;
+        }
+        
+        .cookies-popup.show {
+            bottom: 20px;
+        }
+        
+        /* Masonry grid layout */
+        .masonry-grid {
+            display: grid;
+            grid-gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+        }
+        
+        .masonry-item {
+            break-inside: avoid;
+        }
+        
+        .masonry-item:nth-child(3n) {
+            grid-row: span 2;
+        }
+        
+        .masonry-item:nth-child(5n) {
+            grid-row: span 2;
+        }
+        
+        .masonry-item:nth-child(7n) {
+            grid-row: span 2;
+        }
+
+
+         .aspect-w-16.aspect-h-9 { position: relative; padding-bottom: 56.25%; height: 0; }
+  .aspect-w-16.aspect-h-9 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body class="font-body bg-luxury-cream">
+    <!-- Top Header -->
+    <div class="bg-luxury-navy text-white py-2 text-sm">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <span class="flex items-center">
+                    <i class="fas fa-map-marker-alt mr-2 text-luxury-gold"></i>
+                    221B Baker Street, London, NW1 6XE, UK
+                </span>
+                <span class="flex items-center hidden md:flex">
+                    <i class="fas fa-phone mr-2 text-luxury-gold"></i>
+                    +44 20 7946 0958
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-300 hover:text-luxury-gold transition-colors">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-luxury-gold transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-luxury-gold transition-colors">
+                    <i class="fab fa-tripadvisor"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+   <nav class="luxury-gradient sticky top-0  w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="/">
+                        <img src="/assets/logo.png" alt="Ostria Hotel & Apartments" class="h-12 w-auto">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-white hover:text-luxury-gold transition-colors font-medium">Home</a>
+                    <a href="/accommodations/" class="text-white hover:text-luxury-gold transition-colors font-medium">Accommodations</a>
+                    <a href="/amenities/" class="text-white hover:text-luxury-gold transition-colors font-medium">Amenities</a>
+                    <a href="/gallery/" class="text-luxury-gold font-medium">Gallery</a>
+                    <a href="/blog/" class="text-white hover:text-luxury-gold transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="text-white hover:text-luxury-gold transition-colors font-medium">Contact</a>
+                     
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="lg:hidden">
+                    <div class="menu-toggle" id="menuToggle">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-80 bg-luxury-navy z-40" id="mobileMenu">
+            <div class="pt-24 px-6">
+                <a href="/" class="block text-white py-3 border-b border-gray-700 hover:text-luxury-gold transition-colors">Home</a>
+                <a href="/accommodations/" class="block text-white py-3 border-b border-gray-700 hover:text-luxury-gold transition-colors">Accommodations</a>
+                <a href="/amenities/" class="block text-white py-3 border-b border-gray-700 hover:text-luxury-gold transition-colors">Amenities</a>
+                <a href="/gallery/" class="block text-luxury-gold py-3 border-b border-gray-700">Gallery</a>
+                <a href="/blog/" class="block text-white py-3 border-b border-gray-700 hover:text-luxury-gold transition-colors">Blog</a>
+                <a href="/contact/" class="block text-white py-3 border-b border-gray-700 hover:text-luxury-gold transition-colors">Contact</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-20 luxury-gradient relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <img src="/assets/gallery-hero.jpg" alt="Ostria Hotel Gallery" class="absolute inset-0 w-full h-full object-cover">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center">
+                <h1 class="font-display text-5xl md:text-6xl font-bold text-white mb-4">
+                    Photo Gallery
+                </h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Explore our stunning property through captivating images of our accommodations, amenities, and surroundings
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Filters -->
+    <section class="py-12 bg-white shadow-lg sticky top-20 z-30">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="gallery-filter active px-6 py-3 rounded-full font-semibold" data-category="all">
+                    All Photos
+                </button>
+                <button class="gallery-filter px-6 py-3 rounded-full font-semibold" data-category="rooms">
+                    <i class="fas fa-bed mr-2"></i>Rooms & Suites
+                </button>
+                <button class="gallery-filter px-6 py-3 rounded-full font-semibold" data-category="pool">
+                    <i class="fas fa-swimming-pool mr-2"></i>Pool Area
+                </button>
+                <button class="gallery-filter px-6 py-3 rounded-full font-semibold" data-category="dining">
+                    <i class="fas fa-utensils mr-2"></i>Dining
+                </button>
+                <button class="gallery-filter px-6 py-3 rounded-full font-semibold" data-category="views">
+                    <i class="fas fa-mountain mr-2"></i>Views & Surroundings
+                </button>
+                <button class="gallery-filter px-6 py-3 rounded-full font-semibold" data-category="amenities">
+                    <i class="fas fa-spa mr-2"></i>Amenities
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <!-- All Photos -->
+            <div class="gallery-category active" id="all-gallery">
+                <div class="masonry-grid">
+                    <!-- Room Images -->
+                    <div class="masonry-item gallery-item" data-category="rooms" data-index="1">
+                        <img src="/assets/gallery/room-1.webp" alt="Luxury Room at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Deluxe Room</h3>
+                                <p class="text-sm">Spacious accommodation with sea view</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="rooms" data-index="2">
+                        <img src="/assets/gallery/room-2.jpg" alt="Luxury Bathroom at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Premium Bathroom</h3>
+                                <p class="text-sm">Elegant bathroom with modern amenities</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="rooms" data-index="3">
+                        <img src="/assets/gallery/room-3.avif" alt="Apartment at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Family Apartment</h3>
+                                <p class="text-sm">Spacious apartment for families</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pool Images -->
+                    <div class="masonry-item gallery-item" data-category="pool" data-index="4">
+                        <img src="/assets/gallery/pool-1.jpg" alt="Pool at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Main Pool</h3>
+                                <p class="text-sm">Our stunning outdoor swimming pool</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="pool" data-index="5">
+                        <img src="/assets/gallery/pool-2.jpg" alt="Pool Area at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Pool Area</h3>
+                                <p class="text-sm">Relaxing area with sunbeds and parasols</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="pool" data-index="6">
+                        <img src="/assets/gallery/pool-3.jpg" alt="Pool Bar at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Pool Bar</h3>
+                                <p class="text-sm">Refreshments by the poolside</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dining Images -->
+                    <div class="masonry-item gallery-item" data-category="dining" data-index="7">
+                        <img src="/assets/gallery/dining-1.avif" alt="Dining at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Restaurant</h3>
+                                <p class="text-sm">Elegant dining experience</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="dining" data-index="8">
+                        <img src="/assets/gallery/dining-2.jpg" alt="Breakfast at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Breakfast</h3>
+                                <p class="text-sm">Delicious morning buffet</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="dining" data-index="9">
+                        <img src="/assets/gallery/dining-3.jpg" alt="Room Service at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Room Service</h3>
+                                <p class="text-sm">Gourmet meals in your room</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Views & Surroundings -->
+                    <div class="masonry-item gallery-item" data-category="views" data-index="10">
+                        <img src="/assets/gallery/view-1.jpg" alt="Sea View from Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Sea View</h3>
+                                <p class="text-sm">Breathtaking views of the Aegean Sea</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="views" data-index="11">
+                        <img src="/assets/gallery/view-2.jpg" alt="Beach near Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Private Beach</h3>
+                                <p class="text-sm">Beach access just below the hotel</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="views" data-index="12">
+                        <img src="/assets/gallery/view-3.jpg" alt="Garden at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Hotel Gardens</h3>
+                                <p class="text-sm">Beautifully maintained gardens</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Amenities -->
+                    <div class="masonry-item gallery-item" data-category="amenities" data-index="13">
+                        <img src="/assets/gallery/amenity-1.avif" alt="Spa at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Spa Area</h3>
+                                <p class="text-sm">Relaxation and wellness facilities</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="amenities" data-index="14">
+                        <img src="/assets/gallery/amenity-2.jpeg" alt="Gym at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Fitness Center</h3>
+                                <p class="text-sm">Modern gym equipment</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item gallery-item" data-category="amenities" data-index="15">
+                        <img src="/assets/gallery/amenity-3.jpg" alt="Lobby at Ostria Hotel" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-300 flex items-end p-4">
+                            <div class="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold">Hotel Lobby</h3>
+                                <p class="text-sm">Elegant reception area</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rooms & Suites Gallery -->
+            <div class="gallery-category hidden" id="rooms-gallery">
+                <div class="masonry-grid">
+                    <!-- Room images will be shown here when filtered -->
+                </div>
+            </div>
+            
+            <!-- Pool Area Gallery -->
+            <div class="gallery-category hidden" id="pool-gallery">
+                <div class="masonry-grid">
+                    <!-- Pool images will be shown here when filtered -->
+                </div>
+            </div>
+            
+            <!-- Dining Gallery -->
+            <div class="gallery-category hidden" id="dining-gallery">
+                <div class="masonry-grid">
+                    <!-- Dining images will be shown here when filtered -->
+                </div>
+            </div>
+            
+            <!-- Views & Surroundings Gallery -->
+            <div class="gallery-category hidden" id="views-gallery">
+                <div class="masonry-grid">
+                    <!-- Views images will be shown here when filtered -->
+                </div>
+            </div>
+            
+            <!-- Amenities Gallery -->
+            <div class="gallery-category hidden" id="amenities-gallery">
+                <div class="masonry-grid">
+                    <!-- Amenities images will be shown here when filtered -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Virtual Tour Section -->
+<section class="py-20 luxury-gradient">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="font-display text-4xl font-bold text-white mb-6">
+          Virtual Tour
+        </h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Can't wait to experience Ostria? Take our virtual tour and explore our property from the comfort of your home.
+        </p>
+
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center text-white">
+            <i class="fas fa-check-circle text-luxury-gold mr-4 text-xl"></i>
+            <span>360° views of all room types</span>
+          </li>
+          <li class="flex items-center text-white">
+            <i class="fas fa-check-circle text-luxury-gold mr-4 text-xl"></i>
+            <span>Interactive property exploration</span>
+          </li>
+          <li class="flex items-center text-white">
+            <i class="fas fa-check-circle text-luxury-gold mr-4 text-xl"></i>
+            <span>See amenities and facilities</span>
+          </li>
+          <li class="flex items-center text-white">
+            <i class="fas fa-check-circle text-luxury-gold mr-4 text-xl"></i>
+            <span>Get a feel for the atmosphere</span>
+          </li>
+        </ul>
+
+        <button class="bg-luxury-gold text-luxury-navy px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-400 transition-colors">
+          <i class="fas fa-vr-cardboard mr-2"></i>
+          Start Virtual Tour
+        </button>
+      </div>
+
+      <div class="relative">
+        <!-- Responsive video container -->
+        <div class="w-full aspect-w-16 aspect-h-9 rounded-2xl shadow-2xl overflow-hidden relative" id="virtual-tour-container">
+          <!-- Thumbnail / play button (lazy load) -->
+          <button
+            id="virtual-tour-trigger"
+            aria-label="Play virtual tour video"
+            class="w-full h-full block relative focus:outline-none"
+            data-video-id="VIDEO_ID"
+          >
+            <!-- YouTube thumbnail -->
+            <img
+              src="/assets/virtualTour.webp"
+              alt="Virtual Tour of Ostria Hotel (click to play)"
+              class="w-full h-full object-cover"
+            
+            />
+
+            <!-- Dark overlay + play icon -->
+            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+              <div class="bg-white bg-opacity-10 rounded-full p-6 cursor-pointer hover:bg-opacity-20 transition-all">
+                <i class="fas fa-play text-white text-4xl"></i>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- Guest Photos Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-luxury-navy mb-4">
+                    Guest Photos
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    See our property through the lens of our guests. Share your photos with #OstriaEscape
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="aspect-square">
+                    <img src="/assets/gallery/guest-1.jpg" alt="Guest photo at Ostria Hotel" class="w-full h-full object-cover rounded-lg hover-lift">
+                </div>
+                <div class="aspect-square">
+                    <img src="/assets/gallery/guest-2.jpg" alt="Guest photo at Ostria Hotel" class="w-full h-full object-cover rounded-lg hover-lift">
+                </div>
+                <div class="aspect-square">
+                    <img src="/assets/gallery/guest-3.jpg" alt="Guest photo at Ostria Hotel" class="w-full h-full object-cover rounded-lg hover-lift">
+                </div>
+                <div class="aspect-square">
+                    <img src="/assets/gallery/guest-4.jpg" alt="Guest photo at Ostria Hotel" class="w-full h-full object-cover rounded-lg hover-lift">
+                </div>
+                <div class="aspect-square">
+                    <img src="/assets/gallery/guest-5.jpg" alt="Guest photo at Ostria Hotel" class="w-full h-full object-cover rounded-lg hover-lift">
+                </div>
+                <div class="aspect-square">
+                    <img src="/assets/gallery/guest-6.jpg" alt="Guest photo at Ostria Hotel" class="w-full h-full object-cover rounded-lg hover-lift">
+                </div>
+                
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://instagram.com/explore/tags/OstriaEscape" target="_blank" class="inline-flex items-center bg-luxury-gold text-luxury-navy px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-400 transition-colors">
+                    <i class="fab fa-instagram mr-2 text-xl"></i>
+                    View More on Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+     <!-- Call to Action -->
+    <section class="py-20 luxury-gradient">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                Experience Our Premium Amenities
+            </h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                Book your stay at Ostria Hotel & Apartments and enjoy our world-class facilities and services
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="/contact/">
+                    <button class="bg-luxury-gold text-luxury-navy px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 transition-all transform hover:scale-105">
+                    <i class="fas fa-calendar-check mr-3"></i>
+                    Book Your Stay
+                </button>
+                </a>
+                <button class="glass-effect text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-luxury-navy transition-all transform hover:scale-105">
+                    <i class="fas fa-phone mr-3"></i>
+                    Contact Us
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-luxury-navy text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                   <div class="flex items-center mb-6">
+                       <a href="/">
+                        <img src="/assets/logo.png" alt="Ostria Hotel & Apartments" class="h-12 w-auto mb-4">
+                    </a>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Experience luxury and comfort in the heart of Gavrio with our premium accommodations and exceptional service.
+                    </p>
+                  
+                </div>
+                
+                <div>
+                    <h4 class="font-display text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-300 hover:text-luxury-gold transition-colors">Home</a></li>
+                        <li><a href="/accommodations/" class="text-gray-300 hover:text-luxury-gold transition-colors">Accommodations</a></li>
+                        <li><a href="/amenities/" class="text-gray-300 hover:text-luxury-gold transition-colors">Amenities</a></li>
+                        <li><a href="/gallery/" class="text-luxury-gold">Gallery</a></li>
+                        <li><a href="/blog/" class="text-gray-300 hover:text-luxury-gold transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="text-gray-300 hover:text-luxury-gold transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-display text-lg font-bold mb-4">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="flex items-start text-gray-300">
+                            <i class="fas fa-map-marker-alt text-luxury-gold mr-3 mt-1"></i>
+                            221B Baker Street, London,<br>NW1 6XE, United Kingdom
+                        </p>
+                        <p class="flex items-center text-gray-300">
+                            <i class="fas fa-phone text-luxury-gold mr-3"></i>
+                            +44 20 7946 0958
+                        </p>
+                        <p class="flex items-center text-gray-300">
+                            <i class="fas fa-envelope text-luxury-gold mr-3"></i>
+                            info@ostriaescape.com
+                        </p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-display text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe for exclusive offers and updates</p>
+                    <div class="space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:border-luxury-gold focus:outline-none">
+                        <button class="w-full bg-luxury-gold text-luxury-navy py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 my-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 Ostria Hotel & Apartments. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="/privacy/" class="text-gray-400 hover:text-luxury-gold transition-colors">Privacy Policy</a>
+                    <a href="/terms/" class="text-gray-400 hover:text-luxury-gold transition-colors">Terms of Service</a>
+                    <a href="/cookies/" class="text-gray-400 hover:text-luxury-gold transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <div class="modal-nav">
+            <div class="nav-btn" id="prevBtn">&#10094;</div>
+            <div class="nav-btn" id="nextBtn">&#10095;</div>
+        </div>
+        <img class="modal-content" id="modalImage">
+        <div class="caption-container">
+            <p id="modalCaption"></p>
+        </div>
+        <div class="thumbnail-container" id="modalThumbnails">
+            <!-- Thumbnails will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Cookies Popup -->
+    <div id="cookiesPopup" class="cookies-popup fixed left-4 right-4 bg-white rounded-lg shadow-2xl p-6 z-50">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+            <div class="mb-4 md:mb-0 md:mr-6">
+                <h4 class="font-semibold text-luxury-navy mb-2">We use cookies</h4>
+                <p class="text-sm text-gray-600">
+                    We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
+                    By clicking "Accept All", you consent to our use of cookies.
+                </p>
+            </div>
+            <div class="flex space-x-3 flex-shrink-0">
+                <button onclick="acceptCookies()" class="bg-luxury-gold text-luxury-navy px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
+                    Accept All
+                </button>
+                <button onclick="declineCookies()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-opacity-95');
+            } else {
+                navbar.classList.remove('bg-opacity-95');
+            }
+        });
+
+        // Gallery Filter Tabs
+        const galleryFilters = document.querySelectorAll('.gallery-filter');
+        const galleryCategories = document.querySelectorAll('.gallery-category');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                const category = filter.getAttribute('data-category');
+                
+                // Update active tab
+                galleryFilters.forEach(f => f.classList.remove('active'));
+                filter.classList.add('active');
+                
+                // Show selected category
+                galleryCategories.forEach(cat => {
+                    if (cat.id === `${category}-gallery`) {
+                        cat.classList.add('active');
+                    } else {
+                        cat.classList.remove('active');
+                    }
+                });
+                
+                // If not "all", filter items for the specific category
+                if (category !== 'all') {
+                    const categoryGallery = document.getElementById(`${category}-gallery`);
+                    const masonryGrid = categoryGallery.querySelector('.masonry-grid');
+                    
+                    // Clear existing items
+                    masonryGrid.innerHTML = '';
+                    
+                    // Add filtered items
+                    galleryItems.forEach(item => {
+                        if (item.getAttribute('data-category') === category) {
+                            masonryGrid.appendChild(item.cloneNode(true));
+                        }
+                    });
+                }
+            });
+        });
+
+        // Image Modal Functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.getElementById('modalCaption');
+        const closeModal = document.getElementById('closeModal');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const modalThumbnails = document.getElementById('modalThumbnails');
+        
+        let currentIndex = 0;
+        let currentItems = [];
+        
+        // Open modal when clicking on gallery item
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                modal.style.display = 'block';
+                modalImg.src = item.querySelector('img').src;
+                captionText.innerHTML = item.querySelector('h3').textContent + ' - ' + item.querySelector('p').textContent;
+                
+                // Set current items based on active filter
+                const activeFilter = document.querySelector('.gallery-filter.active').getAttribute('data-category');
+                if (activeFilter === 'all') {
+                    currentItems = Array.from(galleryItems);
+                } else {
+                    currentItems = Array.from(galleryItems).filter(item => 
+                        item.getAttribute('data-category') === activeFilter
+                    );
+                }
+                
+                currentIndex = currentItems.findIndex(img => 
+                    img.querySelector('img').src === modalImg.src
+                );
+                
+                // Create thumbnails
+                modalThumbnails.innerHTML = '';
+                currentItems.forEach((item, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = item.querySelector('img').src;
+                    thumb.classList.add('thumbnail');
+                    if (index === currentIndex) thumb.classList.add('active');
+                    thumb.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateModalImage();
+                    });
+                    modalThumbnails.appendChild(thumb);
+                });
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Navigate images
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+            updateModalImage();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % currentItems.length;
+            updateModalImage();
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+                    updateModalImage();
+                } else if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % currentItems.length;
+                    updateModalImage();
+                } else if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Update modal image
+        function updateModalImage() {
+            const item = currentItems[currentIndex];
+            modalImg.src = item.querySelector('img').src;
+            captionText.innerHTML = item.querySelector('h3').textContent + ' - ' + item.querySelector('p').textContent;
+            
+            // Update active thumbnail
+            const thumbs = modalThumbnails.querySelectorAll('.thumbnail');
+            thumbs.forEach((thumb, index) => {
+                if (index === currentIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+        
+        // Close modal when clicking outside image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Smooth Scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Cookies Management
+        function showCookiesPopup() {
+            const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+            if (!cookiesAccepted) {
+                setTimeout(() => {
+                    document.getElementById('cookiesPopup').classList.add('show');
+                }, 2000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookiesPopup').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookiesAccepted', 'false');
+            document.getElementById('cookiesPopup').classList.remove('show');
+        }
+
+        // Show cookies popup on page load
+        window.addEventListener('load', showCookiesPopup);
+
+        (function () {
+    const trigger = document.getElementById('virtual-tour-trigger');
+    const container = document.getElementById('virtual-tour-container');
+
+    if (!trigger || !container) return;
+
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      const videoId = this.dataset.videoId || 'VIDEO_ID'; // replace default if needed
+
+      // Create responsive iframe
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('width', '560');
+      iframe.setAttribute('height', '315');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      // autoplay & modestbranding (optional)
+      iframe.src="https://www.youtube.com/embed/OUJMhoEaIPA?si=4AZgOcgvxVPf7Ysj" ;
+
+      // Clear container and insert iframe (keeps aspect-ratio wrapper)
+      container.innerHTML = '';
+      container.appendChild(iframe);
+    });
+  })();
+
+    </script>
+</body>
+</html>

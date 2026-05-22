@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Step-by-step guide to creating an efficient and aesthetically pleasing survival base in Minecraft. Learn building techniques, defense strategies, and resource management.">
+    <meta name="keywords" content="minecraft survival base, building guide, minecraft building tips, survival strategies, base design, minecraft architecture">
+    <meta name="title" content="Building the Ultimate Minecraft Survival Base - Minecoinscard Blog">
+    <link rel="canonical" href="https://minecoinscard.com/blog/ultimate-survival-base/">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <title>Building the Ultimate Minecraft Survival Base - Minecoinscard Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #4CAF50;
+            --dark-bg: #0a0e1a;
+            --card-bg: #1a1f35;
+            --accent-blue: #00d4ff;
+            --accent-purple: #9c27b0;
+            --accent-orange: #ff6348;
+            --text-light: #e0e0e0;
+            --text-gray: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.3rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: linear-gradient(135deg, #ff4757, #ff6348);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 71, 87, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(76, 175, 80, 0.4);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .section {
+            padding: 80px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .blog-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: var(--text-gray);
+            flex-wrap: wrap;
+        }
+
+        .blog-category {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .blog-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .blog-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-text h2 {
+            font-size: 2rem;
+            margin: 2.5rem 0 1.5rem;
+            color: var(--primary-green);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .blog-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        .blog-text h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--accent-blue);
+        }
+
+        .blog-text ul, .blog-text ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .blog-text li {
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-text blockquote {
+            border-left: 4px solid var(--primary-green);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-gray);
+            background: rgba(76, 175, 80, 0.1);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .blog-text code {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-blue);
+        }
+
+        .blog-text pre {
+            background: rgba(10, 14, 26, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .blog-text pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .building-tip {
+            background: linear-gradient(135deg, rgba(255, 99, 72, 0.1), rgba(76, 175, 80, 0.1));
+            border: 1px solid rgba(255, 99, 72, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .building-tip::before {
+            content: '🏗️';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .building-tip h4 {
+            color: var(--accent-orange);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .phase-card {
+            background: rgba(10, 14, 26, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+        }
+
+        .phase-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .phase-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            padding-top: 0.5rem;
+        }
+
+        .phase-card ul {
+            margin: 0;
+            padding-left: 1rem;
+        }
+
+        .phase-card li {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .design-card {
+            background: rgba(10, 14, 26, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .design-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        .design-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .design-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .design-card p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .blog-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .newsletter-section {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(0, 212, 255, 0.2));
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            margin: 4rem 0;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-section p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 14, 26, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        footer {
+            background: rgba(10, 14, 26, 0.95);
+            padding: 4rem 2rem 2rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 31, 53, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            z-index: 9999;
+            border-top: 2px solid var(--primary-green);
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cookie-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+        }
+
+        .cookie-decline {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: rgba(10, 14, 26, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                transition: right 0.5s ease;
+                border-left: 2px solid rgba(0, 212, 255, 0.3);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 50px 1rem;
+            }
+
+            .blog-image {
+                height: 250px;
+            }
+
+            .blog-text h2 {
+                font-size: 1.7rem;
+            }
+
+            .blog-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .blog-actions {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .blog-meta {
+                justify-content: center;
+            }
+
+            .phase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .design-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="canvas-container"></div>
+    
+    <div class="content-wrapper">
+        <header>
+            <nav class="nav-container">
+                <a href="/" class="logo">
+                    <img src="/images/logo.png" alt="Minecoinscard Logo" style="height: 56px;">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li class="account-nav" style="display: none;"><a href="/account/">Account</a></li>
+                    <li><a href="/login/"><i class="fas fa-user"></i></a></li>
+                    <li>
+                        <a href="/cart/" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Section 1: Hero -->
+        <section class="hero">
+            <h1>Building the Ultimate Minecraft Survival Base</h1>
+            <p>Step-by-step guide to creating an efficient and aesthetically pleasing survival base</p>
+        </section>
+
+        <!-- Section 2: Blog Content -->
+        <section class="section">
+            <div class="blog-content">
+                <div class="blog-meta">
+                    <span class="blog-category">Building</span>
+                    <span><i class="far fa-calendar"></i> September 28, 2025</span>
+                    <span><i class="far fa-clock"></i> 10 min read</span>
+                </div>
+
+                <img src="/images/blog-four.jpg" 
+                     alt="Survival Base Guide" class="blog-image">
+
+                <div class="blog-text">
+                    <p>Building the perfect survival base in Minecraft is both an art and a science. It needs to be functional, defensible, aesthetically pleasing, and scalable as your resources grow. In this comprehensive guide, we'll walk through every step of creating the ultimate survival base that will serve you through all stages of the game.</p>
+
+                    <h2>Phase 1: Planning and Location Selection</h2>
+                    <p>Before placing your first block, proper planning is essential. The location and design of your base will determine its long-term viability and efficiency.</p>
+
+                    <div class="building-tip">
+                        <h4>Pro Builder Tip</h4>
+                        <p>Always scout multiple locations before committing. Look for areas with access to multiple biomes, water sources, and natural resources.</p>
+                    </div>
+
+                    <h3>Ideal Location Criteria</h3>
+                    <p>When choosing your base location, consider these essential factors:</p>
+
+                    <ul>
+                        <li><strong>Resource Accessibility</strong> - Near forests, mountains, and water sources</li>
+                        <li><strong>Defensible Position</strong> - Natural barriers like cliffs or water bodies</li>
+                        <li><strong>Expansion Space</strong> - Room to grow without major terrain modifications</li>
+                        <li><strong>Village Proximity</strong> - Close enough for trading but not too close for raids</li>
+                        <li><strong>Mob Spawn Considerations</strong> - Well-lit areas with minimal dark spots</li>
+                    </ul>
+
+                    <h3>Base Layout Planning</h3>
+                    <p>Sketch your base design before building. Consider these layout elements:</p>
+
+                    <blockquote>
+                        "The most successful survival bases follow a modular design that allows for easy expansion. Start small with core functionality and build outward as you progress." - Professional Minecraft Builder
+                    </blockquote>
+
+                    <h2>Phase 2: Core Structure Construction</h2>
+                    <p>Now that you have your location and plan, it's time to start building the core structure of your base.</p>
+
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4>Foundation & Walls</h4>
+                            <ul>
+                                <li>Dig 3-block deep foundation</li>
+                                <li>Use stone or cobblestone for durability</li>
+                                <li>Include interior support pillars</li>
+                                <li>Plan door and window placements</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4>Roof & Lighting</h4>
+                            <ul>
+                                <li>Sloped roof for rain and snow</li>
+                                <li>Strategic torch placement</li>
+                                <li>Skylights for natural lighting</li>
+                                <li>Gutter systems for aesthetics</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4>Security Systems</h4>
+                            <ul>
+                                <li>Iron door with button access</li>
+                                <li>Perimeter wall or fence</li>
+                                <li>Moat with water or lava</li>
+                                <li>Arrow slit windows</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>Phase 3: Essential Room Setup</h2>
+                    <p>A well-organized base requires dedicated rooms for different functions. Here are the essential rooms every survival base needs:</p>
+
+                    <h3>Storage Room Organization</h3>
+                    <p>Your storage system is the heart of your base. Implement these organization strategies:</p>
+
+                    <ol>
+                        <li><strong>Categorize by Type</strong> - Separate blocks, tools, food, and resources</li>
+                        <li><strong>Label Everything</strong> - Use signs or item frames for clear identification</li>
+                        <li><strong>Central Access</strong> - Design with efficiency in mind, minimal walking between chests</li>
+                        <li><strong>Expansion Ready</strong> - Leave space for additional chests as you progress</li>
+                    </ol>
+
+                    <h3>Automated Farming Systems</h3>
+                    <p>Automate your food production with these efficient farm designs:</p>
+
+                    <ul>
+                        <li><strong>Villager-Based Crop Farms</strong> - Farmers automatically plant and harvest</li>
+                        <li><strong>Automatic Chicken Cooker</strong> - Eggs hatch and chickens get cooked automatically</li>
+                        <li><strong>Zero-Tick Sugar Cane</strong> - Rapid growth for paper and sugar production</li>
+                        <li><strong>Automatic Melon/Pumpkin</strong> - Observer-based harvesting systems</li>
+                    </ul>
+
+                    <div class="building-tip">
+                        <h4>Efficiency Tip</h4>
+                        <p>Place your storage room adjacent to your crafting area and enchanting setup to minimize travel time between essential functions.</p>
+                    </div>
+
+                    <h2>Phase 4: Advanced Features and Automation</h2>
+                    <p>Once your basic survival needs are met, it's time to implement advanced features that will make your base truly exceptional.</p>
+
+                    <h3>Redstone Automation Systems</h3>
+                    <p>Incorporate these redstone contraptions to automate tedious tasks:</p>
+
+                    <div class="design-grid">
+                        <div class="design-card">
+                            <div class="design-icon">
+                                <i class="fas fa-dungeon"></i>
+                            </div>
+                            <h4>Mob Grinder</h4>
+                            <p>Automated experience and loot farming system</p>
+                        </div>
+                        <div class="design-card">
+                            <div class="design-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h4>Auto-Smelter</h4>
+                            <p>Automatic ore processing with fuel management</p>
+                        </div>
+                        <div class="design-card">
+                            <div class="design-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h4>Sorting System</h4>
+                            <p>Automatically categorizes and stores items</p>
+                        </div>
+                        <div class="design-card">
+                            <div class="design-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Security System</h4>
+                            <p>Piston doors, hidden entrances, and traps</p>
+                        </div>
+                    </div>
+
+                    <h3>Enchanting and Brewing Setup</h3>
+                    <p>Create an optimized area for magical enhancements:</p>
+
+                    <blockquote>
+                        "I always build my enchanting room underground with bookshelves arranged in a perfect circle around the table. The aesthetic is amazing and it maximizes enchantment potential." - Experienced Survival Player
+                    </blockquote>
+
+                    <h2>Phase 5: Aesthetics and Personalization</h2>
+                    <p>A functional base is great, but a beautiful base is unforgettable. Add these aesthetic touches to make your base uniquely yours.</p>
+
+                    <h3>Exterior Design Elements</h3>
+                    <p>Enhance your base's exterior with these design techniques:</p>
+
+                    <ul>
+                        <li><strong>Textured Walls</strong> - Mix stone variants for natural appearance</li>
+                        <li><strong>Landscaping</strong> - Custom trees, gardens, and pathways</li>
+                        <li><strong>Lighting Design</strong> - Strategic lantern and torch placement</li>
+                        <li><strong>Roof Details</strong> - Dormers, chimneys, and decorative elements</li>
+                    </ul>
+
+                    <h3>Interior Decoration</h3>
+                    <p>Make your interior spaces feel like home:</p>
+
+                    <ol>
+                        <li><strong>Themed Rooms</strong> - Different styles for different functions</li>
+                        <li><strong>Furniture Builds</strong> - Functional tables, chairs, and storage</li>
+                        <li><strong>Lighting Variety</strong> - Mix lanterns, torches, and sea pickles</li>
+                        <li><strong>Art and Details</strong> - Paintings, item frames, and decorative blocks</li>
+                    </ol>
+
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4>Color Schemes</h4>
+                            <ul>
+                                <li>Choose 3-4 main colors</li>
+                                <li>Use contrasting accents</li>
+                                <li>Consider biome appropriateness</li>
+                                <li>Test combinations creatively</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4>Texture Variety</h4>
+                            <ul>
+                                <li>Mix smooth and rough textures</li>
+                                <li>Use stairs and slabs for depth</li>
+                                <li>Incorporate natural elements</li>
+                                <li>Balance simplicity and detail</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4>Functional Beauty</h4>
+                            <ul>
+                                <li>Hide redstone creatively</li>
+                                <li>Integrate farms aesthetically</li>
+                                <li>Make storage visually appealing</li>
+                                <li>Balance form and function</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>Maintenance and Future Expansion</h2>
+                    <p>A great base evolves over time. Plan for future improvements and regular maintenance.</p>
+
+                    <h3>Regular Maintenance Tasks</h3>
+                    <p>Keep your base in top condition with these routines:</p>
+
+                    <ul>
+                        <li><strong>Crop Management</strong> - Regular harvesting and replanting</li>
+                        <li><strong>Mob Proofing</strong> - Check for and eliminate dark spots</li>
+                        <li><strong>System Checks</strong> - Test redstone contraptions regularly</li>
+                        <li><strong>Inventory Management</strong> - Reorganize and expand storage as needed</li>
+                    </ul>
+
+                    <h3>Expansion Planning</h3>
+                    <p>Leave room for these potential future additions:</p>
+
+                    <div class="building-tip">
+                        <h4>Future-Proofing</h4>
+                        <p>Always leave empty space around your base perimeter for future expansions like additional wings, towers, or underground complexes.</p>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>Building the ultimate survival base is a rewarding journey that combines practicality with creativity. By following these phases - from careful planning and core construction to advanced automation and aesthetic refinement - you'll create a base that not only keeps you safe and organized but also becomes a home you're proud to show off.</p>
+
+                    <p>Remember that the best bases evolve over time. Start with the essentials, then gradually add features and improvements as you gather resources and gain experience. Don't be afraid to experiment with different designs and techniques - that's how you develop your unique building style.</p>
+
+                    <p>What's your favorite survival base feature? Share your building tips and showcase your creations with the Minecraft community!</p>
+                </div>
+
+                <div class="blog-actions">
+                    <a href="/blog/" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Blog</span>
+                    </a>
+                    <div>
+                        <button class="btn btn-primary" onclick="shareArticle()">
+                            <i class="fas fa-share"></i>
+                            <span>Share Article</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Newsletter -->
+        <section class="section">
+            <div class="newsletter-section">
+                <h2>Get More Building Guides</h2>
+                <p>Subscribe to our newsletter and receive expert Minecraft building tips, design inspiration, and exclusive content</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">
+                        <span>Subscribe</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Minecoinscard</h3>
+                    <p>Your trusted platform for purchasing Minecraft coins, bundles, and digital content. We provide instant delivery and secure transactions.</p>
+                     
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@minecoinscard.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (819) 824-3146</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 490 Chem. de Vassan<br>Val-d'Or, QC J9P 0C1<br>Canada</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Minecoinscard.com. All rights reserved.</p>
+                <p>We are not an affiliate agency. All products are sold independently through our platform.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-blue);">Learn more</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
+                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function checkUserAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const accountNav = document.querySelector('.account-nav');
+            
+            if (isLoggedIn && accountNav) {
+                accountNav.style.display = 'block';
+            }
+        }
+
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        function showCookieBanner() {
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (!cookieConsent) {
+                setTimeout(() => {
+                    document.getElementById('cookieBanner').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            alert('Thank you for subscribing! You will receive exclusive offers at ' + email);
+            e.target.reset();
+        }
+
+        function shareArticle() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Building the Ultimate Minecraft Survival Base',
+                    text: 'Check out this amazing guide for creating the perfect survival base!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing:', error));
+            } else {
+                // Fallback for browsers that don't support the Web Share API
+                navigator.clipboard.writeText(window.location.href);
+                alert('Article link copied to clipboard!');
+            }
+        }
+
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ff6348' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ff6348',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xff6348,
+            emissive: 0x4CAF50,
+            emissiveIntensity: 0.2,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.3
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.005;
+            torusKnot.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            torusKnot.rotation.z = scrolled * 0.001;
+        });
+
+        animate();
+        updateCartCount();
+        checkUserAuth();
+        showCookieBanner();
+    </script>
+</body>
+</html>

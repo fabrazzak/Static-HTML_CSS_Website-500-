@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Discover the fascinating journey of coffee beans from raw green seeds to aromatic roasted perfection. Learn how temperature, time, and technique transform coffee beans.">
+    <meta name="keywords"
+        content="coffee roasting, roast profiles, coffee beans, roasting techniques, light roast, dark roast, coffee science, canada coffee hub">
+    <link rel="canonical" href="https://canadacoffeehub.com/blog/art-of-coffee-roasting/">
+    <title>The Art and Science of Coffee Roasting | Canada Coffee Hub Blog</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --dark-bg: #1a0f0a;
+            --light-bg: #2d1810;
+            --text-light: #f5f5f5;
+            --text-dark: #1a0f0a;
+            --gold: #DAA520;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: var(--dark-bg);
+        }
+
+        /* Canvas Background */
+        #particles-js,
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .contact-info i {
+            color: var(--gold);
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(26, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Add this rule to hide hamburger when menu is active */
+.hamburger.active {
+    display: none;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+.close-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--gold);
+    cursor: pointer;
+    z-index: 1002;
+}
+
+/* Add this to show close menu when nav is active */
+nav.active ~ .close-menu {
+    display: block;
+}
+
+        /* Blog Hero */
+        .blog-detail-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .blog-detail-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 15, 10, 0.85) 0%, rgba(45, 24, 16, 0.75) 100%);
+            z-index: 0;
+        }
+
+        .blog-detail-hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-detail-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .blog-detail-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: rgba(245, 245, 245, 0.8);
+            font-size: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-meta i {
+            color: var(--gold);
+        }
+
+        /* Blog Content */
+        .blog-detail-content {
+            padding: 80px 20px;
+            background: rgba(26, 15, 10, 0.8);
+        }
+
+        .blog-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-article {
+            background: linear-gradient(135deg, rgba(45, 24, 16, 0.9), rgba(26, 15, 10, 0.9));
+            border-radius: 20px;
+            padding: 60px;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-content h3 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--gold);
+            border-bottom: 2px solid rgba(218, 165, 32, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .article-content h4 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--text-light);
+        }
+
+        .article-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: rgba(245, 245, 245, 0.9);
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .article-content li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            color: rgba(245, 245, 245, 0.9);
+        }
+
+        .highlight-box {
+            background: rgba(218, 165, 32, 0.1);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .roast-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .roast-type {
+            background: rgba(26, 15, 10, 0.6);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        .roast-type h5 {
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .roast-type p {
+            font-size: 1rem;
+            margin: 0;
+            color: rgba(245, 245, 245, 0.8);
+        }
+
+        /* Back Button */
+        .back-to-blog {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(218, 165, 32, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 15, 10, 0.98);
+            padding: 60px 20px 20px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(245, 245, 245, 0.7);
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .footer-section p i {
+            color: var(--gold);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(218, 165, 32, 0.2);
+            color: rgba(245, 245, 245, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(26, 15, 10, 0.98);
+                padding: 80px 30px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 25px;
+                align-items: flex-start;
+            }
+
+            .close-menu {
+                display: block;
+            }
+
+            .blog-detail-hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .blog-detail-hero p {
+                font-size: 1.1rem;
+            }
+
+            .blog-article {
+                padding: 40px;
+            }
+
+            .blog-image {
+                height: 300px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .top-header {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-detail-hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .article-content h3 {
+                font-size: 1.6rem;
+            }
+
+            .article-content h4 {
+                font-size: 1.3rem;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .roast-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-detail-hero h2 {
+                font-size: 2rem;
+            }
+
+            .blog-article {
+                padding: 30px 20px;
+            }
+
+            .blog-image {
+                height: 250px;
+            }
+
+            .article-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .article-content h4 {
+                font-size: 1.2rem;
+            }
+
+            .article-content p, .article-content li {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle.js Background -->
+    <div id="particles-js"></div>
+
+    <!-- Three.js Background -->
+    <div id="three-container"></div>
+
+    <div class="content-wrapper">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="top-header-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> 2551 Priest Ave, Merritt, BC V1K 1B3</span>
+                    <span><i class="fas fa-phone"></i> +1 (250) 378-6966</span>
+                    <span><i class="fas fa-envelope"></i> info@canadacoffeehub.com</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                </a>
+
+                <nav id="mainNav">
+                    <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li class="cart-icon">
+                            <a href="/cart/">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Blog Detail Hero -->
+        <section class="blog-detail-hero">
+            <div class="blog-detail-hero-content">
+                <h2>The Art and Science of Coffee Roasting</h2>
+                <p>From Green Bean to Perfect Cup: Mastering the Transformative Journey</p>
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar"></i> September 15, 2025</span>
+                    <span><i class="far fa-clock"></i> 8 min read</span>
+                    <span><i class="far fa-user"></i> James Thompson</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Detail Content -->
+        <section class="blog-detail-content">
+            <div class="blog-detail-container">
+                <article class="blog-article">
+                    <div class="blog-image">
+                        <img src="/assets/images/art-of-coffee-roasting.jpeg" alt="Coffee Roasting Process">
+                    </div>
+
+                    <div class="article-content">
+                        <p>The journey of coffee from a raw, green seed to the aromatic, flavorful beans we grind each morning is nothing short of miraculous. As a master roaster with over four decades of experience, I've witnessed this transformation thousands of times, yet it never ceases to amaze me. The art and science of coffee roasting is where chemistry meets craftsmanship, where temperature and time dance together to unlock the hidden potential within each bean.</p>
+
+                        <div class="highlight-box">
+                            <p>"Roasting coffee is like conducting an orchestra - every bean has its own voice, and the roaster's job is to help them sing in perfect harmony."</p>
+                        </div>
+
+                        <h3>The Green Bean Foundation</h3>
+                        <p>Before we dive into the roasting process, it's essential to understand what we're working with. Raw coffee beans are actually seeds from the coffee cherry. They're dense, hard, and have a grassy, vegetal aroma - nothing like the coffee we know and love. These green beans contain hundreds of chemical compounds that will transform during roasting.</p>
+
+                        <p>The quality of the green beans is paramount. At Canada Coffee Hub, we source only specialty-grade Arabica beans from sustainable farms. Factors like altitude, soil composition, and processing methods all contribute to the bean's inherent flavor potential. A great roast can enhance good beans, but it can never fix poor-quality ones.</p>
+
+                        <h3>The Roasting Process Unveiled</h3>
+                        <p>Roasting coffee is essentially a controlled heating process that transforms the chemical and physical properties of green coffee beans. The process typically involves three main stages:</p>
+
+                        <h4>1. Drying Phase</h4>
+                        <p>The first stage involves removing moisture from the beans. Green beans contain about 10-12% moisture, which must be reduced to around 2-3%. This phase requires careful temperature control - too fast, and the beans will scorch; too slow, and they'll bake rather than roast.</p>
+
+                        <h4>2. Browning Phase (Maillard Reaction)</h4>
+                        <p>As temperatures rise between 150-200°C, the Maillard reaction begins. This complex chemical reaction between amino acids and reducing sugars creates the beautiful brown color and develops hundreds of flavor compounds. This is where the magic truly happens - the beans transform from grassy to nutty, chocolaty, and caramel-like flavors.</p>
+
+                        <h4>3. Development Phase</h4>
+                        <p>After the first crack (an audible popping sound indicating structural changes), the development phase begins. This is where the roaster's artistry shines. The length of this phase determines the final roast profile - shorter for lighter roasts, longer for darker ones.</p>
+
+                        <h3>Understanding Roast Profiles</h3>
+                        <p>Different roast levels highlight different characteristics of the coffee beans. Here's a breakdown of the most common roast profiles:</p>
+
+                        <div class="roast-comparison">
+                            <div class="roast-type">
+                                <h5>Light Roast</h5>
+                                <p>Light brown color, no oil on surface. Preserves the bean's origin characteristics with higher acidity and complex floral/fruity notes.</p>
+                            </div>
+                            <div class="roast-type">
+                                <h5>Medium Roast</h5>
+                                <p>Medium brown color, balanced flavor with good body. The sweet spot for many specialty coffees, offering both origin character and roast development.</p>
+                            </div>
+                            <div class="roast-type">
+                                <h5>Dark Roast</h5>
+                                <p>Dark brown to nearly black, oily surface. Bold, robust flavors dominate with lower acidity and prominent bitter-sweet notes.</p>
+                            </div>
+                        </div>
+
+                        <h3>The Science Behind the Flavor</h3>
+                        <p>During roasting, several key chemical transformations occur:</p>
+                        
+                        <ul>
+                            <li><strong>Sugar Caramelization:</strong> Occurs around 170°C, creating sweet, complex flavors</li>
+                            <li><strong>Strecker Degradation:</strong> Forms aromatic compounds that give coffee its distinctive smell</li>
+                            <li><strong>Development of Acids:</strong> Chlorogenic acids break down, reducing bitterness while creating complexity</li>
+                            <li><strong>CO2 Development:</strong> Creates the crema in espresso and affects extraction</li>
+                        </ul>
+
+                        <h3>Mastering the Craft</h3>
+                        <p>Becoming a skilled roaster requires years of practice and a deep understanding of both the science and art involved. It's about learning to "read" the beans - watching the color change, listening for the cracks, and smelling the aromas as they develop.</p>
+
+                        <p>At Canada Coffee Hub, we use a combination of traditional craftsmanship and modern technology. Our state-of-the-art roasting equipment allows for precise temperature control, while our experienced roasters rely on their senses to make final adjustments. Each batch is a new opportunity to create something extraordinary.</p>
+
+                        <div class="highlight-box">
+                            <p>The perfect roast isn't about following a recipe - it's about understanding the story each bean wants to tell and helping it reach its full potential.</p>
+                        </div>
+
+                        <h3>The Final Transformation</h3>
+                        <p>After roasting, the beans undergo a crucial resting period called degassing. Freshly roasted beans release CO2 for several days, which affects extraction and flavor. We typically let our beans rest for 24-48 hours before packaging to ensure optimal flavor development.</p>
+
+                        <p>The journey from green bean to perfect cup is complete when you grind the beans and experience the full spectrum of aromas and flavors that we've carefully developed through the roasting process. Every sip tells the story of this incredible transformation.</p>
+
+                        <p>Next time you enjoy your morning coffee, take a moment to appreciate the complex journey those beans have undertaken. From the careful cultivation at origin to the precise roasting in our Merritt facility, each step contributes to the beautiful experience in your cup.</p>
+                    </div>
+
+                    <div class="back-to-blog">
+                        <a href="/blog/" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                    </div>
+                    <p>Premium coffee roasting and distribution since 1970. Serving coffee lovers across Canada with the
+                        finest arabica beans and equipment.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="/">Home</a>
+                    <a href="/shop/">Shop</a>
+                    <a href="/about/">About Us</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/cookies/">Cookie Policy</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>2551 Priest Ave, Merritt, BC V1K 1B3, Canada</p>
+                    <p><i class="fas fa-phone"></i>+1 (250) 378-6966</p>
+                    <p><i class="fas fa-envelope"></i> info@canadacoffeehub.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Canada Coffee Hub. All rights reserved. Crafted with passion for coffee lovers.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#DAA520' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#CD853F',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize Three.js
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create coffee bean particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 1000; i++) {
+            vertices.push(
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000
+            );
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0xDAA520, size: 2, transparent: true, opacity: 0.6 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 500;
+
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animateThree();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Cart Functions
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('mainNav');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        updateCartCount();
+    </script>
+</body>
+
+</html>

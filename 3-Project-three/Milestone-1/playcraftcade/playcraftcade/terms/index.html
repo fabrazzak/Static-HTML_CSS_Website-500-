@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - PlayCraftCade</title>
+    <meta name="description"
+        content="PlayCraftCade Terms & Conditions. Read our terms of service for visiting Bismarck's premier retro arcade, pizzeria & bar.">
+    <meta name="keywords"
+        content="PlayCraftCade terms, conditions, service agreement, Bismarck arcade terms, user agreement">
+    <link rel="canonical" href="https://playcraftcade.com/terms/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced glow effects for better readability */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Tron-style grid overlay */
+        .tron-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(255, 16, 240, 0.1) 100%);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.3;
+        }
+
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 255, 0.03) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 4;
+            animation: scanline-move 0.1s linear infinite;
+        }
+
+        @keyframes scanline-move {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Terms page specific styles */
+        .terms-content {
+            line-height: 1.7;
+        }
+
+        .terms-content h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .terms-content h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .terms-content p {
+            margin-bottom: 1rem;
+        }
+
+        .terms-content ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .terms-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+            0%, 100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+        <canvas id="three-canvas"></canvas>
+        <div class="tron-overlay"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                 <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block hover:text-neon-pink transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-neon-orange neon-glow-strong mb-6 pulse-neon">
+                        📋 Terms & Conditions
+                    </h1>
+                    <p class="text-xl text-neon-green mb-8 readable-text max-w-3xl mx-auto">
+                        Please read our terms of service before using our arcade, restaurant, and bar services.
+                    </p>
+                    <div class="w-24 h-1 bg-neon-pink mx-auto floating"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms & Conditions Content -->
+        <section class="py-20 bg-black/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="bg-gradient-to-b from-retro-dark/40 to-black/60 p-8 rounded-lg border border-neon-orange/30 backdrop-blur-sm terms-content neon-border-soft">
+                    
+                    <div class="mb-8">
+                        <p class="text-neon-yellow font-bold text-lg mb-4 neon-glow-minimal">Last Updated: September 20 , 2025</p>
+                        <p class="text-gray-300 readable-text">
+                            Welcome to PlayCraftCade! These Terms and Conditions ("Terms") govern your use of our arcade, restaurant, bar services, and website located at 1382 Pembina Hwy, Winnipeg, MB R3T 2B4. By visiting our establishment or using our services, you agree to comply with and be bound by these Terms.
+                        </p>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">1. Acceptance of Terms</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        By accessing our facility, using our arcade games, ordering food or beverages, or using our website, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">2. Age Requirements and Restrictions</h2>
+                    
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Arcade Access</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Arcade games are available to all ages during operating hours</li>
+                        <li>Children under 13 must be accompanied by a parent or guardian</li>
+                        <li>Parental supervision is required for children under 16 after 9:00 PM</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Alcohol Service</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>You must be 21 years or older to purchase or consume alcoholic beverages</li>
+                        <li>Valid government-issued photo ID is required for all alcohol purchases</li>
+                        <li>We reserve the right to refuse service to anyone who appears intoxicated</li>
+                        <li>No outside alcoholic beverages are permitted on the premises</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">3. Facility Rules and Conduct</h2>
+                    
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">General Behavior</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Treat all staff, customers, and property with respect</li>
+                        <li>Use appropriate language and maintain family-friendly behavior</li>
+                        <li>Follow all posted signs and staff instructions</li>
+                        <li>No smoking or vaping inside the facility</li>
+                        <li>No outside food or beverages (except for special dietary needs with prior approval)</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Arcade Game Usage</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Games are for entertainment purposes only</li>
+                        <li>Do not abuse, damage, or tamper with arcade equipment</li>
+                        <li>Report any malfunctioning games to staff immediately</li>
+                        <li>No climbing on or excessive shaking of game cabinets</li>
+                        <li>Time limits may apply during peak hours</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">4. Payment and Pricing</h2>
+                    
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>All prices are subject to change without notice</li>
+                        <li>Payment is due at the time of service</li>
+                        <li>We accept cash, credit cards, and debit cards</li>
+                        <li>Game tokens/credits are non-refundable</li>
+                        <li>Automatic gratuity may be added to parties of 6 or more</li>
+                        <li>Sales tax will be added to all applicable purchases</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">5. Food and Beverage Service</h2>
+                    
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Food Safety and Allergies</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Please inform staff of any food allergies or dietary restrictions</li>
+                        <li>We cannot guarantee that menu items are completely allergen-free</li>
+                        <li>Food is prepared in a kitchen that handles common allergens</li>
+                        <li>Consuming raw or undercooked foods may increase risk of foodborne illness</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Service Standards</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Kitchen closes 30 minutes before establishment closing time</li>
+                        <li>Menu items are subject to availability</li>
+                        <li>We reserve the right to limit quantities during high demand</li>
+                        <li>Special requests may incur additional charges</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">6. Events and Private Parties</h2>
+                    
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Event bookings require advance reservation and deposit</li>
+                        <li>Event host is responsible for guest behavior and any damages</li>
+                        <li>Cancellation policy applies to all event bookings</li>
+                        <li>Additional fees may apply for extended hours or special services</li>
+                        <li>Event contracts supersede these general terms for booked events</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">7. Safety and Security</h2>
+                    
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Security cameras are in operation throughout the facility</li>
+                        <li>PlayCraftCade is not responsible for lost, stolen, or damaged personal items</li>
+                        <li>Emergency exits must remain clear at all times</li>
+                        <li>Report any safety hazards or incidents to staff immediately</li>
+                        <li>We reserve the right to search bags and personal items if necessary</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">8. Limitation of Liability</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        To the fullest extent permitted by law, PlayCraftCade, its owners, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Use of our facilities, games, or services</li>
+                        <li>Personal injury or property damage on the premises</li>
+                        <li>Food allergic reactions or foodborne illness</li>
+                        <li>Loss or theft of personal property</li>
+                        <li>Game malfunctions or technical issues</li>
+                        <li>Interruption of service or temporary closures</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">9. Intellectual Property</h2>
+                    
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>All content, trademarks, and intellectual property belong to PlayCraftCade or our licensors</li>
+                        <li>You may not reproduce, distribute, or create derivative works without permission</li>
+                        <li>Arcade games are licensed from their respective copyright holders</li>
+                        <li>Photography and recording may be restricted in certain areas</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">10. Right to Refuse Service</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        PlayCraftCade reserves the right to refuse service, terminate accounts, or remove individuals from the premises for any reason, including but not limited to:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Violation of these Terms and Conditions</li>
+                        <li>Disruptive, inappropriate, or unsafe behavior</li>
+                        <li>Intoxication or impairment</li>
+                        <li>Failure to provide valid identification when required</li>
+                        <li>Non-payment for services rendered</li>
+                        <li>Damage to property or equipment</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">11. Website and Digital Services</h2>
+                    
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">User Accounts</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>You are responsible for maintaining account security</li>
+                        <li>Provide accurate and current information</li>
+                        <li>Do not share account credentials with others</li>
+                        <li>Notify us immediately of any unauthorized use</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Prohibited Activities</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Hacking, data mining, or unauthorized access attempts</li>
+                        <li>Uploading viruses or malicious code</li>
+                        <li>Spamming or sending unsolicited communications</li>
+                        <li>Impersonating others or providing false information</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">12. Privacy Policy</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        Your privacy is important to us. Please review our <a href="/privacy/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">Privacy Policy</a> to understand how we collect, use, and protect your personal information. By using our services, you also agree to the terms of our Privacy Policy.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">13. Modifications to Terms</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        We reserve the right to modify these Terms and Conditions at any time. Changes will be effective immediately upon posting on our website. Your continued use of our services after changes have been posted constitutes acceptance of the modified terms. We encourage you to review these terms periodically.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">14. Governing Law and Dispute Resolution</h2>
+                    
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>These Terms are governed by the laws of Manitoba, Canada</li>
+                        <li>Any disputes will be resolved in the courts of Manitoba</li>
+                        <li>You agree to attempt good faith resolution before pursuing legal action</li>
+                        <li>Class action lawsuits are waived where legally permissible</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">15. Severability</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        If any provision of these Terms is found to be invalid, illegal, or unenforceable, the remaining provisions will continue in full force and effect. The invalid provision will be replaced with a valid provision that most closely matches the intent of the original.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">16. Contact Information</h2>
+                    
+                    <div class="bg-black/70 p-6 rounded-lg border border-neon-green/30 backdrop-blur-sm neon-border-soft floating">
+                        <p class="text-gray-300 readable-text mb-4">
+                            If you have questions about these Terms and Conditions, please contact us:
+                        </p>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p><strong class="text-neon-green neon-glow-minimal">PlayCraftCade</strong></p>
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">+1 (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:legal@playcraftcade.com" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">legal@playcraftcade.com</a></p>
+                            <p>🌐 <a href="https://playcraftcade.com" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">playcraftcade.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-gradient-to-r from-neon-orange/10 to-neon-pink/10 rounded-lg border border-neon-yellow/30 neon-border-soft">
+                        <h3 class="text-xl font-bold text-neon-yellow neon-glow-minimal mb-4">🎮 Game On Responsibly!</h3>
+                        <p class="text-gray-300 readable-text">
+                            These terms help ensure everyone has an awesome time at PlayCraftCade! We're all about creating a fun, safe environment where you can enjoy classic games, great food, and cold beer. Thanks for being part of our retro gaming community!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                             <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style pizzeria,
+                            and
+                            craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            </li>
+                            <li><a href="/food-and-drink/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food &
+                                    Drink</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/"
+                                    class="text-neon-orange hover:text-neon-yellow hover-glow transition-colors">Terms &
+                                    Conditions</a></li>
+                            <li><a href="/cookies/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies
+                                    Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602"
+                                    class="hover:text-neon-pink hover-glow transition-colors">+1
+                                    (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                    class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Three.js scene with proper error handling
+        function initThreeJS() {
+            try {
+                const canvas = document.getElementById('three-canvas');
+                if (!canvas || !window.THREE) {
+                    console.log('Three.js not loaded or canvas not found');
+                    return;
+                }
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+
+                // Create terms-themed arcade elements
+                const termsElements = [];
+                
+                // Contract/Document symbols (flat rectangles representing documents)
+                const docGeometry = new THREE.PlaneGeometry(0.6, 0.8);
+                const docMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0xff8c00, 
+                    transparent: true, 
+                    opacity: 0.6
+                });
+
+                for (let i = 0; i < 15; i++) {
+                    const doc = new THREE.Mesh(docGeometry, docMaterial);
+                    doc.position.set(
+                        (Math.random() - 0.5) * 90,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    doc.rotation.set(
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI
+                    );
+                    doc.userData = {
+                        type: 'document',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.015,
+                            y: (Math.random() - 0.5) * 0.015,
+                            z: (Math.random() - 0.5) * 0.015
+                        },
+                        floatSpeed: Math.random() * 0.005 + 0.003
+                    };
+                    scene.add(doc);
+                    termsElements.push(doc);
+                }
+
+                // Gavel/Legal symbols (pyramid shapes)
+                const gavelGeometry = new THREE.ConeGeometry(0.3, 0.8, 4);
+                const gavelMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0xff10f0, 
+                    transparent: true, 
+                    opacity: 0.7
+                });
+
+                for (let i = 0; i < 10; i++) {
+                    const gavel = new THREE.Mesh(gavelGeometry, gavelMaterial);
+                    gavel.position.set(
+                        (Math.random() - 0.5) * 80,
+                        (Math.random() - 0.5) * 50,
+                        (Math.random() - 0.5) * 40
+                    );
+                    gavel.userData = {
+                        type: 'gavel',
+                        speed: Math.random() * 0.02 + 0.01,
+                        offset: Math.random() * Math.PI * 2,
+                        originalY: gavel.position.y
+                    };
+                    scene.add(gavel);
+                    termsElements.push(gavel);
+                }
+
+                // Agreement checkmarks (small cubes)
+                const checkGeometry = new THREE.BoxGeometry(0.3, 0.3, 0.1);
+                const checkMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0x39ff14, 
+                    transparent: true, 
+                    opacity: 0.8
+                });
+
+                for (let i = 0; i < 20; i++) {
+                    const check = new THREE.Mesh(checkGeometry, checkMaterial);
+                    check.position.set(
+                        (Math.random() - 0.5) * 100,
+                        (Math.random() - 0.5) * 60,
+                        (Math.random() - 0.5) * 50
+                    );
+                    check.userData = {
+                        type: 'check',
+                        speed: Math.random() * 0.015 + 0.008,
+                        offset: Math.random() * Math.PI * 2,
+                        originalY: check.position.y
+                    };
+                    scene.add(check);
+                    termsElements.push(check);
+                }
+
+                // Arcade tokens (representing payment terms)
+                const tokenGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 8);
+                const tokenMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0x00ffff, 
+                    transparent: true, 
+                    opacity: 0.6
+                });
+
+                for (let i = 0; i < 18; i++) {
+                    const token = new THREE.Mesh(tokenGeometry, tokenMaterial);
+                    token.position.set(
+                        (Math.random() - 0.5) * 95,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    token.userData = {
+                        type: 'token',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.02,
+                            y: (Math.random() - 0.5) * 0.02,
+                            z: (Math.random() - 0.5) * 0.02
+                        }
+                    };
+                    scene.add(token);
+                    termsElements.push(token);
+                }
+
+                camera.position.z = 30;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const time = Date.now() * 0.001;
+
+                    termsElements.forEach((element, index) => {
+                        if (element.userData.type === 'document') {
+                            // Floating documents
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                            element.position.y += Math.sin(time * element.userData.floatSpeed + index) * 0.05;
+                        } else if (element.userData.type === 'gavel') {
+                            // Floating gavels
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.speed + element.userData.offset) * 3;
+                            element.rotation.z += 0.01;
+                        } else if (element.userData.type === 'check') {
+                            // Pulsing checkmarks
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.speed + element.userData.offset) * 2;
+                            const scale = 1 + Math.sin(time * 4 + index) * 0.3;
+                            element.scale.set(scale, scale, scale);
+                        } else if (element.userData.type === 'token') {
+                            // Spinning tokens
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                        }
+
+                        // General drift
+                        element.position.x += Math.sin(time * 0.0001 + index) * 0.02;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+            } catch (error) {
+                console.error('Three.js initialization error:', error);
+            }
+        }
+
+        // Initialize Particles.js with proper error handling
+        function initParticles() {
+            try {
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js not loaded');
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 35, density: { enable: true, value_area: 800 } },
+                        color: { 
+                            value: ['#ff8c00', '#ff10f0', '#00ffff', '#39ff14'] 
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { width: 1, color: '#ffffff' }
+                        },
+                        opacity: {
+                            value: 0.4,
+                            random: true,
+                            anim: { 
+                                enable: true, 
+                                speed: 1, 
+                                opacity_min: 0.1 
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: { 
+                                enable: true, 
+                                speed: 2, 
+                                size_min: 0.5 
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#ff8c00',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: { 
+                                distance: 100, 
+                                duration: 0.4 
+                            },
+                            push: { 
+                                particles_nb: 4 
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                initializeMobileMenu();
+                updateCartCount();
+                
+                // Small delay to ensure libraries are loaded
+                setTimeout(() => {
+                    initThreeJS();
+                    initParticles();
+                }, 100);
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

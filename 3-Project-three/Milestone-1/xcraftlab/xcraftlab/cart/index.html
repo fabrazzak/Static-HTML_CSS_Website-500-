@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - XCraftLab | Premium DIY Crafting Supplies & Creative Tools</title>
+    <meta name="description"
+        content="Review and manage your shopping cart at XCraftLab. Adjust quantities, apply coupons, and proceed to checkout with our premium DIY crafting supplies.">
+    <link rel="canonical" href="https://xcraftlab.com/cart/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .custom-shape {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-line:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger-line:nth-child(3) {
+            bottom: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(22, 32, 77, 0.95), rgba(118, 75, 162, 0.308));
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .cart-count {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #1e1e2e, #252538);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            height: 1px;
+            margin: 4rem 0;
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Full Page Background Effects */
+        .full-page-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .particles-full-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Layered particle systems */
+        .particles-layer-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .particles-layer-2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.2;
+        }
+
+        .particles-layer-3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            opacity: 0.1;
+        }
+
+        /* Mesh gradient overlay */
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 25% 0%, rgba(102, 126, 234, 0.15), transparent 50%),
+                radial-gradient(ellipse at 75% 0%, rgba(118, 75, 162, 0.15), transparent 50%),
+                radial-gradient(ellipse at 0% 50%, rgba(255, 107, 107, 0.1), transparent 50%),
+                radial-gradient(ellipse at 100% 50%, rgba(78, 205, 196, 0.1), transparent 50%),
+                radial-gradient(ellipse at 0% 100%, rgba(255, 154, 158, 0.1), transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(250, 208, 196, 0.1), transparent 50%);
+            z-index: -4;
+            animation: meshFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes meshFloat {
+            0%, 100% { 
+                transform: translate(0px, 0px) rotate(0deg); 
+                filter: hue-rotate(0deg);
+            }
+            33% { 
+                transform: translate(30px, -30px) rotate(1deg); 
+                filter: hue-rotate(30deg);
+            }
+            66% { 
+                transform: translate(-20px, 20px) rotate(-1deg); 
+                filter: hue-rotate(60deg);
+            }
+        }
+
+        /* Interactive glow effects */
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(102, 126, 234, 0.1), transparent 40%);
+            pointer-events: none;
+        }
+
+        /* Floating geometric shapes */
+        .floating-shape {
+            position: fixed;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatAround 15s linear infinite;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -50px) rotate(90deg); }
+            50% { transform: translate(-50px, -100px) rotate(180deg); }
+            75% { transform: translate(-100px, 50px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Neural network lines */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -6;
+            pointer-events: none;
+        }
+
+        .neural-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            height: 1px;
+            animation: neuralPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes neuralPulse {
+            0%, 100% { opacity: 0.1; transform: scaleX(0); }
+            50% { opacity: 0.3; transform: scaleX(1); }
+        }
+
+        /* Cart specific styles */
+        .cart-item {
+            background: rgba(30, 30, 46, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item:hover {
+            background: rgba(40, 40, 60, 0.7);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 2px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+        
+        .quantity-input {
+            width: 40px;
+            background: transparent;
+            border: none;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .coupon-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: white;
+        }
+        
+        .coupon-input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        .cart-summary {
+            background: rgba(30, 30, 46, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            background: linear-gradient(to right, #5a72e3, #6a44a0);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .continue-shopping {
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .continue-shopping:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .empty-cart-container {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+            color: #667eea;
+        }
+        
+        .related-product {
+            background: rgba(30, 30, 46, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .related-product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .page-title {
+            background: linear-gradient(to right, #fff, #a0aec0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Full Page Background Effects -->
+    <div class="full-page-bg" id="three-full-bg"></div>
+    
+    <!-- Multi-layered Particle Systems -->
+    <div class="particles-full-bg">
+        <div class="particles-layer-1" id="particles-layer-1"></div>
+        <div class="particles-layer-2" id="particles-layer-2"></div>
+        <div class="particles-layer-3" id="particles-layer-3"></div>
+    </div>
+    
+    <!-- Mesh Gradient Overlay -->
+    <div class="mesh-gradient"></div>
+    
+    <!-- Interactive Background -->
+    <div class="interactive-bg" id="interactive-bg"></div>
+    
+    <!-- Neural Network Lines -->
+    <div class="neural-network" id="neural-network"></div>
+    
+    <!-- Floating Geometric Shapes -->
+    <div id="floating-shapes"></div>
+
+    <!-- Cookie Consent -->
+    <div id="cookie-consent"
+        class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-gray-800 p-4 rounded-lg shadow-lg z-50 hidden">
+        <p class="text-sm mb-3">We use cookies to enhance your browsing experience. By continuing to use our site, you
+            agree to our cookie policy.</p>
+        <div class="flex gap-2">
+            <button onclick="acceptCookies()"
+                class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">Accept</button>
+            <button onclick="declineCookies()"
+                class="bg-gray-600 text-white px-4 py-2 rounded text-sm hover:bg-gray-700">Decline</button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+        <!-- Close button -->
+        <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-white hover:text-gray-300 text-2xl z-10">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Home</a>
+            <a href="/shop/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Shop</a>
+            <a href="/about/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">About</a>
+            <a href="/blog/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Blog</a>
+            <a href="/contact/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed w-full z-40 bg-gray-900/95 backdrop-blur-md">
+        <!-- Top Header -->
+        <div class="bg-gray-800/90 py-2 hidden md:block">
+            <div class="container mx-auto px-4 flex justify-center items-center text-sm">
+                <div class="flex items-center space-x-4">
+                    <span class="flex items-center"><i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>440 King St,
+                        Estevan, SK S4A 2B4</span>
+                    <span class="flex items-center"><i class="fas fa-phone text-green-400 mr-2"></i>+1 306 637
+                        2550</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/">
+                    <a href="/">
+                    <img src="/assets/images/xcraftlab.png" alt="XCraftLab Logo" class="w-36 mr-3">
+                </a>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-white hover:text-blue-400 font-medium transition-colors">Home</a>
+                <a href="/shop/" class="text-white hover:text-blue-400 font-medium transition-colors">Shop</a>
+                <a href="/about/" class="text-white hover:text-blue-400 font-medium transition-colors">About</a>
+                <a href="/blog/" class="text-white hover:text-blue-400 font-medium transition-colors">Blog</a>
+                <a href="/contact/" class="text-white hover:text-blue-400 font-medium transition-colors">Contact</a>
+            </nav>
+
+            <!-- Cart & Mobile Menu -->
+            <div class="flex items-center space-x-4">
+                <a href="/cart/" class="relative p-2 bg-gray-800/80 rounded-lg transition-colors">
+                     <a href="/cart/">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count"
+                        class="cart-count absolute -top-1 -right-1 text-xs rounded-full px-1.5 py-0.5 text-white hidden">0</span>
+                    </a>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden hamburger-menu" onclick="toggleMobileMenu()">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="pt-32 pb-20">
+        <div class="container mx-auto px-4">
+            <!-- Page Title -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold page-title">Your Shopping Cart</h1>
+                <p class="text-gray-400 mt-4 text-lg">Review your items and proceed to checkout</p>
+            </div>
+
+            <!-- Cart Content -->
+            <div id="cart-content">
+                <!-- Cart Items Container (will be hidden if cart is empty) -->
+                <div id="cart-with-items" class="grid md:grid-cols-3 gap-8">
+                    <!-- Cart Items (left column, spans 2 columns on medium+ screens) -->
+                    <div class="md:col-span-2 space-y-4">
+                        <div id="cart-items-container">
+                            <!-- Cart items will be populated here via JavaScript -->
+                        </div>
+
+                        <!-- Coupon Section -->
+                        <div class="flex flex-col sm:flex-row mt-6 gap-4">
+                            <input type="text" placeholder="Enter coupon code" class="coupon-input flex-grow" id="coupon-code">
+                            <button onclick="applyCoupon()" class="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition-all duration-300">
+                                Apply Coupon
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary (right column) -->
+                    <div class="cart-summary p-6">
+                        <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Subtotal</span>
+                                <span id="cart-subtotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Shipping</span>
+                                <span id="cart-shipping">$0.00</span>
+                            </div>
+                            <div id="discount-row" class="flex justify-between hidden">
+                                <span class="text-gray-400">Discount</span>
+                                <span id="cart-discount" class="text-green-400">-$0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Tax (5%)</span>
+                                <span id="cart-tax">$0.00</span>
+                            </div>
+                            <div class="border-t border-gray-700 pt-4 flex justify-between">
+                                <span class="font-bold">Total</span>
+                                <span id="cart-total" class="font-bold text-blue-400 text-xl">$0.00</span>
+                            </div>
+                        </div>
+
+                        <button onclick="proceedToCheckout()" 
+                            class="checkout-btn w-full py-4 rounded-lg font-semibold text-white mb-4">
+                            Proceed to Checkout
+                        </button>
+                        
+                        <a href="/shop/" class="continue-shopping block text-center py-3 rounded-lg w-full">
+                            Continue Shopping
+                        </a>
+
+                        <div class="mt-6 pt-6 border-t border-gray-700">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-shield-alt text-green-400 mr-3"></i>
+                                <span class="text-sm">Secure Checkout</span>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-truck text-blue-400 mr-3"></i>
+                                <span class="text-sm">Free Shipping over $75</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-undo text-purple-400 mr-3"></i>
+                                <span class="text-sm">30-Day Returns</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty Cart Message (will be shown if cart is empty) -->
+                <div id="empty-cart" class="empty-cart-container hidden">
+                    <i class="fas fa-shopping-cart empty-cart-icon"></i>
+                    <h2 class="text-2xl font-bold mb-4">Your cart is empty</h2>
+                    <p class="text-gray-400 mb-8 text-center max-w-md">
+                        Looks like you haven't added any items to your cart yet. 
+                        Explore our collection and find something that inspires your creativity.
+                    </p>
+                    <a href="/shop/" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover-glow">
+                        Browse Products <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Related Products Section -->
+            <div class="mt-20">
+                <h2 class="text-3xl font-bold mb-8 text-center">You Might Also Like</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="related-products-container">
+                    <!-- Related products will be populated here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/90 pt-16 pb-8 relative">
+        <div class="section-overlay"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                    <img src="/assets/images/xcraftlab.png" alt="XCraftLab Logo" class="w-36 mr-3">
+                </a>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your premier destination for high-quality crafting supplies and
+                        creative inspiration in Estevan, Saskatchewan.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/shop/" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="/about/" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="/blog/" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="/contact/" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/privacy/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Privacy
+                                Policy</a></li>
+                        <li><a href="/terms/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Terms of
+                                Service</a></li>
+                        <li><a href="/cookies/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Cookie
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-400 mr-3"></i>
+                            440 King St, Estevan, SK S4A 2B4, Canada
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-phone text-green-400 mr-3"></i>
+                            +1 306 637 2550
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-envelope text-red-400 mr-3"></i>
+                            info@xcraftlab.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 XCraftLab. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="/privacy/" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                    <a href="/terms/" class="text-gray-400 hover:text-white">Terms of Service</a>
+                    <a href="/cookies/" class="text-gray-400 hover:text-white">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample product data (same as on homepage)
+        const products = [
+            {
+                id: 1,
+                name: "Professional Woodworking Chisel Set",
+                price: 89.99,
+                image: "/assets/images/woodworking-chisel-set.webp",
+                category: "woodworking",
+                description: "Premium steel chisels for precision woodworking"
+            },
+            {
+                id: 2,
+                name: "Premium Jewelry Making Wire Set",
+                price: 34.99,
+                image: "/assets/images/jewelry-wire-set.webp",
+                category: "jewelry",
+                description: "High-quality wire collection for jewelry crafting"
+            },
+            {
+                id: 3,
+                name: "Professional Acrylic Paint Set",
+                price: 67.99,
+                image: "/assets/images/acrylic-paint-set.webp",
+                category: "painting",
+                description: "Vibrant colors for professional painting projects"
+            },
+            {
+                id: 4,
+                name: "Eco-Friendly Craft Paper Collection",
+                price: 24.99,
+                image: "/assets/images/craft-paper-collection.webp",
+                category: "supplies",
+                description: "Sustainable paper collection for various crafts"
+            },
+            {
+                id: 5,
+                name: "Precision Cutting Mat Set",
+                price: 45.99,
+                image: "/assets/images/cutting-mat-set.webp",
+                category: "supplies",
+                description: "Self-healing cutting mats for precise crafting"
+            },
+            {
+                id: 6,
+                name: "Professional Brush Set",
+                price: 56.99,
+                image: "/assets/images/professional-brush-set.webp",
+                category: "painting",
+                description: "High-quality brushes for detailed painting work"
+            },
+            {
+                id: 7,
+                name: "Jewelry Pliers Set",
+                price: 42.99,
+                image: "/assets/images/jewelry-pliers-set.webp",
+                category: "jewelry",
+                description: "Essential pliers for jewelry making and wire work"
+            },
+            {
+                id: 8,
+                name: "Wood Burning Kit",
+                price: 78.99,
+                image: "/assets/images/wood-burning-kit.webp",
+                category: "woodworking",
+                description: "Complete wood burning set for decorative projects"
+            }
+        ];
+
+        // Global variables
+        let cart = JSON.parse(localStorage.getItem('xcraftlab-cart')) || [];
+        let appliedCoupon = null;
+        const TAX_RATE = 0.05;
+        const FREE_SHIPPING_THRESHOLD = 75;
+        const STANDARD_SHIPPING = 8.99;
+
+        // Cart management functions
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartWithItems = document.getElementById('cart-with-items');
+            
+            // Update cart icon count
+            if (cart.length > 0) {
+                cartCount.textContent = cart.length;
+                cartCount.classList.remove('hidden');
+            } else {
+                cartCount.classList.add('hidden');
+            }
+            
+            // Show/hide appropriate cart view
+            if (cart.length === 0) {
+                emptyCart.classList.remove('hidden');
+                cartWithItems.classList.add('hidden');
+                return;
+            } else {
+                emptyCart.classList.add('hidden');
+                cartWithItems.classList.remove('hidden');
+            }
+            
+            // Populate cart items
+            cartItemsContainer.innerHTML = '';
+            
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.id);
+                const itemTotal = item.price * item.quantity;
+                
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item p-4 flex flex-col md:flex-row items-start md:items-center gap-4 fade-in-up">
+                        <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
+                        
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-lg">${item.name}</h3>
+                            <p class="text-gray-400 text-sm mb-2">${product ? product.description : ''}</p>
+                            <p class="text-blue-400 font-semibold">$${item.price.toFixed(2)}</p>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row items-center gap-4">
+                            <div class="quantity-control">
+                                <button onclick="updateCartItemQuantity(${item.id}, -1)" class="quantity-btn">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <input type="text" class="quantity-input" value="${item.quantity}" 
+                                    onchange="updateQuantityFromInput(${item.id}, this.value)">
+                                <button onclick="updateCartItemQuantity(${item.id}, 1)" class="quantity-btn">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="text-right min-w-[80px]">
+                                <p class="font-semibold">$${itemTotal.toFixed(2)}</p>
+                            </div>
+                            
+                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Update cart summary
+            updateCartSummary();
+        }
+        
+        function updateCartSummary() {
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const shippingEl = document.getElementById('cart-shipping');
+            const discountRowEl = document.getElementById('discount-row');
+            const discountEl = document.getElementById('cart-discount');
+            const taxEl = document.getElementById('cart-tax');
+            const totalEl = document.getElementById('cart-total');
+            
+            // Calculate subtotal
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Calculate shipping
+            const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING;
+            
+            // Calculate discount if coupon applied
+            let discount = 0;
+            if (appliedCoupon) {
+                if (appliedCoupon.type === 'percentage') {
+                    discount = subtotal * (appliedCoupon.value / 100);
+                } else if (appliedCoupon.type === 'fixed') {
+                    discount = appliedCoupon.value;
+                }
+                
+                // Show discount row
+                discountRowEl.classList.remove('hidden');
+                discountEl.textContent = `-$${discount.toFixed(2)}`;
+            } else {
+                // Hide discount row
+                discountRowEl.classList.add('hidden');
+            }
+            
+            // Calculate tax
+            const taxableAmount = subtotal - discount;
+            const tax = taxableAmount * TAX_RATE;
+            
+            // Calculate total
+            const total = subtotal + shipping + tax - discount;
+            
+            // Update UI
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            shippingEl.textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+            taxEl.textContent = `$${tax.toFixed(2)}`;
+            totalEl.textContent = `$${total.toFixed(2)}`;
+        }
+        
+        function updateCartItemQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+                    updateCartUI();
+                }
+            }
+        }
+        
+        function updateQuantityFromInput(productId, value) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                const newQuantity = parseInt(value);
+                if (!isNaN(newQuantity) && newQuantity > 0) {
+                    item.quantity = newQuantity;
+                    localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+                    updateCartUI();
+                }
+            }
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+            updateCartUI();
+            
+            // Show notification
+            showNotification('Item removed from cart', 'success');
+        }
+        
+        function applyCoupon() {
+            const couponCode = document.getElementById('coupon-code').value.trim().toUpperCase();
+            
+            // Sample coupon codes (in a real app, these would be validated server-side)
+            const validCoupons = {
+                'WELCOME10': { type: 'percentage', value: 10 },
+                'CRAFT25': { type: 'percentage', value: 25 },
+                'SAVE15NOW': { type: 'fixed', value: 15 }
+            };
+            
+            if (couponCode === '') {
+                showNotification('Please enter a coupon code', 'error');
+                return;
+            }
+            
+            if (validCoupons[couponCode]) {
+                appliedCoupon = validCoupons[couponCode];
+                updateCartSummary();
+                showNotification(`Coupon "${couponCode}" applied successfully!`, 'success');
+            } else {
+                showNotification('Invalid coupon code', 'error');
+            }
+        }
+        
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty', 'error');
+                return;
+            }
+            
+            // In a real app, this would redirect to the checkout page
+            window.location.href = '/checkout/';
+        }
+        
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                }
+
+                localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+                updateCartUI();
+
+                // Show success message
+                showNotification('Product added to cart!', 'success');
+            }
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            mobileMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        function closeMobileMenuOnOutsideClick(event) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                closeMobileMenu();
+            }
+        }
+
+        // Load related products
+        function loadRelatedProducts() {
+            const container = document.getElementById('related-products-container');
+            
+            // Get categories from cart items
+            const cartCategories = [];
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.id);
+                if (product && !cartCategories.includes(product.category)) {
+                    cartCategories.push(product.category);
+                }
+            });
+            
+            // Filter products that are related to cart items but not in cart
+            let relatedProducts = products.filter(product => 
+                !cart.some(item => item.id === product.id) && 
+                (cartCategories.includes(product.category) || cartCategories.length === 0)
+            );
+            
+            // If not enough related products, add some random ones
+            if (relatedProducts.length < 4) {
+                const remainingProducts = products.filter(product => 
+                    !cart.some(item => item.id === product.id) && 
+                    !relatedProducts.includes(product)
+                );
+                
+                // Shuffle and take what we need
+                const shuffled = remainingProducts.sort(() => 0.5 - Math.random());
+                relatedProducts = [...relatedProducts, ...shuffled.slice(0, 4 - relatedProducts.length)];
+            }
+            
+            // Take just 4 products
+            relatedProducts = relatedProducts.slice(0, 4);
+            
+            // Render products
+            container.innerHTML = relatedProducts.map(product => `
+                <div class="related-product p-4 fade-in-up">
+                    <div class="aspect-square mb-4 overflow-hidden rounded-xl">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">${product.name}</h3>
+                    <p class="text-gray-400 text-sm mb-4">${product.description}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-blue-400">$${product.price.toFixed(2)}</span>
+                        <button onclick="addToCart(${product.id})" class="bg-gray-700 hover:bg-blue-600 px-3 py-2 rounded-lg transition-all duration-300">
+                            <i class="fas fa-plus mr-1"></i> Add
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize Three.js Background
+        function initFullThreeJS() {
+            const container = document.getElementById('three-full-bg');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Create multiple geometry types
+            const geometries = [
+                new THREE.IcosahedronGeometry(1, 0),
+                new THREE.OctahedronGeometry(1),
+                new THREE.TetrahedronGeometry(1),
+                new THREE.DodecahedronGeometry(1),
+                new THREE.TorusGeometry(1, 0.3, 8, 16),
+                new THREE.TorusKnotGeometry(0.8, 0.3, 50, 8),
+                new THREE.ConeGeometry(1, 2, 8),
+                new THREE.CylinderGeometry(0.5, 1, 2, 8)
+            ];
+
+            // Create materials with different effects
+            const materials = [
+                new THREE.MeshBasicMaterial({ 
+                    color: 0x667eea, 
+                    transparent: true, 
+                    opacity: 0.15,
+                    wireframe: true 
+                }),
+                new THREE.MeshBasicMaterial({ 
+                    color: 0x764ba2, 
+                    transparent: true, 
+                    opacity: 0.12,
+                    wireframe: false 
+                }),
+                new THREE.MeshBasicMaterial({ 
+                    color: 0xff6b6b, 
+                    transparent: true, 
+                    opacity: 0.1,
+                    wireframe: true 
+                }),
+                new THREE.MeshBasicMaterial({ 
+                    color: 0x4ecdc4, 
+                    transparent: true, 
+                    opacity: 0.13,
+                    wireframe: false 
+                })
+            ];
+
+            const meshes = [];
+            
+            // Create 30 floating objects for full page background
+            for (let i = 0; i < 30; i++) {
+                const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+                const material = materials[Math.floor(Math.random() * materials.length)];
+                const mesh = new THREE.Mesh(geometry, material);
+                
+                mesh.position.x = (Math.random() - 0.5) * 80;
+                mesh.position.y = (Math.random() - 0.5) * 80;
+                mesh.position.z = (Math.random() - 0.5) * 80;
+                
+                mesh.rotation.x = Math.random() * Math.PI;
+                mesh.rotation.y = Math.random() * Math.PI;
+                mesh.rotation.z = Math.random() * Math.PI;
+                
+                mesh.scale.setScalar(0.3 + Math.random() * 0.4);
+                
+                // Add custom animation properties
+                mesh.userData = {
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.01,
+                        y: (Math.random() - 0.5) * 0.01,
+                        z: (Math.random() - 0.5) * 0.01
+                    },
+                    floatSpeed: 0.0005 + Math.random() * 0.002,
+                    floatAmplitude: 1 + Math.random() * 2,
+                    originalY: mesh.position.y
+                };
+                
+                scene.add(mesh);
+                meshes.push(mesh);
+            }
+
+            camera.position.z = 40;
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let time = 0;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.01;
+
+                meshes.forEach((mesh, index) => {
+                    // Rotation animation
+                    mesh.rotation.x += mesh.userData.rotationSpeed.x;
+                    mesh.rotation.y += mesh.userData.rotationSpeed.y;
+                    mesh.rotation.z += mesh.userData.rotationSpeed.z;
+                    
+                    // Floating animation
+                    mesh.position.y = mesh.userData.originalY + 
+                        Math.sin(time * mesh.userData.floatSpeed + index) * mesh.userData.floatAmplitude;
+                    
+                    // Subtle position drift
+                    mesh.position.x += Math.sin(time * 0.0005 + index * 0.1) * 0.005;
+                    mesh.position.z += Math.cos(time * 0.0005 + index * 0.1) * 0.005;
+                });
+
+                // Subtle camera movement
+                camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.01;
+                camera.position.y += (-mouseY * 0.005 - camera.position.y) * 0.01;
+                camera.lookAt(scene.position);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Mouse interaction
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - window.innerWidth / 2) * 0.05;
+                mouseY = (event.clientY - window.innerHeight / 2) * 0.05;
+                
+                // Update interactive background
+                const interactiveBg = document.getElementById('interactive-bg');
+                const x = (event.clientX / window.innerWidth) * 100;
+                const y = (event.clientY / window.innerHeight) * 100;
+                interactiveBg.style.setProperty('--mouse-x', `${x}%`);
+                interactiveBg.style.setProperty('--mouse-y', `${y}%`);
+            });
+
+            // Window resize handling
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Enhanced Multi-layered Particles
+        function initMultiLayerParticles() {
+            // Layer 1: Large slow particles
+            particlesJS('particles-layer-1', {
+                particles: {
+                    number: { value: 20 },
+                    color: { value: ['#667eea', '#764ba2', '#ff6b6b'] },
+                    shape: {
+                        type: ['circle', 'triangle', 'polygon'],
+                        polygon: { nb_sides: 6 }
+                    },
+                    opacity: {
+                        value: 0.2,
+                        random: true,
+                        anim: { enable: true, speed: 0.5, opacity_min: 0.05 }
+                    },
+                    size: {
+                        value: 6,
+                        random: true,
+                        anim: { enable: true, speed: 2, size_min: 2 }
+                    },
+                    move: {
+                        enable: true,
+                        speed: 0.5,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'bounce',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'repulse' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        repulse: { distance: 80, duration: 0.4 },
+                        push: { particles_nb: 2 }
+                    }
+                }
+            });
+
+            // Layer 2: Medium speed connecting particles
+            particlesJS('particles-layer-2', {
+                particles: {
+                    number: { value: 30 },
+                    color: { value: ['#4ecdc4', '#ff9a9e', '#fad0c4'] },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: 0.15,
+                        random: false,
+                        anim: { enable: true, speed: 1, opacity_min: 0.05 }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: { enable: true, speed: 3, size_min: 1 }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 120,
+                        color: '#667eea',
+                        opacity: 0.1,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        onclick: { enable: true, mode: 'bubble' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 150,
+                            line_linked: { opacity: 0.2 }
+                        },
+                        bubble: {
+                            distance: 150,
+                            size: 6,
+                            duration: 2,
+                            opacity: 0.3,
+                            speed: 3
+                        }
+                    }
+                }
+            });
+
+            // Layer 3: Small fast particles
+            particlesJS('particles-layer-3', {
+                particles: {
+                    number: { value: 50 },
+                    color: { value: '#ffffff' },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: 0.08,
+                        random: true,
+                        anim: { enable: true, speed: 2, opacity_min: 0.02 }
+                    },
+                    size: {
+                        value: 2,
+                        random: true,
+                        anim: { enable: true, speed: 4, size_min: 0.5 }
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1.5,
+                        direction: 'top',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'bubble' },
+                        resize: true
+                    },
+                    modes: {
+                        bubble: {
+                            distance: 80,
+                            size: 4,
+                            duration: 0.3,
+                            opacity: 0.2,
+                            speed: 3
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create floating geometric shapes
+        function createFloatingShapes() {
+            const container = document.getElementById('floating-shapes');
+            const shapes = ['◆', '▲', '●', '■', '✦', '◇', '▼', '◆'];
+            
+            for (let i = 0; i < 15; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'floating-shape';
+                shape.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.fontSize = (Math.random() * 15 + 8) + 'px';
+                shape.style.color = ['#667eea', '#764ba2', '#ff6b6b', '#4ecdc4'][Math.floor(Math.random() * 4)];
+                shape.style.animationDelay = Math.random() * 15 + 's';
+                shape.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(shape);
+            }
+        }
+
+        // Create neural network lines
+        function createNeuralNetwork() {
+            const container = document.getElementById('neural-network');
+            
+            for (let i = 0; i < 10; i++) {
+                const line = document.createElement('div');
+                line.className = 'neural-line';
+                line.style.left = Math.random() * 100 + '%';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.width = (Math.random() * 150 + 50) + 'px';
+                line.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                line.style.animationDelay = Math.random() * 3 + 's';
+                line.style.animationDuration = (3 + Math.random() * 2) + 's';
+                container.appendChild(line);
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg z-50 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Cookie consent functionality
+        function showCookieConsent() {
+            const consent = localStorage.getItem('cookie-consent');
+            if (!consent) {
+                document.getElementById('cookie-consent').classList.remove('hidden');
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'accepted');
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookie-consent', 'declined');
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartUI();
+            loadRelatedProducts();
+            initFullThreeJS();
+            initMultiLayerParticles();
+            createFloatingShapes();
+            createNeuralNetwork();
+            showCookieConsent();
+
+            // Add click outside to close mobile menu
+            document.addEventListener('click', closeMobileMenuOnOutsideClick);
+
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

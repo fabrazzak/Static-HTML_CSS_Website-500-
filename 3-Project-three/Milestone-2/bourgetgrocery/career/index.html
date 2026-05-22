@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join the passionate team at Bourget Grocery - Career opportunities in butcher shop, grocery management & more">
+    <meta name="keywords" content="careers Bourget Grocery, butcher shop jobs, grocery store jobs Mississauga, retail careers, food service jobs, management positions, entry level jobs, team member opportunities, customer service careers, food industry employment">
+    <link rel="canonical" href="http://bourgetgrocery.com/career/">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <title>Careers - Join Our Passionate Team | Bourget Grocery</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a472a;
+            --secondary-color: #2d5a3d;
+            --accent-color: #4CAF50;
+            --dark-bg: #0a0e0d;
+            --darker-bg: #050707;
+            --text-light: #e8f5e9;
+            --text-muted: #a5d6a7;
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            --gradient-2: linear-gradient(45deg, #0a0e0d 0%, #1a472a 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Three.js Canvas Background */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Particles.js Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 13, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(10, 14, 13, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 12rem 5% 6rem;
+            text-align: center;
+            background: var(--gradient-2);
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-color), #81c784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Why Join Us Section */
+        .why-join-section {
+            padding: 8rem 5%;
+            background: var(--dark-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--accent-color);
+        }
+
+        .why-join-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .why-join-card {
+            background: rgba(26, 71, 42, 0.3);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-join-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .why-join-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.2);
+        }
+
+        .why-join-card i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .why-join-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .why-join-card p {
+            color: var(--text-muted);
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Job Openings Section */
+        .job-openings-section {
+            padding: 8rem 5%;
+            background: var(--gradient-2);
+        }
+
+        .job-openings-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .job-card {
+            background: rgba(26, 71, 42, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 35px rgba(76, 175, 80, 0.2);
+        }
+
+        .job-header {
+            background: var(--gradient-1);
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .job-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .job-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .job-department {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .job-content {
+            padding: 2.5rem;
+        }
+
+        .job-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .job-requirements {
+            margin-bottom: 2rem;
+        }
+
+        .job-requirements h4 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .job-requirements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .job-requirements li {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .job-requirements li i {
+            color: var(--accent-color);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .apply-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Leadership Section */
+        .leadership-section {
+            padding: 8rem 5%;
+            background: var(--darker-bg);
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+        }
+
+        .leader-card {
+            background: rgba(26, 71, 42, 0.2);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.2);
+        }
+
+        .leader-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent-color);
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leader-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .leader-card:hover .leader-avatar::before {
+            left: 100%;
+        }
+
+        .leader-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .leader-position {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .leader-quote {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .leader-quote::before,
+        .leader-quote::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--accent-color);
+            font-style: normal;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 8rem 5%;
+            background: var(--gradient-1);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .benefit-card i {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .benefit-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Application Process */
+        .process-section {
+            padding: 8rem 5%;
+            background: var(--dark-bg);
+        }
+
+        .process-timeline {
+            max-width: 1000px;
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 80px;
+            width: 2px;
+            height: 60px;
+            background: var(--accent-color);
+            opacity: 0.3;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-content {
+            flex: 1;
+            background: rgba(26, 71, 42, 0.2);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            background: var(--gradient-2);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: var(--text-muted);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 13, 0.98);
+            padding: 1.5rem 5%;
+            z-index: 1001;
+            border-top: 2px solid var(--accent-color);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-content p {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Application Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--dark-bg);
+            margin: 5% auto;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid var(--accent-color);
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--accent-color);
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #45a049;
+        }
+
+        .modal h2 {
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 10px;
+            background: rgba(26, 71, 42, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(10, 14, 13, 0.98);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles.js -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                
+                <li><a href="/career/" class="active">Career</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Join Our Passionate Team</h1>
+        <p>Be part of a family-owned business that has been nourishing the community for over 28 years. We believe in quality, innovation, and creating an environment where every team member can thrive and grow.</p>
+    </section>
+
+    <!-- Why Join Us Section -->
+    <section class="why-join-section">
+        <h2 class="section-title">Why Choose Bourget Grocery?</h2>
+        <div class="why-join-grid">
+            <div class="why-join-card">
+                <i class="fas fa-users"></i>
+                <h3>Family Culture</h3>
+                <p>Join a close-knit team where everyone is valued, supported, and treated like family. Experience a workplace built on respect, collaboration, and shared success.</p>
+            </div>
+            <div class="why-join-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Growth Opportunities</h3>
+                <p>We invest in your personal and professional development with training programs, mentorship, and clear advancement paths within our organization.</p>
+            </div>
+            <div class="why-join-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Innovation Focus</h3>
+                <p>Be part of exciting projects and initiatives that shape the future of our business. Your creative ideas and innovative solutions are valued and implemented.</p>
+            </div>
+            <div class="why-join-card">
+                <i class="fas fa-heart"></i>
+                <h3>Employee Well-being</h3>
+                <p>Comprehensive benefits, work-life balance programs, and a commitment to your health and happiness make this more than just a job.</p>
+            </div>
+           
+        </div>
+    </section>
+
+    <!-- Job Openings Section -->
+    <section class="job-openings-section">
+        <h2 class="section-title">Current Opportunities</h2>
+        <div class="job-openings-grid">
+            <!-- Butcher Shop Position -->
+            <div class="job-card">
+                <div class="job-header">
+                    <h3 class="job-title">Experienced Butcher</h3>
+                    <p class="job-department">Meat Department • Full-time</p>
+                </div>
+                <div class="job-content">
+                    <p class="job-description">Do you have a passion for quality meat and exceptional service? Join our expert butcher team and showcase your skills in our premium meat department that has been serving the community for over 28 years.</p>
+                    <div class="job-requirements">
+                        <h4>What We're Looking For:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Minimum 3 years of butcher experience</li>
+                            <li><i class="fas fa-check"></i>Knowledge of meat cutting techniques and food safety</li>
+                            <li><i class="fas fa-check"></i>Excellent customer service skills</li>
+                            <li><i class="fas fa-check"></i>Ability to work in a fast-paced environment</li>
+                            <li><i class="fas fa-check"></i>Team player with strong communication skills</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" data-job="butcher">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- Store Manager Position -->
+            <div class="job-card">
+                <div class="job-header">
+                    <h3 class="job-title">Store Manager</h3>
+                    <p class="job-department">Management • Full-time</p>
+                </div>
+                <div class="job-content">
+                    <p class="job-description">Become the conductor of our flourishing grocery store! We're seeking a passionate leader with exceptional expertise in grocery store management to join our dynamic team.</p>
+                    <div class="job-requirements">
+                        <h4>What We're Looking For:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i>5+ years of retail management experience</li>
+                            <li><i class="fas fa-check"></i>Strong leadership and team management skills</li>
+                            <li><i class="fas fa-check"></i>Experience with inventory management and purchasing</li>
+                            <li><i class="fas fa-check"></i>Excellent customer service and problem-solving abilities</li>
+                            <li><i class="fas fa-check"></i>Knowledge of food safety regulations</li>
+                            <li><i class="fas fa-check"></i>Passion for quality and customer satisfaction</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" data-job="manager">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- Team Member Position -->
+            <div class="job-card">
+                <div class="job-header">
+                    <h3 class="job-title">Team Member - Multiple Positions</h3>
+                    <p class="job-department">Customer Service • Part-time & Full-time</p>
+                </div>
+                <div class="job-content">
+                    <p class="job-description">We believe in the power of youth and creativity! Join our team and contribute to exciting projects while working alongside seasoned professionals in a supportive environment.</p>
+                    <div class="job-requirements">
+                        <h4>What We're Looking For:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Positive attitude and strong work ethic</li>
+                            <li><i class="fas fa-check"></i>Excellent communication and interpersonal skills</li>
+                            <li><i class="fas fa-check"></i>Ability to work flexible hours including weekends</li>
+                            <li><i class="fas fa-check"></i>Team player with initiative and creativity</li>
+                            <li><i class="fas fa-check"></i>Previous retail experience preferred but not required</li>
+                            <li><i class="fas fa-check"></i>Commitment to providing exceptional customer service</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" data-job="team-member">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- Bakery Assistant -->
+            <div class="job-card">
+                <div class="job-header">
+                    <h3 class="job-title">Bakery Assistant</h3>
+                    <p class="job-department">Bakery Department • Part-time</p>
+                </div>
+                <div class="job-content">
+                    <p class="job-description">Join our bakery team and help create our famous homemade donuts and artisan baked goods. Learn traditional baking techniques and be part of our sweet success!</p>
+                    <div class="job-requirements">
+                        <h4>What We're Looking For:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Interest in baking and pastry arts</li>
+                            <li><i class="fas fa-check"></i>Attention to detail and quality standards</li>
+                            <li><i class="fas fa-check"></i>Ability to work early morning shifts</li>
+                            <li><i class="fas fa-check"></i>Food handling certification (or willingness to obtain)</li>
+                            <li><i class="fas fa-check"></i>Physical ability to lift up to 50 lbs</li>
+                            <li><i class="fas fa-check"></i>Passion for creating quality baked goods</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" data-job="bakery-assistant">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <h2 class="section-title">Employee Benefits</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+               <i class="fas fa-notes-medical"></i> 
+                <h3>Health Coverage</h3>
+                <p>Comprehensive health, dental, and vision insurance for you and your family</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-piggy-bank"></i>
+                <h3>Retirement Plan</h3>
+                <p>Company-matched retirement savings plan to secure your financial future</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Paid Time Off</h3>
+                <p>Generous vacation, personal, and sick leave policies for work-life balance</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Training Programs</h3>
+                <p>Ongoing education and skill development opportunities to advance your career</p>
+            </div>
+           
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="process-section">
+        <h2 class="section-title">Application Process</h2>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Submit Your Application</h3>
+                    <p>Choose the position that interests you most and submit your application through our online form. Include your resume, cover letter, and any relevant certifications.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Initial Screening</h3>
+                    <p>Our HR team will review your application and contact qualified candidates within 48 hours for a brief phone screening to discuss your background and interest.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>In-Person Interview</h3>
+                    <p>Successful candidates will be invited for an in-person interview where you'll meet the team, tour our facilities, and learn more about the role and our company culture.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Welcome to the Team</h3>
+                    <p>Once selected, we'll guide you through orientation and training to ensure you're fully prepared to succeed in your new role with our family.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Join Our Family?</h2>
+            <p>Take the first step towards an exciting career with Bourget Grocery. We're looking forward to meeting you and discovering how you can contribute to our continued success.</p>
+            <div class="cta-buttons">
+                <a href="javascript:void(0)" class="btn btn-primary" id="generalApplicationBtn">Submit General Application</a>
+                <a href="/contact/" class="btn btn-secondary">Contact HR</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                <p>Nourishing a community through passion and family authenticity since 1996.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/career/">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/privacy/">Privacy Policy</a></li>
+                    <li><a href="/terms/">Terms of Service</a></li>
+                    <li><a href="/cookies/">Cookies Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bourget Grocery. All rights reserved. | 5875 Airport Rd, Mississauga, ON L4V 1N1</p>
+        </div>
+    </footer>
+
+    <!-- Application Modal -->
+    <div id="applicationModal" class="modal"  style="overflow-y: auto !important;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Job Application</h2>
+            <form id="applicationForm"  style="overflow-y: auto;">
+                <div class="form-group">
+                    <label for="position">Position Applied For:</label>
+                    <select id="position" name="position" required>
+                        <option value="">Select a position</option>
+                        <option value="butcher">Experienced Butcher</option>
+                        <option value="manager">Store Manager</option>
+                        <option value="team-member">Team Member</option>
+                        <option value="bakery-assistant">Bakery Assistant</option>
+                        <option value="general">General Application</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+               
+                <div class="form-group">
+                    <label for="experience">Relevant Experience:</label>
+                    <textarea id="experience" name="experience" placeholder="Please describe your relevant work experience..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="motivation">Why do you want to work with us?</label>
+                    <textarea id="motivation" name="motivation" placeholder="Tell us what motivates you to join our team..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="availability">Availability:</label>
+                    <textarea id="availability" name="availability" placeholder="Please describe your availability (days, hours, start date)..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent">
+        <div class="cookie-content">
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By continuing to use our site, you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-color);">Learn more</a></p>
+            <div class="cookie-buttons">
+                <button class="btn btn-primary" id="acceptCookies">Accept</button>
+                <button class="btn btn-secondary" id="declineCookies">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('three-canvas'),
+            alpha: true 
+        });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 5;
+
+        // Create geometric shapes
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x2d5a3d, 
+            wireframe: true 
+        });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.001;
+            torus.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollTop = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('active');
+            } else {
+                scrollTop.classList.remove('active');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Modal Functionality
+        const modal = document.getElementById('applicationModal');
+        const closeBtn = document.querySelector('.close');
+        const applyBtns = document.querySelectorAll('.apply-btn');
+        const generalAppBtn = document.getElementById('generalApplicationBtn');
+        const positionSelect = document.getElementById('position');
+
+        // Open modal for specific job applications
+        applyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const jobType = btn.getAttribute('data-job');
+                modal.style.display = 'block';
+                
+                // Set the position in the dropdown
+                const optionValue = {
+                    'butcher': 'butcher',
+                    'manager': 'manager',
+                    'team-member': 'team-member',
+                    'bakery-assistant': 'bakery-assistant'
+                };
+                
+                positionSelect.value = optionValue[jobType] || '';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Open modal for general application
+        generalAppBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            positionSelect.value = 'general';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Form submission
+        const applicationForm = document.getElementById('applicationForm');
+        applicationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(applicationForm);
+            const applicationData = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            alert(`Thank you for your application, ${applicationData.fullName}! We'll review your application and contact you within 48 hours.`);
+            
+            // Reset form and close modal
+            applicationForm.reset();
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Cookie Consent
+        const cookieConsent = document.querySelector('.cookie-consent');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.why-join-card, .job-card, .leader-card, .benefit-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.apply-btn, .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: ripple 0.6s ease-out;
+                `;
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

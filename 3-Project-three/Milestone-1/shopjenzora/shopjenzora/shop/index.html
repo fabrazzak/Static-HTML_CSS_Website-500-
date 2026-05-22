@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Jenzora | Premium Fashion & Accessories</title>
+    <meta name="description" content="Shop premium fashion and accessories at Jenzora. Browse our collection of elegant dresses, designer bags, luxury watches, and trendy apparel in Vienna, Austria.">
+    <meta name="keywords" content="shop fashion, buy clothes online, Vienna fashion store, premium clothing, designer bags, luxury watches, elegant dresses, fashion accessories, Austrian fashion, online shopping">
+    <link rel="canonical" href="https:/shopjenzora.com/shop/">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https:/fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #f9fafb;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hamburger-line:nth-child(3) {
+            bottom: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            transition: right 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 60px 0;
+        }
+        
+        .filter-checkbox:checked + .filter-label {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        .price-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: #d1d5db;
+            outline: none;
+        }
+        
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .price-slider::-webkit-slider-thumb:hover {
+            background: #5a67d8;
+            transform: scale(1.2);
+        }
+        
+        .price-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .price-slider::-moz-range-thumb:hover {
+            background: #5a67d8;
+            transform: scale(1.2);
+        }
+        
+        .pagination-btn {
+            transition: all 0.3s;
+        }
+        
+        .pagination-btn:hover {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        .pagination-btn.active {
+            background-color: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="bg-gray-900 text-white py-2 hidden md:block">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-6">
+                    <span class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Kärntner Straße 26, 1010 Wien, Austria
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-phone mr-2"></i>
+                        +43 1 5123456
+                    </span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+               <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Home</a>
+                    <a href="/shop/" class="text-purple-600 font-medium transition-colors">Shop</a>
+                    <a href="/about/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">About</a>
+                    <a href="/blog/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Blog</a>
+                    <a href="/contact/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="cart-btn" class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </button>
+                    
+                    <!-- Mobile Hamburger -->
+                    <div class="md:hidden hamburger-menu" id="hamburger-menu">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="/" class="text-white text-2xl hover:text-purple-400 transition-colors">Home</a>
+            <a href="/shop/" class="text-purple-400 text-2xl transition-colors">Shop</a>
+            <a href="/about/" class="text-white text-2xl hover:text-purple-400 transition-colors">About</a>
+            <a href="/blog/" class="text-white text-2xl hover:text-purple-400 transition-colors">Blog</a>
+            <a href="/contact/" class="text-white text-2xl hover:text-purple-400 transition-colors">Contact</a>
+        </div>
+    </div>
+
+    <!-- Shop Header -->
+    <section class="py-12 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="font-playfair text-4xl md:text-5xl font-bold mb-4">
+                Our Collection
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto">
+                Discover our premium selection of fashion and accessories
+            </p>
+        </div>
+    </section>
+
+    <!-- Shop Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <div class="w-full md:w-1/4 bg-white p-6 rounded-2xl shadow-lg h-fit sticky top-32 hidden md:block">
+                    <h3 class="font-semibold text-xl mb-6">Filters</h3>
+                    
+                    <!-- Categories -->
+                    <div class="mb-8">
+                        <h4 class="font-medium text-gray-700 mb-4">Categories</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="category-dresses" class="filter-checkbox hidden">
+                                <label for="category-dresses" class="filter-label px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">Dresses</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="category-tops" class="filter-checkbox hidden">
+                                <label for="category-tops" class="filter-label px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">Tops</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="category-bottoms" class="filter-checkbox hidden">
+                                <label for="category-bottoms" class="filter-label px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">Bottoms</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="category-shoes" class="filter-checkbox hidden">
+                                <label for="category-shoes" class="filter-label px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">Shoes</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="category-accessories" class="filter-checkbox hidden">
+                                <label for="category-accessories" class="filter-label px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">Accessories</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="mb-8">
+                        <h4 class="font-medium text-gray-700 mb-4">Price Range</h4>
+                        <input type="range" min="0" max="500" value="250" class="price-slider mb-4" id="price-slider">
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>$0</span>
+                            <span>$250</span>
+                            <span>$500</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Size -->
+                    <div class="mb-8">
+                        <h4 class="font-medium text-gray-700 mb-4">Size</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="size-xs" class="filter-checkbox hidden">
+                                <label for="size-xs" class="filter-label w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">XS</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="size-s" class="filter-checkbox hidden">
+                                <label for="size-s" class="filter-label w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">S</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="size-m" class="filter-checkbox hidden">
+                                <label for="size-m" class="filter-label w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">M</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="size-l" class="filter-checkbox hidden">
+                                <label for="size-l" class="filter-label w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">L</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="size-xl" class="filter-checkbox hidden">
+                                <label for="size-xl" class="filter-label w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 text-sm cursor-pointer transition-colors">XL</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Color -->
+                    <div class="mb-8">
+                        <h4 class="font-medium text-gray-700 mb-4">Color</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="color-black" class="filter-checkbox hidden">
+                                <label for="color-black" class="filter-label w-8 h-8 rounded-full bg-black cursor-pointer transition-all border-2 border-gray-300"></label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="color-white" class="filter-checkbox hidden">
+                                <label for="color-white" class="filter-label w-8 h-8 rounded-full bg-white cursor-pointer transition-all border-2 border-gray-300"></label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="color-red" class="filter-checkbox hidden">
+                                <label for="color-red" class="filter-label w-8 h-8 rounded-full bg-red-500 cursor-pointer transition-all border-2 border-gray-300"></label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="color-blue" class="filter-checkbox hidden">
+                                <label for="color-blue" class="filter-label w-8 h-8 rounded-full bg-blue-500 cursor-pointer transition-all border-2 border-gray-300"></label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="color-green" class="filter-checkbox hidden">
+                                <label for="color-green" class="filter-label w-8 h-8 rounded-full bg-green-500 cursor-pointer transition-all border-2 border-gray-300"></label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                        Apply Filters
+                    </button>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="w-full md:w-3/4">
+                    <!-- Sort and View Options -->
+                    <div class="flex justify-between items-center mb-8 bg-white p-4 rounded-2xl shadow-lg ">
+                        <div class="text-sm text-gray-600">
+                            Showing <span id="products-count">12</span> products
+                        </div>
+                        <div class="flex items-center space-x-4 hidden md:block">
+                            <span class="text-sm text-gray-600">Sort by:</span>
+                            <select class="border border-gray-300 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400">
+                                <option>Newest</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Most Popular</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
+                        <!-- Products will be dynamically inserted here -->
+                    </div>
+                    
+                  
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-4">
+                Stay Updated
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Subscribe to our newsletter for exclusive offers and new arrivals
+            </p>
+            <div class="max-w-md mx-auto flex">
+                <input 
+                    type="email" 
+                    placeholder="Enter your email address"
+                    class="flex-1 px-4 py-3 rounded-l-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                >
+                <button class="bg-white text-purple-600 px-6 py-3 rounded-r-full font-semibold hover:bg-gray-100 transition-colors">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14 mb-4">
+                </a>
+                    <p class="text-gray-400 mb-4">
+                        Premium fashion and accessories in the heart of Vienna, Austria.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="/shop/" class="hover:text-white transition-colors">Shop</a></li>
+                        <li><a href="/about/" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/privacy/" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="/cookies/" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3"></i>
+                            <span>Kärntner Straße 26, 1010 Wien, Austria</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+43 1 5123456</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@shopjenzora.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2025 Jenzora. All rights reserved. Made with ❤️ in Vienna, Austria.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check mr-2"></i>
+        <span id="notification-text">Item added to cart!</span>
+    </div>
+
+    <script>
+        /// Products Data
+        const products = [
+            { id: 1, name: "Elegant Summer Dress", price: 79.99, image: "/assets/products/elegant-dress.jpg", category: "dress", badge: "Best Seller" },
+            { id: 2, name: "Classic Denim Jacket", price: 99.99, image: "/assets/products/denim-jacket.jpeg", category: "jacket", badge: "Hot" },
+            { id: 3, name: "Premium Leather Bag", price: 129.99, image: "/assets/products/leather-bag.jpg", category: "bag", badge: "Sale" },
+            { id: 4, name: "Casual Sneakers", price: 69.99, image: "/assets/products/casual-sneakers.jpg", category: "shoes", badge: "Best Seller" },
+            { id: 5, name: "Slim Fit Trousers", price: 59.99, image: "/assets/products/slim-trousers.avif", category: "pants", badge: "Best Seller" },
+            { id: 6, name: "Designer Sunglasses", price: 149.99, image: "/assets/products/designer-sunglasses.jpg", category: "accessory", badge: "New" },
+            { id: 7, name: "Casual T-Shirt", price: 29.99, image: "/assets/products/casual-tshirt.webp", category: "shirt", badge: "Hot" },
+            { id: 8, name: "Vintage Watch", price: 199.99, image: "/assets/products/vintage-watch.jpg", category: "watch", badge: "Sale" },
+            { id: 9, name: "Formal Shirt", price: 49.99, image: "/assets/products/formal-shirt.jpg", category: "shirt", badge: "New" },
+            { id: 10, name: "Statement Necklace", price: 89.99, image: "/assets/products/statement-necklace.jpg", category: "jewelry", badge: "Hot" },
+            { id: 11, name: "Evening Gown", price: 249.99, image: "/assets/products/evening-gown.webp", category: "dress", badge: "Best Seller" },
+            { id: 12, name: "Athletic Shoes", price: 119.99, image: "/assets/products/athletic-shoes.webp", category: "shoes", badge: "Best Seller" }
+        ];
+
+        //  Cart functionality
+        let cart = JSON.parse(localStorage.getItem('jenzora-cart')) || [];
+
+        function updateCartCount() {
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('jenzora-cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`${product.name} added to cart!`);
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function createProductCard(product) {
+            return `
+                <div class="product-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+                    ${product.badge ? `
+                        <div class="absolute top-4 left-4 z-10 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ${product.badge}
+                        </div>
+                    ` : ''}
+                    <div class="h-64 flex items-center justify-center bg-gray-50">
+        <img src="${product.image}" alt="${product.name}" class="h-full object-contain">
+    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-purple-600">$${product.price}</span>
+                            <button onclick="addToCart(${product.id})" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        //  Populate product grid
+        function populateProducts() {
+            document.getElementById('products-grid').innerHTML = products.map(p => createProductCard(p)).join('');
+        }
+
+        //  Mobile menu functionality
+        function initMobileMenu() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
+
+        //  Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            populateProducts();
+            updateCartCount();
+            initMobileMenu();
+        });
+
+        //  Cart button functionality
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            window.location.href = '/cart/';
+        });
+
+        //  Filter checkbox functionality
+        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = this.nextElementSibling;
+                if (this.checked) {
+                    label.classList.add('bg-purple-600', 'text-white');
+                    label.classList.remove('bg-gray-100', 'text-gray-700');
+                } else {
+                    label.classList.remove('bg-purple-600', 'text-white');
+                    label.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

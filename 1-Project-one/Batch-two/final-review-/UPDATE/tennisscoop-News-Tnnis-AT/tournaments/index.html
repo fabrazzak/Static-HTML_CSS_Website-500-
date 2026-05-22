@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Tournaments Schedule & Results | TennisScoop</title>
+    <meta name="description" content="Complete schedule of upcoming tennis tournaments, results, rankings, and player participation across ATP and WTA tours.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <!-- <link rel="stylesheet" href="../css/tournaments.css"> -->
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+     <style>
+        /* General Styles */
+:root {
+    --primary-color: #1a6dbe;
+    --secondary-color: #e74c3c;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --font-main: 'Montserrat', sans-serif;
+    --font-secondary: 'Open Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-secondary);
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-main);
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-family: var(--font-main);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #14579c;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+/* Header Styles */
+.header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: var(--font-main);
+}
+
+.logo a {
+    color: var(--dark-color);
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.main-nav li {
+    margin-left: 20px;
+}
+
+.main-nav a {
+    color: var(--dark-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.search-btn, .mobile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 5px;
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+
+/* Hero Section */
+.page-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') no-repeat center center/cover;
+    color: white;
+    padding: 150px 0 80px;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.page-hero .subtext {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Filter Section */
+.tournaments-filter {
+    background-color: white;
+    padding: 30px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: var(--font-secondary);
+}
+
+/* Tournament Cards */
+.tournaments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.tournament-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tournament-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tournament-card.featured {
+    border-top: 4px solid var(--primary-color);
+}
+
+.tournament-header {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.tournament-date {
+    text-align: center;
+    margin-right: 20px;
+    min-width: 60px;
+}
+
+.tournament-date .day {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.tournament-date .month {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--dark-color);
+}
+
+.tournament-date .year {
+    display: block;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.tournament-info {
+    flex: 1;
+}
+
+.tour-type {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.tour-type.atp {
+    background-color: #3498db;
+    color: white;
+}
+
+.tour-type.wta {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.tour-type.grand-slam {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.tour-type.atp-1000 {
+    background-color: #2980b9;
+    color: white;
+}
+
+.tour-type.wta-1000 {
+    background-color: #c0392b;
+    color: white;
+}
+
+.tour-type.atp-250 {
+    background-color: #3498db;
+    color: white;
+    opacity: 0.8;
+}
+
+.tour-type.wta-250 {
+    background-color: #e74c3c;
+    color: white;
+    opacity: 0.8;
+}
+
+.tour-type.combined {
+    background-color: #9b59b6;
+    color: white;
+}
+
+.tournament-info h3 {
+    font-size: 1.4rem;
+    margin: 5px 0;
+}
+
+.tournament-location {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.tournament-location i {
+    margin-right: 5px;
+}
+
+.tournament-details {
+    padding: 15px 20px;
+}
+
+.detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.tournament-actions {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+}
+
+/* Tournaments List */
+.tournaments-list {
+    margin-top: 20px;
+}
+
+.tournament-item {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.tournament-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tournament-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    margin-right: 15px;
+}
+
+.tournament-date .month {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+
+.tournament-date .day {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--dark-color);
+}
+
+.tournament-main {
+    flex: 1;
+    min-width: 200px;
+}
+
+.tournament-main h3 {
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.tournament-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.tournament-meta i {
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+
+.tournament-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-family: var(--font-main);
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Section Styles */
+.section-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Grand Slams */
+.grand-slams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.grand-slam-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.grand-slam-card:hover {
+    transform: translateY(-5px);
+}
+
+.gs-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.gs-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.grand-slam-card:hover .gs-image img {
+    transform: scale(1.05);
+}
+
+.gs-content {
+    padding: 20px;
+}
+
+.gs-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.gs-details {
+    margin-bottom: 20px;
+}
+
+.gs-details .detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.gs-details .detail i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+.highlight {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.stat-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.stat-winner {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.stat-winner img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid var(--primary-color);
+}
+
+.winner-info h4 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.winner-info p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.stat-record {
+    margin-top: 15px;
+}
+
+.stat-record h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.stat-record p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+/* Newsletter */
+.newsletter {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 60px 0;
+    margin: 60px 0;
+    text-align: center;
+}
+
+.newsletter h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.newsletter p {
+    max-width: 600px;
+    margin: 0 auto 25px;
+    font-size: 1.1rem;
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-family: var(--font-secondary);
+}
+
+.newsletter-form button {
+    border-radius: 0 4px 4px 0;
+    padding: 12px 25px;
+}
+
+.newsletter-note {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 15px;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 60px 0 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: white;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.footer-about {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.footer-contact {
+    list-style: none;
+}
+
+.footer-contact li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.9rem;
+}
+
+.footer-contact i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    margin-top: 3px;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-legal a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    transition: color 0.3s ease;
+}
+
+.footer-legal a:hover {
+    color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .main-nav {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .tournament-item {
+        flex-direction: column;
+    }
+    
+    .tournament-actions {
+        margin-left: 0;
+        margin-top: 15px;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        padding: 120px 0 60px;
+    }
+    
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .filter-options {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .newsletter-form input {
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .newsletter-form button {
+        border-radius: 4px;
+        width: 100%;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .header .container {
+        flex-wrap: wrap;
+    }
+    
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .footer-legal {
+        justify-content: center;
+    }
+}
+
+/* Mobile Menu Styles */
+.main-nav {
+    transition: all 0.3s ease;
+}
+
+.main-nav.show {
+    display: block;
+}
+
+@media (max-width: 992px) {
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main-nav li {
+        margin: 10px 0;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+}
+     </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/">Tennis<span>Scoop</span></a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/tournaments/">Tournaments</a></li>
+                    <li><a href="/players/">Players</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+            
+                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Tournaments Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Tennis Tournaments</h1>
+            <p class="subtext">Complete schedule of upcoming tournaments, results, rankings, and player participation across ATP and WTA tours.</p>
+        </div>
+    </section>
+
+    <!-- Tournaments Filter Section -->
+    <section class="tournaments-filter">
+        <div class="container">
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label for="tour-type">Tour:</label>
+                    <select id="tour-type">
+                        <option value="all">All Tours</option>
+                        <option value="atp">ATP Tour</option>
+                        <option value="wta">WTA Tour</option>
+                        <option value="grand-slam">Grand Slam</option>
+                        <option value="atp-1000">ATP Masters 1000</option>
+                        <option value="wta-1000">WTA 1000</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="surface-type">Surface:</label>
+                    <select id="surface-type">
+                        <option value="all">All Surfaces</option>
+                        <option value="hard">Hard Court</option>
+                        <option value="clay">Clay Court</option>
+                        <option value="grass">Grass Court</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="time-frame">Time Frame:</label>
+                    <select id="time-frame">
+                        <option value="upcoming">Upcoming</option>
+                        <option value="current">Current</option>
+                        <option value="past">Past Tournaments</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Tournaments Section -->
+    <section class="current-tournaments">
+        <div class="container">
+            <h2 class="section-title">Current Tournaments</h2>
+            <div class="tournaments-grid">
+                <div class="tournament-card featured">
+                    <div class="tournament-header">
+                        <div class="tournament-date">
+                            <span class="day">28</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2025</span>
+                        </div>
+                        <div class="tournament-info">
+                            <span class="tour-type atp">ATP 500</span>
+                            <h3>Citi Open</h3>
+                            <div class="tournament-location">
+                                <i class="fas fa-map-marker-alt"></i> Washington, D.C., USA
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tournament-details">
+                        <div class="detail">
+                            <span class="detail-label">Surface:</span>
+                            <span class="detail-value">Hard Court</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Prize Money:</span>
+                            <span class="detail-value">$2,178,980</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Defending Champion:</span>
+                            <span class="detail-value">Nick Kyrgios</span>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        <a href="/tournaments/" class="btn btn-primary">Live Scores</a>
+                    </div>
+                </div>
+
+                <div class="tournament-card featured">
+                    <div class="tournament-header">
+                        <div class="tournament-date">
+                            <span class="day">31</span>
+                            <span class="month">Jan</span>
+                            <span class="year">2025</span>
+                        </div>
+                        <div class="tournament-info">
+                            <span class="tour-type wta">WTA 500</span>
+                            <h3>Mubadala Silicon Valley Classic</h3>
+                            <div class="tournament-location">
+                                <i class="fas fa-map-marker-alt"></i> San Jose, USA
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tournament-details">
+                        <div class="detail">
+                            <span class="detail-label">Surface:</span>
+                            <span class="detail-value">Hard Court</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Prize Money:</span>
+                            <span class="detail-value">$780,637</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Defending Champion:</span>
+                            <span class="detail-value">Daria Kasatkina</span>
+                        </div>
+                    </div>
+                    <div class="tournament-actions">
+                        <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        <a href="/tournaments/" class="btn btn-primary">Live Scores</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Tournaments Section -->
+    <section class="upcoming-tournaments">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Tournaments</h2>
+                <div class="view-all">
+                    <a href="/tournaments/" class="btn btn-outline">View Full Calendar</a>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="atp">ATP Tour</button>
+                <button class="tab-btn" data-tab="wta">WTA Tour</button>
+                <button class="tab-btn" data-tab="combined">Combined</button>
+            </div>
+            
+            <div class="tab-content active" id="atp">
+                <div class="tournaments-list">
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Aug</span>
+                            <span class="day">14</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type atp-1000">ATP Masters 1000</span>
+                            <h3><a href="/tournaments/">Western & Southern Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Cincinnati, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $6,600,000</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Aug</span>
+                            <span class="day">28</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type grand-slam">Grand Slam</span>
+                            <h3><a href="/tournaments/">US Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> New York, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $65,000,000</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Sep</span>
+                            <span class="day">04</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type atp-250">ATP 250</span>
+                            <h3><a href="/tournaments/">Moselle Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Metz, France</span>
+                                <span><i class="fas fa-court"></i> Hard Court (indoor)</span>
+                                <span><i class="fas fa-trophy"></i> €562,815</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Sep</span>
+                            <span class="day">18</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type atp-250">ATP 250</span>
+                            <h3><a href="/tournaments/">Laver Cup</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Vancouver, Canada</span>
+                                <span><i class="fas fa-court"></i> Hard Court (indoor)</span>
+                                <span><i class="fas fa-users"></i> Team Event</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="wta">
+                <div class="tournaments-list">
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Aug</span>
+                            <span class="day">14</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type wta-1000">WTA 1000</span>
+                            <h3><a href="/tournaments/">Western & Southern Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Cincinnati, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $2,788,468</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Aug</span>
+                            <span class="day">28</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type grand-slam">Grand Slam</span>
+                            <h3><a href="/tournaments/">US Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> New York, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $65,000,000</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Sep</span>
+                            <span class="day">11</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type wta-500">WTA 500</span>
+                            <h3><a href="/tournaments/">San Diego Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> San Diego, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $780,637</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Sep</span>
+                            <span class="day">18</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type wta-250">WTA 250</span>
+                            <h3><a href="/tournaments/">Korea Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Seoul, South Korea</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $259,303</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="combined">
+                <div class="tournaments-list">
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Aug</span>
+                            <span class="day">14</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type combined">ATP/WTA</span>
+                            <h3><a href="/tournaments/">Western & Southern Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Cincinnati, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $9,388,468</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Aug</span>
+                            <span class="day">28</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type grand-slam">Grand Slam</span>
+                            <h3><a href="/tournaments/">US Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> New York, USA</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $65,000,000</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-item">
+                        <div class="tournament-date">
+                            <span class="month">Oct</span>
+                            <span class="day">02</span>
+                        </div>
+                        <div class="tournament-main">
+                            <span class="tour-type combined">ATP/WTA</span>
+                            <h3><a href="/tournaments/">China Open</a></h3>
+                            <div class="tournament-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Beijing, China</span>
+                                <span><i class="fas fa-court"></i> Hard Court</span>
+                                <span><i class="fas fa-trophy"></i> $11,660,000</span>
+                            </div>
+                        </div>
+                        <div class="tournament-actions">
+                            <a href="/tournaments/" class="btn btn-small">Details</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grand Slams Section -->
+    <section class="grand-slams">
+        <div class="container">
+            <h2 class="section-title">Grand Slam Tournaments</h2>
+            <div class="grand-slams-grid">
+                <div class="grand-slam-card">
+                    <div class="gs-image">
+                        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1605&q=80" alt="Australian Open">
+                    </div>
+                    <div class="gs-content">
+                        <h3>Australian Open</h3>
+                        <div class="gs-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>January 15-28, 2025</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Melbourne, Australia</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-court"></i>
+                                <span>Hard Court</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-trophy"></i>
+                                <span>Prize: $76,500,000</span>
+                            </div>
+                        </div>
+                        <a href="/tournaments/" class="btn btn-outline">Tournament Info</a>
+                    </div>
+                </div>
+                
+                <div class="grand-slam-card">
+                    <div class="gs-image">
+                        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="French Open">
+                    </div>
+                    <div class="gs-content">
+                        <h3>French Open</h3>
+                        <div class="gs-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Jan 26 - Feb 9, 2025</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Paris, France</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-court"></i>
+                                <span>Clay Court</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-trophy"></i>
+                                <span>Prize: €49,600,000</span>
+                            </div>
+                        </div>
+                        <a href="/tournaments/" class="btn btn-outline">Tournament Info</a>
+                    </div>
+                </div>
+                
+                <div class="grand-slam-card">
+                    <div class="gs-image">
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Wimbledon">
+                    </div>
+                    <div class="gs-content">
+                        <h3>Wimbledon</h3>
+                        <div class="gs-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>March 1-14, 2025</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>London, UK</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-court"></i>
+                                <span>Grass Court</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-trophy"></i>
+                                <span>Prize: £44,700,000</span>
+                            </div>
+                        </div>
+                        <a href="/tournaments/" class="btn btn-outline">Tournament Info</a>
+                    </div>
+                </div>
+                
+                <div class="grand-slam-card">
+                    <div class="gs-image">
+                        <img src="https://images.unsplash.com/photo-1600679472829-3044539ce8ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="US Open">
+                    </div>
+                    <div class="gs-content">
+                        <h3>US Open</h3>
+                        <div class="gs-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Jan 26 - March 8, 2025</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>New York, USA</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-court"></i>
+                                <span>Hard Court</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-trophy"></i>
+                                <span>Prize: $65,000,000</span>
+                            </div>
+                        </div>
+                        <a href="/tournaments/" class="btn btn-outline">Tournament Info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournament Stats Section -->
+    <section class="tournament-stats">
+        <div class="container">
+            <h2 class="section-title">Tournament Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Most Grand Slam Titles (ATP)</h3>
+                        <div class="stat-winner">
+                            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Novak Djokovic">
+                            <div class="winner-info">
+                                <h4>Novak Djokovic</h4>
+                                <p>23 Titles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Most Grand Slam Titles (WTA)</h3>
+                        <div class="stat-winner">
+                            <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Margaret Court">
+                            <div class="winner-info">
+                                <h4>Margaret Court</h4>
+                                <p>24 Titles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Longest Match in History</h3>
+                        <div class="stat-record">
+                            <h4>Wimbledon 2010</h4>
+                            <p>John Isner vs. Nicolas Mahut</p>
+                            <p class="highlight">11 hours, 5 minutes</p>
+                            <p>Spread over 3 days</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Highest Prize Money</h3>
+                        <div class="stat-record">
+                            <h4>US Open 2025</h4>
+                            <p>Total Purse</p>
+                            <p class="highlight">$65,000,000</p>
+                            <p>$3,000,000 per singles winner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Get Tournament Updates</h2>
+                <p>Subscribe to receive schedules, player confirmations, and results for your favorite tournaments.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary" style="background-color: black;">Subscribe</button>
+                </form>
+                <p class="newsletter-note">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <a href="/"><span> Tennis Scoop</span></a>
+                    </div>
+                    <p class="footer-about">Your premier source for tennis news, player profiles, tournament coverage, and expert analysis.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/?lang=en" target="_blank"><i class="fab fa-twitter" ></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">News</a></li>
+                        <li><a href="/tournaments/">Tournaments</a></li>
+                        <li><a href="/players/">Players</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="footer-title">Tournaments</h3>
+                    <ul class="footer-links">
+                        <li><a href="/tournaments/">Australian Open</a></li>
+                        <li><a href="/tournaments/">French Open</a></li>
+                        <li><a href="/tournaments/">Wimbledon</a></li>
+                        <li><a href="/tournaments/">US Open</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Felderstraße 6-8, 1010 Wien, Austria</li>
+                        <li><i class="fas fa-phone"></i> +431505874785169</li>
+                        <li><i class="fas fa-envelope"></i> info@tennisscoop.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 TennisScoop. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                     <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms Of Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const mainNav = document.querySelector('.main-nav');
+
+if (mobileMenuBtn && mainNav) {
+    mobileMenuBtn.addEventListener('click', function() {
+        // Toggle the 'show' class on the navigation
+        mainNav.classList.toggle('show');
+        
+        // Change the icon based on menu state
+        const icon = this.querySelector('i');
+        if (mainNav.classList.contains('show')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    
+    // Close menu when clicking on a link (optional)
+    document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('show');
+            mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+            mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+        });
+    });
+}
+    
+    // Tournament tabs functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    if (tabBtns.length && tabContents.length) {
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = this.dataset.tab;
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    }
+    
+    // Tournament filter functionality
+    const applyFiltersBtn = document.querySelector('.tournaments-filter .btn-primary');
+    if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener('click', function() {
+            const tourType = document.getElementById('tour-type').value;
+            const surfaceType = document.getElementById('surface-type').value;
+            const timeFrame = document.getElementById('time-frame').value;
+            
+            // In a real implementation, this would filter the tournaments
+            console.log(`Filtering by: Tour=${tourType}, Surface=${surfaceType}, Time=${timeFrame}`);
+            alert('In a real implementation, tournaments would be filtered based on your selections.');
+        });
+    }
+    
+    // Notify Me button functionality
+    const notifyBtns = document.querySelectorAll('.btn-small.btn-primary:not(.search-btn)');
+    notifyBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (this.textContent.trim() === 'Notify Me') {
+                e.preventDefault();
+                const tournamentName = this.closest('.tournament-item').querySelector('h3').textContent;
+                alert(`You'll be notified when ${tournamentName} begins!`);
+            }
+        });
+    });
+    
+    // Search functionality
+    const searchBtn = document.querySelector('.search-btn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+            const searchQuery = prompt('Enter your search:');
+            if (searchQuery) {
+                console.log(`Searching for: ${searchQuery}`);
+                // In a real implementation, this would trigger a search
+                alert(`In a real implementation, this would search for "${searchQuery}"`);
+            }
+        });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+   </script>
+</body>
+</html>

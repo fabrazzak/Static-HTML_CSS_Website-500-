@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Bourget Grocery - Our family tradition, values, and commitment to quality since 1996">
+    <meta name="keywords" content="about Bourget Grocery, family grocery store, Mississauga grocery, our story, Pilote family, quality products">
+    <link rel="canonical" href="http://bourgetgrocery.com/about/">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <title>About Us - Bourget Grocery | Family Tradition Since 1996</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a472a;
+            --secondary-color: #2d5a3d;
+            --accent-color: #4CAF50;
+            --dark-bg: #0a0e0d;
+            --darker-bg: #050707;
+            --text-light: #e8f5e9;
+            --text-muted: #a5d6a7;
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            --gradient-2: linear-gradient(45deg, #0a0e0d 0%, #1a472a 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Three.js Canvas Background */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Particles.js Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Advanced Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 13, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(10, 14, 13, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Unique Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 12rem 5% 6rem;
+            text-align: center;
+            background: var(--gradient-2);
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* About Content */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+        }
+
+        .about-section {
+            margin-bottom: 6rem;
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .about-section h2 i {
+            font-size: 2rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .highlight-box p {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--text-light);
+        }
+
+        /* Mission Vision Section */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .mission-card, .vision-card {
+            background: rgba(26, 71, 42, 0.2);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 4rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            width: 50%;
+            padding: 0 3rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(26, 71, 42, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: rgba(26, 71, 42, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            background: rgba(26, 71, 42, 0.4);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(26, 71, 42, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent-color);
+            border: 3px solid var(--accent-color);
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .team-role {
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-quote {
+            font-style: italic;
+            color: var(--text-muted);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--gradient-2);
+            padding: 5rem 5%;
+            margin: 4rem 0;
+            border-radius: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 5%;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 13, 0.98);
+            padding: 1.5rem 5%;
+            z-index: 1001;
+            border-top: 2px solid var(--accent-color);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-content p {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(10, 14, 13, 0.98);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-header p {
+                font-size: 1.1rem;
+            }
+
+            .about-section h2 {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::before {
+                left: -40px;
+            }
+
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles.js -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                
+                <li><a href="/career/">Career</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-content">
+            <h1>Our Story</h1>
+            <p>Nourishing a community through passion and family authenticity since 1996</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="about-section">
+            <h2><i class="fas fa-history"></i> Our Humble Beginnings</h2>
+            <p>Bourget Grocery was founded in 1996 by the Pilote family with a simple vision: to provide the Mississauga community with the highest quality groceries while maintaining the personal touch of a family-run business. What started as a small neighborhood store has grown into a beloved local institution, serving generations of families with dedication and care.</p>
+            
+            <div class="highlight-box">
+                <p>"You all have your passions and you are complete with your differences, which means you make a good spaghetti sauce!" - Marc Pilote, Founder</p>
+            </div>
+            
+            <p>For over 28 years, we've remained committed to our founding principles: quality products, exceptional service, and genuine care for our community. While we've grown and evolved, our family values remain at the heart of everything we do.</p>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="mission-vision">
+            <div class="mission-card">
+                <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                <p>To nourish our community through passion and family authenticity, providing the highest quality fresh products while building lasting relationships with our customers. We believe that grocery shopping should be more than a chore - it should be an experience filled with care, quality, and connection.</p>
+            </div>
+            <div class="vision-card">
+                <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                <p>To be Mississauga's most trusted family grocery destination, where quality meets community. We envision a future where every family has access to fresh, wholesome food and personalized service that makes them feel like part of our family.</p>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="about-section">
+            <h2><i class="fas fa-road"></i> Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1996</div>
+                        <h3>Grand Opening</h3>
+                        <p>The Pilote family opens the first Bourget Grocery location with a focus on quality meats and fresh produce. The community response is overwhelmingly positive.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2003</div>
+                        <h3>Expansion</h3>
+                        <p>We expand our store to include a full-service bakery, offering homemade donuts and fresh baked goods that quickly become customer favorites.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <h3>Second Generation</h3>
+                        <p>The founder's children join the business, bringing fresh ideas while maintaining the family traditions that made us successful.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018</div>
+                        <h3>Modernization</h3>
+                        <p>We launch our online ordering system with home delivery, making it easier for our customers to access our quality products.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025</div>
+                        <h3>Community Recognition</h3>
+                        <p>Bourget Grocery receives the "Best Local Grocer" award from the Mississauga Business Association, recognizing our commitment to quality and community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Values -->
+        <div class="about-section">
+            <h2><i class="fas fa-heart"></i> Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Family First</h3>
+                    <p>We treat every customer like family, because that's what you are to us. Your trust is our most valuable asset.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Quality Always</h3>
+                    <p>From farm to table, we ensure the highest quality standards for all our products. Freshness is non-negotiable.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Community Focus</h3>
+                    <p>We're not just in the community - we're part of it. Supporting local farmers and businesses is our commitment.</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Team -->
+      
+
+        <!-- Stats -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">28+</div>
+                    <div class="stat-label">Years of Service</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Points of Sale</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Become Part of Our Story</h2>
+            <p>Join thousands of families who trust Bourget Grocery for their daily needs. Experience the difference that family values and quality products can make.</p>
+            <div class="cta-buttons">
+                <a href="/contact/" class="btn btn-primary" style="margin-bottom: 15px;">Visit Us Today</a>
+                <a href="/career/" class="btn btn-secondary">Join Our Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                <p>Nourishing a community through passion and family authenticity since 1996.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                     <li><a href="/careers/">Careers</a></li>
+                     <li><a href="/contact/">Contact</a></li>
+            
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/privacy/">Privacy Policy</a></li>
+                    <li><a href="/terms/">Terms of Service</a></li>
+                    <li><a href="/cookies/">Cookies Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bourget Grocery. All rights reserved. | 5875 Airport Rd, Mississauga, ON L4V 1N1</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent">
+        <div class="cookie-content">
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By continuing to use our site, you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-color);">Learn more</a></p>
+            <div class="cookie-buttons">
+                <button class="btn btn-primary" id="acceptCookies">Accept</button>
+                <button class="btn btn-secondary" id="declineCookies">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('three-canvas'),
+            alpha: true 
+        });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 5;
+
+        // Create geometric shapes
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x2d5a3d, 
+            wireframe: true 
+        });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.001;
+            torus.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollTop = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('active');
+            } else {
+                scrollTop.classList.remove('active');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Cookie Consent
+        const cookieConsent = document.querySelector('.cookie-consent');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+        });
+
+        // Counter Animation for Stats
+        const animateCounter = (element, target) => {
+            let count = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    element.textContent = target + (element.textContent.includes('+') ? '+' : '') + (element.textContent.includes('%') ? '%' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(count) + (element.textContent.includes('+') ? '+' : '') + (element.textContent.includes('%') ? '%' : '');
+                }
+            }, 20);
+        };
+
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const number = entry.target.querySelector('.stat-number');
+                    const text = number.textContent;
+                    const target = parseInt(text.replace(/\D/g, ''));
+                    animateCounter(number, target);
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            statObserver.observe(card);
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.mission-card, .vision-card, .value-card, .team-card, .timeline-content').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

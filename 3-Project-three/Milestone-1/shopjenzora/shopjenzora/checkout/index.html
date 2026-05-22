@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Jenzora | Premium Fashion & Accessories</title>
+    <meta name="description" content="Complete your purchase at Jenzora. Choose cash on delivery or other payment methods. Premium fashion from Vienna, Austria.">
+    <meta name="keywords" content="checkout, cash on delivery, payment, Vienna fashion, premium clothing, designer bags, luxury watches, elegant dresses, fashion accessories">
+    <link rel="canonical" href="https:/shopjenzora.com/checkout/">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https:/fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #f9fafb;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hamburger-line:nth-child(3) {
+            bottom: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            transition: right 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 60px 0;
+        }
+        
+        .checkout-step {
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-step.active .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .checkout-step.completed .step-number {
+            background: #10b981;
+            color: white;
+        }
+        
+        .payment-method {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        
+        .payment-method:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.15);
+        }
+        
+        .payment-method.selected {
+            border-color: #667eea;
+            background-color: #f0f4ff;
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+        }
+        
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+        }
+        
+        .checkout-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .order-summary-item {
+            transition: all 0.3s ease;
+        }
+        
+        .order-summary-item:hover {
+            background-color: #f9fafb;
+        }
+        
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .security-badge {
+            transition: all 0.3s ease;
+        }
+        
+        .security-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .cash-delivery-icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="bg-gray-900 text-white py-2 hidden md:block">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-6">
+                    <span class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Kärntner Straße 26, 1010 Wien, Austria
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-phone mr-2"></i>
+                        +43 1 5123456
+                    </span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+               <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Home</a>
+                    <a href="/shop/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Shop</a>
+                    <a href="/about/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">About</a>
+                    <a href="/blog/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Blog</a>
+                    <a href="/contact/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="cart-btn" class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </button>
+                    
+                    <!-- Mobile Hamburger -->
+                    <div class="md:hidden hamburger-menu" id="hamburger-menu">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="/" class="text-white text-2xl hover:text-purple-400 transition-colors">Home</a>
+            <a href="/shop/" class="text-white text-2xl hover:text-purple-400 transition-colors">Shop</a>
+            <a href="/about/" class="text-white text-2xl hover:text-purple-400 transition-colors">About</a>
+            <a href="/blog/" class="text-white text-2xl hover:text-purple-400 transition-colors">Blog</a>
+            <a href="/contact/" class="text-white text-2xl hover:text-purple-400 transition-colors">Contact</a>
+        </div>
+    </div>
+
+    <!-- Checkout Header -->
+    <section class="py-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="font-playfair text-3xl md:text-4xl font-bold mb-2">
+                        Checkout
+                    </h1>
+                    <p class="text-lg">Complete your purchase in just a few steps</p>
+                </div>
+                <div class="hidden md:block floating-animation">
+                    <i class="fas fa-lock text-4xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Progress -->
+    <section class="py-6 bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center">
+                <div class="flex items-center space-x-8 md:space-x-16">
+                    <div class="checkout-step active">
+                        <div class="flex flex-col items-center">
+                            <div class="step-number w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold mb-2">1</div>
+                            <span class="text-sm font-medium">Information</span>
+                        </div>
+                    </div>
+                    <div class="w-16 h-1 bg-gray-200 hidden md:block"></div>
+                    <div class="checkout-step">
+                        <div class="flex flex-col items-center">
+                            <div class="step-number w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold mb-2">2</div>
+                            <span class="text-sm font-medium">Shipping</span>
+                        </div>
+                    </div>
+                    <div class="w-16 h-1 bg-gray-200 hidden md:block"></div>
+                    <div class="checkout-step">
+                        <div class="flex flex-col items-center">
+                            <div class="step-number w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold mb-2">3</div>
+                            <span class="text-sm font-medium">Payment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Checkout Form -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+                        <h3 class="font-semibold text-2xl mb-6">Contact Information</h3>
+                        
+                        <form id="checkout-form">
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-gray-700 mb-2" for="first-name">First Name</label>
+                                    <input type="text" id="first-name" class="form-input w-full px-4 py-3" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2" for="last-name">Last Name</label>
+                                    <input type="text" id="last-name" class="form-input w-full px-4 py-3" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2" for="email">Email Address</label>
+                                <input type="email" id="email" class="form-input w-full px-4 py-3" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input w-full px-4 py-3" required>
+                            </div>
+                            
+                            <h3 class="font-semibold text-2xl mb-6 mt-10">Shipping Address</h3>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2" for="address">Street Address</label>
+                                <input type="text" id="address" class="form-input w-full px-4 py-3" required>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-gray-700 mb-2" for="city">City</label>
+                                    <input type="text" id="city" class="form-input w-full px-4 py-3" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2" for="postal-code">Postal Code</label>
+                                    <input type="text" id="postal-code" class="form-input w-full px-4 py-3" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2" for="country">Country</label>
+                                    <select id="country" class="form-input w-full px-4 py-3" required>
+                                        <option value="">Select Country</option>
+                                        <option value="Austria" selected>Austria</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="Switzerland">Switzerland</option>
+                                        <option value="France">France</option>
+                                        <option value="Italy">Italy</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mb-6">
+                                <input type="checkbox" id="save-address" class="mr-3">
+                                <label for="save-address" class="text-gray-700">Save this information for next time</label>
+                            </div>
+                            
+                            <h3 class="font-semibold text-2xl mb-6 mt-10">Shipping Method</h3>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-center p-4 border-2 border-gray-200 rounded-xl">
+                                    <input type="radio" id="standard-shipping" name="shipping-method" class="mr-4" checked>
+                                    <div class="flex-1">
+                                        <label for="standard-shipping" class="font-medium">Standard Shipping</label>
+                                        <p class="text-gray-600 text-sm">5-7 business days • $9.99</p>
+                                    </div>
+                                    <span class="font-semibold">$9.99</span>
+                                </div>
+                                
+                                <div class="flex items-center p-4 border-2 border-gray-200 rounded-xl">
+                                    <input type="radio" id="express-shipping" name="shipping-method" class="mr-4">
+                                    <div class="flex-1">
+                                        <label for="express-shipping" class="font-medium">Express Shipping</label>
+                                        <p class="text-gray-600 text-sm">2-3 business days • $19.99</p>
+                                    </div>
+                                    <span class="font-semibold">$19.99</span>
+                                </div>
+                            </div>
+                            
+                            <h3 class="font-semibold text-2xl mb-6 mt-10">Payment Method</h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="payment-method p-6" id="card-payment">
+                                    <div class="flex items-center mb-4">
+                                        <input type="radio" name="payment-method" id="credit-card" class="mr-3">
+                                        <label for="credit-card" class="font-medium">Credit Card</label>
+                                    </div>
+                                    <div class="text-3xl text-gray-400 mb-4">
+                                        <i class="fab fa-cc-visa mr-2"></i>
+                                        <i class="fab fa-cc-mastercard mr-2"></i>
+                                        <i class="fab fa-cc-amex"></i>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Pay securely using your credit card</p>
+                                </div>
+                                
+                                <div class="payment-method p-6 selected" id="cod-payment">
+                                    <div class="flex items-center mb-4">
+                                        <input type="radio" name="payment-method" id="cash-on-delivery" class="mr-3" checked>
+                                        <label for="cash-on-delivery" class="font-medium">Cash on Delivery</label>
+                                    </div>
+                                    <div class="cash-delivery-icon text-3xl text-purple-600 mb-4">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Pay with cash when your order is delivered</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Cash on Delivery Instructions -->
+                            <div id="cod-instructions" class="bg-purple-50 border border-purple-200 rounded-xl p-6 mb-6">
+                                <div class="flex items-start mb-4">
+                                    <div class="text-purple-600 mr-3 mt-1">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-purple-800 mb-2">Cash on Delivery Instructions</h4>
+                                        <p class="text-purple-700">Please have the exact amount ready when the delivery arrives. Our delivery personnel will provide you with a receipt upon payment.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Credit Card Form (Hidden by default) -->
+                            <div id="credit-card-form" class="hidden">
+                                <div class="mb-6">
+                                    <label class="block text-gray-700 mb-2" for="card-number">Card Number</label>
+                                    <input type="text" id="card-number" class="form-input w-full px-4 py-3" placeholder="1234 5678 9012 3456">
+                                </div>
+                                
+                                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label class="block text-gray-700 mb-2" for="expiry-date">Expiry Date</label>
+                                        <input type="text" id="expiry-date" class="form-input w-full px-4 py-3" placeholder="MM/YY">
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-700 mb-2" for="cvv">CVV</label>
+                                        <input type="text" id="cvv" class="form-input w-full px-4 py-3" placeholder="123">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label class="block text-gray-700 mb-2" for="card-name">Name on Card</label>
+                                    <input type="text" id="card-name" class="form-input w-full px-4 py-3">
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mb-6">
+                                <input type="checkbox" id="terms" class="mr-3" required>
+                                <label for="terms" class="text-gray-700">I agree to the <a href="/terms/" class="text-purple-600 hover:underline">Terms of Service</a> and <a href="/privacy/" class="text-purple-600 hover:underline">Privacy Policy</a></label>
+                            </div>
+                            
+                            <button type="submit" class="checkout-btn w-full text-white py-4 rounded-full font-semibold text-lg">
+                                Complete Order
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Security Badges -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+                        <h3 class="font-semibold text-lg mb-4">Secure & Encrypted Checkout</h3>
+                        <div class="flex justify-center space-x-8 text-3xl text-gray-600">
+                            <div class="security-badge" title SSL Secure">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="security-badge" title="PCI Compliant">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="security-badge" title="256-bit Encryption">
+                                <i class="fas fa-key"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="w-full lg:w-1/3">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg sticky top-32">
+                        <h3 class="font-semibold text-xl mb-6">Order Summary</h3>
+                        
+                        <div class="space-y-4 mb-6" id="order-items">
+                            <!-- Order items will be dynamically inserted here -->
+                        </div>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span id="subtotal" class="font-semibold">$249.97</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Shipping</span>
+                                <span id="shipping" class="font-semibold">$9.99</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Tax</span>
+                                <span id="tax" class="font-semibold">$20.00</span>
+                            </div>
+                            <div class="flex justify-between text-green-600">
+                                <span>Discount</span>
+                                <span id="discount">-$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-4 mb-6">
+                            <div class="flex justify-between text-lg font-semibold">
+                                <span>Total</span>
+                                <span id="total">$279.96</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Support Information -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="flex items-center mb-4">
+                                <div class="text-purple-600 mr-3">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Need Help?</h4>
+                                    <p class="text-gray-600 text-sm">Contact our support team</p>
+                                </div>
+                            </div>
+                            <a href="tel:+4315123456" class="text-purple-600 font-semibold">+43 1 5123456</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14 mb-4">
+                </a>
+                    <p class="text-gray-400 mb-4">
+                        Premium fashion and accessories in the heart of Vienna, Austria.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="/shop/" class="hover:text-white transition-colors">Shop</a></li>
+                        <li><a href="/about/" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/privacy/" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="/cookies/" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3"></i>
+                            <span>Kärntner Straße 26, 1010 Wien, Austria</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+43 1 5123456</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@shopjenzora.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2025 Jenzora. All rights reserved. Made with ❤️ in Vienna, Austria.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="text-green-500 text-5xl mb-6">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="font-semibold text-2xl mb-4">Order Confirmed!</h3>
+                <p class="text-gray-600 mb-6">Thank you for your purchase. Your order #JZ-2025-789 has been confirmed.</p>
+                <div class="mb-6 p-4 bg-gray-100 rounded-lg">
+                    <p class="font-semibold">Estimated Delivery</p>
+                    <p class="text-gray-600">Monday, September 22, 2025</p>
+                </div>
+                <button id="continue-shopping" class="checkout-btn w-full text-white py-3 rounded-full font-semibold">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /// Sample cart data (in a real application, this would come from localStorage)
+        let cart = [
+            { id: 1, name: "Elegant Summer Dress", price: 79.99, image: "/assets/elegant-dress.jpg", quantity: 1 },
+            { id: 3, name: "Premium Leather Bag", price: 129.99, image: "/assets/leather-bag.jpg", quantity: 1 },
+            { id: 4, name: "Casual Sneakers", price: 69.99, image: "/assets/casual-sneakers.jpg", quantity: 1 }
+        ];
+
+        /// Initialize variables
+        const taxRate = 0.08; /// 8% tax
+        let shippingCost = 9.99;
+
+        /// Cart functionality
+        function updateCartCount() {
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+        }
+
+        function updateOrderSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * taxRate;
+            const total = subtotal + shippingCost + tax;
+            
+            /// Update DOM
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `$${shippingCost.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            /// Update order items
+            const orderItemsContainer = document.getElementById('order-items');
+            orderItemsContainer.innerHTML = cart.map(item => `
+                <div class="order-summary-item flex items-center p-3 rounded-lg">
+                    <div class="w-16 h-16 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-lg mr-4">
+                       <img src='${item.image}' alt='img'>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-sm">${item.name}</h4>
+                        <p class="text-gray-600 text-sm">Qty: ${item.quantity}</p>
+                    </div>
+                    <span class="font-semibold">$${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        /// Payment method selection
+        function setupPaymentMethods() {
+            const codPayment = document.getElementById('cod-payment');
+            const cardPayment = document.getElementById('card-payment');
+            const codInstructions = document.getElementById('cod-instructions');
+            const creditCardForm = document.getElementById('credit-card-form');
+            const cashOnDeliveryRadio = document.getElementById('cash-on-delivery');
+            const creditCardRadio = document.getElementById('credit-card');
+            
+            codPayment.addEventListener('click', () => {
+                codPayment.classList.add('selected');
+                cardPayment.classList.remove('selected');
+                cashOnDeliveryRadio.checked = true;
+                codInstructions.classList.remove('hidden');
+                creditCardForm.classList.add('hidden');
+            });
+            
+            cardPayment.addEventListener('click', () => {
+                cardPayment.classList.add('selected');
+                codPayment.classList.remove('selected');
+                creditCardRadio.checked = true;
+                codInstructions.classList.add('hidden');
+                creditCardForm.classList.remove('hidden');
+            });
+        }
+
+        /// Shipping method selection
+        function setupShippingMethods() {
+            const standardShipping = document.getElementById('standard-shipping');
+            const expressShipping = document.getElementById('express-shipping');
+            
+            standardShipping.addEventListener('change', () => {
+                if (standardShipping.checked) {
+                    shippingCost = 9.99;
+                    updateOrderSummary();
+                }
+            });
+            
+            expressShipping.addEventListener('change', () => {
+                if (expressShipping.checked) {
+                    shippingCost = 19.99;
+                    updateOrderSummary();
+                }
+            });
+        }
+
+        /// Form submission
+        function setupFormSubmission() {
+            const checkoutForm = document.getElementById('checkout-form');
+            const confirmationModal = document.getElementById('confirmation-modal');
+            const continueShoppingBtn = document.getElementById('continue-shopping');
+            
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                /// In a real application, you would process the order here
+                /// For this demo, we'll just show a confirmation modal
+                confirmationModal.classList.remove('hidden');
+                
+                /// Clear the cart
+                cart = [];
+                localStorage.setItem('jenzora-cart', JSON.stringify(cart));
+                updateCartCount();
+            });
+            
+            continueShoppingBtn.addEventListener('click', () => {
+                confirmationModal.classList.add('hidden');
+                window.location.href = '/shop/';
+            });
+        }
+
+        /// Mobile menu functionality
+        function initMobileMenu() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
+
+        /// Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            /// Try to load cart from localStorage
+            const savedCart = localStorage.getItem('jenzora-cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            
+            updateOrderSummary();
+            updateCartCount();
+            initMobileMenu();
+            setupPaymentMethods();
+            setupShippingMethods();
+            setupFormSubmission();
+        });
+
+        /// Cart button functionality
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            window.location.href = '/cart/';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PediNaesthetic - Premium nail salon in Lethbridge offering manicures, pedicures, artificial nails, and waxing services. Book your appointment today!">
+    <meta name="keywords" content="nail salon Lethbridge, manicure Lethbridge, pedicure Lethbridge, artificial nails, gel nails, nail art, waxing services, beauty salon Lethbridge, nail technician, professional nails">
+    <link rel="canonical" href="https://pedinaesthetic.com/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>PediNaesthetic - Premium Nail Salon in Lethbridge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+     <style>
+        html,body{
+            overflow-x: hidden;
+        }
+        html,body{
+            overflow-x: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #d4869c;
+            --secondary-color: #b86f88;
+            --accent-color: #f4c2d4;
+            --dark-color: #2d1b2e;
+            --light-color: #fff5f8;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: var(--light-color);
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #three-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-info-item i {
+            color: var(--accent-color);
+        }
+
+        .header-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-social a {
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .header-social a:hover {
+            color: var(--accent-color);
+        }
+
+        .header-bottom {
+            background: rgba(255, 245, 248, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(212, 134, 156, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            position: relative;
+            width: 30px;
+            height: 25px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: all 0.3s;
+            border-radius: 3px;
+            position: absolute;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 11px;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 22px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 11px;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 11px;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 134, 156, 0.1), rgba(184, 111, 136, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 134, 156, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 18px;
+        }
+
+        .services {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(212, 134, 156, 0.15);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(212, 134, 156, 0.3);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .service-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .about {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(212, 134, 156, 0.05), rgba(184, 111, 136, 0.05));
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(212, 134, 156, 0.2);
+        }
+
+        .about-text h2 {
+            font-size: 42px;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .featured {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .featured-card {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .featured-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(212, 134, 156, 0.2);
+        }
+
+        .featured-icon {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .featured-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .featured-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .testimonials {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(212, 134, 156, 0.05), rgba(184, 111, 136, 0.05));
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(212, 134, 156, 0.15);
+        }
+
+        .testimonial-stars {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .testimonial-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .gallery {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 134, 156, 0.8), rgba(184, 111, 136, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .hours {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(212, 134, 156, 0.05), rgba(184, 111, 136, 0.05));
+        }
+
+        .hours-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hours-info {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 50px;
+            border-radius: 20px;
+        }
+
+        .hours-info h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(212, 134, 156, 0.2);
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .hours-time {
+            color: var(--text-light);
+        }
+
+        .booking {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+        }
+
+        .booking-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 50px;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(212, 134, 156, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--dark-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(255, 245, 248, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 100px 40px;
+                transition: right 0.3s;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .about-content,
+            .hours-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .header-info {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .booking-form {
+                padding: 30px 20px;
+            }
+
+            .services-grid,
+            .featured-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="three-container"></div>
+    <div id="particles-js"></div>
+
+    <div class="content-wrapper">
+        <header class="header-bottom">
+            <div class="header-container">
+                <a href="/">
+                    <img src="/assets/images/pedinaesthetic.png" alt="PediNaesthetic Logo" class="logo">
+                </a>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="/">HOME</a></li>
+                        <li><a href="/services/">SERVICES</a></li>
+                        <li><a href="/about/">ABOUT</a></li>
+                        <li><a href="/blog/">BLOG</a></li>
+                        <li><a href="/contact/">CONTACT</a></li>
+                    </ul>
+                </nav>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Beauty Journey Begins Here</h1>
+                <p>Experience luxury nail care with our expert technicians. From elegant manicures to stunning nail art, we bring your vision to life.</p>
+                <a href="/contact/" class="btn-primary">Book Your Appointment</a>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Premium Services</h2>
+                    <p>Discover our range of professional nail care and beauty treatments</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <img src="/assets/images/manicure-service.jpg" alt="Professional Manicure Service" class="service-image">
+                        <div class="service-content">
+                            <h3>Manicure</h3>
+                            <p>Indulge in our signature manicure service featuring nail shaping, cuticle care, hand massage, and your choice of polish.</p>
+                            <a href="/services/" class="btn-secondary">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="/assets/images/pedicure-service.jpg" alt="Luxury Pedicure Service" class="service-image">
+                        <div class="service-content">
+                            <h3>Pedicure</h3>
+                            <p>Relax with our luxurious pedicure treatments including exfoliation, massage, and beautiful polish application.</p>
+                            <a href="/services/" class="btn-secondary">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="/assets/images/artificial-nails.jpg" alt="Artificial Nails & Extensions" class="service-image">
+                        <div class="service-content">
+                            <h3>Artificial Nails</h3>
+                            <p>Get stunning nail extensions with gel, acrylic, or dip powder. Perfect length and shape customized for you.</p>
+                            <a href="/services/" class="btn-secondary">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="container">
+                <div class="about-content">
+                    <img src="/assets/images/salon-interior.png" alt="PediNaesthetic Salon Interior" class="about-image">
+                    <div class="about-text">
+                        <h2>About PediNaesthetic</h2>
+                        <p>Welcome to PediNaesthetic, where beauty meets excellence in the heart of Lethbridge. Our dedicated team of skilled technicians brings years of experience and passion to every service we provide.</p>
+                        <p>We pride ourselves on creating a luxurious, relaxing environment where you can unwind while receiving top-tier nail care and beauty treatments. Using only premium products and the latest techniques, we ensure every visit leaves you feeling pampered and beautiful.</p>
+                        <p>Our commitment to hygiene, customer satisfaction, and artistic excellence has made us a trusted name in the Lethbridge beauty community.</p>
+                        <a href="/about/" class="btn-primary">Learn More About Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Why Choose Us</h2>
+                    <p>Experience the difference with our exceptional service standards</p>
+                </div>
+                <div class="featured-grid">
+                    <div class="featured-card">
+                        <div class="featured-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Certified Professionals</h3>
+                        <p>Our technicians are highly trained and certified in the latest nail care techniques and trends.</p>
+                    </div>
+                    <div class="featured-card">
+                        <div class="featured-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Premium Products</h3>
+                        <p>We use only the finest quality products that are safe, long-lasting, and deliver stunning results.</p>
+                    </div>
+                    <div class="featured-card">
+                        <div class="featured-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Luxurious Experience</h3>
+                        <p>Enjoy a relaxing atmosphere with personalized attention to make every visit special.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What Our Clients Say</h2>
+                    <p>Read reviews from our satisfied customers</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Absolutely love this place! The staff is friendly and professional. My nails always look perfect. Highly recommend!"</p>
+                        <p class="testimonial-author">- Sarah M.</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Best pedicure I've ever had! The attention to detail is amazing. The salon is clean, beautiful, and the service is outstanding."</p>
+                        <p class="testimonial-author">- Jessica L.</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"I've been coming here for over a year and wouldn't go anywhere else. The nail art is incredible and the team is so talented!"</p>
+                        <p class="testimonial-author">- Emily R.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="/">
+                        <img src="/assets/images/pedinaesthetic.png" alt="PediNaesthetic Footer Logo" class="footer-logo">
+                    </a>
+                    <p>Your premier destination for luxury nail care and beauty services in Lethbridge. We combine expert craftsmanship with premium products to deliver exceptional results.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/pedinnailscitycentre/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/Pedi-N-Nails-Mississauga-City-Centre/100088004490465/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="/services/">Manicure</a></li>
+                        <li><a href="/services/">Pedicure</a></li>
+                        <li><a href="/services/">Artificial Nails</a></li>
+                        <li><a href="/services/">Waxing</a></li>
+                        <li><a href="/services/">Nail Art</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PediNaesthetic. All rights reserved. | Designed with love in Lethbridge</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#d4869c' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#d4869c',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Three.js Background Animation
+        const threeContainer = document.getElementById('three-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        threeContainer.appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0xd4869c, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.1
+        });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        const pointLight = new THREE.PointLight(0xd4869c, 1);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.001;
+            torus.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Local Storage for Booking Form
+        const bookingForm = document.getElementById('bookingForm');
+        const formFields = ['name', 'phone', 'email', 'service', 'date', 'time', 'message'];
+
+        // Load saved data
+        formFields.forEach(field => {
+            const savedValue = localStorage.getItem(`booking_${field}`);
+            if (savedValue) {
+                document.getElementById(field).value = savedValue;
+            }
+        });
+
+        // Save data on input
+        formFields.forEach(field => {
+            document.getElementById(field).addEventListener('input', (e) => {
+                localStorage.setItem(`booking_${field}`, e.target.value);
+            });
+        });
+
+        // Handle form submission
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your booking request! We will contact you shortly to confirm your appointment.');
+            
+            // Clear local storage after submission
+            formFields.forEach(field => {
+                localStorage.removeItem(`booking_${field}`);
+            });
+            
+            bookingForm.reset();
+        });
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

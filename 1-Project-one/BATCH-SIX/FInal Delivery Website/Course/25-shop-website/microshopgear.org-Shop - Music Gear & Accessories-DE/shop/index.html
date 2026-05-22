@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop - MicroShopGear | Premium Music Gear & Accessories</title>
+    <meta
+      name="description"
+      content="Shop our wide selection of premium music gear, instruments, and accessories. Guitars, keyboards, drums, audio equipment and more from top brands."
+    />
+    <meta
+      name="keywords"
+      content="music gear shop, buy musical instruments, guitars, keyboards, drums, audio equipment, music accessories, music store"
+    />
+    <link rel="stylesheet" href="../css/cart.css" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Roboto", Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #f72585;
+      color: white;
+      border: 2px solid #f72585;
+    }
+
+    .btn-primary:hover {
+      background-color: #b5179e;
+      border-color: #b5179e;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: #f72585;
+      border: 2px solid #f72585;
+    }
+
+    .btn-outline:hover {
+      background-color: #f72585;
+      color: white;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #1a1a2e;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 80px;
+      height: 4px;
+      background-color: #f72585;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin-bottom: 3rem;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #4cc9f0;
+    }
+
+    .logo span {
+      color: #f72585;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin-left: 1.5rem;
+    }
+
+    nav ul li a {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #4cc9f0;
+    }
+
+    .cart-icon {
+      font-size: 1.2rem;
+      margin-left: 2rem;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #f72585;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.7rem;
+    }
+
+    /* Mobile Navigation */
+    .mobile-menu-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    /* Page Header */
+    .page-header {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .breadcrumb li {
+      margin: 0 0.5rem;
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+      content: "/";
+      margin-left: 1rem;
+      color: #ccc;
+    }
+
+    .breadcrumb a:hover {
+      color: #4cc9f0;
+    }
+
+    /* Shop Section */
+    .shop-section {
+      padding: 5rem 0;
+    }
+
+    .shop-container {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+
+    .sidebar-title {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: #1a1a2e;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f2f5;
+    }
+
+    .sidebar-widget {
+      margin-bottom: 2rem;
+    }
+
+    .widget-title {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #1a1a2e;
+    }
+
+    .category-list {
+      list-style: none;
+    }
+
+    .category-list li {
+      margin-bottom: 0.8rem;
+    }
+
+    .category-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #666;
+      transition: color 0.3s;
+    }
+
+    .category-list a:hover {
+      color: #f72585;
+    }
+
+    .category-list .count {
+      background-color: #f0f2f5;
+      color: #666;
+      padding: 0.2rem 0.5rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+
+    .price-filter input {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .price-range {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .brand-list {
+      list-style: none;
+    }
+
+    .brand-list li {
+      margin-bottom: 0.8rem;
+    }
+
+    .brand-list label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .brand-list input {
+      margin-right: 0.8rem;
+    }
+
+    /* Shop Main */
+    .shop-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shop-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .shop-topbar p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .sort-select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: white;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #f72585;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .product-content {
+      padding: 1.5rem;
+    }
+
+    .product-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #1a1a2e;
+    }
+
+    .product-rating {
+      color: #ffc107;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f72585;
+      margin-bottom: 1rem;
+    }
+
+    .product-price span {
+      font-size: 0.9rem;
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+    }
+
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .add-to-cart {
+      flex: 1;
+      background-color: #1a1a2e;
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-to-cart:hover {
+      background-color: #f72585;
+    }
+
+    .add-to-cart i {
+      margin-right: 0.5rem;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+
+    .pagination-list {
+      display: flex;
+      list-style: none;
+    }
+
+    .pagination-item {
+      margin: 0 0.5rem;
+    }
+
+    .pagination-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      color: #666;
+      transition: all 0.3s;
+    }
+
+    .pagination-link:hover {
+      background-color: #f72585;
+      color: white;
+    }
+
+    .pagination-link.active {
+      background-color: #f72585;
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0d0d1a;
+      color: #ccc;
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-column h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column ul li a:hover {
+      color: #4cc9f0;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: #1a1a2e;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+
+    .footer-social a:hover {
+      background-color: #f72585;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #1a1a2e;
+      font-size: 0.9rem;
+    }
+
+    /* Shopping Cart Modal */
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .cart-modal.active {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-header h3 {
+      font-size: 1.3rem;
+      color: #1a1a2e;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .cart-items {
+      padding: 1.5rem;
+    }
+
+    .cart-item {
+      display: flex;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-item-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-right: 1rem;
+    }
+
+    .cart-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-details h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #1a1a2e;
+    }
+
+    .cart-item-price {
+      font-size: 0.9rem;
+      color: #f72585;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      background-color: #f0f2f5;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quantity-input {
+      width: 40px;
+      text-align: center;
+      margin: 0 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 0.2rem;
+    }
+
+    .remove-item {
+      color: #f72585;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      display: inline-block;
+    }
+
+    .cart-total {
+      padding: 1.5rem;
+      border-top: 1px solid #eee;
+    }
+
+    .cart-subtotal {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: #f72585;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background-color: #b5179e;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: #666;
+    }
+
+    .empty-cart i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Checkout Modal */
+    .checkout-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      z-index: 1001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .checkout-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .checkout-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkout-header h3 {
+      font-size: 1.5rem;
+      color: #1a1a2e;
+      margin-bottom: 0.5rem;
+    }
+
+    .checkout-form .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .checkout-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .checkout-form input,
+    .checkout-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .checkout-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    .checkout-cancel {
+      background-color: #f0f2f5;
+      color: #666;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Confirmation Modal */
+    .confirmation-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      z-index: 1001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .confirmation-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .confirmation-icon {
+      font-size: 3rem;
+      color: #4bb543;
+      margin-bottom: 1rem;
+    }
+
+    .confirmation-message {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .shop-container {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        position: relative;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+        z-index: 101;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: #1a1a2e;
+        padding: 5rem 1rem 2rem;
+        transition: left 0.3s ease;
+        z-index: 100;
+      }
+
+      nav.active {
+        left: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        margin-top: 2rem;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+        text-align: center;
+      }
+
+      .cart-icon {
+        position: absolute;
+        top: 1rem;
+        right: 3rem;
+      }
+
+      .shop-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .cart-modal {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">micro<span>shop</span>gear</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/" class="active">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li class="cart-icon" id="cartIcon">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Shop Our Products</h1>
+        <ul class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li>Shop</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="shop-section">
+      <div class="container shop-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-widget">
+            <h3 class="sidebar-title">Categories</h3>
+            <ul class="category-list">
+              <li>
+                <a href="/shop/">All Products <span class="count">32</span></a>
+              </li>
+              <li>
+                <a href="/shop/?category=guitars"
+                  >Guitars <span class="count">8</span></a
+                >
+              </li>
+              <li>
+                <a href="/shop/?category=keyboards"
+                  >Keyboards <span class="count">6</span></a
+                >
+              </li>
+              <li>
+                <a href="/shop/?category=drums"
+                  >Drums <span class="count">5</span></a
+                >
+              </li>
+              <li>
+                <a href="/shop/?category=audio"
+                  >Audio Equipment <span class="count">7</span></a
+                >
+              </li>
+              <li>
+                <a href="/shop/?category=accessories"
+                  >Accessories <span class="count">6</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3 class="sidebar-title">Filter by Price</h3>
+            <div class="price-filter">
+              <input
+                type="range"
+                id="priceRange"
+                min="0"
+                max="2000"
+                step="50"
+                value="2000"
+              />
+              <div class="price-range">
+                <span>$0</span>
+                <span>$2000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3 class="sidebar-title">Brands</h3>
+            <ul class="brand-list">
+              <li>
+                <label> <input type="checkbox" checked /> Fender </label>
+              </li>
+              <li>
+                <label> <input type="checkbox" checked /> Yamaha </label>
+              </li>
+              <li>
+                <label> <input type="checkbox" checked /> Shure </label>
+              </li>
+              <li>
+                <label> <input type="checkbox" checked /> Pearl </label>
+              </li>
+              <li>
+                <label> <input type="checkbox" checked /> Roland </label>
+              </li>
+              <li>
+                <label> <input type="checkbox" checked /> Gibson </label>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3 class="sidebar-title">Featured Products</h3>
+            <div class="featured-products">
+              <div class="product-card" style="margin-bottom: 1rem">
+                <div class="product-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1558098329-a11cff621064?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Fender Stratocaster"
+                  />
+                </div>
+                <div class="product-content">
+                  <h3>Fender Stratocaster</h3>
+                  <div class="product-price">$899.99</div>
+                </div>
+              </div>
+
+              <div class="product-card">
+                <div class="product-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Yamaha P-125 Keyboard"
+                  />
+                </div>
+                <div class="product-content">
+                  <h3>Yamaha P-125</h3>
+                  <div class="product-price">$699.99</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Shop Main Content -->
+        <main class="shop-main">
+          <div class="shop-topbar">
+            <p>Showing 1-12 of 32 products</p>
+            <select class="sort-select">
+              <option value="default">Default Sorting</option>
+              <option value="price-low">Sort by price: low to high</option>
+              <option value="price-high">Sort by price: high to low</option>
+              <option value="popularity">Sort by popularity</option>
+              <option value="rating">Sort by average rating</option>
+              <option value="newest">Sort by newest</option>
+            </select>
+          </div>
+
+          <div class="products-grid">
+            <div class="product-card">
+              <div class="product-img">
+                <img
+                  src="https://images.unsplash.com/photo-1558098329-a11cff621064?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Fender Stratocaster"
+                />
+                <span class="product-badge">Bestseller</span>
+              </div>
+              <div class="product-content">
+                <h3>Fender Stratocaster</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="product-price">$899.99 <span>$999.99</span></div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    data-id="1"
+                    data-name="Fender Stratocaster"
+                    data-img="https://images.unsplash.com/photo-1558098329-a11cff621064?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    data-price="899.99"
+                  >
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-img">
+                <img
+                  src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Yamaha P-125 Keyboard"
+                />
+                <span class="product-badge">New</span>
+              </div>
+              <div class="product-content">
+                <h3>Yamaha P-125 Keyboard</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="product-price">$699.99</div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    data-id="2"
+                    data-name="Yamaha P-125 Keyboard"
+                    data-img="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    data-price="699.99"
+                  >
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-img">
+                <img
+                  src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Shure SM58 Microphone"
+                />
+              </div>
+              <div class="product-content">
+                <h3>Shure SM58 Microphone</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="product-price">$99.99</div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    data-id="3"
+                    data-name="Shure SM58 Microphone"
+                    data-img="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    data-price="99.99"
+                  >
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-img">
+                <img
+                  src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Pearl Export Drum Set"
+                />
+              </div>
+              <div class="product-content">
+                <h3>Pearl Export Drum Set</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="product-price">$799.99 <span>$899.99</span></div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    data-id="4"
+                    data-name="Pearl Export Drum Set"
+                    data-img="Pearl Export Drum Set"
+                    data-price="799.99"
+                  >
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-img">
+                <img
+                  src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Gibson Les Paul"
+                />
+              </div>
+              <div class="product-content">
+                <h3>Gibson Les Paul</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="product-price">$1,299.99</div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    data-id="5"
+                    data-name="Gibson Les Paul"
+                    data-img="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    data-price="1299.99"
+                  >
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-img">
+                <img
+                  src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Roland TD-17KVX"
+                />
+                <span class="product-badge">Sale</span>
+              </div>
+              <div class="product-content">
+                <h3>Roland TD-17KVX</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="product-price">
+                  $1,599.99 <span>$1,799.99</span>
+                </div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    data-id="6"
+                    data-name="Roland TD-17KVX"
+                    data-img="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    data-price="1599.99"
+                  >
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <ul class="pagination-list">
+              <li class="pagination-item">
+                <a href="/shop/" class="pagination-link"
+                  ><i class="fas fa-chevron-left"></i
+                ></a>
+              </li>
+              <li class="pagination-item">
+                <a href="/shop/" class="pagination-link active">1</a>
+              </li>
+              <li class="pagination-item">
+                <a href="/shop/" class="pagination-link">2</a>
+              </li>
+              <li class="pagination-item">
+                <a href="/shop/" class="pagination-link">3</a>
+              </li>
+              <li class="pagination-item">
+                <a href="/shop/" class="pagination-link"
+                  ><i class="fas fa-chevron-right"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>About Us</h3>
+            <p>
+              MicroShopGear is your premier destination for high-quality music
+              gear and accessories. We're passionate about helping musicians
+              find the perfect equipment.
+            </p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/" target="_blank"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://twitter.com/" target="_blank"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="https://www.instagram.com/" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://www.youtube.com/" target="_blank"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="/shop/">My Account</a></li>
+              <li><a href="/shop/">Order Tracking</a></li>
+              <li><a href="/shop/">Wishlist</a></li>
+              <li><a href="/shop/">Shipping Policy</a></li>
+              <li><a href="/shop/">Returns & Refunds</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Info</h3>
+            <ul>
+              <li>
+                <i class="fas fa-map-marker-alt"></i> 123 Music Street,
+                Nashville, TN
+              </li>
+              <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+              <li><i class="fas fa-envelope"></i> info@microshopgear.com</li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 MicroShopGear. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+      <div class="cart-header">
+        <h3>Your Cart (<span id="modalCartCount">0</span>)</h3>
+        <button class="close-cart" id="closeCart">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Your cart is empty</p>
+        </div>
+      </div>
+      <div class="cart-total" id="cartTotal" style="display: none">
+        <div class="cart-subtotal">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+      <div class="checkout-header">
+        <h3>Checkout</h3>
+        <p>Please fill in your details to complete your order</p>
+      </div>
+      <form class="checkout-form" id="checkoutForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Shipping Address</label>
+          <textarea id="address" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="payment">Payment Method</label>
+          <select id="payment" required>
+            <option value="">Select payment method</option>
+            <option value="credit">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank">Bank Transfer</option>
+          </select>
+        </div>
+        <div class="checkout-actions">
+          <button type="button" class="checkout-cancel" id="cancelCheckout">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+      <div class="confirmation-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Thank You!</h3>
+      <p class="confirmation-message">
+        Your order has been placed successfully.
+      </p>
+      <button class="btn btn-primary" id="closeConfirmation">
+        Continue Shopping
+      </button>
+    </div>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+
+        // Change icon based on menu state
+        const icon = mobileMenuBtn.querySelector("i");
+        if (mainNav.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !mainNav.contains(e.target) &&
+          !mobileMenuBtn.contains(e.target) &&
+          mainNav.classList.contains("active")
+        ) {
+          mainNav.classList.remove("active");
+          const icon = mobileMenuBtn.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Newsletter Form
+      const newsletterForm = document.getElementById("newsletterForm");
+
+      if (newsletterForm) {
+        newsletterForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const emailInput = newsletterForm.querySelector(
+            'input[type="email"]'
+          );
+
+          // Simple validation
+          if (emailInput.value) {
+            alert("Thank you for subscribing to our newsletter!");
+            newsletterForm.reset();
+          }
+        });
+      }
+
+      // Blog Popup Functionality
+      const blogPopup = document.getElementById("blogPopup");
+      const closeBlogPopup = document.getElementById("closeBlogPopup");
+      const blogPopupTitle = document.getElementById("blogPopupTitle");
+      const blogPopupImage = document.getElementById("blogPopupImage");
+      const blogPopupDate = document.getElementById("blogPopupDate");
+      const blogPopupContent = document.getElementById("blogPopupContent");
+
+      // Sample blog data
+      const blogs = {
+        1: {
+          title: "Essential Guitar Maintenance Tips",
+          date: "Jan 15, 2025",
+          image:
+            "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Keeping your guitar in top condition is essential for maintaining its sound quality and playability. Here are some key maintenance tips every guitarist should know:</p>
+                <p><strong>1. Clean Your Guitar Regularly:</strong> Use a soft, dry cloth to wipe down your guitar after each use. For deeper cleaning, use a guitar-specific cleaner and polish.</p>
+                <p><strong>2. Change Strings Regularly:</strong> Old strings lose their tone and can be harder to play. Change them every 3-6 months, or more often if you play frequently.</p>
+                <p><strong>3. Maintain Proper Humidity:</strong> Guitars are sensitive to humidity changes. Keep your instrument in a case with a humidifier in dry climates.</p>
+                <p><strong>4. Check the Neck Relief:</strong> The neck should have a slight forward bow. If the strings are too high or buzzing, you may need a truss rod adjustment.</p>
+                <p><strong>5. Protect Your Guitar:</strong> Always store your guitar in a case when not in use to protect it from dust, temperature changes, and accidental damage.</p>
+                <p>By following these simple maintenance routines, you'll keep your guitar sounding great and playing smoothly for years to come.</p>`,
+        },
+        2: {
+          title: "Building a Home Studio on a Budget",
+          date: "Feb 3, 2025",
+          image:
+            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Creating a professional-quality home recording studio doesn't have to break the bank. Here's how to set up an effective home studio without spending a fortune:</p>
+                <p><strong>1. Choose the Right Space:</strong> Select a quiet room with minimal echo. Bedrooms often work well because they have soft furnishings that absorb sound.</p>
+                <p><strong>2. Essential Equipment:</strong> Start with these basics: a computer, digital audio workstation (DAW) software, an audio interface, a good microphone, and headphones.</p>
+                <p><strong>3. Acoustic Treatment:</strong> Use DIY solutions like heavy curtains, bookshelves filled with books, or foam panels to improve your room's acoustics.</p>
+                <p><strong>4. Budget-Friendly Gear:</strong> Look for affordable but quality equipment like the Audio-Technica AT2020 microphone or Focusrite Scarlett audio interfaces.</p>
+                <p><strong>5. Free Software Options:</strong> Many DAWs like Audacity (free) or Reaper (affordable) offer professional features without the high price tag.</p>
+                <p>With careful planning and smart purchases, you can create recordings that rival professional studios for a fraction of the cost.</p>`,
+        },
+        3: {
+          title: "The Ultimate Guide to Drum Tuning",
+          date: "Mar 10, 2025",
+          image:
+            "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Proper drum tuning is essential for getting the best sound from your kit. Follow these steps to tune your drums like a pro:</p>
+                <p><strong>1. Start with New Heads:</strong> Always begin with fresh drum heads when tuning. Old, worn heads won't hold tuning well.</p>
+                <p><strong>2. Finger Tighten First:</strong> Place the head on the drum and finger-tighten all tension rods before using a drum key.</p>
+                <p><strong>3. Use a Criss-Cross Pattern:</strong> When tightening, work in a star pattern (like changing a car tire) to ensure even tension across the head.</p>
+                <p><strong>4. Tune to the Drum's Natural Pitch:</strong> Tap near each tension rod and adjust until all points sound the same note. The drum will resonate best at its natural pitch.</p>
+                <p><strong>5. Relationship Between Heads:</strong> The resonant (bottom) head affects sustain while the batter (top) head affects attack. Experiment with different tunings between them.</p>
+                <p><strong>6. Snare Drum Tips:</strong> For snare drums, the resonant head should be tighter than the batter head for optimal snare response.</p>
+                <p>Remember that drum tuning is subjective - experiment to find the sound that works best for your musical style and personal preference.</p>`,
+        },
+      };
+
+      // Handle blog read more clicks
+      document.querySelectorAll(".read-more-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          const blogId = button.getAttribute("data-blog-id");
+          const blog = blogs[blogId];
+
+          if (blog) {
+            blogPopupTitle.textContent = blog.title;
+            blogPopupImage.src = blog.image;
+            blogPopupImage.alt = blog.title;
+            blogPopupDate.textContent = blog.date;
+            blogPopupContent.innerHTML = blog.content;
+
+            blogPopup.classList.add("active");
+            overlay.classList.add("active");
+          }
+        });
+      });
+
+      // Close blog popup
+      closeBlogPopup.addEventListener("click", () => {
+        blogPopup.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+
+    <script src="../js/cart.js"></script>
+  </body>
+</html>

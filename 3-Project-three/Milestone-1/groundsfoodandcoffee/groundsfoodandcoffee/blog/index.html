@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Blog - The Grounds Roastery | Expert Coffee Knowledge & Tips</title>
+    <meta name="description"
+        content="Discover expert coffee knowledge, brewing tips, origin stories, and industry insights from The Grounds Roastery. Learn from our master roasters and coffee enthusiasts.">
+    <meta name="keywords"
+        content="coffee blog, brewing tips, coffee knowledge, roasting techniques, coffee origins, barista tips, specialty coffee, Melbourne coffee blog">
+    <link rel="canonical" href="http://groundsfoodandcoffee.com/blog/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-coffee: #4a2c2a;
+            --secondary-coffee: #8B4513;
+            --accent-gold: #D4AF37;
+            --warm-cream: #F5F2E8;
+            --rich-brown: #3C1810;
+            --medium-roast: #6B4423;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            color: #fff;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2) { top: 8px; }
+        .hamburger span:nth-child(3) { top: 16px; }
+
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        /* Blog Cards */
+        .blog-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Tags */
+        .tag {
+            background: rgba(212, 175, 55, 0.2);
+            color: #D4AF37;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Read More Button */
+        .read-more-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            transform: translateX(5px);
+        }
+
+        /* Search Bar */
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 12px 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Category Filters */
+        .category-filter {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-filter:hover,
+        .category-filter.active {
+            background: var(--accent-gold);
+            color: black;
+            border-color: var(--accent-gold);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-6 right-6 text-3xl text-white hover:text-yellow-400 transition-colors z-10"
+            onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="text-center">
+            <a href="/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Home</a>
+            <a href="/shop/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Shop</a>
+            <a href="/about/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">About</a>
+            <a href="/blog/" class="block text-3xl font-bold mb-8 text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Blog</a>
+            <a href="/contact/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Contact</a>
+        </nav>
+        
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-50">
+        <nav class="glass py-4 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold playfair text-yellow-400">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                </a>
+
+                <div class="hidden lg:flex space-x-8">
+                    <a href="/" class="hover:text-yellow-400 transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="hover:text-yellow-400 transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="hover:text-yellow-400 transition-colors font-medium">About</a>
+                    <a href="/blog/" class="text-yellow-400 transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-yellow-400 transition-colors">
+                        <a href="/cart/">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cartBadge" class="cart-badge hidden">0</span>
+                        </a>
+                    </button>
+
+                    <div class="lg:hidden hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[60vh] flex items-center justify-center px-4">
+            <div class="text-center max-w-4xl mx-auto animate-slide-up">
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 animate-float">
+                    <span class="text-yellow-400">Coffee</span><br>
+                    <span class="text-white">Chronicles</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-3xl mx-auto">
+                    Dive deep into the world of specialty coffee with expert insights, brewing techniques, origin stories, and industry trends.
+                </p>
+            </div>
+        </section>
+
+        <!-- Featured Post -->
+        <section class="py-16 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-4 text-yellow-400">Featured Article</h2>
+                    <p class="text-xl text-gray-300">Our latest and most popular coffee insights</p>
+                </div>
+
+                <div class="featured-post glass-dark rounded-3xl overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                        <div class="relative">
+                            <img src="/assets/images/perfect-espresso-guide.webp" alt="Perfect Espresso Guide" class="w-full h-80 lg:h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-black/30"></div>
+                        </div>
+                        <div class="p-8 lg:p-12 flex flex-col justify-center">
+                            <div class="flex items-center mb-4">
+                                <span class="tag mr-3">Featured</span>
+                                <span class="tag">Brewing</span>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-bold playfair text-yellow-400 mb-4">
+                                The Perfect Espresso: A Complete Guide to Mastering Your Shot
+                            </h3>
+                            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                                Discover the secrets behind pulling the perfect espresso shot. From grind size to extraction time, 
+                                learn the techniques that separate great espresso from extraordinary espresso.
+                            </p>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold mr-3">
+                                        MR
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Marcus Rodriguez</p>
+                                        <p class="text-sm text-gray-400">Head Barista</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-400">Sep 15, 2025</span>
+                            </div>
+                            <a href="/blog/perfect-espresso-guide/" class="read-more-btn inline-flex items-center text-yellow-400 hover:text-yellow-300 font-semibold">
+                                Read Full Article
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Posts Grid -->
+        <section class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-4 text-yellow-400">Latest Articles</h2>
+                    <p class="text-xl text-gray-300">Explore our collection of coffee knowledge and expertise</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogPostsGrid">
+                    <!-- Blog posts will be dynamically loaded -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">Stay Updated</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Subscribe to our newsletter to get the latest coffee insights, brewing tips, and exclusive content delivered to your inbox.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="Enter your email address" class="search-input flex-1" required>
+                    <button type="submit"
+                        class="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition-all duration-300 rounded-full">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-dark py-16 px-4 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                    <p class="text-gray-300">Crafting exceptional coffee experiences since 2012. From bean to bag, every cup tells a story.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thegrounds" class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thegrounds/" class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ" class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                        <a href="/shop/" class="text-gray-300 hover:text-yellow-400 transition-colors">Shop</a>
+                        <a href="/about/" class="text-gray-300 hover:text-yellow-400 transition-colors">About</a>
+                        <a href="/blog/" class="text-yellow-400 hover:text-yellow-300 transition-colors">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-yellow-400 transition-colors">Contact</a>
+                    </nav>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Customer Service</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/privacy/" class="text-gray-300 hover:text-yellow-400 transition-colors">Privacy Policy</a>
+                        <a href="/terms/" class="text-gray-300 hover:text-yellow-400 transition-colors">Terms of Service</a>
+                        <a href="/cookies/" class="text-gray-300 hover:text-yellow-400 transition-colors">Cookie Policy</a>
+                    </nav>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-300 flex items-start">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1"></i>
+                            163 Commercial Rd, South Yarra VIC 3141
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-phone text-yellow-400 mr-3"></i>
+                            +61 3 8290 8220
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-envelope text-yellow-400 mr-3"></i>
+                            info@groundsfoodandcoffee.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 The Grounds Roastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let scene, camera, renderer;
+
+        // Blog Posts Data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Ethiopian Coffee Origins: Journey to the Birthplace of Coffee",
+                slug: "ethiopian-coffee-origins",
+                excerpt: "Explore the rich history and unique flavors of Ethiopian coffee, from ancient legends to modern specialty roasts.",
+                image: "/assets/images/ethiopian-coffee-origins.webp",
+                category: "origins",
+                author: "Sarah Chen",
+                authorInitials: "SC",
+                date: "Sep 12, 2025",
+                readTime: "6 min read",
+                tags: ["Origins", "Ethiopia", "History"]
+            },
+            {
+                id: 2,
+                title: "Mastering Pour Over: Techniques for the Perfect Cup",
+                slug: "mastering-pour-over-techniques",
+                excerpt: "Learn the art of pour-over brewing with step-by-step techniques that will elevate your home coffee game.",
+                image: "/assets/images/pour-over-techniques.webp",
+                category: "brewing",
+                author: "David Kim",
+                authorInitials: "DK",
+                date: "Sep 10, 2025",
+                readTime: "8 min read",
+                tags: ["Brewing", "Pour Over", "Techniques"]
+            },
+            {
+                id: 3,
+                title: "The Science of Coffee Roasting: From Green to Gold",
+                slug: "science-of-coffee-roasting",
+                excerpt: "Dive deep into the chemical processes that transform green coffee beans into the aromatic treasures we love.",
+                image: "/assets/images/coffee-roasting-science.jpg",
+                category: "roasting",
+                author: "Elena Martinez",
+                authorInitials: "EM",
+                date: "Sep 8, 2025",
+                readTime: "10 min read",
+                tags: ["Roasting", "Science", "Process"]
+            }
+        ];
+
+        // Initialize Three.js Scene
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create floating coffee particles
+            const geometry = new THREE.SphereGeometry(0.05, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ color: 0xD4AF37, transparent: true, opacity: 0.4 });
+
+            for (let i = 0; i < 30; i++) {
+                const particle = new THREE.Mesh(geometry, material);
+                particle.position.x = (Math.random() - 0.5) * 20;
+                particle.position.y = (Math.random() - 0.5) * 20;
+                particle.position.z = (Math.random() - 0.5) * 20;
+                particle.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01
+                    )
+                };
+                scene.add(particle);
+            }
+
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            scene.children.forEach(particle => {
+                if (particle.userData && particle.userData.velocity) {
+                    particle.position.add(particle.userData.velocity);
+                    particle.rotation.x += 0.01;
+                    particle.rotation.y += 0.01;
+
+                    if (Math.abs(particle.position.x) > 10) particle.userData.velocity.x *= -1;
+                    if (Math.abs(particle.position.y) > 10) particle.userData.velocity.y *= -1;
+                    if (Math.abs(particle.position.z) > 10) particle.userData.velocity.z *= -1;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    color: { value: "#D4AF37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: false },
+                    size: { value: 2, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#D4AF37", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Load Blog Posts
+        function loadBlogPosts() {
+            const container = document.getElementById('blogPostsGrid');
+            container.innerHTML = blogPosts.map(post => `
+                <article class="blog-card glass-dark rounded-2xl overflow-hidden">
+                    <div class="relative">
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="tag">${post.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-sm text-gray-400">${post.readTime}</span>
+                            <span class="text-gray-400 mx-2">•</span>
+                            <span class="text-sm text-gray-400">${post.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-3 line-clamp-2">
+                            ${post.title}
+                        </h3>
+                        <p class="text-gray-300 mb-4 line-clamp-3">
+                            ${post.excerpt}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold text-sm mr-3">
+                                    ${post.authorInitials}
+                                </div>
+                                <span class="text-sm text-gray-300">${post.author}</span>
+                            </div>
+                            <a href="/blog/${post.slug}/" class="read-more-btn text-yellow-400 hover:text-yellow-300 font-semibold">
+                                Read More <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Category Filter Functions
+        function initCategoryFilters() {
+            const filters = document.querySelectorAll('.category-filter');
+            filters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // Remove active class from all filters
+                    filters.forEach(f => f.classList.remove('active'));
+                    // Add active class to clicked filter
+                    this.classList.add('active');
+                    
+                    // Filter posts based on category
+                    const category = this.dataset.category;
+                    filterBlogPosts(category);
+                });
+            });
+        }
+
+        function filterBlogPosts(category) {
+            const container = document.getElementById('blogPostsGrid');
+            let filteredPosts = category === 'all' ? blogPosts : blogPosts.filter(post => post.category === category);
+            
+            container.innerHTML = filteredPosts.map(post => `
+                <article class="blog-card glass-dark rounded-2xl overflow-hidden animate-fade-in">
+                    <div class="relative">
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="tag">${post.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-sm text-gray-400">${post.readTime}</span>
+                            <span class="text-gray-400 mx-2">•</span>
+                            <span class="text-sm text-gray-400">${post.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold playfair text-yellow-400 mb-3 line-clamp-2">
+                            ${post.title}
+                        </h3>
+                        <p class="text-gray-300 mb-4 line-clamp-3">
+                            ${post.excerpt}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold text-sm mr-3">
+                                    ${post.authorInitials}
+                                </div>
+                                <span class="text-sm text-gray-300">${post.author}</span>
+                            </div>
+                            <a href="/blog/${post.slug}/" class="read-more-btn text-yellow-400 hover:text-yellow-300 font-semibold">
+                                Read More <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Search Functionality
+        function initSearch() {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredPosts = blogPosts.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) ||
+                    post.excerpt.toLowerCase().includes(searchTerm) ||
+                    post.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+                
+                const container = document.getElementById('blogPostsGrid');
+                container.innerHTML = filteredPosts.map(post => `
+                    <article class="blog-card glass-dark rounded-2xl overflow-hidden animate-fade-in">
+                        <div class="relative">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="tag">${post.category}</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <span class="text-sm text-gray-400">${post.readTime}</span>
+                                <span class="text-gray-400 mx-2">•</span>
+                                <span class="text-sm text-gray-400">${post.date}</span>
+                            </div>
+                            <h3 class="text-xl font-bold playfair text-yellow-400 mb-3 line-clamp-2">
+                                ${post.title}
+                            </h3>
+                            <p class="text-gray-300 mb-4 line-clamp-3">
+                                ${post.excerpt}
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold text-sm mr-3">
+                                        ${post.authorInitials}
+                                    </div>
+                                    <span class="text-sm text-gray-300">${post.author}</span>
+                                </div>
+                                <a href="/blog/${post.slug}/" class="read-more-btn text-yellow-400 hover:text-yellow-300 font-semibold">
+                                    Read More <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            });
+        }
+
+        // Newsletter Subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Show success message
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg z-50 transition-all duration-300';
+            notification.textContent = 'Thank you for subscribing to our newsletter!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+            
+            event.target.reset();
+        }
+
+        // Update cart badge
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('groundsCart')) || [];
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initThreeJS();
+            initParticles();
+            loadBlogPosts();
+            initCategoryFilters();
+            initSearch();
+            updateCartBadge();
+
+            // Add scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact PlayCraftCade - Get in Touch | Bismarck's Premier Retro Arcade & Pizzeria</title>
+    <meta name="description"
+        content="Contact PlayCraftCade for reservations, private events, catering & more. Located at 405 N 4th Street, Downtown Bismarck, ND. Call 701-450-1414 or message us online.">
+    <meta name="keywords"
+        content="Contact PlayCraftCade, Bismarck arcade contact, private events Bismarck, pizza catering North Dakota, arcade party bookings, downtown Bismarck restaurant">
+    <link rel="canonical" href="https://playcraftcade.com/contact/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced glow effects for better readability */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+            0%, 100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Tron-style grid overlay */
+        .tron-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(255, 16, 240, 0.1) 100%);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.3;
+        }
+
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 255, 0.03) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 4;
+            animation: scanline-move 0.1s linear infinite;
+        }
+
+        @keyframes scanline-move {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(4px); }
+        }
+
+        .retro-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .retro-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 16, 240, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 16, 240, 0.3);
+        }
+
+        /* Form styles */
+        .form-input {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 16, 240, 0.7);
+            box-shadow: 0 0 10px rgba(255, 16, 240, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Map container styles */
+        .map-container {
+            filter: hue-rotate(290deg) saturate(1.5) brightness(0.8);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Success/Error message styles */
+        .message-success {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+            border: 1px solid rgba(57, 255, 20, 0.5);
+        }
+
+        .message-error {
+            background: linear-gradient(135deg, rgba(255, 20, 20, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+            border: 1px solid rgba(255, 20, 20, 0.5);
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+        <canvas id="three-canvas"></canvas>
+        <div class="tron-overlay"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                  <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="text-neon-blue hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block hover:text-neon-pink transition-colors">Blog</a>
+                        <a href="/contact/" class="block text-neon-blue transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+            <div class="relative z-20 text-center px-4">
+                <h1 class="text-5xl md:text-7xl font-bold text-neon-pink neon-glow-strong mb-6 pulse-neon">
+                    GET IN TOUCH
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-bold text-neon-blue neon-glow-soft mb-8">
+                    Contact PlayCraftCade
+                </h2>
+                <p class="text-xl md:text-2xl mb-12 text-neon-green max-w-3xl mx-auto readable-text">
+                    📞 Questions? Events? Catering? Let's Talk!
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Information Cards -->
+        <section class="py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                    <!-- Phone -->
+                    <div class="retro-card p-8 rounded-lg text-center">
+                        <div class="text-5xl mb-4 text-neon-green">📞</div>
+                        <h3 class="text-xl font-bold text-neon-green mb-4 neon-glow-minimal">Call Us</h3>
+                        <a href="tel:+17014501414" class="text-white hover:text-neon-pink hover-glow transition-colors text-lg">
+                            701-450-1414
+                        </a>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="retro-card p-8 rounded-lg text-center">
+                        <div class="text-5xl mb-4 text-neon-blue">✉️</div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Email Us</h3>
+                        <a href="mailto:info@playcraftcade.com" class="text-white hover:text-neon-pink hover-glow transition-colors text-lg">
+                            info@playcraftcade.com
+                        </a>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="retro-card p-8 rounded-lg text-center">
+                        <div class="text-5xl mb-4 text-neon-orange">📍</div>
+                        <h3 class="text-xl font-bold text-neon-orange mb-4 neon-glow-minimal">Visit Us</h3>
+                        <p class="text-white text-lg readable-text">
+                            405 N 4th Street<br>
+                            Downtown Bismarck, ND
+                        </p>
+                    </div>
+
+                    <!-- Social -->
+                    <div class="retro-card p-8 rounded-lg text-center">
+                        <div class="text-5xl mb-4 text-neon-yellow">📱</div>
+                        <h3 class="text-xl font-bold text-neon-yellow mb-4 neon-glow-minimal">Follow Us</h3>
+                        <div class="flex justify-center space-x-4">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hours of Operation -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-neon-blue neon-glow-soft mb-8">🕒 Hours of Operation</h2>
+                    <div class="max-w-2xl mx-auto">
+                        <div class="bg-black/70 p-8 rounded-lg border border-neon-green/30 backdrop-blur-sm">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg readable-text">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span>Monday - Thursday:</span>
+                                        <span class="text-neon-yellow">11AM - 11PM</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Friday - Saturday:</span>
+                                        <span class="text-neon-yellow">11AM - 12AM</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span>Sunday:</span>
+                                        <span class="text-neon-yellow">11AM - 9PM</span>
+                                    </div>
+                                    <div class="text-center md:text-right">
+                                        <span class="text-neon-pink font-bold">🎈 All ages Sundays! 🎈</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 p-4 bg-neon-blue/20 rounded-lg border border-neon-blue/30">
+                                <p class="text-center text-sm readable-text">
+                                    Kitchen closes approximately 30 minutes prior to business close
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form & Map -->
+        <section class="py-20 bg-gradient-to-r from-neon-blue/10 to-neon-green/10 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div>
+                        <h2 class="text-4xl font-bold text-neon-pink neon-glow-soft mb-8">📝 Send Us a Message</h2>
+                        <form id="contact-form" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-neon-blue mb-2 font-bold">Name *</label>
+                                    <input type="text" name="name" required 
+                                           class="w-full px-4 py-3 rounded-lg form-input text-white" 
+                                           placeholder="Your name">
+                                </div>
+                                <div>
+                                    <label class="block text-neon-blue mb-2 font-bold">Phone</label>
+                                    <input type="tel" name="phone" 
+                                           class="w-full px-4 py-3 rounded-lg form-input text-white" 
+                                           placeholder="Your phone number">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-neon-blue mb-2 font-bold">Email *</label>
+                                <input type="email" name="email" required 
+                                       class="w-full px-4 py-3 rounded-lg form-input text-white" 
+                                       placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-neon-blue mb-2 font-bold">Subject</label>
+                                <select name="subject" class="w-full px-4 py-3 rounded-lg form-input text-white">
+                                    <option value="">Select a subject...</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="private-event">Private Event Booking</option>
+                                    <option value="catering">Catering Request</option>
+                                    <option value="birthday">Birthday Party</option>
+                                    <option value="corporate">Corporate Event</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-neon-blue mb-2 font-bold">Message *</label>
+                                <textarea name="message" required rows="6" 
+                                          class="w-full px-4 py-3 rounded-lg form-input text-white resize-vertical" 
+                                          placeholder="Tell us about your inquiry, event details, preferred dates, number of guests, etc."></textarea>
+                            </div>
+                            
+                            <button type="submit" 
+                                    class="w-full bg-neon-pink text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-neon-yellow transition-all transform hover:scale-105 neon-border-soft">
+                                🚀 Send Message
+                            </button>
+                        </form>
+                        
+                        <!-- Message Display -->
+                        <div id="form-message" class="mt-6 hidden"></div>
+                    </div>
+
+                    <!-- Map & Additional Info -->
+                    <div>
+                        <h2 class="text-4xl font-bold text-neon-orange neon-glow-soft mb-8">🗺️ Find Us</h2>
+
+                        <!-- Directions & Parking -->
+                        <div class="space-y-6">
+                            <div class="bg-black/70 p-6 rounded-lg border border-neon-green/30 backdrop-blur-sm">
+                                <h3 class="text-xl font-bold text-neon-green mb-4 neon-glow-minimal">🚗 Parking & Directions</h3>
+                                <ul class="space-y-2 text-gray-300 readable-text">
+                                    <li>• Street parking available on 4th Street</li>
+                                    <li>• Additional parking in nearby lots</li>
+                                    <li>• Located just north of Downtown Bismarck</li>
+                                    <li>• Easy access from I-94 and US-83</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-black/70 p-6 rounded-lg border border-neon-orange/30 backdrop-blur-sm">
+                                <h3 class="text-xl font-bold text-neon-orange mb-4 neon-glow-minimal">🎉 Event Planning</h3>
+                                <p class="text-gray-300 readable-text mb-4">
+                                    Planning a private event? We'd love to help make your celebration epic!
+                                </p>
+                                <ul class="space-y-2 text-gray-300 readable-text text-sm">
+                                    <li>• Birthday parties & celebrations</li>
+                                    <li>• Corporate team building events</li>
+                                    <li>• Private arcade tournaments</li>
+                                    <li>• Catering available</li>
+                                    <li>• Customizable party packages</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-black/70 p-6 rounded-lg border border-neon-blue/30 backdrop-blur-sm">
+                                <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">⚡ Quick Tips</h3>
+                                <ul class="space-y-2 text-gray-300 readable-text text-sm">
+                                    <li>• Call ahead for large groups (8+ people)</li>
+                                    <li>• Follow us on social media for updates</li>
+                                    <li>• Ask about our trivia nights & events</li>
+                                    <li>• 21+ only (except Sunday Family Fundays)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 bg-black/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-neon-yellow neon-glow-soft mb-6">❓ Frequently Asked Questions</h2>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="bg-gradient-to-r from-retro-purple/20 to-black/70 p-6 rounded-lg border border-neon-pink/30 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-neon-pink mb-3">Do you take reservations?</h3>
+                        <p class="text-gray-300 readable-text">We don't take regular reservations, but we recommend calling ahead for large groups (8+ people). For private events and parties, advance booking is required.</p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-retro-purple/20 to-black/70 p-6 rounded-lg border border-neon-blue/30 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-neon-blue mb-3">Are kids allowed?</h3>
+                        <p class="text-gray-300 readable-text">We're a 21+ establishment most days, but every Sunday is Family Funday when ALL AGES are welcome! Perfect for bringing the whole family.</p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-retro-purple/20 to-black/70 p-6 rounded-lg border border-neon-green/30 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-neon-green mb-3">Do you offer catering?</h3>
+                        <p class="text-gray-300 readable-text">Yes! We offer catering services for events and parties. Contact us to discuss your catering needs and we'll create a custom package for you.</p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-retro-purple/20 to-black/70 p-6 rounded-lg border border-neon-orange/30 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-neon-orange mb-3">How does the self-pour beer wall work?</h3>
+                        <p class="text-gray-300 readable-text">Our self-pour system lets you sample and pour exactly what you want! You pay by the ounce, so you can try multiple beers or stick with your favorite. Staff will show you how it works!</p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-retro-purple/20 to-black/70 p-6 rounded-lg border border-neon-yellow/30 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-neon-yellow mb-3">Are the arcade games free to play?</h3>
+                        <p class="text-gray-300 readable-text">Most of our classic arcade games are free play! Some newer games may require tokens or quarters. Come enjoy unlimited retro gaming with your food and drinks!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                              <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style pizzeria,
+                            and
+                            craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            </li>
+                            <li><a href="/food-and-drink/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food &
+                                    Drink</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms &
+                                    Conditions</a></li>
+                            <li><a href="/cookies/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies
+                                    Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 405 N 4th Street<br>Downtown Bismarck, ND</p>
+                            <p>📞 <a href="tel:+17014501414"
+                                    class="hover:text-neon-pink hover-glow transition-colors">701-450-1414</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                    class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        function showMessage(message, type = 'success') {
+            const messageEl = document.getElementById('form-message');
+            messageEl.className = `mt-6 p-4 rounded-lg backdrop-blur-sm ${type === 'success' ? 'message-success text-neon-green' : 'message-error text-red-400'}`;
+            messageEl.textContent = message;
+            messageEl.classList.remove('hidden');
+            
+            // Scroll message into view
+            messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                messageEl.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Handle contact form submission
+        function handleContactForm() {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Basic validation
+                if (!data.name || !data.email || !data.message) {
+                    showMessage('Please fill in all required fields.', 'error');
+                    return;
+                }
+
+                if (!isValidEmail(data.email)) {
+                    showMessage('Please enter a valid email address.', 'error');
+                    return;
+                }
+
+                // Simulate form submission (replace with actual form handling)
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+                submitButton.textContent = '🚀 Sending...';
+                submitButton.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    showMessage('Thank you for your message! We\'ll get back to you within 24 hours.', 'success');
+                    form.reset();
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    
+                    // In production, replace this with actual form submission to your backend
+                    console.log('Form submitted:', data);
+                }, 2000);
+            });
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Three.js scene with proper error handling
+        function initThreeJS() {
+            try {
+                const canvas = document.getElementById('three-canvas');
+                if (!canvas || !window.THREE) {
+                    console.log('Three.js not loaded or canvas not found');
+                    return;
+                }
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+
+                // Create arcade-themed floating elements
+                const arcadeElements = [];
+                
+                // Pac-Man dots
+                const dotGeometry = new THREE.SphereGeometry(0.15, 8, 6);
+                const dotMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0xffff00, 
+                    transparent: true, 
+                    opacity: 0.8
+                });
+
+                // Create floating dots
+                for (let i = 0; i < 25; i++) {
+                    const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+                    dot.position.set(
+                        (Math.random() - 0.5) * 100,
+                        (Math.random() - 0.5) * 60,
+                        (Math.random() - 0.5) * 50
+                    );
+                    dot.userData = {
+                        type: 'dot',
+                        speed: Math.random() * 0.02 + 0.01,
+                        offset: Math.random() * Math.PI * 2,
+                        originalY: dot.position.y
+                    };
+                    scene.add(dot);
+                    arcadeElements.push(dot);
+                }
+
+                // Retro cubes (arcade cabinets)
+                const cubeGeometry = new THREE.BoxGeometry(1, 1.5, 0.5);
+                const cubeMaterials = [
+                    new THREE.MeshBasicMaterial({ color: 0xff10f0, transparent: true, opacity: 0.6 }),
+                    new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.6 }),
+                    new THREE.MeshBasicMaterial({ color: 0x39ff14, transparent: true, opacity: 0.6 })
+                ];
+
+                for (let i = 0; i < 6; i++) {
+                    const material = cubeMaterials[i % cubeMaterials.length];
+                    const cube = new THREE.Mesh(cubeGeometry, material);
+                    cube.position.set(
+                        (Math.random() - 0.5) * 80,
+                        (Math.random() - 0.5) * 50,
+                        (Math.random() - 0.5) * 40
+                    );
+                    cube.rotation.set(
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI
+                    );
+                    cube.userData = {
+                        type: 'cube',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.02,
+                            y: (Math.random() - 0.5) * 0.02,
+                            z: (Math.random() - 0.5) * 0.02
+                        },
+                        floatSpeed: Math.random() * 0.005 + 0.002
+                    };
+                    scene.add(cube);
+                    arcadeElements.push(cube);
+                }
+
+                // Email symbols
+                const emailGeometry = new THREE.RingGeometry(0.3, 0.5, 8);
+                const emailMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0xff8c00, 
+                    transparent: true, 
+                    opacity: 0.7
+                });
+
+                for (let i = 0; i < 10; i++) {
+                    const email = new THREE.Mesh(emailGeometry, emailMaterial);
+                    email.position.set(
+                        (Math.random() - 0.5) * 90,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    email.userData = {
+                        type: 'email',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.015,
+                            y: (Math.random() - 0.5) * 0.015,
+                            z: (Math.random() - 0.5) * 0.015
+                        }
+                    };
+                    scene.add(email);
+                    arcadeElements.push(email);
+                }
+
+                camera.position.z = 30;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const time = Date.now() * 0.001;
+
+                    arcadeElements.forEach((element, index) => {
+                        if (element.userData.type === 'dot') {
+                            // Floating dots
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.speed + element.userData.offset) * 2;
+                            // Pulsing effect
+                            const scale = 1 + Math.sin(time * 3 + index) * 0.3;
+                            element.scale.set(scale, scale, scale);
+                        } else if (element.userData.type === 'cube') {
+                            // Rotating cubes
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                            // Floating motion
+                            element.position.y += Math.sin(time * element.userData.floatSpeed + index) * 0.05;
+                        } else if (element.userData.type === 'email') {
+                            // Spinning email rings
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                        }
+
+                        // General drift
+                        element.position.x += Math.sin(time * 0.0001 + index) * 0.02;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+            } catch (error) {
+                console.error('Three.js initialization error:', error);
+            }
+        }
+
+        // Initialize Particles.js with proper error handling
+        function initParticles() {
+            try {
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js not loaded');
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 35, density: { enable: true, value_area: 800 } },
+                        color: { 
+                            value: ['#ff10f0', '#00ffff', '#39ff14', '#ffff00', '#ff8c00'] 
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { width: 1, color: '#ffffff' }
+                        },
+                        opacity: {
+                            value: 0.4,
+                            random: true,
+                            anim: { 
+                                enable: true, 
+                                speed: 1, 
+                                opacity_min: 0.1 
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: { 
+                                enable: true, 
+                                speed: 2, 
+                                size_min: 0.5 
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#00ffff',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: { 
+                                distance: 100, 
+                                duration: 0.4 
+                            },
+                            push: { 
+                                particles_nb: 4 
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                initializeMobileMenu();
+                updateCartCount();
+                handleContactForm();
+                
+                // Small delay to ensure libraries are loaded
+                setTimeout(() => {
+                    initThreeJS();
+                    initParticles();
+                }, 100);
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

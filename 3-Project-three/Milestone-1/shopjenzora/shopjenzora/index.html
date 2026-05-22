@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenzora - Premium Fashion & Accessories | Vienna Austria</title>
+    <meta name="description" content="Discover premium fashion and accessories at Jenzora in Vienna. Shop elegant dresses, designer bags, luxury watches, and trendy apparel. Quality fashion since 2020.">
+    <meta name="keywords" content="fashion, Vienna, premium clothing, designer bags, luxury watches, elegant dresses, fashion accessories, trendy apparel, Austrian fashion, online shopping">
+    <link rel="canonical" href="https:/shopjenzora.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        @import url('https:/fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .floating-animation {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hamburger-line:nth-child(3) {
+            bottom: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            transition: right 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .three-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+        
+        .content-overlay {
+            position: relative;
+            z-index: 3;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 60px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="bg-gray-900 text-white py-2 hidden md:block">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-6">
+                    <span class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Kärntner Straße 26, 1010 Wien, Austria
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-phone mr-2"></i>
+                        +43 1 5123456
+                    </span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                 <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Home</a>
+                    <a href="/shop/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Shop</a>
+                    <a href="/about/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">About</a>
+                    <a href="/blog/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Blog</a>
+                    <a href="/contact/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="cart-btn" class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </button>
+                    
+                    <!-- Mobile Hamburger -->
+                    <div class="md:hidden hamburger-menu" id="hamburger-menu">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="/" class="text-white text-2xl hover:text-purple-400 transition-colors">Home</a>
+            <a href="/shop/" class="text-white text-2xl hover:text-purple-400 transition-colors">Shop</a>
+            <a href="/about/" class="text-white text-2xl hover:text-purple-400 transition-colors">About</a>
+            <a href="/blog/" class="text-white text-2xl hover:text-purple-400 transition-colors">Blog</a>
+            <a href="/contact/" class="text-white text-2xl hover:text-purple-400 transition-colors">Contact</a>
+        </div>
+    </div>
+
+    <!-- Section 1: Hero Section with Three.js -->
+<section class="relative h-screen overflow-hidden bg-cover bg-center" style="background-image: url('/assets/home-bg.avif');">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+    <!-- Particles & Three.js -->
+    <div id="particles-js"></div>
+    <canvas id="hero-canvas" class="three-canvas"></canvas>
+
+    <!-- Content -->
+    <div class="content-overlay absolute inset-0 flex items-center justify-center text-white">
+        <div class="text-center slide-in-left relative z-10">
+            <h1 class="font-playfair text-6xl md:text-8xl font-bold mb-6">
+                Premium Fashion
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+                Discover exclusive collections of elegant clothing and luxury accessories in the heart of Vienna
+            </p>
+            <a href="#collection">
+ <button class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors transform hover:scale-105">
+                Explore Collection
+            </button>
+            </a>
+           
+        </div>
+    </div>
+</section>
+
+
+    <!-- Section 2: Featured Categories -->
+    <section class="py-20 bg-gray-50" id="collection">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Featured Categories
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Explore our curated collections designed for the modern fashionista
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="hover-lift bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-64">
+                        <img src="/assets/featured/women'sCollection.jpg" alt="Women's Collection" class="h-64 w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Women's Collection</h3>
+                        <p class="text-gray-600 mb-4">Elegant dresses and sophisticated apparel</p>
+                       <a href="/shop/">
+                         <button class="text-purple-600 font-semibold hover:text-purple-700">
+                            Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                       </a>
+                    </div>
+                </div>
+                
+                <div class="hover-lift bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="h-64">
+                        <img src="/assets/featured/accessories.webp" alt="Accessories" class="h-64 w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Accessories</h3>
+                        <p class="text-gray-600 mb-4">Premium bags, watches, and jewelry</p>
+                       <a href="/shop/">
+                         <button class="text-purple-600 font-semibold hover:text-purple-700">
+                            Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                       </a>
+                    </div>
+                </div>
+                
+                <div class="hover-lift bg-white rounded-2xl overflow-hidden shadow-lg">
+                   <div class="h-64">
+                        <img src="/assets/featured/footwear.avif" alt="Footwear" class="h-64 w-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Footwear</h3>
+                        <p class="text-gray-600 mb-4">Stylish shoes for every occasion</p>
+                       <a href="/shop/">
+                         <button class="text-purple-600 font-semibold hover:text-purple-700">
+                            Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                       </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Best Sellers -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Best Sellers
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    Our most popular items loved by customers worldwide
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="bestsellers-grid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: About Us Preview -->
+    <section class="py-20 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-10"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in-left">
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-6">
+                        About Jenzora
+                    </h2>
+                    <p class="text-gray-300 text-lg mb-8">
+                        Located in the heart of Vienna, Jenzora has been crafting premium fashion experiences since 2020. 
+                        We believe that fashion is more than clothing - it's a statement of individuality and elegance.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400 mb-2">10K+</div>
+                            <div class="text-sm text-gray-400">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400 mb-2">500+</div>
+                            <div class="text-sm text-gray-400">Premium Products</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-in-right">
+                    <div class="floating-animation">
+                        <div class="w-full  rounded-2xl">
+                            <img src="/assets/Jenzora.avif" alt="Jenzora" class="w-full   rounded-2xl object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: New Arrivals -->
+    <section class="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    New Arrivals
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    Fresh styles just added to our collection
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="newarrivals-grid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Testimonials -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    What Our Customers Say
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    Real reviews from our valued customers
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-morphism rounded-2xl p-6 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="flex space-x-1 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Absolutely love the quality and style! The dress I ordered fits perfectly and the material is excellent."
+                    </p>
+                    <div class="font-semibold text-gray-800">Maria Schmidt</div>
+                    <div class="text-sm text-gray-600">Vienna, Austria</div>
+                </div>
+                
+                <div class="glass-morphism rounded-2xl p-6 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="flex space-x-1 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Best shopping experience ever! Fast delivery and amazing customer service. Highly recommended!"
+                    </p>
+                    <div class="font-semibold text-gray-800">Hans Mueller</div>
+                    <div class="text-sm text-gray-600">Salzburg, Austria</div>
+                </div>
+                
+                <div class="glass-morphism rounded-2xl p-6 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="flex space-x-1 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                       
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "The premium leather bag exceeded my expectations. Perfect craftsmanship and elegant design."
+                    </p>
+                    <div class="font-semibold text-gray-800">Anna Weber</div>
+                    <div class="text-sm text-gray-600">Innsbruck, Austria</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Newsletter Signup -->
+    <section class="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-4">
+                Stay in Style
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Subscribe to our newsletter and be the first to know about new collections, exclusive offers, and fashion tips.
+            </p>
+            <div class="max-w-md mx-auto flex">
+                <input 
+                    type="email" 
+                    placeholder="Enter your email address"
+                    class="flex-1 px-4 py-3 rounded-l-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                >
+                <button class="bg-white text-purple-600 px-6 py-3 rounded-r-full font-semibold hover:bg-gray-100 transition-colors">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14 mb-4">
+                </a>
+                    <p class="text-gray-400 mb-4">
+                        Premium fashion and accessories in the heart of Vienna, Austria.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="/shop/" class="hover:text-white transition-colors">Shop</a></li>
+                        <li><a href="/about/" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/privacy/" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="/cookies/" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3"></i>
+                            <span>Kärntner Straße 26, 1010 Wien, Austria</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+43 1 5123456</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@shopjenzora.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2025 Jenzora. All rights reserved. Made with ❤️ in Vienna, Austria.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check mr-2"></i>
+        <span id="notification-text">Item added to cart!</span>
+    </div>
+
+    <script>
+        //  Products Data
+        const products = [
+            { id: 1, name: "Elegant Summer Dress", price: 79.99, image: "/assets/products/elegant-dress.jpg", category: "dress", badge: "Best Seller" },
+            { id: 2, name: "Classic Denim Jacket", price: 99.99, image: "/assets/products/denim-jacket.jpeg", category: "jacket", badge: "Hot" },
+            { id: 3, name: "Premium Leather Bag", price: 129.99, image: "/assets/leather-bag.jpg", category: "bag", badge: "Sale" },
+            { id: 4, name: "Casual Sneakers", price: 69.99, image: "/assets/products/casual-sneakers.jpg", category: "shoes", badge: "Best Seller" },
+            { id: 5, name: "Slim Fit Trousers", price: 59.99, image: "/assets/products/slim-trousers.avif", category: "pants", badge: "Best Seller" },
+            { id: 6, name: "Designer Sunglasses", price: 149.99, image: "/assets/products/designer-sunglasses.jpg", category: "accessory", badge: "New" },
+            { id: 7, name: "Casual T-Shirt", price: 29.99, image: "/assets/products/casual-tshirt.webp", category: "shirt", badge: "Hot" },
+            { id: 8, name: "Vintage Watch", price: 199.99, image: "/assets/vintage-watch.jpg", category: "watch", badge: "Sale" },
+            { id: 9, name: "Formal Shirt", price: 49.99, image: "/assets/formal-shirt.jpg", category: "shirt", badge: "New" },
+            { id: 10, name: "Statement Necklace", price: 89.99, image: "/assets/statement-necklace.jpg", category: "jewelry", badge: "Hot" },
+            { id: 11, name: "Evening Gown", price: 249.99, image: "/assets/products/evening-gown.webp", category: "dress", badge: "Best Seller" },
+            { id: 12, name: "Athletic Shoes", price: 119.99, image: "/assets/athletic-shoes.jpg", category: "shoes", badge: "Best Seller" }
+        ];
+
+        //  Cart functionality
+        let cart = JSON.parse(localStorage.getItem('jenzora-cart')) || [];
+
+        function updateCartCount() {
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            
+            localStorage.setItem('jenzora-cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`${product.name} added to cart!`);
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function createProductCard(product, showBadge = true) {
+            return `
+                <div class="product-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+    ${product.badge && showBadge ? `
+        <div class="absolute top-4 left-4 z-10 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+            ${product.badge}
+        </div>
+    ` : ''}
+    
+    <!-- Image Section -->
+    <div class="h-64 flex items-center justify-center bg-gray-50">
+        <img src="${product.image}" alt="${product.name}" class="h-full object-contain">
+    </div>
+    
+    <!-- Product Info -->
+    <div class="p-6">
+        <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
+        <div class="flex justify-between items-center">
+            <span class="text-2xl font-bold text-purple-600">$${product.price}</span>
+            <button onclick="addToCart(${product.id})" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors">
+                <i class="fas fa-cart-plus"></i>
+            </button>
+        </div>
+    </div>
+</div>
+            `;
+        }
+
+        //  Populate product grids
+        function populateProducts() {
+            //  Get best sellers first, then fill with other popular products if needed
+            let bestsellers = products.filter(p => p.badge === "Best Seller");
+            if (bestsellers.length < 4) {
+                const remainingProducts = products.filter(p => p.badge !== "Best Seller").slice(0, 4 - bestsellers.length);
+                bestsellers = [...bestsellers, ...remainingProducts];
+            }
+            bestsellers = bestsellers.slice(0, 4);
+            
+            const newArrivals = products.filter(p => p.badge === "New" || p.badge === "Hot").slice(0,3);
+            
+            document.getElementById('bestsellers-grid').innerHTML = bestsellers.map(p => createProductCard(p)).join('');
+            document.getElementById('newarrivals-grid').innerHTML = newArrivals.map(p => createProductCard(p)).join('');
+        }
+
+        //  Mobile menu functionality
+        function initMobileMenu() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
+
+        //  Three.js Hero Animation
+        function initThreeJS() {
+            const canvas = document.getElementById('hero-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth /  window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            //  Create floating geometric shapes
+            const geometries = [
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.SphereGeometry(0.7, 32, 32),
+                new THREE.ConeGeometry(0.5, 1, 32)
+            ];
+            
+            const materials = [
+                new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.1, transparent: true }),
+                new THREE.MeshBasicMaterial({ color: 0x667eea, opacity: 0.15, transparent: true }),
+                new THREE.MeshBasicMaterial({ color: 0x764ba2, opacity: 0.1, transparent: true })
+            ];
+            
+            const shapes = [];
+            
+            for (let i = 0; i < 20; i++) {
+                const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+                const material = materials[Math.floor(Math.random() * materials.length)];
+                const mesh = new THREE.Mesh(geometry, material);
+                
+                mesh.position.set(
+                    Math.random() * 40 - 20,
+                    Math.random() * 40 - 20,
+                    Math.random() * 40 - 20
+                );
+                
+                mesh.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                
+                scene.add(mesh);
+                shapes.push(mesh);
+            }
+            
+            camera.position.z = 15;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                shapes.forEach((shape, index) => {
+                    shape.rotation.x += 0.005 + index * 0.001;
+                    shape.rotation.y += 0.005 + index * 0.001;
+                    shape.position.y += Math.sin(Date.now() * 0.001 + index) * 0.01;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            //  Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth //  window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        //  Particles.js initialization
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 50, density: { enable: true, value_area: 800 } },
+                    color: { value: "#ffffff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: false },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        //  Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            populateProducts();
+            updateCartCount();
+            initMobileMenu();
+            initThreeJS();
+            initParticles();
+        });
+
+        //  Cart button functionality
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            //  Redirect to cart page (to be implemented)
+            window.location.href = '/cart/';
+        });
+    </script>
+</body>
+</html>

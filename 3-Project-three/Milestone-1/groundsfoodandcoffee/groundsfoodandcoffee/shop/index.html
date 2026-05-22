@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Premium Coffee - The Grounds Roastery | South Yarra</title>
+    <meta name="description"
+        content="Shop premium coffee beans, artisan roasts, and coffee accessories at The Grounds Roastery. From single origins to signature blends, find your perfect cup.">
+    <meta name="keywords"
+        content="buy coffee online, premium coffee beans, single origin coffee, coffee blends, espresso beans, filter coffee, coffee accessories, Melbourne coffee shop">
+    <link rel="canonical" href="http://groundsfoodandcoffee.com/shop/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-coffee: #4a2c2a;
+            --secondary-coffee: #8B4513;
+            --accent-gold: #D4AF37;
+            --warm-cream: #F5F2E8;
+            --rich-brown: #3C1810;
+            --medium-roast: #6B4423;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            color: #fff;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 8px;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 16px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu button:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-menu .absolute {
+            z-index: 1001;
+        }
+
+        /* Filter Sidebar */
+        .filter-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            transition: left 0.3s ease-in-out;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-sidebar.active {
+            left: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .filter-sidebar {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                backdrop-filter: none;
+                border: none;
+                overflow-y: visible;
+            }
+        }
+
+        /* Product Cards */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox:checked {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '✓';
+            color: black;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Price Range Slider */
+        .price-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .price-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            cursor: pointer;
+        }
+
+        .price-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Fade transition for products */
+        .products-container {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .products-container.updating {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-6 right-6 text-3xl text-white hover:text-yellow-400 transition-colors z-10"
+            onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Home</a>
+            <a href="/shop/" class="block text-3xl font-bold mb-8 text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Shop</a>
+            <a href="/about/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">About</a>
+            <a href="/blog/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Blog</a>
+            <a href="/contact/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Contact</a>
+        </nav>
+        
+    </div>
+
+    <!-- Filter Sidebar (Mobile) -->
+    <div class="filter-sidebar lg:hidden" id="filterSidebar">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold playfair text-yellow-400">Filters</h3>
+                <button onclick="toggleFilterSidebar()" class="text-gray-400 hover:text-yellow-400">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="mobileFilters" class="space-y-8">
+                <!-- Mobile filters will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-50">
+        <nav class="glass py-4 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold playfair text-yellow-400">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="/" class="hover:text-yellow-400 transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="text-yellow-400 transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="hover:text-yellow-400 transition-colors font-medium">About</a>
+                    <a href="/blog/" class="hover:text-yellow-400 transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-yellow-400 transition-colors" onclick="toggleCart()">
+                        <a href="/cart/">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cartBadge" class="cart-badge hidden">0</span>
+                        </a>
+                    </button>
+
+                    <!-- Mobile Hamburger -->
+                    <div class="lg:hidden hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8 px-4">
+        <!-- Page Header -->
+        <div class="max-w-7xl mx-auto mb-12">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl md:text-6xl font-bold playfair mb-4 text-yellow-400">Premium Coffee Collection</h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">Discover our carefully curated selection of premium
+                    coffee beans, blends, and accessories crafted for the perfect brew.</p>
+            </div>
+
+            <!-- Mobile Filter Button -->
+            <div class="lg:hidden flex justify-between items-center mb-6">
+                <button onclick="toggleFilterSidebar()"
+                    class="glass-dark px-4 py-3 rounded-lg flex items-center space-x-2 text-yellow-400">
+                    <i class="fas fa-filter"></i>
+                    <span>Filters</span>
+                </button>
+                <div class="flex items-center space-x-4">
+                    <label class="text-sm text-gray-300">Sort by:</label>
+                    <select id="mobileSortSelect" onchange="sortProducts(this.value)"
+                        class="bg-gray-800 text-white border border-gray-600 rounded-lg px-3 py-2 text-sm">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+            <div class="flex gap-8">
+                <!-- Desktop Sidebar -->
+                <aside class="hidden lg:block w-80 glass-dark rounded-2xl p-6 h-fit sticky top-8" id="desktopFilters">
+                    <h3 class="text-2xl font-bold playfair text-yellow-400 mb-6">Filters</h3>
+
+                    <!-- Search -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-yellow-400 mb-3">Search Products</label>
+                        <input type="text" id="searchInput" placeholder="Search coffee..."
+                            class="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400 transition-colors"
+                            oninput="filterProducts()">
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-yellow-400 mb-3">Categories</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox category-filter" value="blend"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Coffee Blends</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox category-filter" value="single-origin"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Single Origin</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox category-filter" value="espresso"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Espresso</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox category-filter" value="accessories"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Accessories</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Roast Level -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-yellow-400 mb-3">Roast Level</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox roast-filter" value="light"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Light Roast</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox roast-filter" value="medium"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Medium Roast</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox roast-filter" value="dark"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Dark Roast</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-yellow-400 mb-3">Price Range</label>
+                        <div class="space-y-4">
+                            <input type="range" id="priceRange" class="price-range" min="15" max="100" value="100"
+                                oninput="updatePriceRange(this.value)">
+                            <div class="flex justify-between text-sm text-gray-300">
+                                <span>$15</span>
+                                <span id="maxPrice">$100</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Origin -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-yellow-400 mb-3">Origin</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox origin-filter" value="ethiopia"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Ethiopia</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox origin-filter" value="colombia"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Colombia</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox origin-filter" value="brazil"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Brazil</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox origin-filter" value="guatemala"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">Guatemala</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox origin-filter" value="blend"
+                                    onchange="filterProducts()">
+                                <span class="text-gray-300">House Blend</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sort -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-yellow-400 mb-3">Sort By</label>
+                        <select id="sortSelect" onchange="sortProducts(this.value)"
+                            class="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400 transition-colors">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                            <option value="rating">Rating</option>
+                        </select>
+                    </div>
+
+                    <!-- Clear Filters -->
+                    <button onclick="clearAllFilters()"
+                        class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                        Clear All Filters
+                    </button>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="flex-1">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <p class="text-gray-300" id="productCount">Showing all products</p>
+                        </div>
+                        <div class="hidden lg:flex items-center space-x-4">
+                            <label class="text-sm text-gray-300">Sort by:</label>
+                            <select id="desktopSortSelect" onchange="sortProducts(this.value)"
+                                class="bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-2">
+                                <option value="featured">Featured</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="name">Name: A to Z</option>
+                                <option value="rating">Rating</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="productsContainer"
+                        class="products-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <!-- Products will be loaded here -->
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="hidden text-center py-12">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400 mb-4">
+                        </div>
+                        <p class="text-gray-300">Loading products...</p>
+                    </div>
+
+                    <!-- No Results -->
+                    <div id="noResults" class="hidden text-center py-12">
+                        <i class="fas fa-search text-6xl text-gray-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-400 mb-2">No products found</h3>
+                        <p class="text-gray-300">Try adjusting your filters or search terms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-dark py-16 px-4 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                    <p class="text-gray-300">Crafting exceptional coffee experiences since 2012. From bean to bag, every
+                        cup tells a story.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thegrounds"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thegrounds/"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                        <a href="/shop/" class="text-gray-300 hover:text-yellow-400 transition-colors">Shop</a>
+                        <a href="/about/" class="text-gray-300 hover:text-yellow-400 transition-colors">About</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-yellow-400 transition-colors">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-yellow-400 transition-colors">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Customer Service</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/privacy/" class="text-gray-300 hover:text-yellow-400 transition-colors">Privacy
+                            Policy</a>
+                        <a href="/terms/" class="text-gray-300 hover:text-yellow-400 transition-colors">Terms of
+                            Service</a>
+                        <a href="/cookies/" class="text-gray-300 hover:text-yellow-400 transition-colors">Cookie
+                            Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-300 flex items-start">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1"></i>
+                            163 Commercial Rd, South Yarra VIC 3141
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-phone text-yellow-400 mr-3"></i>
+                            +61 3 8290 8220
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-envelope text-yellow-400 mr-3"></i>
+                            info@groundsfoodandcoffee.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 The Grounds Roastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let cart = JSON.parse(localStorage.getItem('groundsCart')) || [];
+        let scene, camera, renderer;
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentSortBy = 'featured';
+
+        // Products Data (15+ products)
+        const products = [
+            {
+                id: 1,
+                name: "Huntley Street Blend",
+                price: 28.50,
+                image: "/assets/images/huntley-street-blend.jpg",
+                description: "Our signature blend with notes of chocolate and caramel",
+                category: "blend",
+                roast: "medium",
+                origin: "blend",
+                rating: 4.8,
+                featured: true
+            },
+            {
+                id: 2,
+                name: "The Stationmaster",
+                price: 32.00,
+                image: "/assets/images/stationmaster-coffee.jpg",
+                description: "Bold and robust with hints of dark chocolate",
+                category: "espresso",
+                roast: "dark",
+                origin: "blend",
+                rating: 4.9,
+                featured: true
+            },
+            {
+                id: 3,
+                name: "Beanstalker Single Origin",
+                price: 35.75,
+                image: "/assets/images/beanstalker-origin.jpg",
+                description: "Ethiopian single origin with floral and citrus notes",
+                category: "single-origin",
+                roast: "light",
+                origin: "ethiopia",
+                rating: 4.7,
+                featured: true
+            },
+            {
+                id: 4,
+                name: "Experimental Roast",
+                price: 42.00,
+                image: "/assets/images/experimental-roast.jpg",
+                description: "Limited edition experimental roast for adventurous palates",
+                category: "single-origin",
+                roast: "medium",
+                origin: "colombia",
+                rating: 4.6,
+                featured: false
+            },
+            {
+                id: 5,
+                name: "Morning Glory Blend",
+                price: 26.90,
+                image: "/assets/images/morning-glory.jpg",
+                description: "Perfect morning blend with smooth, balanced flavors",
+                category: "blend",
+                roast: "medium",
+                origin: "blend",
+                rating: 4.5,
+                featured: true
+            },
+            {
+                id: 6,
+                name: "Midnight Roast",
+                price: 29.75,
+                image: "/assets/images/midnight-roast.webp",
+                description: "Dark roast with intense, smoky flavors",
+                category: "espresso",
+                roast: "dark",
+                origin: "brazil",
+                rating: 4.8,
+                featured: false
+            },
+            {
+                id: 7,
+                name: "Colombian Supremo",
+                price: 38.00,
+                image: "/assets/images/colombian-supremo.webp",
+                description: "Premium Colombian beans with rich body and wine-like acidity",
+                category: "single-origin",
+                roast: "medium",
+                origin: "colombia",
+                rating: 4.9,
+                featured: true
+            },
+            {
+                id: 8,
+                name: "Ethiopian Yirgacheffe",
+                price: 45.50,
+                image: "/assets/images/ethiopian-yirgacheffe.webp",
+                description: "Bright and complex with berry and wine notes",
+                category: "single-origin",
+                roast: "light",
+                origin: "ethiopia",
+                rating: 4.8,
+                featured: false
+            },
+            {
+                id: 9,
+                name: "Brazilian Santos",
+                price: 24.90,
+                image: "/assets/images/brazilian-santos.jpeg",
+                description: "Smooth Brazilian coffee with nutty undertones",
+                category: "single-origin",
+                roast: "medium",
+                origin: "brazil",
+                rating: 4.4,
+                featured: false
+            },
+            {
+                id: 10,
+                name: "Guatemalan Antigua",
+                price: 41.25,
+                image: "/assets/images/guatemalan-antigua.jpg",
+                description: "Full-bodied with spicy and smoky characteristics",
+                category: "single-origin",
+                roast: "dark",
+                origin: "guatemala",
+                rating: 4.7,
+                featured: false
+            },
+            {
+                id: 11,
+                name: "Espresso Italiano",
+                price: 33.75,
+                image: "/assets/images/espresso-italiano.png",
+                description: "Traditional Italian espresso blend with rich crema",
+                category: "espresso",
+                roast: "dark",
+                origin: "blend",
+                rating: 4.9,
+                featured: true
+            },
+            {
+                id: 12,
+                name: "House Breakfast Blend",
+                price: 22.50,
+                image: "/assets/images/breakfast-blend.webp",
+                description: "Light and refreshing morning coffee",
+                category: "blend",
+                roast: "light",
+                origin: "blend",
+                rating: 4.3,
+                featured: false
+            },
+            {
+                id: 13,
+                name: "French Roast Supreme",
+                price: 31.00,
+                image: "/assets/images/french-roast.jpg",
+                description: "Bold French roast with smoky, intense flavors",
+                category: "espresso",
+                roast: "dark",
+                origin: "blend",
+                rating: 4.6,
+                featured: false
+            },
+            {
+                id: 14,
+                name: "Organic Fair Trade Blend",
+                price: 36.80,
+                image: "/assets/images/organic-blend.webp",
+                description: "Ethically sourced organic blend with balanced flavor",
+                category: "blend",
+                roast: "medium",
+                origin: "blend",
+                rating: 4.5,
+                featured: false
+            },
+            {
+                id: 15,
+                name: "Decaf Colombian",
+                price: 27.90,
+                image: "/assets/images/decaf-colombian.jpg",
+                description: "Full flavor without caffeine, Colombian decaf",
+                category: "single-origin",
+                roast: "medium",
+                origin: "colombia",
+                rating: 4.2,
+                featured: false
+            }
+        ];
+
+        // Initialize Three.js Scene (simplified for shop page)
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create fewer floating elements for better performance
+            const geometry = new THREE.SphereGeometry(0.05, 6, 4);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8B4513, transparent: true, opacity: 0.4 });
+
+            for (let i = 0; i < 30; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.x = (Math.random() - 0.5) * 20;
+                bean.position.y = (Math.random() - 0.5) * 20;
+                bean.position.z = (Math.random() - 0.5) * 20;
+                bean.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01
+                    )
+                };
+                scene.add(bean);
+            }
+
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            scene.children.forEach(bean => {
+                if (bean.userData && bean.userData.velocity) {
+                    bean.position.add(bean.userData.velocity);
+                    bean.rotation.x += 0.005;
+                    bean.rotation.y += 0.005;
+
+                    if (Math.abs(bean.position.x) > 10) bean.userData.velocity.x *= -1;
+                    if (Math.abs(bean.position.y) > 10) bean.userData.velocity.y *= -1;
+                    if (Math.abs(bean.position.z) > 10) bean.userData.velocity.z *= -1;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 1000 } },
+                    color: { value: "#D4AF37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: false },
+                    size: { value: 2, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#D4AF37", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: false } },
+                    modes: { repulse: { distance: 80, duration: 0.4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Filter Sidebar Functions
+        function toggleFilterSidebar() {
+            const filterSidebar = document.getElementById('filterSidebar');
+            filterSidebar.classList.toggle('active');
+
+            // Copy filters to mobile sidebar when opened
+            if (filterSidebar.classList.contains('active')) {
+                copyFiltersToMobile();
+            }
+        }
+
+        function copyFiltersToMobile() {
+            const mobileFilters = document.getElementById('mobileFilters');
+
+            mobileFilters.innerHTML = `
+                <!-- Search -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-yellow-400 mb-3">Search Products</label>
+                    <input type="text" id="mobileSearchInput" placeholder="Search coffee..." 
+                           class="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400 transition-colors"
+                           oninput="mobileFilterProducts()">
+                </div>
+
+                <!-- Categories -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-yellow-400 mb-3">Categories</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-category-filter" value="blend" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Coffee Blends</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-category-filter" value="single-origin" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Single Origin</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-category-filter" value="espresso" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Espresso</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-category-filter" value="accessories" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Accessories</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Roast Level -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-yellow-400 mb-3">Roast Level</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-roast-filter" value="light" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Light Roast</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-roast-filter" value="medium" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Medium Roast</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-roast-filter" value="dark" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Dark Roast</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Price Range -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-yellow-400 mb-3">Price Range</label>
+                    <div class="space-y-4">
+                        <input type="range" id="mobilePriceRange" class="price-range" min="15" max="100" value="100" oninput="updateMobilePriceRange(this.value)">
+                        <div class="flex justify-between text-sm text-gray-300">
+                            <span>$15</span>
+                            <span id="mobileMaxPrice">$100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Origin -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-yellow-400 mb-3">Origin</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-origin-filter" value="ethiopia" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Ethiopia</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-origin-filter" value="colombia" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Colombia</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-origin-filter" value="brazil" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Brazil</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-origin-filter" value="guatemala" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">Guatemala</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mobile-origin-filter" value="blend" onchange="mobileFilterProducts()">
+                            <span class="text-gray-300">House Blend</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Clear Filters -->
+                <button onclick="clearAllFilters()" class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                    Clear All Filters
+                </button>
+            `;
+        }
+
+        // Cart Functions
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+            updateCartDisplay();
+        }
+
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            localStorage.setItem('groundsCart', JSON.stringify(cart));
+            updateCartBadge();
+            showNotification('Product added to cart!');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('groundsCart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            cartItems.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="flex items-center space-x-4 p-4 glass rounded-lg">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white text-sm">${item.name}</h4>
+                            <p class="text-gray-400 text-sm">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg z-50 transition-all duration-300';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Product Display Functions
+        function displayProducts(productsToShow) {
+            const container = document.getElementById('productsContainer');
+            const noResults = document.getElementById('noResults');
+            const productCount = document.getElementById('productCount');
+
+            if (productsToShow.length === 0) {
+                container.innerHTML = '';
+                noResults.classList.remove('hidden');
+                productCount.textContent = 'No products found';
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            productCount.textContent = `Showing ${productsToShow.length} of ${allProducts.length} products`;
+
+            container.innerHTML = productsToShow.map(product => `
+                <div class="product-card glass-dark rounded-2xl overflow-hidden animate-fade-in-up flex flex-col">
+    <div class="relative">
+        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        ${product.featured ? '<div class="absolute top-4 left-4 bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-semibold">Featured</div>' : ''}
+        <div class="absolute top-4 right-4 flex items-center space-x-1 bg-black/50 rounded-full px-3 py-1">
+            <i class="fas fa-star text-yellow-400 text-sm"></i>
+            <span class="text-white text-sm">${product.rating}</span>
+        </div>
+    </div>
+
+    <!-- Card body -->
+    <div class="p-6 flex flex-col flex-1">
+        <h3 class="text-xl font-bold playfair text-yellow-400 mb-2">${product.name}</h3>
+        <p class="text-gray-300 mb-4 text-sm leading-relaxed">${product.description}</p>
+
+        ${product.category !== 'accessories' ? `
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full capitalize">${product.category}</span>
+                ${product.roast ? `<span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full capitalize">${product.roast} roast</span>` : ''}
+                ${product.origin && product.origin !== 'blend' ? `<span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full capitalize">${product.origin}</span>` : ''}
+            </div>
+        ` : ''}
+
+        <!-- Price & Button pinned at bottom -->
+        <div class="mt-auto flex justify-between items-center">
+            <span class="text-2xl font-bold text-white">$${product.price.toFixed(2)}</span>
+            <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})" 
+                class="bg-yellow-400 text-black px-6 py-2 font-semibold hover:bg-yellow-300 transition-all duration-300 rounded-full text-sm">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+</div>
+
+            `).join('');
+        }
+
+        // Desktop Filter Functions
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const priceMax = parseInt(document.getElementById('priceRange').value);
+
+            // Get selected filters
+            const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+            const selectedRoasts = Array.from(document.querySelectorAll('.roast-filter:checked')).map(cb => cb.value);
+            const selectedOrigins = Array.from(document.querySelectorAll('.origin-filter:checked')).map(cb => cb.value);
+
+            // Filter products
+            filteredProducts = allProducts.filter(product => {
+                // Search filter
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm);
+
+                // Price filter
+                const matchesPrice = product.price <= priceMax;
+
+                // Category filter
+                const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+
+                // Roast filter
+                const matchesRoast = selectedRoasts.length === 0 || selectedRoasts.includes(product.roast);
+
+                // Origin filter
+                const matchesOrigin = selectedOrigins.length === 0 || selectedOrigins.includes(product.origin);
+
+                return matchesSearch && matchesPrice && matchesCategory && matchesRoast && matchesOrigin;
+            });
+
+            // Apply current sort
+            sortProducts(currentSortBy, false);
+        }
+
+        // Mobile Filter Functions
+        function mobileFilterProducts() {
+            const searchTerm = document.getElementById('mobileSearchInput')?.value.toLowerCase() || '';
+            const priceMax = parseInt(document.getElementById('mobilePriceRange')?.value || 100);
+
+            // Get selected mobile filters
+            const selectedCategories = Array.from(document.querySelectorAll('.mobile-category-filter:checked')).map(cb => cb.value);
+            const selectedRoasts = Array.from(document.querySelectorAll('.mobile-roast-filter:checked')).map(cb => cb.value);
+            const selectedOrigins = Array.from(document.querySelectorAll('.mobile-origin-filter:checked')).map(cb => cb.value);
+
+            // Filter products
+            filteredProducts = allProducts.filter(product => {
+                // Search filter
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm);
+
+                // Price filter
+                const matchesPrice = product.price <= priceMax;
+
+                // Category filter
+                const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+
+                // Roast filter
+                const matchesRoast = selectedRoasts.length === 0 || selectedRoasts.includes(product.roast);
+
+                // Origin filter
+                const matchesOrigin = selectedOrigins.length === 0 || selectedOrigins.includes(product.origin);
+
+                return matchesSearch && matchesPrice && matchesCategory && matchesRoast && matchesOrigin;
+            });
+
+            // Sync desktop filters with mobile
+            syncFiltersDesktopToMobile();
+
+            // Apply current sort
+            sortProducts(currentSortBy, false);
+        }
+
+        function syncFiltersDesktopToMobile() {
+            // Sync search
+            const mobileSearch = document.getElementById('mobileSearchInput')?.value || '';
+            document.getElementById('searchInput').value = mobileSearch;
+
+            // Sync categories
+            document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.mobile-category-filter:checked').forEach(mobileCb => {
+                const desktopCb = document.querySelector(`.category-filter[value="${mobileCb.value}"]`);
+                if (desktopCb) desktopCb.checked = true;
+            });
+
+            // Sync roasts
+            document.querySelectorAll('.roast-filter').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.mobile-roast-filter:checked').forEach(mobileCb => {
+                const desktopCb = document.querySelector(`.roast-filter[value="${mobileCb.value}"]`);
+                if (desktopCb) desktopCb.checked = true;
+            });
+
+            // Sync origins
+            document.querySelectorAll('.origin-filter').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.mobile-origin-filter:checked').forEach(mobileCb => {
+                const desktopCb = document.querySelector(`.origin-filter[value="${mobileCb.value}"]`);
+                if (desktopCb) desktopCb.checked = true;
+            });
+
+            // Sync price
+            const mobilePrice = document.getElementById('mobilePriceRange')?.value || 100;
+            document.getElementById('priceRange').value = mobilePrice;
+            document.getElementById('maxPrice').textContent = '$' + mobilePrice;
+        }
+
+        function sortProducts(sortBy, updateSelect = true) {
+            currentSortBy = sortBy;
+
+            if (updateSelect) {
+                document.getElementById('sortSelect').value = sortBy;
+                document.getElementById('desktopSortSelect').value = sortBy;
+                document.getElementById('mobileSortSelect').value = sortBy;
+            }
+
+            const productsToSort = filteredProducts.length > 0 ? filteredProducts : allProducts;
+
+            let sortedProducts = [...productsToSort];
+
+            switch (sortBy) {
+                case 'price-low':
+                    sortedProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    sortedProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'rating':
+                    sortedProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'featured':
+                default:
+                    sortedProducts.sort((a, b) => {
+                        if (a.featured && !b.featured) return -1;
+                        if (!a.featured && b.featured) return 1;
+                        return b.rating - a.rating;
+                    });
+                    break;
+            }
+
+            displayProducts(sortedProducts);
+        }
+
+        function updatePriceRange(value) {
+            document.getElementById('maxPrice').textContent = '$' + value;
+            filterProducts();
+        }
+
+        function updateMobilePriceRange(value) {
+            document.getElementById('mobileMaxPrice').textContent = '$' + value;
+            mobileFilterProducts();
+        }
+
+        function clearAllFilters() {
+            // Clear desktop checkboxes
+            document.querySelectorAll('.category-filter, .roast-filter, .origin-filter').forEach(cb => cb.checked = false);
+
+            // Clear mobile checkboxes
+            document.querySelectorAll('.mobile-category-filter, .mobile-roast-filter, .mobile-origin-filter').forEach(cb => cb.checked = false);
+
+            // Clear search
+            document.getElementById('searchInput').value = '';
+            const mobileSearch = document.getElementById('mobileSearchInput');
+            if (mobileSearch) mobileSearch.value = '';
+
+            // Reset price range
+            document.getElementById('priceRange').value = 100;
+            document.getElementById('maxPrice').textContent = '$100';
+            const mobilePriceRange = document.getElementById('mobilePriceRange');
+            if (mobilePriceRange) {
+                mobilePriceRange.value = 100;
+                document.getElementById('mobileMaxPrice').textContent = '$100';
+            }
+
+            // Reset sort
+            currentSortBy = 'featured';
+            document.getElementById('sortSelect').value = 'featured';
+            document.getElementById('desktopSortSelect').value = 'featured';
+            document.getElementById('mobileSortSelect').value = 'featured';
+
+            // Reset filtered products and display all
+            filteredProducts = [];
+            sortProducts('featured');
+
+            // Close mobile filter sidebar
+            document.getElementById('filterSidebar').classList.remove('active');
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            allProducts = [...products];
+            filteredProducts = [];
+
+            initThreeJS();
+            initParticles();
+            updateCartBadge();
+            sortProducts('featured');
+
+            // Add scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe product cards as they load
+            const observeProducts = () => {
+                document.querySelectorAll('.product-card').forEach(card => {
+                    observer.observe(card);
+                });
+            };
+
+            // Initial observation
+            setTimeout(observeProducts, 100);
+
+            // Re-observe when products change
+            const productsContainer = document.getElementById('productsContainer');
+            const mutationObserver = new MutationObserver(observeProducts);
+            mutationObserver.observe(productsContainer, { childList: true });
+        });
+
+        // Handle window resize
+        function handleResize() {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        // Close menus when clicking outside
+        document.addEventListener('click', function (event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const filterSidebar = document.getElementById('filterSidebar');
+
+            // Close mobile menu
+            if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+
+            // Close filter sidebar on mobile
+            if (window.innerWidth < 1024 && !filterSidebar.contains(event.target) && !event.target.closest('button[onclick="toggleFilterSidebar()"]')) {
+                filterSidebar.classList.remove('active');
+            }
+        });
+
+        // Close menus on escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const filterSidebar = document.getElementById('filterSidebar');
+
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+
+                if (filterSidebar.classList.contains('active')) {
+                    filterSidebar.classList.remove('active');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

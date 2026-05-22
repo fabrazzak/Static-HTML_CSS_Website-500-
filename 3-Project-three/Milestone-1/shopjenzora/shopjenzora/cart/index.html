@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Jenzora | Premium Fashion & Accessories</title>
+    <meta name="description" content="Review your shopping cart at Jenzora. Manage your selected fashion items before checkout. Premium clothing, accessories and more from Vienna, Austria.">
+    <meta name="keywords" content="shopping cart, fashion cart, checkout, Vienna fashion, premium clothing, designer bags, luxury watches, elegant dresses, fashion accessories, Austrian fashion">
+    <link rel="canonical" href="https:/shopjenzora.com/cart/">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https:/fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #f9fafb;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hamburger-line:nth-child(3) {
+            bottom: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            transition: right 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 60px 0;
+        }
+        
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item-remove {
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item-remove:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f3f4f6;
+            transition: all 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .empty-cart-icon {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+        }
+        
+        .promo-input {
+            transition: all 0.3s ease;
+        }
+        
+        .promo-input:focus {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        
+        .apply-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .apply-btn:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="bg-gray-900 text-white py-2 hidden md:block">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-6">
+                    <span class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Kärntner Straße 26, 1010 Wien, Austria
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-phone mr-2"></i>
+                        +43 1 5123456
+                    </span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+               <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Home</a>
+                    <a href="/shop/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Shop</a>
+                    <a href="/about/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">About</a>
+                    <a href="/blog/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Blog</a>
+                    <a href="/contact/" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="cart-btn" class="relative hover:text-purple-600 transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </button>
+                    
+                    <!-- Mobile Hamburger -->
+                    <div class="md:hidden hamburger-menu" id="hamburger-menu">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="/" class="text-white text-2xl hover:text-purple-400 transition-colors">Home</a>
+            <a href="/shop/" class="text-white text-2xl hover:text-purple-400 transition-colors">Shop</a>
+            <a href="/about/" class="text-white text-2xl hover:text-purple-400 transition-colors">About</a>
+            <a href="/blog/" class="text-white text-2xl hover:text-purple-400 transition-colors">Blog</a>
+            <a href="/contact/" class="text-white text-2xl hover:text-purple-400 transition-colors">Contact</a>
+        </div>
+    </div>
+
+    <!-- Cart Header -->
+    <section class="py-12 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="font-playfair text-4xl md:text-5xl font-bold mb-4">
+                Shopping Cart
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto">
+                Review your selected items and proceed to checkout
+            </p>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <!-- Free Shipping Progress -->
+            <div class="mb-8 bg-white p-6 rounded-2xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-truck text-purple-600 text-xl mr-3"></i>
+                    <span class="font-semibold">You're <span id="progress-amount">$50.01</span> away from free shipping!</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 65%"></div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Cart Items -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-semibold text-xl mb-6">Your Cart (<span id="cart-items-count">3</span> items)</h3>
+                        
+                        <div id="cart-items-container">
+                            <!-- Cart items will be dynamically inserted here -->
+                        </div>
+                        
+                        <!-- Empty Cart State -->
+                        <div id="empty-cart" class="hidden text-center py-12">
+                            <div class="empty-cart-icon text-6xl text-gray-300 mb-6">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h3 class="font-semibold text-2xl text-gray-600 mb-4">Your cart is empty</h3>
+                            <p class="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
+                            <a href="/shop/" class="inline-block bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                                Continue Shopping
+                            </a>
+                        </div>
+                    </div>
+                    
+                   
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="w-full lg:w-1/3">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg sticky top-32">
+                        <h3 class="font-semibold text-xl mb-6">Order Summary</h3>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span id="subtotal" class="font-semibold">$249.97</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Shipping</span>
+                                <span id="shipping" class="font-semibold">$9.99</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Tax</span>
+                                <span id="tax" class="font-semibold">$20.00</span>
+                            </div>
+                            <div class="flex justify-between text-green-600" id="discount-row">
+                                <span>Discount</span>
+                                <span id="discount">-$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-4 mb-6">
+                            <div class="flex justify-between text-lg font-semibold">
+                                <span>Total</span>
+                                <span id="total">$279.96</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Promo Code -->
+                        <div class="mb-6">
+                            <div class="flex mb-2">
+                                <input 
+                                    type="text" 
+                                    placeholder="Promo code"
+                                    class="flex-1 promo-input px-4 py-2 rounded-l-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                    id="promo-code"
+                                >
+                                <button class="apply-btn bg-gray-800 text-white px-4 py-2 rounded-r-full font-semibold hover:bg-gray-900 transition-colors" id="apply-promo">
+                                    Apply
+                                </button>
+                            </div>
+                            <p class="text-sm text-gray-500" id="promo-message"></p>
+                        </div>
+                        
+                       <a href="/checkout/">
+                         <button class="checkout-btn w-full text-white py-3 rounded-full font-semibold mb-4" id="checkout-btn">
+                            Proceed to Checkout
+                        </button>
+                       </a>
+                        
+                        <div class="text-center">
+                            <p class="text-sm text-gray-500">or <a href="/shop/" class="text-purple-600 hover:underline">Continue Shopping</a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Badges -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg mt-8 text-center">
+                        <h3 class="font-semibold text-lg mb-4">Secure Shopping</h3>
+                        <div class="flex justify-center space-x-6 text-2xl text-gray-600">
+                            <i class="fas fa-lock" title="Secure Checkout"></i>
+                            <i class="fas fa-shield-alt" title="Payment Protection"></i>
+                            <i class="fas fa-credit-card" title="Multiple Payment Options"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-4">
+                Stay Updated
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Subscribe to our newsletter for exclusive offers and new arrivals
+            </p>
+            <div class="max-w-md mx-auto flex">
+                <input 
+                    type="email" 
+                    placeholder="Enter your email address"
+                    class="flex-1 px-4 py-3 rounded-l-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                >
+                <button class="bg-white text-purple-600 px-6 py-3 rounded-r-full font-semibold hover:bg-gray-100 transition-colors">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/" class="font-playfair text-3xl font-bold gradient-text">
+                   <img src="/assets/logo.png" alt="logo" class="h-12 md:h-14 mb-4">
+                </a>
+                    <p class="text-gray-400 mb-4">
+                        Premium fashion and accessories in the heart of Vienna, Austria.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https:/www.facebook.com/jenzora" class="hover:text-blue-400 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https:/www.instagram.com/jenzora/" class="hover:text-pink-400 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https:/x.com/jenzora" class="hover:text-blue-300 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="/shop/" class="hover:text-white transition-colors">Shop</a></li>
+                        <li><a href="/about/" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/privacy/" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="/cookies/" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3"></i>
+                            <span>Kärntner Straße 26, 1010 Wien, Austria</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-3"></i>
+                            <span>+43 1 5123456</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@shopjenzora.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2025 Jenzora. All rights reserved. Made with ❤️ in Vienna, Austria.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check mr-2"></i>
+        <span id="notification-text">Item added to cart!</span>
+    </div>
+
+    <script>
+        /// Sample cart data (in a real application, this would come from localStorage)
+        let cart = [
+            { id: 1, name: "Elegant Summer Dress", price: 79.99, image: "/assets/elegant-dress.jpg", quantity: 1 },
+            { id: 3, name: "Premium Leather Bag", price: 129.99, image: "/assets/leather-bag.jpg", quantity: 1 },
+            { id: 4, name: "Casual Sneakers", price: 69.99, image: "/assets/casual-sneakers.jpg", quantity: 1 }
+        ];
+
+        /// Recently viewed items
+       
+
+        /// Promo codes
+        const promoCodes = {
+            "WELCOME10": 10,
+            "FREESHIP": 9.99,
+            "SUMMER25": 25
+        };
+
+        /// Initialize variables
+        let appliedPromo = null;
+        let shippingCost = 9.99;
+        const freeShippingThreshold = 100;
+        const taxRate = 0.08 ; /// 8% tax ;
+
+        /// Cart functionality
+        function updateCartCount() {
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+            document.getElementById('cart-items-count').textContent = cartCount;
+        }
+
+        function updateCartDisplay() {
+            const cartContainer = document.getElementById('cart-items-container');
+            const emptyCart = document.getElementById('empty-cart');
+            
+            if (cart.length === 0) {
+                cartContainer.classList.add('hidden');
+                emptyCart.classList.remove('hidden');
+                return;
+            }
+            
+            cartContainer.classList.remove('hidden');
+            emptyCart.classList.add('hidden');
+            
+            /// Generate cart items HTML
+            cartContainer.innerHTML = cart.map(item => `
+                <div class="cart-item border-b border-gray-200 pb-6 mb-6 last:border-0 last:mb-0">
+                    <div class="flex">
+                        <div class="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-lg mr-4">
+                          <img src='${item.image}' alt='img'>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <h4 class="font-semibold">${item.name}</h4>
+                                <span class="font-semibold">$${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">$${item.price.toFixed(2)} each</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="mx-3 font-semibold">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="cart-item-remove text-gray-400 hover:text-red-500" onclick="removeFromCart(${item.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * taxRate;
+            
+            /// Calculate discount
+            let discount = 0;
+            if (appliedPromo) {
+                if (appliedPromo in promoCodes) {
+                    discount = promoCodes[appliedPromo];
+                    /// If discount is a percentage
+                    if (discount < 1) {
+                        discount = subtotal * discount;
+                    }
+                }
+            }
+            
+            /// Calculate shipping
+            let shipping = shippingCost;
+            if (subtotal >= freeShippingThreshold) {
+                shipping = 0;
+            }
+            
+            const total = subtotal + shipping + tax - discount;
+            
+            /// Update DOM
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('discount').textContent = `-$${discount.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            /// Show/hide discount row
+            const discountRow = document.getElementById('discount-row');
+            if (discount > 0) {
+                discountRow.classList.remove('hidden');
+            } else {
+                discountRow.classList.add('hidden');
+            }
+            
+            /// Update free shipping progress
+            updateShippingProgress(subtotal);
+        }
+
+        function updateShippingProgress(subtotal) {
+            const progressFill = document.getElementById('progress-fill');
+            const progressAmount = document.getElementById('progress-amount');
+            
+            if (subtotal >= freeShippingThreshold) {
+                progressFill.style.width = '100%';
+                progressAmount.textContent = 'eligible for free shipping!';
+            } else {
+                const remaining = freeShippingThreshold - subtotal;
+                const progress = (subtotal /  freeShippingThreshold) * 100;
+                
+                progressFill.style.width = `${progress}%`;
+                progressAmount.textContent = `$${remaining.toFixed(2)} away from free shipping`;
+            }
+        }
+
+        function updateQuantity(productId, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                localStorage.setItem('jenzora-cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('jenzora-cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+            showNotification('Item removed from cart');
+        }
+
+        function applyPromoCode() {
+            const promoCode = document.getElementById('promo-code').value.toUpperCase();
+            const promoMessage = document.getElementById('promo-message');
+            
+            if (promoCode in promoCodes) {
+                appliedPromo = promoCode;
+                promoMessage.textContent = 'Promo code applied successfully!';
+                promoMessage.className = 'text-sm text-green-600';
+                updateOrderSummary();
+            } else {
+                promoMessage.textContent = 'Invalid promo code. Please try again.';
+                promoMessage.className = 'text-sm text-red-600';
+            }
+        }
+
+        function populateRecentlyViewed() {
+            const recentlyViewedContainer = document.getElementById('recently-viewed');
+            
+            recentlyViewedContainer.innerHTML = recentlyViewed.map(item => `
+                <div class="text-center">
+                    <div class="h-32 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-lg mb-2">
+                        <i class="fas fa-image text-2xl text-gray-400"></i>
+                    </div>
+                    <h4 class="font-semibold text-sm truncate">${item.name}</h4>
+                    <p class="text-purple-600 font-semibold">$${item.price.toFixed(2)}</p>
+                </div>
+            `).join('');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        /// Mobile menu functionality
+        function initMobileMenu() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
+
+        /// Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            /// Try to load cart from localStorage
+            const savedCart = localStorage.getItem('jenzora-cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            
+            updateCartDisplay();
+            updateCartCount();
+            initMobileMenu();
+            populateRecentlyViewed();
+            
+            /// Set up event listeners
+            document.getElementById('apply-promo').addEventListener('click', applyPromoCode);
+            document.getElementById('promo-code').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    applyPromoCode();
+                }
+            });
+            
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                window.location.href = '/checkout/';
+            });
+        });
+
+        /// Cart button functionality
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            /// Already on cart page
+        });
+    </script>
+</body>
+</html>

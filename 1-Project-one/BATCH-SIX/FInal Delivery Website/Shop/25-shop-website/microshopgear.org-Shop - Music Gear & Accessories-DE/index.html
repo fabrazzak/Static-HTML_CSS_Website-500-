@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MicroShopGear - Premium Music Gear & Accessories</title>
+    <meta
+      name="description"
+      content="MicroShopGear offers premium music gear, instruments, and accessories for musicians of all levels. Shop guitars, keyboards, drums, audio equipment and more."
+    />
+    <meta
+      name="keywords"
+      content="music gear, musical instruments, audio equipment, guitars, keyboards, drums, microphones, music accessories, music shop, buy music equipment"
+    />
+    <!-- Cart CSS -->
+    <link rel="stylesheet" href="../css/cart.css" />
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background-color: #f72585;
+        color: white;
+        border: 2px solid #f72585;
+      }
+
+      .btn-primary:hover {
+        background-color: #b5179e;
+        border-color: #b5179e;
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: #f72585;
+        border: 2px solid #f72585;
+      }
+
+      .btn-outline:hover {
+        background-color: #f72585;
+        color: white;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #1a1a2e;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: #f72585;
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: #1a1a2e;
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #4cc9f0;
+      }
+
+      .logo span {
+        color: #f72585;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #4cc9f0;
+      }
+
+      .cart-icon {
+        font-size: 1.2rem;
+        margin-left: 2rem;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #f72585;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+      }
+
+      /* Mobile Navigation */
+      .mobile-menu-btn {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: white;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        background-size: cover;
+        background-position: center;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding: 0 1rem;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin-bottom: 2rem;
+      }
+
+      /* Featured Categories */
+      .featured-categories {
+        padding: 5rem 0;
+        background-color: white;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .category-card {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .category-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .category-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .category-card:hover .category-img img {
+        transform: scale(1.1);
+      }
+
+      .category-content {
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .category-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: #1a1a2e;
+      }
+
+      .category-content p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      /* Popular Products */
+      .popular-products {
+        padding: 5rem 0;
+        background-color: #f8f9fa;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .product-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .product-img {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #f72585;
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .product-content {
+        padding: 1.5rem;
+      }
+
+      .product-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #1a1a2e;
+      }
+
+      .product-rating {
+        color: #ffc107;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #f72585;
+        margin-bottom: 1rem;
+      }
+
+      .product-price span {
+        font-size: 0.9rem;
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 0.5rem;
+      }
+
+      .product-actions {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .add-to-cart {
+        flex: 1;
+        background-color: #1a1a2e;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .add-to-cart:hover {
+        background-color: #f72585;
+      }
+
+      .add-to-cart i {
+        margin-right: 0.5rem;
+      }
+
+      /* About Section */
+      .about-section {
+        padding: 5rem 0;
+        background-color: white;
+      }
+
+      .about-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-img {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-img img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .about-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #1a1a2e;
+      }
+
+      .about-content p {
+        margin-bottom: 1.5rem;
+        color: #666;
+      }
+
+      .about-features {
+        margin-top: 2rem;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-icon {
+        width: 50px;
+        height: 50px;
+        background-color: #f0f2f5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1rem;
+        color: #f72585;
+        font-size: 1.2rem;
+      }
+
+      .feature-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+        color: #1a1a2e;
+      }
+
+      .feature-content p {
+        color: #666;
+        margin-bottom: 0;
+      }
+
+      /* Testimonials */
+      .testimonials {
+        padding: 5rem 0;
+        background-color: #f8f9fa;
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .testimonial-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .testimonial-content {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .testimonial-content::before {
+        content: '"';
+        font-size: 4rem;
+        color: #f0f2f5;
+        position: absolute;
+        top: -20px;
+        left: -10px;
+        z-index: 0;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 1rem;
+      }
+
+      .author-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+        color: #1a1a2e;
+      }
+
+      .author-info p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* Why Choose Us */
+      .why-choose-us {
+        padding: 5rem 0;
+        background-color: white;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .feature-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 10px;
+        transition: transform 0.3s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .feature-icon-large {
+        width: 80px;
+        height: 80px;
+        background-color: #f0f2f5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 1.5rem;
+        color: #f72585;
+        font-size: 2rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: #1a1a2e;
+      }
+
+      .feature-card p {
+        color: #666;
+      }
+
+      /* Blog Section */
+      .blog-section {
+        padding: 5rem 0;
+        background-color: #f8f9fa;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .blog-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .blog-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .blog-card:hover .blog-img img {
+        transform: scale(1.1);
+      }
+
+      .blog-content {
+        padding: 1.5rem;
+      }
+
+      .blog-date {
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+
+      .blog-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        color: #1a1a2e;
+      }
+
+      .blog-content p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      /* Newsletter Section */
+      .newsletter {
+        background-color: #1a1a2e;
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .newsletter h2 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+      }
+
+      .newsletter p {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+
+      .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 30px 0 0 30px;
+        font-size: 1rem;
+      }
+
+      .newsletter-form button {
+        padding: 0 1.5rem;
+        background-color: #f72585;
+        color: white;
+        border: none;
+        border-radius: 0 30px 30px 0;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+      }
+
+      .newsletter-form button:hover {
+        background-color: #b5179e;
+      }
+
+      /* Contact CTA */
+      .contact-cta {
+        padding: 4rem 0;
+        background-color: white;
+        text-align: center;
+      }
+
+      .contact-cta h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #1a1a2e;
+      }
+
+      .contact-cta p {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        color: #666;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #0d0d1a;
+        color: #ccc;
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        color: white;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-column ul li a:hover {
+        color: #4cc9f0;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .footer-social a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #1a1a2e;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+      }
+
+      .footer-social a:hover {
+        background-color: #f72585;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #1a1a2e;
+        font-size: 0.9rem;
+      }
+
+      /* Shopping Cart Modal */
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 400px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+      }
+
+      .cart-modal.active {
+        right: 0;
+      }
+
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .cart-header h3 {
+        font-size: 1.3rem;
+        color: #1a1a2e;
+      }
+
+      .close-cart {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .cart-items {
+        padding: 1.5rem;
+      }
+
+      .cart-item {
+        display: flex;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .cart-item-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-right: 1rem;
+      }
+
+      .cart-item-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .cart-item-details h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #1a1a2e;
+      }
+
+      .cart-item-price {
+        font-size: 0.9rem;
+        color: #f72585;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .cart-item-quantity {
+        display: flex;
+        align-items: center;
+      }
+
+      .quantity-btn {
+        width: 25px;
+        height: 25px;
+        background-color: #f0f2f5;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .quantity-input {
+        width: 40px;
+        text-align: center;
+        margin: 0 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 0.2rem;
+      }
+
+      .remove-item {
+        color: #f72585;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        display: inline-block;
+      }
+
+      .cart-total {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+      }
+
+      .cart-subtotal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        padding: 1rem;
+        background-color: #f72585;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .checkout-btn:hover {
+        background-color: #b5179e;
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        color: #666;
+      }
+
+      .empty-cart i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ddd;
+      }
+
+      /* Overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Checkout Modal */
+      .checkout-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 500px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 2rem;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .checkout-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .checkout-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .checkout-header h3 {
+        font-size: 1.5rem;
+        color: #1a1a2e;
+        margin-bottom: 0.5rem;
+      }
+
+      .checkout-form .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .checkout-form label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .checkout-form input,
+      .checkout-form textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .checkout-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+      }
+
+      .checkout-cancel {
+        background-color: #f0f2f5;
+        color: #666;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Confirmation Modal */
+      .confirmation-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .confirmation-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .confirmation-icon {
+        font-size: 3rem;
+        color: #4bb543;
+        margin-bottom: 1rem;
+      }
+
+      .confirmation-message {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Blog Popup */
+      .blog-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        background-color: white;
+        border-radius: 10px;
+        padding: 2rem;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        overflow-y: auto;
+      }
+
+      .blog-popup.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .blog-popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-popup-header h3 {
+        font-size: 1.5rem;
+        color: #1a1a2e;
+      }
+
+      .close-blog-popup {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .blog-popup-img {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-popup-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .blog-popup-date {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .blog-popup-content p {
+        margin-bottom: 1rem;
+        color: #333;
+        line-height: 1.8;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 992px) {
+        .about-container {
+          grid-template-columns: 1fr;
+        }
+
+        .about-img {
+          order: -1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header-container {
+          position: relative;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+          z-index: 101;
+        }
+
+        nav {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 80%;
+          height: 100vh;
+          background-color: #1a1a2e;
+          padding: 5rem 1rem 2rem;
+          transition: left 0.3s ease;
+          z-index: 100;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          margin-top: 2rem;
+        }
+
+        nav ul li {
+          margin: 1rem 0;
+          text-align: center;
+        }
+
+        .cart-icon {
+          position: absolute;
+          top: 1rem;
+          right: 3rem;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .newsletter-form input {
+          border-radius: 30px;
+          margin-bottom: 1rem;
+        }
+
+        .newsletter-form button {
+          border-radius: 30px;
+          padding: 0.8rem;
+        }
+
+        .cart-modal {
+          width: 100%;
+          max-width: 350px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .feature-card {
+          padding: 1.5rem;
+        }
+
+        .feature-icon-large {
+          width: 60px;
+          height: 60px;
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">micro<span>shop</span>gear</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li class="cart-icon" id="cartIcon">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Premium Music Gear & Accessories</h1>
+        <p>
+          Discover the perfect instruments and equipment to elevate your musical
+          journey. Quality gear for musicians at every level.
+        </p>
+        <a href="/shop/" class="btn btn-primary">Shop Now</a>
+      </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+      <div class="container">
+        <h2 class="section-title">Shop By Category</h2>
+        <p class="section-subtitle">
+          Explore our wide range of music gear categories to find exactly what
+          you need
+        </p>
+
+        <div class="categories-grid">
+          <div class="category-card">
+            <div class="category-img">
+              <img
+                src="https://dtt1c9id3txwq.cloudfront.net/assets/images/001/482/113/medium/TWCR-DE.jpg?1694861822"
+                alt="Guitars"
+              />
+            </div>
+            <div class="category-content">
+              <h3>Guitars</h3>
+              <p>Acoustic, electric and bass guitars from top brands</p>
+              <a href="/shop/?category=guitars" class="btn btn-outline"
+                >View Products</a
+              >
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-img">
+              <img
+                src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Keyboards"
+              />
+            </div>
+            <div class="category-content">
+              <h3>Keyboards</h3>
+              <p>Pianos, synthesizers and MIDI controllers</p>
+              <a href="/shop/?category=keyboards" class="btn btn-outline"
+                >View Products</a
+              >
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-img">
+              <img
+                src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Drums"
+              />
+            </div>
+            <div class="category-content">
+              <h3>Drums</h3>
+              <p>Drum sets, cymbals and percussion instruments</p>
+              <a href="/shop/?category=drums" class="btn btn-outline"
+                >View Products</a
+              >
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-img">
+              <img
+                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Audio Equipment"
+              />
+            </div>
+            <div class="category-content">
+              <h3>Audio Equipment</h3>
+              <p>Microphones, mixers and studio monitors</p>
+              <a href="/shop/?category=audio" class="btn btn-outline"
+                >View Products</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Products -->
+    <section class="popular-products">
+      <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">
+          Check out our best selling and newest music gear
+        </p>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1558098329-a11cff621064?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Fender Stratocaster"
+              />
+              <span class="product-badge">Bestseller</span>
+            </div>
+            <div class="product-content">
+              <h3>Fender Stratocaster</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="product-price">$899.99 <span>$999.99</span></div>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  data-id="1"
+                  data-name="Fender Stratocaster"
+                  data-price="899.99"
+                  data-img="https://images.unsplash.com/photo-1558098329-a11cff621064?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                >
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Yamaha P-125 Keyboard"
+              />
+              <span class="product-badge">New</span>
+            </div>
+            <div class="product-content">
+              <h3>Yamaha P-125 Keyboard</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="product-price">$699.99</div>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  data-id="2"
+                  data-name="Yamaha P-125 Keyboard"
+                  data-price="699.99"
+                  data-img="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                >
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Shure SM58 Microphone"
+              />
+            </div>
+            <div class="product-content">
+              <h3>Shure SM58 Microphone</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="product-price">$99.99</div>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  data-id="3"
+                  data-name="Shure SM58 Microphone"
+                  data-price="99.99"
+                  data-img="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                >
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Pearl Export Drum Set"
+              />
+            </div>
+            <div class="product-content">
+              <h3>Pearl Export Drum Set</h3>
+              <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="product-price">$799.99 <span>$899.99</span></div>
+              <div class="product-actions">
+                <button
+                  class="add-to-cart"
+                  data-id="4"
+                  data-name="Pearl Export Drum Set"
+                  data-price="799.99"
+                  data-img="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                >
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem">
+          <a href="/shop/" class="btn btn-primary">View All Products</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+      <div class="container">
+        <div class="about-container">
+          <div class="about-content">
+            <h2 class="section-title">About MicroShopGear</h2>
+            <p>
+              Founded in 2015, MicroShopGear has grown from a small local music
+              shop to one of the most trusted online retailers for music
+              equipment and accessories.
+            </p>
+            <p>
+              Our mission is to provide musicians with high-quality gear at
+              affordable prices, backed by exceptional customer service and
+              expert advice.
+            </p>
+
+            <div class="about-features">
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="feature-content">
+                  <h3>Quality Products</h3>
+                  <p>
+                    We only carry products from reputable brands that meet our
+                    high standards.
+                  </p>
+                </div>
+              </div>
+
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fas fa-headset"></i>
+                </div>
+                <div class="feature-content">
+                  <h3>Expert Support</h3>
+                  <p>
+                    Our team of musicians is always ready to help with your gear
+                    questions.
+                  </p>
+                </div>
+              </div>
+
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fas fa-truck"></i>
+                </div>
+                <div class="feature-content">
+                  <h3>Fast Shipping</h3>
+                  <p>
+                    We process and ship orders within 24 hours on business days.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <a href="/about/" class="btn btn-outline">Learn More About Us</a>
+          </div>
+
+          <div class="about-img">
+            <img
+              src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Our Music Store"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose-us">
+      <div class="container">
+        <h2 class="section-title">Why Choose MicroShopGear</h2>
+        <p class="section-subtitle">
+          We go above and beyond to provide the best shopping experience for
+          musicians
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-large">
+              <i class="fas fa-award"></i>
+            </div>
+            <h3>Premium Quality</h3>
+            <p>
+              All our products are carefully selected from top brands known for
+              their quality and durability.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-large">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <h3>Fast Delivery</h3>
+            <p>
+              We offer express shipping options to get your gear to you as
+              quickly as possible.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-large">
+              <i class="fas fa-headphones"></i>
+            </div>
+            <h3>Expert Advice</h3>
+            <p>
+              Our team includes professional musicians who can help you choose
+              the right gear.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-large">
+              <i class="fas fa-undo"></i>
+            </div>
+            <h3>Easy Returns</h3>
+            <p>
+              Not satisfied? We offer a 30-day return policy with no questions
+              asked.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">
+          Don't just take our word for it - hear from musicians who shop with us
+        </p>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                I've been shopping with MicroShopGear for years and they never
+                disappoint. Their prices are competitive and their customer
+                service is outstanding.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="John D."
+                />
+              </div>
+              <div class="author-info">
+                <h4>John D.</h4>
+                <p>Professional Guitarist</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                The Yamaha keyboard I ordered arrived perfectly packaged and
+                ahead of schedule. I'll definitely be a returning customer!
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  alt="Sarah M."
+                />
+              </div>
+              <div class="author-info">
+                <h4>Sarah M.</h4>
+                <p>Music Teacher</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                As a recording studio owner, I rely on MicroShopGear for all my
+                equipment needs. Their selection of pro audio gear is unmatched.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://randomuser.me/api/portraits/men/75.jpg"
+                  alt="Michael T."
+                />
+              </div>
+              <div class="author-info">
+                <h4>Michael T.</h4>
+                <p>Studio Owner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+      <div class="container">
+        <h2 class="section-title">Latest From Our Blog</h2>
+        <p class="section-subtitle">
+          Tips, reviews and news for musicians of all levels
+        </p>
+
+        <div class="blog-grid">
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Guitar Maintenance"
+              />
+            </div>
+            <div class="blog-content">
+              <div class="blog-date">Jan 15, 2025</div>
+              <h3>Essential Guitar Maintenance Tips</h3>
+              <p>
+                Learn how to keep your guitar in perfect playing condition with
+                these simple maintenance routines.
+              </p>
+              <a
+                href="javascript.:void(0)"
+                class="btn btn-outline read-more-btn"
+                data-blog-id="1"
+                >Read More</a
+              >
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Home Studio Setup"
+              />
+            </div>
+            <div class="blog-content">
+              <div class="blog-date">Feb 3, 2025</div>
+              <h3>Building a Home Studio on a Budget</h3>
+              <p>
+                Discover how to create a professional-quality home recording
+                setup without breaking the bank.
+              </p>
+              <a
+                href="javascript.:void(0)"
+                class="btn btn-outline read-more-btn"
+                data-blog-id="2"
+                >Read More</a
+              >
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Drum Tuning"
+              />
+            </div>
+            <div class="blog-content">
+              <div class="blog-date">Mar 10, 2025</div>
+              <h3>The Ultimate Guide to Drum Tuning</h3>
+              <p>
+                Master the art of drum tuning to get the perfect sound from your
+                drum kit in any musical style.
+              </p>
+              <a
+                href="javascript.:void(0)"
+                class="btn btn-outline read-more-btn"
+                data-blog-id="3"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem">
+          <a href="/blog/" class="btn btn-primary">View All Articles</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <div class="container">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>
+          Get exclusive deals, new product announcements, and helpful music tips
+          delivered straight to your inbox.
+        </p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="Enter your email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+      <div class="container">
+        <h2>Have Questions About Our Products?</h2>
+        <p>
+          Our team of music gear experts is ready to help you find the perfect
+          equipment for your needs.
+        </p>
+        <a href="/contact/" class="btn btn-primary">Contact Us</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>microshopgear</h3>
+            <p>
+              Your one-stop shop for premium music gear and accessories. Quality
+              instruments for musicians at every level.
+            </p>
+            <div class="footer-social">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://youtube.com/"
+                target="_blank"
+                aria-label="YouTube"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="/shop/">All Products</a></li>
+              <li><a href="/shop/?category=guitars">Guitars</a></li>
+              <li><a href="/shop/?category=keyboards">Keyboards</a></li>
+              <li><a href="/shop/?category=drums">Drums</a></li>
+              <li><a href="/shop/?category=audio">Audio Equipment</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="/contact/">Contact Us</a></li>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms of Service</a></li>
+              <li><a href="javascript.:void(0)">Shipping Policy</a></li>
+              <li><a href="javascript.:void(0)">Returns & Warranty</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="javascript.:void(0)">Careers</a></li>
+              <li><a href="javascript.:void(0)">Press</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>
+            &copy; 2025 MicroShopGear. All rights reserved. Schloßpl. 1, 08648
+            Bad Brambach, Germany | Phone: +491604697373
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+      <div class="cart-header">
+        <h3>Your Cart (<span id="modalCartCount">0</span>)</h3>
+        <button class="close-cart" id="closeCart">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Your cart is empty</p>
+        </div>
+      </div>
+      <div class="cart-total" id="cartTotal" style="display: none">
+        <div class="cart-subtotal">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+      <div class="checkout-header">
+        <h3>Checkout</h3>
+        <p>Please fill in your details to complete your order</p>
+      </div>
+      <form class="checkout-form" id="checkoutForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Shipping Address</label>
+          <textarea id="address" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="payment">Payment Method</label>
+          <select id="payment" required>
+            <option value="">Select payment method</option>
+            <option value="credit">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank">Bank Transfer</option>
+          </select>
+        </div>
+        <div class="checkout-actions">
+          <button type="button" class="checkout-cancel" id="cancelCheckout">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+      <div class="confirmation-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Thank You!</h3>
+      <p class="confirmation-message">
+        Your order has been placed successfully.
+      </p>
+      <button class="btn btn-primary" id="closeConfirmation">
+        Continue Shopping
+      </button>
+    </div>
+
+    <!-- Blog Popup -->
+    <div class="blog-popup" id="blogPopup">
+      <div class="blog-popup-header">
+        <h3 id="blogPopupTitle">Blog Title</h3>
+        <button class="close-blog-popup" id="closeBlogPopup">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="blog-popup-img">
+        <img id="blogPopupImage" src="" alt="Blog Image" />
+      </div>
+      <div class="blog-popup-date" id="blogPopupDate">Jan 01, 2025</div>
+      <div class="blog-popup-content" id="blogPopupContent">
+        <p>Blog content will be loaded here...</p>
+      </div>
+    </div>
+
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <script src="../js/cart.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+
+        // Change icon based on menu state
+        const icon = mobileMenuBtn.querySelector("i");
+        if (mainNav.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !mainNav.contains(e.target) &&
+          !mobileMenuBtn.contains(e.target) &&
+          mainNav.classList.contains("active")
+        ) {
+          mainNav.classList.remove("active");
+          const icon = mobileMenuBtn.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Newsletter Form
+      const newsletterForm = document.getElementById("newsletterForm");
+
+      if (newsletterForm) {
+        newsletterForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const emailInput = newsletterForm.querySelector(
+            'input[type="email"]'
+          );
+
+          // Simple validation
+          if (emailInput.value) {
+            alert("Thank you for subscribing to our newsletter!");
+            newsletterForm.reset();
+          }
+        });
+      }
+
+      // Blog Popup Functionality
+      const blogPopup = document.getElementById("blogPopup");
+      const closeBlogPopup = document.getElementById("closeBlogPopup");
+      const blogPopupTitle = document.getElementById("blogPopupTitle");
+      const blogPopupImage = document.getElementById("blogPopupImage");
+      const blogPopupDate = document.getElementById("blogPopupDate");
+      const blogPopupContent = document.getElementById("blogPopupContent");
+
+      // Sample blog data
+      const blogs = {
+        1: {
+          title: "Essential Guitar Maintenance Tips",
+          date: "Jan 15, 2025",
+          image:
+            "https://dtt1c9id3txwq.cloudfront.net/assets/images/001/482/113/medium/TWCR-DE.jpg?1694861822",
+          content: `<p>Keeping your guitar in top condition is essential for maintaining its sound quality and playability. Here are some key maintenance tips every guitarist should know:</p>
+                <p><strong>1. Clean Your Guitar Regularly:</strong> Use a soft, dry cloth to wipe down your guitar after each use. For deeper cleaning, use a guitar-specific cleaner and polish.</p>
+                <p><strong>2. Change Strings Regularly:</strong> Old strings lose their tone and can be harder to play. Change them every 3-6 months, or more often if you play frequently.</p>
+                <p><strong>3. Maintain Proper Humidity:</strong> Guitars are sensitive to humidity changes. Keep your instrument in a case with a humidifier in dry climates.</p>
+                <p><strong>4. Check the Neck Relief:</strong> The neck should have a slight forward bow. If the strings are too high or buzzing, you may need a truss rod adjustment.</p>
+                <p><strong>5. Protect Your Guitar:</strong> Always store your guitar in a case when not in use to protect it from dust, temperature changes, and accidental damage.</p>
+                <p>By following these simple maintenance routines, you'll keep your guitar sounding great and playing smoothly for years to come.</p>`,
+        },
+        2: {
+          title: "Building a Home Studio on a Budget",
+          date: "Feb 3, 2025",
+          image:
+            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Creating a professional-quality home recording studio doesn't have to break the bank. Here's how to set up an effective home studio without spending a fortune:</p>
+                <p><strong>1. Choose the Right Space:</strong> Select a quiet room with minimal echo. Bedrooms often work well because they have soft furnishings that absorb sound.</p>
+                <p><strong>2. Essential Equipment:</strong> Start with these basics: a computer, digital audio workstation (DAW) software, an audio interface, a good microphone, and headphones.</p>
+                <p><strong>3. Acoustic Treatment:</strong> Use DIY solutions like heavy curtains, bookshelves filled with books, or foam panels to improve your room's acoustics.</p>
+                <p><strong>4. Budget-Friendly Gear:</strong> Look for affordable but quality equipment like the Audio-Technica AT2020 microphone or Focusrite Scarlett audio interfaces.</p>
+                <p><strong>5. Free Software Options:</strong> Many DAWs like Audacity (free) or Reaper (affordable) offer professional features without the high price tag.</p>
+                <p>With careful planning and smart purchases, you can create recordings that rival professional studios for a fraction of the cost.</p>`,
+        },
+        3: {
+          title: "The Ultimate Guide to Drum Tuning",
+          date: "Mar 10, 2025",
+          image:
+            "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Proper drum tuning is essential for getting the best sound from your kit. Follow these steps to tune your drums like a pro:</p>
+                <p><strong>1. Start with New Heads:</strong> Always begin with fresh drum heads when tuning. Old, worn heads won't hold tuning well.</p>
+                <p><strong>2. Finger Tighten First:</strong> Place the head on the drum and finger-tighten all tension rods before using a drum key.</p>
+                <p><strong>3. Use a Criss-Cross Pattern:</strong> When tightening, work in a star pattern (like changing a car tire) to ensure even tension across the head.</p>
+                <p><strong>4. Tune to the Drum's Natural Pitch:</strong> Tap near each tension rod and adjust until all points sound the same note. The drum will resonate best at its natural pitch.</p>
+                <p><strong>5. Relationship Between Heads:</strong> The resonant (bottom) head affects sustain while the batter (top) head affects attack. Experiment with different tunings between them.</p>
+                <p><strong>6. Snare Drum Tips:</strong> For snare drums, the resonant head should be tighter than the batter head for optimal snare response.</p>
+                <p>Remember that drum tuning is subjective - experiment to find the sound that works best for your musical style and personal preference.</p>`,
+        },
+      };
+
+      // Handle blog read more clicks
+      document.querySelectorAll(".read-more-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          const blogId = button.getAttribute("data-blog-id");
+          const blog = blogs[blogId];
+
+          if (blog) {
+            blogPopupTitle.textContent = blog.title;
+            blogPopupImage.src = blog.image;
+            blogPopupImage.alt = blog.title;
+            blogPopupDate.textContent = blog.date;
+            blogPopupContent.innerHTML = blog.content;
+
+            blogPopup.classList.add("active");
+            overlay.classList.add("active");
+          }
+        });
+      });
+
+      // Close blog popup
+      closeBlogPopup.addEventListener("click", () => {
+        blogPopup.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+    <!-- Cart JS -->
+  </body>
+</html>

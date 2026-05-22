@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Shop premium outdoor adventure gear handcrafted in Canada. From durable backpacks to specialized camping equipment, TrailGear Adventure provides high-quality products for adventurous souls across North America.">
+    <meta name="keywords"
+        content="outdoor gear Canada, adventure equipment, handcrafted backpacks, camping gear, trail accessories, Canadian outdoor products, hiking equipment, propane tank bags, duffle bags, adventure lifestyle, shop outdoor gear">
+    <link rel="canonical" href="https://trailgearadventure.com/shop/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>Shop Outdoor Gear | TrailGear Adventure - Premium Handcrafted Equipment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2a5a88;
+            --secondary-color: #4a90c8;
+            --accent-color: #f39c12;
+            --dark-bg: #0a0e27;
+            --light-text: #e8f0f7;
+            --overlay-dark: rgba(10, 14, 39, 0.75);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+        }
+
+        /* Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+        .option{
+            color: black;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            transition: right 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+        }
+
+        .toast.show {
+            right: 30px;
+        }
+
+        .toast i {
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+
+        /* Top Header */
+        .top-header {
+            background: rgba(42, 90, 136, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(74, 144, 200, 0.15);
+        }
+
+        .top-header .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-header-left {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .top-header-left p {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-header-left i {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--light-text);
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Header */
+        header {
+            background: rgba(10, 14, 39, 0.4);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(74, 144, 200, 0.15);
+        }
+
+        .main-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--light-text);
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Animate to X */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(12px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-12px);
+        }
+
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 14, 39, 0.5);
+            backdrop-filter: blur(25px);
+            transition: right 0.4s ease;
+            z-index: 999;
+            padding: 100px 30px 30px;
+            border-left: 1px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+         .mobile-menu ul {
+            margin-top: 40px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .mobile-menu a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 30px;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        /* Shop Hero Section */
+        .shop-hero {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .shop-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .shop-hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 39, 0.65);
+        }
+
+        .shop-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .shop-hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--light-text), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .shop-hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            color: rgba(240, 244, 248, 0.9);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shop Controls */
+        .shop-controls {
+            padding: 40px 20px;
+            background: rgba(42, 90, 136, 0.05);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(74, 144, 200, 0.15);
+        }
+
+        .shop-controls .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light-text);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-color);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light-text);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 144, 200, 0.2);
+            cursor: pointer;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: rgba(240, 244, 248, 0.7);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+
+        .product-card {
+            background: rgba(74, 144, 200, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(74, 144, 200, 0.15);
+            transition: all 0.4s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--light-text);
+        }
+
+        .product-description {
+            color: rgba(240, 244, 248, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+
+        .add-to-cart:hover {
+            background: #e55a2b;
+            transform: scale(1.05);
+        }
+
+        /* Sale Badge */
+        .sale-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .product-card-wrapper {
+            position: relative;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.5);
+            backdrop-filter: blur(25px);
+            padding: 80px 20px 30px;
+            border-top: 2px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--light-text);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .footer-section p {
+            color: rgba(240, 244, 248, 0.7);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(74, 144, 200, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(240, 244, 248, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: rgba(240, 244, 248, 0.7);
+        }
+
+        .footer-contact i {
+            color: var(--accent-color);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(74, 144, 200, 0.15);
+            text-align: center;
+            color: rgba(232, 240, 247, 0.6);
+        }
+
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(25px);
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            max-width: 600px;
+            width: 90%;
+            transition: bottom 0.5s ease;
+            border: 1px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .cookie-popup.show {
+            bottom: 30px;
+        }
+
+        .cookie-popup p {
+            margin-bottom: 20px;
+            color: rgba(232, 240, 247, 0.9);
+            line-height: 1.6;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cookie-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .accept-cookies {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .accept-cookies:hover {
+            background: #e55a2b;
+        }
+
+        .decline-cookies {
+            background: rgba(74, 144, 200, 0.2);
+            color: var(--light-text);
+        }
+
+        .decline-cookies:hover {
+            background: rgba(74, 144, 200, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .top-header {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+             .shop-hero {            
+            height: 50vh;
+        }
+            .shop-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .shop-hero p {
+                font-size: 1.1rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .shop-controls .container {
+                flex-direction: column;
+                align-items: stretch;
+            } 
+             .shop-controls {
+                display: none;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="content-wrapper">
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Item added to cart!</span>
+        </div>
+
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-left">
+                    <p><i class="fas fa-map-marker-alt"></i> 234 St Albert Rd, St. Albert, AB T8N 5H6</p>
+                    <p><i class="fas fa-phone"></i> +1 780-459-6716</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/AdventureTrailGear" target="_blank"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/adventure_trail_gear/" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCwYKPb31Ol1-wyjB-lXI39g" target="_blank"><i
+                            class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header>
+            <div class="main-header">
+                <div class="logo">
+                    <a href="/"><img src="/assets/images/logo.png" alt="TrailGear Adventure Logo"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon" onclick="window.location.href='/cart/'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <i class="fas fa-times mobile-close" id="mobile-close"></i>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop/">Shop</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Shop Hero Section -->
+        <section class="shop-hero">
+            <div class="shop-hero-bg"></div>
+            <div class="shop-hero-content">
+                <h1>Shop Premium Gear</h1>
+                <p>Discover our handcrafted collection of adventure-ready equipment</p>
+            </div>
+        </section>
+
+        <!-- Shop Controls -->
+        <section class="shop-controls">
+            <div class="container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products..." id="search-input">
+                </div>
+                <div class="filter-controls">
+                    <select class="filter-select" id="category-filter">
+                        <option class="option"  value="all">All Categories</option>
+                        <option class="option" value="backpacks">Backpacks</option>
+                        <option class="option" value="bags">Bags</option>
+                        <option class="option" value="accessories">Accessories</option>
+                        <option class="option" value="clothing">Clothing</option>
+                    </select>
+                    <select class="filter-select" id="sort-filter">
+                        <option class="option"   value="default">Sort By</option>
+                        <option class="option" value="price-low">Price: Low to High</option>
+                        <option class="option" value="price-high">Price: High to Low</option>
+                        <option class="option" value="name">Name</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Products</h2>
+                    <p>Handcrafted in Canada for your next adventure</p>
+                </div>
+                <div class="products-grid" id="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card-wrapper" data-category="backpacks">
+                        <div class="product-card">
+                            <img src="/assets/images/daily-backpack.jpg" alt="Daily Backpack outdoor adventure"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Daily Backpack</h3>
+                                <p class="product-description">Perfect for day hikes and urban adventures with multiple
+                                    compartments and durable construction.</p>
+                                <p class="product-price">C$150.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 1, name: "Daily Backpack", price: 150.00, image: "/assets/images/daily-backpack.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/tailgate-bag.jpg" alt="Tailgate Bag vehicle storage"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Tailgate Bag - V2</h3>
+                                <p class="product-description">Updated design with improved mounting system for
+                                    off-road vehicles and camping trips.</p>
+                                <p class="product-price">C$214.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 2, name: "Tailgate Bag - V2", price: 214.00, image: "/assets/images/tailgate-bag.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/70l-duffle.webp" alt="70L Duffle camping gear"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>70L Duffle</h3>
+                                <p class="product-description">Spacious duffle bag with reinforced handles and
+                                    water-resistant material for extended trips.</p>
+                                <p class="product-price">C$159.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 3, name: "70L Duffle", price: 159.00, image: "/assets/images/70l-duffle.webp"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card-wrapper" data-category="accessories">
+                        <div class="product-card">
+                            <img src="/assets/images/wood-sling.jpg" alt="Wood Sling camping equipment"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Wood Sling</h3>
+                                <p class="product-description">Classic camping accessory for carrying firewood with
+                                    comfort and ease.</p>
+                                <p class="product-price">C$80.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 4, name: "Wood Sling", price: 80.00, image: "/assets/images/wood-sling.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/spare-tire-bag.webp" alt="Spare Tire Bag off-road storage"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Spare Tire Bag - V2</h3>
+                                <p class="product-description">Upgraded version with improved mounting options for
+                                    secure storage on your vehicle's spare tire.</p>
+                                <p class="product-price">C$224.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 5, name: "Spare Tire Bag - V2", price: 224.00, image: "/assets/images/spare-tire-bag.webp"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/tool-bag.webp" alt="Tool Bag professional storage"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Tool Bag</h3>
+                                <p class="product-description">Organized storage for tools and equipment with
+                                    multiple compartments and durable construction.</p>
+                                <p class="product-price">C$159.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 6, name: "Tool Bag", price: 159.00, image: "/assets/images/tool-bag.webp"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 7 -->
+                    <div class="product-card-wrapper" data-category="accessories">
+                        <div class="product-card">
+                            <div class="sale-badge">SALE</div>
+                            <img src="/assets/images/can-caddy.jpg" alt="Can Caddy beverage holder"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Can Caddy</h3>
+                                <p class="product-description">Convenient holder for beverages during outdoor
+                                    activities with secure grip and insulation.</p>
+                                <p class="product-price">C$55.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 7, name: "Can Caddy", price: 55.00, image: "/assets/images/can-caddy.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 8 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/35l-duffle.jpg" alt="35L Duffle coaches bag"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>35L Duffle (Coaches Bag)</h3>
+                                <p class="product-description">Compact duffle perfect for gym, sports, or weekend
+                                    trips with durable construction.</p>
+                                <p class="product-price">C$129.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 8, name: "35L Duffle (Coaches Bag)", price: 129.00, image: "/assets/images/35l-duffle.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 9 -->
+                    <div class="product-card-wrapper" data-category="clothing">
+                        <div class="product-card">
+                            <img src="/assets/images/east-coast-crew.webp" alt="East Coast Crew neck garment"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>East Coast Crew (Neck)</h3>
+                                <p class="product-description">Comfortable and versatile neck garment for changing
+                                    weather conditions during outdoor activities.</p>
+                                <p class="product-price">C$70.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 9, name: "East Coast Crew (Neck)", price: 70.00, image: "/assets/images/east-coast-crew.webp"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 10 -->
+                    <div class="product-card-wrapper" data-category="clothing">
+                        <div class="product-card">
+                            <div class="sale-badge">SALE</div>
+                            <img src="/assets/images/campfires-hoodie.jpg" alt="Campfires & Craft Beers Hoodie"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Campfires & Craft Beers Hoodie</h3>
+                                <p class="product-description">Cozy hoodie perfect for cool evenings around the
+                                    campfire with unique design.</p>
+                                <p class="product-price">C$70.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 10, name: "Campfires & Craft Beers Hoodie", price: 70.00, image: "/assets/images/campfires-hoodie.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 11 -->
+                    <div class="product-card-wrapper" data-category="accessories">
+                        <div class="product-card">
+                            <img src="/assets/images/molle-pouch-set.jpg" alt="MOLLE Pouch Set tactical gear"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>MOLLE Pouch Set</h3>
+                                <p class="product-description">Versatile pouch set compatible with MOLLE systems for
+                                    organized gear storage.</p>
+                                <p class="product-price">C$125.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 11, name: "MOLLE Pouch Set", price: 125.00, image: "/assets/images/molle-pouch-set.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 12 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/garb-tire-bag.jpg" alt="G.A.R.B. Tire Bag original design"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>G.A.R.B. Tire Bag (The Original)</h3>
+                                <p class="product-description">The original gear and recovery bag designed for spare
+                                    tire mounting with ample storage.</p>
+                                <p class="product-price">C$225.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 12, name: "G.A.R.B. Tire Bag (The Original)", price: 225.00, image: "/assets/images/garb-tire-bag.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 13 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/propane-tank-bag.jpg" alt="5lb Propane Tank Bag"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>5lb Propane Tank Bag - Cordura Nylon</h3>
+                                <p class="product-description">Durable protective bag for 5lb propane tanks with
+                                    Cordura nylon construction.</p>
+                                <p class="product-price">C$95.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 13, name: "5lb Propane Tank Bag - Cordura Nylon", price: 95.00, image: "/assets/images/propane-tank-bag.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 14 -->
+                    <div class="product-card-wrapper" data-category="bags">
+                        <div class="product-card">
+                            <img src="/assets/images/chainsaw-bag.jpg" alt="Chainsaw Bag protective storage"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Chainsaw Bag</h3>
+                                <p class="product-description">Protective storage for chainsaws with reinforced
+                                    construction and carrying handles.</p>
+                                <p class="product-price">C$225.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 14, name: "Chainsaw Bag", price: 225.00, image: "/assets/images/chainsaw-bag.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 15 -->
+                    <div class="product-card-wrapper" data-category="accessories">
+                        <div class="product-card">
+                            <img src="/assets/images/folding-pad.jpg" alt="Folding Pad outdoor seating"
+                                class="product-image">
+                            <div class="product-info">
+                                <h3>Folding Pad</h3>
+                                <p class="product-description">Compact folding pad for comfortable seating during
+                                    outdoor activities and camping.</p>
+                                <p class="product-price">C$120.00</p>
+                                <button class="add-to-cart"
+                                    onclick='addToCart({id: 15, name: "Folding Pad", price: 120.00, image: "/assets/images/folding-pad.jpg"})'>Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/images/logo.png" alt="TrailGear Adventure">
+                    </div>
+                    <p>Premium handcrafted outdoor gear designed for explorers. Built tough in Canada for adventurers
+                        worldwide.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/AdventureTrailGear" target="_blank"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/adventure_trail_gear/" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UCwYKPb31Ol1-wyjB-lXI39g" target="_blank"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 234 St Albert Rd, St. Albert, AB T8N 5H6, Canada</p>
+                    <p><i class="fas fa-phone"></i> +1 780-459-6716</p>
+                    <p><i class="fas fa-envelope"></i> info@trailgearadventure.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TrailGear Adventure. All rights reserved. Handcrafted with passion in Canada.</p>
+            </div>
+        </footer>
+
+        <!-- Cookie Popup -->
+        <div class="cookie-popup" id="cookie-popup">
+            <p>We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use our
+                website, you consent to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button class="accept-cookies" onclick="acceptCookies()">Accept</button>
+                <button class="decline-cookies" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Three.js Subtle Background Effect
+        const threeCanvas = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create subtle geometric shapes
+        const geometries = [
+            new THREE.IcosahedronGeometry(0.8, 0),
+            new THREE.OctahedronGeometry(0.7, 0),
+            new THREE.TetrahedronGeometry(0.9, 0)
+        ];
+
+        const shapes = [];
+        const shapeCount = 8;
+
+        for (let i = 0; i < shapeCount; i++) {
+            const geometry = geometries[i % geometries.length];
+            const material = new THREE.MeshPhongMaterial({
+                color: i % 2 === 0 ? 0x4a90c8 : 0x2a5a88,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+
+            mesh.position.x = (Math.random() - 0.5) * 25;
+            mesh.position.y = (Math.random() - 0.5) * 20;
+            mesh.position.z = (Math.random() - 0.5) * 15 - 8;
+
+            mesh.userData.rotationSpeed = {
+                x: (Math.random() - 0.5) * 0.01,
+                y: (Math.random() - 0.5) * 0.01
+            };
+
+            mesh.userData.floatSpeed = Math.random() * 0.01 + 0.005;
+            mesh.userData.floatOffset = Math.random() * Math.PI * 2;
+
+            scene.add(mesh);
+            shapes.push(mesh);
+        }
+
+        // Create ambient glow particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const particleCount = 80;
+        const positions = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 50;
+            positions[i + 1] = (Math.random() - 0.5) * 40;
+            positions[i + 2] = (Math.random() - 0.5) * 20;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0xf39c12,
+            size: 0.15,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Soft lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0x4a90c8, 0.8, 40);
+        pointLight.position.set(0, 10, 10);
+        scene.add(pointLight);
+
+        camera.position.z = 12;
+        camera.position.y = 3;
+
+        let time = 0;
+
+        // Animation loop
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+
+            time += 0.008;
+
+            // Gentle shape rotation and floating
+            shapes.forEach((shape, index) => {
+                shape.rotation.x += shape.userData.rotationSpeed.x;
+                shape.rotation.y += shape.userData.rotationSpeed.y;
+
+                shape.position.y += Math.sin(time + shape.userData.floatOffset) * 0.01;
+            });
+
+            // Gentle particle drift
+            particles.rotation.y += 0.0005;
+
+            // Soft light movement
+            pointLight.position.x = Math.sin(time * 0.3) * 8;
+            pointLight.position.z = Math.cos(time * 0.3) * 8;
+
+            renderer.render(scene, camera);
+        }
+
+        animateThree();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Initialize Particles.js
+        particlesJS('particle-canvas', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 1000 } },
+                color: { value: '#4f8a6d' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.4, random: true },
+                size: { value: 4, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4f8a6d',
+                    opacity: 0.3,
+                    width: 1.5
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 200, line_linked: { opacity: 0.5 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Cart Functions
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function addToCart(product) {
+            let cart = getCart();
+            const existingItem = cart.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            saveCart(cart);
+            showToast('Product added to cart successfully!');
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Product Filtering and Search
+        const searchInput = document.getElementById('search-input');
+        const categoryFilter = document.getElementById('category-filter');
+        const sortFilter = document.getElementById('sort-filter');
+        const productsGrid = document.getElementById('products-grid');
+        const productCards = document.querySelectorAll('.product-card-wrapper');
+
+        function filterProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+            const sortOption = sortFilter.value;
+
+            let filteredProducts = Array.from(productCards);
+
+            // Filter by search term
+            if (searchTerm) {
+                filteredProducts = filteredProducts.filter(card => {
+                    const productName = card.querySelector('h3').textContent.toLowerCase();
+                    const productDescription = card.querySelector('.product-description').textContent.toLowerCase();
+                    return productName.includes(searchTerm) || productDescription.includes(searchTerm);
+                });
+            }
+
+            // Filter by category
+            if (selectedCategory !== 'all') {
+                filteredProducts = filteredProducts.filter(card => card.dataset.category === selectedCategory);
+            }
+
+            // Sort products
+            if (sortOption !== 'default') {
+                filteredProducts.sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('.product-price').textContent.replace('C$', ''));
+                    const priceB = parseFloat(b.querySelector('.product-price').textContent.replace('C$', ''));
+                    const nameA = a.querySelector('h3').textContent.toLowerCase();
+                    const nameB = b.querySelector('h3').textContent.toLowerCase();
+
+                    switch (sortOption) {
+                        case 'price-low':
+                            return priceA - priceB;
+                        case 'price-high':
+                            return priceB - priceA;
+                        case 'name':
+                            return nameA.localeCompare(nameB);
+                        default:
+                            return 0;
+                    }
+                });
+            }
+
+            // Update display
+            productsGrid.innerHTML = '';
+            filteredProducts.forEach(card => {
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Add event listeners for filtering
+        searchInput.addEventListener('input', filterProducts);
+        categoryFilter.addEventListener('change', filterProducts);
+        sortFilter.addEventListener('change', filterProducts);
+
+        // Cookie Popup
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookie_consent');
+            if (!consent) {
+                setTimeout(() => {
+                    document.getElementById('cookie-popup').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie_consent', 'accepted');
+            document.getElementById('cookie-popup').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookie_consent', 'declined');
+            document.getElementById('cookie-popup').classList.remove('show');
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            updateCartCount();
+            checkCookieConsent();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Bacha Coffee Craft | Premium Coffee Collection</title>
+    <meta name="description" content="Review your selected premium coffee products at Bacha Coffee Craft. Secure checkout, fast shipping. Complete your coffee experience today.">
+    <meta name="keywords" content="shopping cart, coffee checkout, premium coffee purchase, bacha coffee cart, coffee order, secure payment, coffee shipping, online coffee store">
+    <link rel="canonical" href="https://bachacoffeecraft.com/cart/">
+     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gold: #D4AF37;
+            --deep-brown: #2C1810;
+            --dark-coffee: #1A0E08;
+            --medium-brown: #3D2817;
+            --light-gold: #F4E4BC;
+            --warm-gray: #8B7355;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-coffee);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--deep-brown);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Utility Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass Morphism */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: linear-gradient(to right, #92400e, #b45309);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .cookie-text {
+            font-size: 14px;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .cookie-accept {
+            background-color: #ca8a04;
+        }
+        
+        .cookie-accept:hover {
+            background-color: #a16207;
+        }
+        
+        .cookie-decline {
+            background-color: #6b7280;
+        }
+        
+        .cookie-decline:hover {
+            background-color: #4b5563;
+        }
+        
+        /* Header Styles */
+        header {
+            position: relative;
+            z-index: 50;
+        }
+        
+        .top-header {
+            background: linear-gradient(to right, #92400e, #b45309);
+            padding: 8px 0;
+        }
+        
+        .top-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-link {
+            color: inherit;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: #fde047;
+        }
+        
+        .main-header {
+            padding: 16px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+        
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            font-weight: 500;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fbbf24;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .cart-btn:hover {
+            color: #fbbf24;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ca8a04;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--primary-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 13px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 26px;
+            transform-origin: left center;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -3px;
+            left: 8px;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 39px;
+            left: 8px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-brown), var(--dark-coffee));
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-nav.open {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+        
+        .mobile-nav-title {
+            font-size: 24px;
+        }
+        
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-mobile-nav:hover {
+            color: #fbbf24;
+        }
+        
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: inherit;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: #fbbf24;
+        }
+        
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-gold), #B8941F);
+            color: var(--dark-coffee);
+            border: none;
+            padding: 16px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-outline {
+            border: 2px solid #ca8a04;
+            color: #ca8a04;
+            background: transparent;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .btn-outline:hover {
+            background: #ca8a04;
+            color: #000;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .page-header {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+        
+        .page-subtitle {
+            font-size: 24px;
+            color: #d1d5db;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .breadcrumb a {
+            color: #fbbf24;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #f59e0b;
+        }
+        
+        /* Cart Styles */
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 48px;
+            align-items: start;
+        }
+        
+        .cart-items {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cart-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .clear-cart {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        
+        .clear-cart:hover {
+            color: #dc2626;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 24px 16px;
+        }
+        
+        .item-image {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(to bottom right, #92400e, #b45309);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .item-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+        
+        .item-total {
+            font-size: 16px;
+            color: #d1d5db;
+            margin-bottom: 8px;
+        }
+        
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: auto;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .quantity-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--primary-gold);
+        }
+        
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .quantity-input {
+            background: none;
+            border: none;
+            color: white;
+            width: 60px;
+            text-align: center;
+            padding: 10px 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .quantity-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .remove-item:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            transform: scale(1.1);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 64px 32px;
+            color: #9ca3af;
+        }
+        
+        .empty-cart-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            opacity: 0.5;
+        }
+        
+        .empty-cart-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .empty-cart-text {
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+        
+        /* Cart Summary */
+        .cart-summary {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .summary-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        
+        .summary-row.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 16px;
+            margin-top: 24px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .summary-value {
+            font-weight: 600;
+        }
+        
+        .summary-total {
+            color: var(--primary-gold);
+        }
+        
+        .checkout-actions {
+            margin-top: 32px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+        
+        .continue-shopping {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        /* Shipping Options */
+        .shipping-options {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .shipping-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .shipping-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .shipping-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .shipping-option input[type="radio"] {
+            accent-color: var(--primary-gold);
+            width: 16px;
+            height: 16px;
+        }
+        
+        .shipping-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .shipping-name {
+            font-weight: 500;
+        }
+        
+        .shipping-price {
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+        
+        /* Promo Code */
+        .promo-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .promo-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .promo-form {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .promo-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .promo-input::placeholder {
+            color: #9ca3af;
+        }
+        
+        .promo-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .promo-btn {
+            background: var(--primary-gold);
+            color: var(--dark-coffee);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .promo-btn:hover {
+            background: #B8941F;
+            transform: translateY(-1px);
+        }
+        
+        .promo-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .promo-success {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            color: #22c55e;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .promo-error {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: #ef4444;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #059669;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.error {
+            background: #dc2626;
+        }
+        
+        .notification.warning {
+            background: #f59e0b;
+            color: #000;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(146, 64, 14, 0.3), #000);
+            padding: 64px 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        
+        .footer-description {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .footer-social a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: #ca8a04;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .footer-credits {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .footer-credits .heart {
+            color: #ef4444;
+        }
+        
+        /* Background Sections */
+        .bg-gradient-1 {
+            background: linear-gradient(to bottom, transparent, rgba(146, 64, 14, 0.1));
+        }
+        
+        .bg-gradient-2 {
+            background: linear-gradient(to right, rgba(146, 64, 14, 0.2), rgba(180, 83, 9, 0.2));
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .cart-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .cart-summary {
+                position: static;
+                order: 1;
+            }
+            
+            .cart-items {
+                order: 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 40px;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .item-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .item-controls {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 12px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .top-header-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            .top-header{
+                display: none;
+            }
+            
+            .top-header-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .page-title {
+                font-size: 32px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-items,
+            .cart-summary {
+                padding: 24px;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .promo-form {
+                flex-direction: column;
+            }
+            
+            .item-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="cookie-content">
+            <p class="cookie-text">We use cookies to enhance your browsing experience. By continuing, you agree to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-accept">Accept</button>
+                <button id="decline-cookies" class="cookie-btn cookie-decline">Decline</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-content">
+                    <div class="top-header-left">
+                        <span><i class="fas fa-map-marker-alt"></i> Av. Valencia, 36, El Verger, Spain</span>
+                        <span><i class="fas fa-phone"></i> +34 965 750 227</span>
+                    </div>
+                    <div class="top-header-right">
+                        <a href="https://www.instagram.com/BachaCoffee/" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@bachacoffee" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://x.com/BachaCoffee" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Header -->
+        <nav class="main-header glass-morphism">
+            <div class="container">
+                <div class="nav-container">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    
+                    <!-- Desktop Navigation -->
+                    <ul class="desktop-nav">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/shop/" class="nav-link">Shop</a></li>
+                        <li><a href="/about/" class="nav-link">About</a></li>
+                        <li><a href="/blog/" class="nav-link">Blog</a></li>
+                        <li><a href="/contact/" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <!-- Cart & Mobile Menu -->
+                    <div class="header-actions">
+                        <button id="cart-btn" class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </button>
+                        
+                        <!-- Hamburger Menu -->
+                        <div class="hamburger" id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <h2 class="font-display mobile-nav-title gradient-text">Menu</h2>
+                <button id="close-mobile-nav" class="close-mobile-nav">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="mobile-nav-link">Home</a></li>
+                <li><a href="/shop/" class="mobile-nav-link">Shop</a></li>
+                <li><a href="/about/" class="mobile-nav-link">About</a></li>
+                <li><a href="/blog/" class="mobile-nav-link">Blog</a></li>
+                <li><a href="/contact/" class="mobile-nav-link">Contact</a></li>
+                <li><a href="/cart/" class="mobile-nav-link active">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header bg-gradient-1">
+            <div class="container">
+                <div class="animate-fade-in-up">
+                    <h1 class="page-title font-display gradient-text">
+                        Shopping Cart
+                    </h1>
+                    <p class="page-subtitle">
+                        Review your selected premium coffee products
+                    </p>
+                    
+                    <div class="breadcrumb">
+                        <a href="/">Home</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span>Cart</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Cart Content -->
+        <section class="section">
+            <div class="container">
+                <div class="cart-container">
+                    <!-- Cart Items -->
+                    <div class="cart-items animate-slide-in-left">
+                        <div class="cart-header">
+                            <h2 class="cart-title font-display gradient-text">Your Items</h2>
+                            <button id="clear-cart" class="clear-cart">
+                                <i class="fas fa-trash"></i> Clear Cart
+                            </button>
+                        </div>
+                        
+                        <div id="cart-items-list">
+                            <!-- Cart items will be dynamically inserted here -->
+                        </div>
+                        
+                        <!-- Empty Cart State -->
+                        <div id="empty-cart" class="empty-cart" style="display: none;">
+                            <div class="empty-cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h3 class="empty-cart-title font-display">Your cart is empty</h3>
+                            <p class="empty-cart-text">Discover our premium coffee collection and add some items to your cart.</p>
+                            <a href="/shop/" class="btn-gold">Start Shopping</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Summary -->
+                    <div class="cart-summary animate-slide-in-right">
+                        <h3 class="summary-title font-display gradient-text">Order Summary</h3>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span class="summary-value">$<span id="subtotal">0.00</span></span>
+                        </div>
+                        
+                        <!-- Shipping Options -->
+                        <div class="shipping-options">
+                            <div class="shipping-title">Shipping Method:</div>
+                            <div class="shipping-option">
+                                <input type="radio" id="standard" name="shipping" value="0" checked>
+                                <div class="shipping-info">
+                                    <span class="shipping-name">Standard Shipping (5-7 days)</span>
+                                    <span class="shipping-price">Free</span>
+                                </div>
+                            </div>
+                            <div class="shipping-option">
+                                <input type="radio" id="express" name="shipping" value="9.99">
+                                <div class="shipping-info">
+                                    <span class="shipping-name">Express Shipping (2-3 days)</span>
+                                    <span class="shipping-price">$9.99</span>
+                                </div>
+                            </div>
+                            <div class="shipping-option">
+                                <input type="radio" id="overnight" name="shipping" value="19.99">
+                                <div class="shipping-info">
+                                    <span class="shipping-name">Overnight Delivery</span>
+                                    <span class="shipping-price">$19.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span class="summary-value">$<span id="shipping-cost">0.00</span></span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Tax (10%):</span>
+                            <span class="summary-value">$<span id="tax">0.00</span></span>
+                        </div>
+                        
+                        <div class="summary-row" id="discount-row" style="display: none;">
+                            <span>Discount:</span>
+                            <span class="summary-value" style="color: #22c55e;">-$<span id="discount">0.00</span></span>
+                        </div>
+                        
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span class="summary-total">$<span id="total">0.00</span></span>
+                        </div>
+                        
+                        <!-- Promo Code -->
+                        <div class="promo-section">
+                            <div class="promo-title">Promo Code</div>
+                            <div class="promo-form">
+                                <input type="text" id="promo-input" class="promo-input" placeholder="Enter promo code">
+                                <button id="apply-promo" class="promo-btn">Apply</button>
+                            </div>
+                            <div id="promo-message" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="checkout-actions">
+                            <a href="/checkout/" class="btn-gold checkout-btn">
+                                <i class="fas fa-lock" style="margin-right: 8px;"></i>
+                                Proceed to Checkout
+                            </a>
+                            <a href="/shop/" class="btn-secondary continue-shopping">
+                                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+                                Continue Shopping
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div>
+                    <div class="logo" style="margin-bottom: 16px;">
+                         <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    <p class="footer-description">
+                        Premium Arabica coffee experiences from the heart of Spain, bringing you the finest flavors from around the world.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/BachaCoffee/">
+                            <i class="fab fa-instagram" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/">
+                            <i class="fab fa-facebook" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee">
+                            <i class="fab fa-linkedin" style="font-size: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Products -->
+                <div class="footer-section">
+                    <h4>Products</h4>
+                     <ul class="footer-links">
+                        <li><a href="/shop/">Coffee Bags</a></li>
+                        <li><a href="/shop/">Gift Boxes</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                        <li><a href="/shop/">Limited Editions</a></li>
+                        <li><a href="/shop/">Merchandise</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                        <li><a href="/cart/">Shopping Cart</a></li>
+                        <li><a href="/checkout/">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Bacha Coffee Craft. All rights reserved.
+                </p>
+                <div class="footer-credits">
+                    <span>Made with <i class="fas fa-heart heart"></i> in Spain</span>
+                    <span>•</span>
+                    <span>Premium Coffee Since 2021</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Global variables
+        let cart = [];
+        let appliedPromo = null;
+        let shippingCost = 0;
+        
+        // Promo codes
+        const promoCodes = {
+            'WELCOME10': { discount: 10, type: 'percentage', description: '10% off your order' },
+            'SAVE5': { discount: 5, type: 'fixed', description: '$5 off your order' },
+            'COFFEE20': { discount: 20, type: 'percentage', description: '20% off your order' },
+            'FREESHIP': { discount: 0, type: 'freeship', description: 'Free shipping on your order' }
+        };
+        
+        // Initialize cart from localStorage
+        function initializeCart() {
+            try {
+                const savedCart = localStorage.getItem('bachaCoffeeCart');
+                cart = savedCart ? JSON.parse(savedCart) : [];
+            } catch (error) {
+                console.error('Error loading cart from localStorage:', error);
+                cart = [];
+            }
+        }
+        
+        // Save cart to localStorage
+        function saveCart() {
+            try {
+                localStorage.setItem('bachaCoffeeCart', JSON.stringify(cart));
+            } catch (error) {
+                console.error('Error saving cart to localStorage:', error);
+                showNotification('Error saving cart', 'error');
+            }
+        }
+        
+        // Update cart count in header
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = cart.reduce((total, item) => total + parseInt(item.quantity || 0), 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Generate unique ID for cart items
+        function generateItemId(item) {
+            return `${item.id || item.name.replace(/\s+/g, '-').toLowerCase()}`;
+        }
+        
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItemsList = document.getElementById('cart-items-list');
+            const emptyCart = document.getElementById('empty-cart');
+            
+            if (!cartItemsList || !emptyCart) {
+                console.error('Cart display elements not found');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '';
+                emptyCart.style.display = 'block';
+                updateSummary();
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            
+            cartItemsList.innerHTML = cart.map((item, index) => {
+                const itemTotal = (parseFloat(item.price || 0) * parseInt(item.quantity || 1)).toFixed(2);
+                const uniqueId = generateItemId(item);
+                
+                return `
+                    <div class="cart-item" data-index="${index}" data-id="${uniqueId}">
+                        <div class="item-image">
+                            <img src="${item.image || '/images/placeholder-coffee.jpg'}" alt="${item.name || 'Coffee Product'}" 
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fas fa-coffee\\' style=\\'font-size: 64px; color: #fde047;\\'></i>';">
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-name font-display">${item.name || 'Unknown Product'}</h3>
+                            <div class="item-price gradient-text">$${parseFloat(item.price || 0).toFixed(2)}</div>
+                            <div class="item-total">Total: $${itemTotal}</div>
+                            <div class="item-controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn decrease-btn" data-index="${index}" 
+                                            ${parseInt(item.quantity || 1) <= 1 ? 'disabled' : ''}>
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="quantity-input" value="${parseInt(item.quantity || 1)}" 
+                                           min="1" max="99" data-index="${index}">
+                                    <button class="quantity-btn increase-btn" data-index="${index}"
+                                            ${parseInt(item.quantity || 1) >= 99 ? 'disabled' : ''}>
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="remove-item" data-index="${index}" title="Remove item">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Add event listeners for the new elements
+            attachCartEventListeners();
+            updateSummary();
+        }
+        
+        // Attach event listeners to cart elements
+        function attachCartEventListeners() {
+            // Quantity decrease buttons
+            document.querySelectorAll('.decrease-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    decreaseQuantity(index);
+                });
+            });
+            
+            // Quantity increase buttons
+            document.querySelectorAll('.increase-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    increaseQuantity(index);
+                });
+            });
+            
+            // Quantity input fields
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const index = parseInt(this.dataset.index);
+                    const newQuantity = parseInt(this.value);
+                    updateQuantity(index, newQuantity);
+                });
+                
+                input.addEventListener('blur', function() {
+                    const index = parseInt(this.dataset.index);
+                    const newQuantity = parseInt(this.value);
+                    if (isNaN(newQuantity) || newQuantity < 1) {
+                        this.value = cart[index]?.quantity || 1;
+                    }
+                });
+            });
+            
+            // Remove buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    removeFromCart(index);
+                });
+            });
+        }
+        
+        // Update quantity of item at index
+        function updateQuantity(index, newQuantity) {
+            if (index < 0 || index >= cart.length) {
+                console.error('Invalid cart index:', index);
+                return;
+            }
+            
+            const quantity = parseInt(newQuantity);
+            
+            if (isNaN(quantity) || quantity < 1) {
+                showNotification('Quantity must be at least 1', 'warning');
+                updateCartDisplay();
+                return;
+            }
+            
+            if (quantity > 99) {
+                showNotification('Maximum quantity is 99', 'warning');
+                cart[index].quantity = 99;
+            } else {
+                cart[index].quantity = quantity;
+            }
+            
+            saveCart();
+            updateCartDisplay();
+            updateCartCount();
+            showNotification('Quantity updated', 'success');
+        }
+        
+        // Increase quantity
+        function increaseQuantity(index) {
+            if (index < 0 || index >= cart.length) return;
+            
+            const currentQuantity = parseInt(cart[index].quantity || 1);
+            if (currentQuantity >= 99) {
+                showNotification('Maximum quantity reached', 'warning');
+                return;
+            }
+            
+            updateQuantity(index, currentQuantity + 1);
+        }
+        
+        // Decrease quantity
+        function decreaseQuantity(index) {
+            if (index < 0 || index >= cart.length) return;
+            
+            const currentQuantity = parseInt(cart[index].quantity || 1);
+            if (currentQuantity <= 1) {
+                // If quantity is 1, show confirmation before removing
+                if (confirm('Remove this item from cart?')) {
+                    removeFromCart(index);
+                }
+                return;
+            }
+            
+            updateQuantity(index, currentQuantity - 1);
+        }
+        
+        // Remove item from cart
+        function removeFromCart(index) {
+            if (index < 0 || index >= cart.length) {
+                console.error('Invalid cart index:', index);
+                return;
+            }
+            
+            const removedItem = cart[index];
+            cart.splice(index, 1);
+            
+            saveCart();
+            updateCartDisplay();
+            updateCartCount();
+            showNotification(`${removedItem.name} removed from cart`, 'success');
+            
+            // Animate removal
+            const cartItem = document.querySelector(`[data-index="${index}"]`);
+            if (cartItem) {
+                cartItem.style.transition = 'all 0.3s ease';
+                cartItem.style.opacity = '0';
+                cartItem.style.transform = 'translateX(-100%)';
+            }
+        }
+        
+        // Clear entire cart
+        function clearCart() {
+            if (cart.length === 0) {
+                showNotification('Cart is already empty', 'warning');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to clear your entire cart?')) {
+                cart = [];
+                appliedPromo = null;
+                saveCart();
+                updateCartDisplay();
+                updateCartCount();
+                resetPromoCode();
+                showNotification('Cart cleared successfully', 'success');
+            }
+        }
+        
+        // Update order summary
+        function updateSummary() {
+            const subtotal = cart.reduce((total, item) => {
+                const price = parseFloat(item.price || 0);
+                const quantity = parseInt(item.quantity || 1);
+                return total + (price * quantity);
+            }, 0);
+            
+            const tax = subtotal * 0.1; // 10% tax
+            let discount = 0;
+            let finalShippingCost = shippingCost;
+            
+            // Apply promo discount
+            if (appliedPromo) {
+                switch (appliedPromo.type) {
+                    case 'percentage':
+                        discount = subtotal * (appliedPromo.discount / 100);
+                        break;
+                    case 'fixed':
+                        discount = Math.min(appliedPromo.discount, subtotal);
+                        break;
+                    case 'freeship':
+                        finalShippingCost = 0;
+                        break;
+                }
+            }
+            
+            const total = Math.max(0, subtotal + finalShippingCost + tax - discount);
+            
+            // Update DOM elements
+            updateElementText('subtotal', subtotal.toFixed(2));
+            updateElementText('shipping-cost', finalShippingCost.toFixed(2));
+            updateElementText('tax', tax.toFixed(2));
+            updateElementText('total', total.toFixed(2));
+            
+            // Handle discount row visibility
+            const discountRow = document.getElementById('discount-row');
+            if (discount > 0) {
+                updateElementText('discount', discount.toFixed(2));
+                if (discountRow) discountRow.style.display = 'flex';
+            } else {
+                if (discountRow) discountRow.style.display = 'none';
+            }
+            
+            // Enable/disable checkout button
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            if (checkoutBtn) {
+                if (cart.length === 0) {
+                    checkoutBtn.style.opacity = '0.5';
+                    checkoutBtn.style.pointerEvents = 'none';
+                } else {
+                    checkoutBtn.style.opacity = '1';
+                    checkoutBtn.style.pointerEvents = 'auto';
+                }
+            }
+        }
+        
+        // Helper function to update element text safely
+        function updateElementText(id, text) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = text;
+            }
+        }
+        
+        // Apply promo code
+        function applyPromoCode() {
+            const promoInput = document.getElementById('promo-input');
+            const promoBtn = document.getElementById('apply-promo');
+            const promoMessage = document.getElementById('promo-message');
+            
+            if (!promoInput || !promoBtn || !promoMessage) return;
+            
+            const promoCode = promoInput.value.toUpperCase().trim();
+            
+            if (!promoCode) {
+                showPromoMessage('Please enter a promo code', 'error');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showPromoMessage('Add items to cart before applying promo code', 'error');
+                return;
+            }
+            
+            if (promoCodes[promoCode]) {
+                appliedPromo = { ...promoCodes[promoCode], code: promoCode };
+                promoInput.disabled = true;
+                promoBtn.disabled = true;
+                promoBtn.textContent = 'Applied';
+                
+                showPromoMessage(`✓ ${appliedPromo.description}`, 'success');
+                updateSummary();
+                showNotification('Promo code applied successfully!', 'success');
+            } else {
+                showPromoMessage('Invalid promo code. Try: WELCOME10, SAVE5, COFFEE20, or FREESHIP', 'error');
+                promoInput.focus();
+                promoInput.classList.add('shake');
+                setTimeout(() => promoInput.classList.remove('shake'), 500);
+            }
+        }
+        
+        // Show promo message
+        function showPromoMessage(message, type) {
+            const promoMessage = document.getElementById('promo-message');
+            if (!promoMessage) return;
+            
+            promoMessage.className = type === 'success' ? 'promo-success' : 'promo-error';
+            promoMessage.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation-triangle'}"></i> ${message}`;
+            promoMessage.style.display = 'block';
+        }
+        
+        // Reset promo code
+        function resetPromoCode() {
+            const promoInput = document.getElementById('promo-input');
+            const promoBtn = document.getElementById('apply-promo');
+            const promoMessage = document.getElementById('promo-message');
+            
+            appliedPromo = null;
+            
+            if (promoInput) {
+                promoInput.value = '';
+                promoInput.disabled = false;
+            }
+            
+            if (promoBtn) {
+                promoBtn.disabled = false;
+                promoBtn.textContent = 'Apply';
+            }
+            
+            if (promoMessage) {
+                promoMessage.style.display = 'none';
+            }
+            
+            updateSummary();
+        }
+        
+        // Update shipping cost
+        function updateShipping() {
+            const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+            if (!selectedShipping) return;
+            
+            shippingCost = parseFloat(selectedShipping.value || 0);
+            updateSummary();
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'success') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            });
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icon = type === 'success' ? 'check' : type === 'error' ? 'times' : 'exclamation-triangle';
+            notification.innerHTML = `<i class="fas fa-${icon}"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Hide notification
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart
+            initializeCart();
+            updateCartCount();
+            updateCartDisplay();
+            showCookiePopup();
+            initParticles();
+            initThreeJS();
+            
+            // Clear cart button
+            const clearCartBtn = document.getElementById('clear-cart');
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', clearCart);
+            }
+            
+            // Apply promo button
+            const applyPromoBtn = document.getElementById('apply-promo');
+            if (applyPromoBtn) {
+                applyPromoBtn.addEventListener('click', applyPromoCode);
+            }
+            
+            // Promo input enter key
+            const promoInput = document.getElementById('promo-input');
+            if (promoInput) {
+                promoInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        applyPromoCode();
+                    }
+                });
+            }
+            
+            // Shipping option listeners
+            document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+                radio.addEventListener('change', updateShipping);
+            });
+        });
+        
+        // Cart button click
+        document.getElementById('cart-btn').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+        
+        if (hamburger && mobileNav && closeMobileNav) {
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('open');
+                mobileNav.classList.toggle('open');
+                document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+            });
+            
+            closeMobileNav.addEventListener('click', function() {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+            
+            // Close mobile nav when clicking on links
+            document.querySelectorAll('#mobile-nav a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('open');
+                    mobileNav.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+        
+        // Cookie consent
+        function showCookiePopup() {
+            const cookieConsent = localStorage.getItem('bachaCoffeeCookieConsent');
+            if (!cookieConsent) {
+                const popup = document.getElementById('cookie-popup');
+                if (popup) {
+                    setTimeout(() => popup.classList.add('show'), 1000);
+                }
+            }
+        }
+        
+        const acceptCookies = document.getElementById('accept-cookies');
+        const declineCookies = document.getElementById('decline-cookies');
+        
+        if (acceptCookies) {
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('bachaCoffeeCookieConsent', 'accepted');
+                const popup = document.getElementById('cookie-popup');
+                if (popup) popup.classList.remove('show');
+            });
+        }
+        
+        if (declineCookies) {
+            declineCookies.addEventListener('click', function() {
+                localStorage.setItem('bachaCoffeeCookieConsent', 'declined');
+                const popup = document.getElementById('cookie-popup');
+                if (popup) popup.classList.remove('show');
+            });
+        }
+        
+        // Particles.js initialization
+        function initParticles() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 50, density: { enable: true, value_area: 800 } },
+                        color: { value: '#D4AF37' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.1, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: false },
+                        move: {
+                            enable: true, speed: 1, direction: 'none',
+                            random: true, straight: false, out_mode: 'out', bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: { enable: true, mode: 'repulse' },
+                            onclick: { enable: true, mode: 'push' },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: { distance: 100, duration: 0.4 },
+                            push: { particles_nb: 4 }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+        }
+        
+        // Three.js background
+        function initThreeJS() {
+            if (typeof THREE !== 'undefined') {
+                const canvas = document.getElementById('three-canvas');
+                if (!canvas) return;
+                
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+                
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+                
+                // Create coffee bean geometry
+                const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0xD4AF37, transparent: true, opacity: 0.3
+                });
+                
+                const beans = [];
+                for (let i = 0; i < 100; i++) {
+                    const bean = new THREE.Mesh(geometry, material);
+                    bean.position.set(
+                        (Math.random() - 0.5) * 20,
+                        (Math.random() - 0.5) * 20,
+                        (Math.random() - 0.5) * 20
+                    );
+                    bean.rotation.set(
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI
+                    );
+                    scene.add(bean);
+                    beans.push(bean);
+                }
+                
+                camera.position.z = 5;
+                
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    beans.forEach(bean => {
+                        bean.rotation.x += 0.001;
+                        bean.rotation.y += 0.001;
+                        bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.0005;
+                    });
+                    
+                    renderer.render(scene, camera);
+                }
+                
+                animate();
+                
+                // Handle resize
+                window.addEventListener('resize', function() {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            }
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe animated elements
+        document.querySelectorAll('[class*="animate-"]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+        
+        // Expose functions globally for testing
+        window.cartFunctions = {
+            updateQuantity,
+            increaseQuantity,
+            decreaseQuantity,
+            removeFromCart,
+            clearCart,
+            applyPromoCode
+        };
+    </script>
+</body>
+</html>

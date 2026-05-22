@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Travora Soccer Blog - Latest news, match analysis, training tips, and insights for soccer fans and professionals">
+    <meta name="keywords" content="soccer blog, football news, match analysis, training tips, Eredivisie, Netherlands football, soccer tactics, player development">
+    <title>Blog | Travora Soccer App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #004499;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #004499;
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0066cc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://theoranje.org/wp-content/uploads/2022/01/scisports.jpg?w=1280');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            font-size: 14px;
+        }
+        
+        .breadcrumb li {
+            margin: 0 5px;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            margin-left: 10px;
+            color: #bbb;
+        }
+        
+        .breadcrumb li:last-child:after {
+            content: '';
+        }
+        
+        .breadcrumb a {
+            color: #ddd;
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+        }
+        
+        /* Blog Main Content */
+        .blog-main {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #0066cc;
+        }
+        
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            gap: 40px;
+        }
+        
+        .blog-post {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        
+        .blog-post:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .post-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .blog-post:hover .post-image img {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            padding: 30px;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+            color: #0066cc;
+        }
+        
+        .post-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .read-more {
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Blog Sidebar */
+        .blog-sidebar {
+            display: grid;
+            gap: 30px;
+            align-content: start;
+        }
+        
+        .sidebar-widget {
+            background-color: #f5f8fa;
+            border-radius: 8px;
+            padding: 25px;
+        }
+        
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0066cc;
+        }
+        
+        /* Search Widget */
+        .search-form {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: #0066cc;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        /* Categories Widget */
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+        }
+        
+        .categories-list a:hover {
+            color: #0066cc;
+        }
+        
+        .categories-list span {
+            background-color: #0066cc;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        /* Recent Posts Widget */
+        .recent-posts {
+            list-style: none;
+        }
+        
+        .recent-post {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post-image {
+            width: 80px;
+            height: 60px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .recent-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-post-content h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-date {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        /* Tags Widget */
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tags-list a {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #e9f2fa;
+            color: #0066cc;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .tags-list a:hover {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .pagination-list {
+            display: flex;
+            list-style: none;
+        }
+        
+        .pagination-item {
+            margin: 0 5px;
+        }
+        
+        .pagination-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: #f5f8fa;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        .pagination-link:hover, .pagination-link.active {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            padding: 80px 0;
+            background-color: #f5f8fa;
+        }
+        
+        .newsletter-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 30px auto 0;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .newsletter-button {
+            padding: 0 20px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-button:hover {
+            background-color: #004499;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #eee;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #0066cc;
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: #0066cc;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-button {
+                border-radius: 4px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 60px 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .post-image {
+                height: 200px;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .post-meta span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/4498/4498011.png" alt="Travora Logo">
+                <span>Travora</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>                    
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Travora Soccer Blog</h1>
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li>Blog</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Blog Main Content -->
+    <section class="blog-main">
+        <div class="container">
+            <div class="blog-container">
+                <main class="blog-posts">
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://content.api.news/v3/images/bin/e656cfe1aa571126ead3e102ae969451" alt="Eredivisie Analysis">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Jan 15, 2025</span>
+                                <span><i class="far fa-user"></i> By Johan Cruyff</span>
+                                <span><i class="far fa-folder"></i> Match Analysis</span>
+                            </div>
+                            <h3>Eredivisie Mid-Season Review: Surprises and Standouts</h3>
+                            <p class="post-excerpt">As we reach the halfway point of the Eredivisie season, we analyze the teams and players that have exceeded expectations and those that have disappointed. Ajax's dominance, PSV's resurgence, and the emergence of new talents make for an exciting second half.</p>
+                            <a href="/blog/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Training Drills">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Jan 10, 2025</span>
+                                <span><i class="far fa-user"></i> By Marco van Basten</span>
+                                <span><i class="far fa-folder"></i> Training Tips</span>
+                            </div>
+                            <h3>5 Essential Training Drills to Improve First Touch</h3>
+                            <p class="post-excerpt">A player's first touch can make the difference between maintaining possession and losing it. We break down five effective drills used by professional academies to develop this crucial skill, adaptable for players of all ages and levels.</p>
+                            <a href="/blog/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://i.guim.co.uk/img/media/6633e526c0c67d7ae6d8dac1bbc51eb59f476c3b/0_117_2752_1651/master/2752.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=15a1f1028496a174e6149fd2556eb3b4" alt="Tactical Analysis">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Jan 5, 2025</span>
+                                <span><i class="far fa-user"></i> By Louis van Gaal</span>
+                                <span><i class="far fa-folder"></i> Tactics</span>
+                            </div>
+                            <h3>The Evolution of Dutch Total Football in Modern Soccer</h3>
+                            <p class="post-excerpt">How has the famous Dutch philosophy of Total Football evolved to fit today's game? We examine how contemporary teams are adapting these principles, with examples from Ajax, Barcelona, and the current Netherlands national team setup.</p>
+                            <a href="/blog/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6415c251b151c40495b60ce0/b63d4180-236a-4b99-86cd-5963e2f4f2cf/english.ajax.nl-club-youth-academy+%40ajx+website.jpg" alt="Youth Development">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Jan 2, 2025</span>
+                                <span><i class="far fa-user"></i> By Ruud Gullit</span>
+                                <span><i class="far fa-folder"></i> Youth Development</span>
+                            </div>
+                            <h3>How Dutch Youth Academies Develop World-Class Talent</h3>
+                            <p class="post-excerpt">The Netherlands continues to produce exceptional players despite its small population. We explore the key principles of Dutch youth development that other countries try to emulate, featuring insights from Ajax, PSV, and Feyenoord academies.</p>
+                            <a href="/blog/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <div class="pagination">
+                        <ul class="pagination-list">
+                            <li class="pagination-item"><a href="/blog/" class="pagination-link active">1</a></li>
+                            <li class="pagination-item"><a href="/blog/" class="pagination-link">2</a></li>
+                            <li class="pagination-item"><a href="/blog/" class="pagination-link">3</a></li>
+                            <li class="pagination-item"><a href="/blog/" class="pagination-link"><i class="fas fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                </main>
+                
+                <aside class="blog-sidebar">
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Search</h3>
+                        <form class="search-form">
+                            <input type="text" class="search-input" placeholder="Search articles...">
+                            <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="/blog/">Match Analysis <span>12</span></a></li>
+                            <li><a href="/blog/">Training Tips <span>8</span></a></li>
+                            <li><a href="/blog/">Tactics <span>15</span></a></li>
+                            <li><a href="/blog/">Youth Development <span>7</span></a></li>
+                            <li><a href="/blog/">Player Spotlight <span>5</span></a></li>
+                            <li><a href="/blog/">Equipment Reviews <span>3</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Recent Posts</h3>
+                        <ul class="recent-posts">
+                            <li class="recent-post">
+                                <div class="recent-post-image">
+                                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <h4><a href="/blog/">Eredivisie Mid-Season Review</a></h4>
+                                    <div class="recent-post-date">Jan 15, 2025</div>
+                                </div>
+                            </li>
+                            <li class="recent-post">
+                                <div class="recent-post-image">
+                                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <h4><a href="/blog/">5 Essential Training Drills</a></h4>
+                                    <div class="recent-post-date">Jan 10, 2025</div>
+                                </div>
+                            </li>
+                            <li class="recent-post">
+                                <div class="recent-post-image">
+                                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <h4><a href="/blog/">Total Football Evolution</a></h4>
+                                    <div class="recent-post-date">Jan 5, 2025</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Popular Tags</h3>
+                        <div class="tags-list">
+                            <a href="/blog/">Eredivisie</a>
+                            <a href="/blog/">Tactics</a>
+                            <a href="/blog/">Training</a>
+                            <a href="/blog/">Ajax</a>
+                            <a href="/blog/">PSV</a>
+                            <a href="/blog/">Feyenoord</a>
+                            <a href="/blog/">Netherlands</a>
+                            <a href="/blog/">Youth</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-container">
+                <div class="section-title">
+                    <h2>Stay Updated With Our Soccer Insights</h2>
+                    <p>Subscribe to our newsletter for the latest articles, training tips, and match analysis</p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email address">
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="/" class="footer-logo">Travora</a>
+                    <p>Your ultimate soccer companion for live scores, team management, and in-depth analytics.</p>
+                    <div class="social-links">
+   <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                   
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@travora.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Travora. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+        
+        // Search Form Submission
+        const searchForm = document.querySelector('.search-form');
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const searchTerm = this.querySelector('.search-input').value;
+                if (searchTerm.trim() !== '') {
+                    window.location.href = `/blog/search/?q=${encodeURIComponent(searchTerm)}`;
+                }
+            });
+        }
+        
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('.newsletter-input').value;
+                if (email.trim() !== '' && email.includes('@')) {
+                    alert('Thank you for subscribing to our newsletter!');
+                    this.querySelector('.newsletter-input').value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

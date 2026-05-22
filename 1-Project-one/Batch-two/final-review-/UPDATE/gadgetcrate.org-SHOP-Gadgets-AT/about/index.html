@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | GadgetCrate - Premium Gadgets & Tech Accessories</title>
+    <meta name="description" content="Learn about GadgetCrate - our mission, values, and the team behind your favorite tech gadget store.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <style>
+        /* Reset and Base Styles */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --dark-color: #1f2937;
+            --light-color: #f9fafb;
+            --text-color: #374151;
+            --text-light: #6b7280;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn,.btn-s {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover,.btn-s:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 1rem auto 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--dark-color);
+            font-weight: 500;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.25rem;
+            color: var(--dark-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 8rem 0;
+            margin-top: 72px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: white;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #d1d5db;
+        }
+
+        /* About Intro Section */
+        .about-intro {
+            background-color: white;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background-color: var(--light-color);
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mission-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        /* Team Section */
+        .team-section {
+            background-color: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 5px solid white;
+            box-shadow: var(--box-shadow);
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Values Section */
+        .values-section {
+            background-color: var(--light-color);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(37, 99, 235, 0.9)), url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+
+        .footer-about p {
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #d1d5db;
+        }
+
+        .footer-contact i {
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text, .about-image {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+            
+            nav {
+                position: fixed;
+                top: 72px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 72px);
+                background-color: white;
+                box-shadow: var(--box-shadow);
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header {
+                padding: 6rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .mission-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-item {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Gadget<span>Crate</span></a>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="#" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>About GadgetCrate</h1>
+            <div class="breadcrumb">
+                <a href="/">Home</a>
+                <span>/</span>
+                <a href="/about/">About</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Intro Section -->
+    <section class="section about-intro">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Our Story</h2>
+                    <p>Founded in 2018 by tech enthusiasts Alex Morgan and Jamie Chen, GadgetCrate began as a small online store with a simple mission: to make cutting-edge technology accessible to everyone. What started as a passion project in a Berlin apartment has grown into one of Europe's most trusted tech retailers.</p>
+                    <p>We're proud to have served over 50,000 customers across Europe, delivering premium gadgets with exceptional customer service. Our team of tech experts carefully tests and selects every product in our inventory to ensure it meets our high standards for quality and innovation.</p>
+                    <p>At GadgetCrate, we believe technology should enhance your life without breaking the bank. That's why we work directly with manufacturers to bring you the best prices without compromising on quality.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="GadgetCrate team working">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <h2 class="section-title">Our Mission</h2>
+                <p>Our mission is to bridge the gap between cutting-edge technology and everyday consumers. We carefully curate our product selection to bring you gadgets that are innovative, reliable, and truly useful in your daily life.</p>
+                <p>We're committed to exceptional customer service, transparent pricing, and making technology accessible to everyone. Whether you're a tech enthusiast or just looking for tools to simplify your life, we've got you covered.</p>
+                
+                <div class="mission-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Years in Business</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Quality Products</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Customer Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Alex Morgan" class="member-avatar">
+                    <h3>Alex Morgan</h3>
+                    <p class="text-light">Co-Founder & CEO</p>
+                    <p>Tech enthusiast with 10+ years in the industry. Alex oversees our product selection and business strategy.</p>
+                    <div class="member-social">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jamie Chen" class="member-avatar">
+                    <h3>Jamie Chen</h3>
+                    <p class="text-light">Co-Founder & CTO</p>
+                    <p>Engineering background with a passion for making technology accessible. Jamie leads our tech operations.</p>
+                    <div class="member-social">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Johnson" class="member-avatar">
+                    <h3>Sarah Johnson</h3>
+                    <p class="text-light">Head of Customer Experience</p>
+                    <p>Dedicated to ensuring every customer has an exceptional shopping experience with GadgetCrate.</p>
+                    <div class="member-social">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Rodriguez" class="member-avatar">
+                    <h3>Michael Rodriguez</h3>
+                    <p class="text-light">Product Manager</p>
+                    <p>Our in-house tech expert who tests and evaluates every product before it reaches our store.</p>
+                    <div class="member-social">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="container">
+            <h2 class="section-title">Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-lightbulb value-icon"></i>
+                    <h3>Innovation</h3>
+                    <p>We're constantly exploring new technologies to bring you the most innovative products that solve real problems.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class="fas fa-hand-holding-heart value-icon"></i>
+                    <h3>Customer Focus</h3>
+                    <p>Our customers are at the heart of everything we do. We listen, adapt, and go the extra mile to ensure your satisfaction.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class="fas fa-balance-scale value-icon"></i>
+                    <h3>Integrity</h3>
+                    <p>We believe in transparent pricing, honest product reviews, and ethical business practices you can trust.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class="fas fa-globe-europe value-icon"></i>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to eco-friendly practices and partner with manufacturers who share our environmental values.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class="fas fa-users value-icon"></i>
+                    <h3>Community</h3>
+                    <p>We build relationships, not just transactions. Our blog and forums help customers make informed tech decisions.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class="fas fa-rocket value-icon"></i>
+                    <h3>Excellence</h3>
+                    <p>From product selection to packaging to customer service, we strive for excellence in every detail.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Experience GadgetCrate?</h2>
+            <p>Join thousands of satisfied customers who trust us for their tech needs. Shop our collection today!</p>
+            <a href="/services/" class="btn-s" style="background-color: black;">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="/" class="footer-logo">Gadget<span>Crate</span></a>
+                    <p>Your one-stop shop for the latest and greatest tech gadgets and accessories. Quality products at competitive prices.</p>
+                    <div class="social-links">
+                         <a class="social-link"  href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a  class="social-link" href="https://x.com/?lang=en" target="_blank"><i class="fab fa-twitter" ></i></a>
+                        <a  class="social-link" href="https://www.linkedin.com/in/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a  class="social-link" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                     
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Products</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Customer Service</h3>
+                    <ul>                    
+                       
+                        <li><a href="/contact/">Contact</a></li>
+                       <li><a href="/policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-conditions/">Terms Of Conditions</a></li>
+                       
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Felderstraße 6-8, 1010 Wien, Austria</p>
+                    <p><i class="fas fa-phone"></i>+43 1 505874785169</p>
+                    <p><i class="fas fa-envelope"></i> info@gadgetcrate.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 GadgetCrate. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #ef4444;"></i> by GadgetCrate Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Add to Cart Simulation (for any cart buttons on page)
+        const addToCartButtons = document.querySelectorAll('.btn[href="/services/"]');
+        const cartCount = document.querySelector('.cart-count');
+        let count = 0;
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                count++;
+                cartCount.textContent = count;
+                
+                // Create flying cart item effect
+                const flyingItem = document.createElement('div');
+                flyingItem.style.position = 'fixed';
+                flyingItem.style.left = `${e.clientX}px`;
+                flyingItem.style.top = `${e.clientY}px`;
+                flyingItem.style.width = '20px';
+                flyingItem.style.height = '20px';
+                flyingItem.style.backgroundColor = '#2563eb';
+                flyingItem.style.borderRadius = '50%';
+                flyingItem.style.pointerEvents = 'none';
+                flyingItem.style.zIndex = '1000';
+                flyingItem.style.transition = 'all 0.5s ease-out';
+                
+                document.body.appendChild(flyingItem);
+                
+                const cartIcon = document.querySelector('.cart-icon');
+                const cartRect = cartIcon.getBoundingClientRect();
+                
+                setTimeout(() => {
+                    flyingItem.style.left = `${cartRect.left + cartRect.width / 2}px`;
+                    flyingItem.style.top = `${cartRect.top + cartRect.height / 2}px`;
+                    flyingItem.style.opacity = '0';
+                    flyingItem.style.transform = 'scale(0.1)';
+                }, 10);
+                
+                setTimeout(() => {
+                    flyingItem.remove();
+                }, 600);
+                
+                // Show added notification
+                const notification = document.createElement('div');
+                notification.textContent = 'Item added to cart!';
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.backgroundColor = '#10b981';
+                notification.style.color = 'white';
+                notification.style.padding = '10px 20px';
+                notification.style.borderRadius = '5px';
+                notification.style.zIndex = '1000';
+                notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s ease';
+                }, 2000);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 2500);
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

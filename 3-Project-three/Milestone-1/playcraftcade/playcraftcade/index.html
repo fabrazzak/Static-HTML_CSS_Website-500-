@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayCraftCade - Bismarck's First Retro Arcade, Pizzeria & Bar</title>
+    <meta name="description"
+        content="Experience Bismarck's premier retro arcade, NY-style pizza & craft beer bar. Play classic games, enjoy fresh pizza & 20 craft beer taps. Book events & parties today!">
+    <meta name="keywords"
+        content="Bismarck arcade, retro games, NY-style pizza, craft beer, bar in Bismarck, pizza catering, trivia night, arcade games, North Dakota entertainment, vintage games">
+    <link rel="canonical" href="https://playcraftcade.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced glow effects for better readability */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+
+            0%,
+            100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Tron-style grid overlay */
+        .tron-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(255, 16, 240, 0.1) 100%);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.3;
+        }
+
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 255, 0.03) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 4;
+            animation: scanline-move 0.1s linear infinite;
+        }
+
+        @keyframes scanline-move {
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(4px);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+        <canvas id="three-canvas"></canvas>
+        <div class="tron-overlay"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                 <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="text-neon-blue hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block text-neon-blue hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block hover:text-neon-pink transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <div class="relative z-20 text-center px-4">
+                <h1 class="text-5xl md:text-7xl font-bold text-neon-pink neon-glow-strong mb-6 pulse-neon">
+                    BISMARCK'S FIRST
+                </h1>
+                <h2 class="text-3xl md:text-5xl font-bold text-neon-blue neon-glow-soft mb-8">
+                    Retro Arcade, Pizzeria & Bar
+                </h2>
+                <p class="text-xl md:text-2xl mb-12 text-neon-green max-w-3xl mx-auto readable-text">
+                    🕹️ Play Classic Games • 🍕 NY-Style Pizza • 🍺 20 Craft Beer Taps
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="scrollToSection('food-section')"
+                        class="bg-neon-pink text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-neon-yellow transition-all transform hover:scale-105 neon-border-soft">
+                        🍕 VIEW MENU
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm"
+            id="about-section">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-neon-blue neon-glow-soft mb-6">The 411 on
+                        PlayCraftCade</h2>
+                    <div class="w-24 h-1 bg-neon-pink mx-auto mb-8"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="floating">
+                        <img src="/assets/images/craftcade-interior-arcade.jpg"
+                            alt="PlayCraftCade retro arcade interior"
+                            class="rounded-lg shadow-2xl neon-border-soft border-neon-blue">
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-neon-yellow mb-6 neon-glow-minimal">Best Pizza & Best Arcade
+                            in
+                            Bismarck–Mandan</h3>
+                        <div class="space-y-4 text-lg readable-text">
+                            <p>Welcome to The PlayCraftCade, where nostalgia meets flavor! We're bringing back the
+                                golden age of
+                                arcade gaming with authentic vintage machines, fresh NY-style pizza, and an incredible
+                                selection of craft beers.</p>
+                            <p>Our mission is simple: create the ultimate hangout spot where friends and families can
+                                enjoy
+                                classic games, delicious food, and great drinks in a vibrant retro atmosphere.</p>
+
+                            <div class="bg-black/70 p-6 rounded-lg border border-neon-green/30 mt-8 backdrop-blur-sm">
+                                <h4 class="text-xl font-bold text-neon-green mb-4 neon-glow-minimal">🕒 HOURS OF
+                                    OPERATION
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                    <div>Mon-Thu: 4:00 PM - 10:00 PM</div>
+                                    <div>Fri: 4:00 PM - 12:00 AM</div>
+                                    <div>Sat: 12:00 PM - 12:00 AM</div>
+                                    <div>Sun: 12:00 PM - 10:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arcade Games Showcase -->
+        <section class="py-20 bg-black/80 backdrop-blur-sm" id="arcade-section">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-neon-green neon-glow-soft mb-6">🕹️ CLASSIC ARCADE
+                        GAMES
+                    </h2>
+                    <p class="text-xl text-neon-blue readable-text">Relive the golden age of gaming with our authentic
+                        vintage machines!</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="arcade-games-grid">
+                    <!-- Games will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Food & Drink Highlights -->
+        <section class="py-20 bg-gradient-to-b from-retro-purple/20 to-black/80 backdrop-blur-sm" id="food-section">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-neon-orange neon-glow-soft mb-6">🍕 FOOD & DRINKS
+                    </h2>
+                    <p class="text-xl text-neon-yellow readable-text">Authentic NY-style pizza, fresh ingredients, craft
+                        beer & more!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="food-items-grid">
+                    <!-- Food items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Events & Parties -->
+        <section class="py-20 bg-black/80 backdrop-blur-sm" id="events-section">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-neon-pink neon-glow-soft mb-6">🎉 EVENTS & PARTIES
+                    </h2>
+                    <p class="text-xl text-neon-blue readable-text">Join us for weekly events or book your private
+                        celebration!</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-pink/30 hover:border-neon-pink transition-colors backdrop-blur-sm">
+                        <div class="text-4xl mb-4">🧠</div>
+                        <h3 class="text-2xl font-bold text-neon-pink mb-4 neon-glow-minimal">Trivia Nights</h3>
+                        <p class="mb-4 readable-text">Test your knowledge every Tuesday night! Win prizes, enjoy drink
+                            specials, and compete with friends.</p>
+                        <p class="text-neon-yellow font-bold">Every Tuesday • 7:00 PM</p>
+                    </div>
+
+                    <div
+                        class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-blue/30 hover:border-neon-blue transition-colors backdrop-blur-sm">
+                        <div class="text-4xl mb-4">🎭</div>
+                        <h3 class="text-2xl font-bold text-neon-blue mb-4 neon-glow-minimal">Theme Nights</h3>
+                        <p class="mb-4 readable-text">Dress up for our monthly themed events! From 80s nights to costume
+                            contests.</p>
+                        <p class="text-neon-yellow font-bold">Monthly Events • Check Calendar</p>
+                    </div>
+
+                    <div
+                        class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-green/30 hover:border-neon-green transition-colors backdrop-blur-sm">
+                        <div class="text-4xl mb-4">🎂</div>
+                        <h3 class="text-2xl font-bold text-neon-green mb-4 neon-glow-minimal">Private Parties</h3>
+                        <p class="mb-4 readable-text">Book The PlayCraftCade for birthdays, corporate events, and
+                            special
+                            celebrations!</p>
+                        <p class="text-neon-yellow font-bold">Book in advance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews -->
+        <section class="py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-neon-yellow neon-glow-soft mb-6">⭐ WHAT PEOPLE SAY
+                    </h2>
+                    <p class="text-xl text-neon-blue readable-text">Don't just take our word for it - hear from our
+                        amazing
+                        customers!</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-12" id="reviews-carousel">
+                    <!-- Reviews will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                             <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style
+                            pizzeria,
+                            and
+                            craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            </li>
+                            <li><a href="/food-and-drink/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food &
+                                    Drink</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms &
+                                    Conditions</a></li>
+                            <li><a href="/cookies/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies
+                                    Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602"
+                                    class="hover:text-neon-pink hover-glow transition-colors">+1
+                                    (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                    class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Sample data for arcade games
+        const arcadeGames = [
+            { name: "Pac-Man", price: 0.75, image: "/assets/images/pacman-arcade.jpg", description: "The classic dot-munching adventure!" },
+            { name: "Donkey Kong", price: 1.00, image: "/assets/images/donkey-kong-arcade.png", description: "Jump barrels and save Pauline!" },
+            { name: "Street Fighter II", price: 1.00, image: "/assets/images/street-fighter-arcade.jpg", description: "Battle with legendary fighters!" },
+            { name: "Galaga", price: 0.75, image: "/assets/images/galaga-arcade.png", description: "Defend Earth from alien invaders!" },
+            { name: "Ms. Pac-Man", price: 0.75, image: "/assets/images/ms-pacman-arcade.jpg", description: "The sequel that started it all!" },
+            { name: "Mortal Kombat", price: 1.00, image: "/assets/images/mortal-kombat-arcade.jpeg", description: "Fatality! The ultimate fighting game!" },
+            { name: "Frogger", price: 0.50, image: "/assets/images/frogger-arcade.jpeg", description: "Cross roads and rivers safely!" },
+            { name: "Centipede", price: 0.50, image: "/assets/images/centipede-arcade.jpg", description: "Shoot the segmented menace!" }
+        ];
+
+        // Sample data for food items
+        const foodItems = [
+            { name: "Margherita Pizza", price: 14.99, image: "/assets/images/margherita-pizza.jpg", description: "Fresh mozzarella, basil, and tomato sauce on NY-style crust" },
+            { name: "Pepperoni Pizza", price: 16.99, image: "/assets/images/pepperoni-pizza.jpg", description: "Classic pepperoni with mozzarella cheese" },
+            { name: "Buffalo Chicken Wrap", price: 12.99, image: "/assets/images/buffalo-chicken-wrap.jpg", description: "Spicy buffalo chicken with lettuce and ranch" },
+            { name: "Caesar Salad", price: 10.99, image: "/assets/images/caesar-salad.jpg", description: "Crisp romaine, parmesan, croutons, and Caesar dressing" },
+            { name: "Craft Beer Flight", price: 12.00, image: "/assets/images/beer-flight.jpeg", description: "Sample four 4oz pours of our rotating taps" },
+            { name: "Loaded Nachos", price: 13.99, image: "/assets/images/loaded-nachos.jpg", description: "Tortilla chips with cheese, jalapeños, and sour cream" }
+        ];
+
+        // Sample reviews
+        const reviews = [
+            { name: "Sarah M.", rating: 5, text: "Amazing atmosphere! The retro arcade games are authentic and the pizza is seriously the best in Bismarck. Perfect date night spot!" },
+            { name: "Mike D.", rating: 5, text: "Love this place! Great selection of craft beers and the self-pour system is so cool. Kids had a blast on the arcade games." },
+            { name: "Jennifer K.", rating: 5, text: "Hosted my birthday party here and it was perfect! Staff was incredible, food was delicious, and everyone had so much fun playing games." }
+        ];
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function addToCart(item) {
+            cart.push(item);
+            localStorage.setItem('playcraftcade-cart', JSON.stringify(cart));
+            updateCartCount();
+
+            // Show success message
+            showNotification(`${item.name} added to cart!`, 'success');
+        }
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg text-white font-bold transition-all transform translate-x-full ${type === 'success' ? 'bg-neon-green text-black' : 'bg-red-500'
+                }`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Populate arcade games
+        function populateArcadeGames() {
+            const grid = document.getElementById('arcade-games-grid');
+            if (!grid) return;
+
+            grid.innerHTML = arcadeGames.map(game => `
+                <div class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-green/30 hover:border-neon-green transition-all hover:transform hover:scale-105 backdrop-blur-sm flex flex-col">
+    <img src="${game.image}" alt="${game.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+    
+    <h3 class="text-xl font-bold text-neon-green mb-2">${game.name}</h3>
+    
+    <p class="text-gray-300 mb-4 readable-text flex-grow">
+        ${game.description}
+    </p>
+    
+    <div class="mt-auto flex justify-between items-center">
+        <span class="text-neon-yellow font-bold text-lg">$${game.price}</span>
+        <button onclick="addToCart({name: '${game.name}', price: ${game.price}, image: '${game.image}', type: 'game'})" 
+            class="bg-neon-green text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-yellow transition-colors">
+            Add to Cart
+        </button>
+    </div>
+</div>
+
+            `).join('');
+        }
+
+        // Populate food items
+        function populateFoodItems() {
+            const grid = document.getElementById('food-items-grid');
+            if (!grid) return;
+
+            grid.innerHTML = foodItems.map(item => `
+                <div class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-orange/30 hover:border-neon-orange transition-all hover:transform hover:scale-105 backdrop-blur-sm flex flex-col">
+    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+    
+    <h3 class="text-xl font-bold text-neon-orange mb-2">${item.name}</h3>
+    
+    <p class="text-gray-300 mb-4 readable-text flex-grow">
+        ${item.description}
+    </p>
+    
+    <div class="mt-auto flex justify-between items-center">
+        <span class="text-neon-yellow font-bold text-lg">$${item.price}</span>
+        <button onclick="addToCart({name: '${item.name}', price: ${item.price}, image: '${item.image}', type: 'food'})" 
+            class="bg-neon-orange text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-yellow transition-colors">
+            Add to Cart
+        </button>
+    </div>
+</div>
+
+            `).join('');
+        }
+
+        // Populate reviews
+        function populateReviews() {
+            const carousel = document.getElementById('reviews-carousel');
+            if (!carousel) return;
+
+            carousel.innerHTML = reviews.map(review => `
+                <div class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-yellow/30 backdrop-blur-sm">
+                    <div class="flex mb-4">
+                        ${Array(review.rating).fill('⭐').join('')}
+                    </div>
+                    <p class="text-gray-300 mb-4 italic readable-text">"${review.text}"</p>
+                    <p class="text-neon-yellow font-bold">- ${review.name}</p>
+                </div>
+            `).join('');
+        }
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Three.js scene with proper error handling
+        function initThreeJS() {
+            try {
+                const canvas = document.getElementById('three-canvas');
+                if (!canvas || !window.THREE) {
+                    console.log('Three.js not loaded or canvas not found');
+                    return;
+                }
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+
+                // Create arcade-themed floating elements
+                const arcadeElements = [];
+
+                // Pac-Man dots
+                const dotGeometry = new THREE.SphereGeometry(0.15, 8, 6);
+                const dotMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xffff00,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                // Create floating dots
+                for (let i = 0; i < 30; i++) {
+                    const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+                    dot.position.set(
+                        (Math.random() - 0.5) * 100,
+                        (Math.random() - 0.5) * 60,
+                        (Math.random() - 0.5) * 50
+                    );
+                    dot.userData = {
+                        type: 'dot',
+                        speed: Math.random() * 0.02 + 0.01,
+                        offset: Math.random() * Math.PI * 2,
+                        originalY: dot.position.y
+                    };
+                    scene.add(dot);
+                    arcadeElements.push(dot);
+                }
+
+                // Retro cubes (arcade cabinets)
+                const cubeGeometry = new THREE.BoxGeometry(1, 1.5, 0.5);
+                const cubeMaterials = [
+                    new THREE.MeshBasicMaterial({ color: 0xff10f0, transparent: true, opacity: 0.6 }),
+                    new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.6 }),
+                    new THREE.MeshBasicMaterial({ color: 0x39ff14, transparent: true, opacity: 0.6 })
+                ];
+
+                for (let i = 0; i < 8; i++) {
+                    const material = cubeMaterials[i % cubeMaterials.length];
+                    const cube = new THREE.Mesh(cubeGeometry, material);
+                    cube.position.set(
+                        (Math.random() - 0.5) * 80,
+                        (Math.random() - 0.5) * 50,
+                        (Math.random() - 0.5) * 40
+                    );
+                    cube.rotation.set(
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI
+                    );
+                    cube.userData = {
+                        type: 'cube',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.02,
+                            y: (Math.random() - 0.5) * 0.02,
+                            z: (Math.random() - 0.5) * 0.02
+                        },
+                        floatSpeed: Math.random() * 0.005 + 0.002
+                    };
+                    scene.add(cube);
+                    arcadeElements.push(cube);
+                }
+
+                // Pizza slice shapes
+                const pizzaGeometry = new THREE.ConeGeometry(0.4, 0.1, 6);
+                const pizzaMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff8c00,
+                    transparent: true,
+                    opacity: 0.7
+                });
+
+                for (let i = 0; i < 12; i++) {
+                    const pizza = new THREE.Mesh(pizzaGeometry, pizzaMaterial);
+                    pizza.position.set(
+                        (Math.random() - 0.5) * 90,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    pizza.userData = {
+                        type: 'pizza',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.015,
+                            y: (Math.random() - 0.5) * 0.015,
+                            z: (Math.random() - 0.5) * 0.015
+                        }
+                    };
+                    scene.add(pizza);
+                    arcadeElements.push(pizza);
+                }
+
+                camera.position.z = 30;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const time = Date.now() * 0.001;
+
+                    arcadeElements.forEach((element, index) => {
+                        if (element.userData.type === 'dot') {
+                            // Floating dots
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.speed + element.userData.offset) * 2;
+                            // Pulsing effect
+                            const scale = 1 + Math.sin(time * 3 + index) * 0.3;
+                            element.scale.set(scale, scale, scale);
+                        } else if (element.userData.type === 'cube') {
+                            // Rotating cubes
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                            // Floating motion
+                            element.position.y += Math.sin(time * element.userData.floatSpeed + index) * 0.05;
+                        } else if (element.userData.type === 'pizza') {
+                            // Spinning pizza
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                        }
+
+                        // General drift
+                        element.position.x += Math.sin(time * 0.0001 + index) * 0.02;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+            } catch (error) {
+                console.error('Three.js initialization error:', error);
+            }
+        }
+
+        // Initialize Particles.js with proper error handling
+        function initParticles() {
+            try {
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js not loaded');
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 50, density: { enable: true, value_area: 800 } },
+                        color: {
+                            value: ['#ff10f0', '#00ffff', '#39ff14', '#ffff00', '#ff8c00']
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { width: 1, color: '#ffffff' }
+                        },
+                        opacity: {
+                            value: 0.5,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.5
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#00ffff',
+                            opacity: 0.4,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: {
+                                distance: 100,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                populateArcadeGames();
+                populateFoodItems();
+                populateReviews();
+                initializeMobileMenu();
+                updateCartCount();
+
+                // Small delay to ensure libraries are loaded
+                setTimeout(() => {
+                    initThreeJS();
+                    initParticles();
+                }, 100);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - MicroShopGear</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4cc9f0;
+        }
+
+        .logo span {
+            color: #f72585;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4cc9f0;
+        }
+
+        .cart-icon {
+            font-size: 1.2rem;
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #f72585;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Blog Hero Section */
+        .blog-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #4cc9f0;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        /* Blog Layout */
+        .blog-section {
+            padding: 5rem 0;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 3rem;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .featured-img {
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 2rem;
+        }
+
+        .featured-tag {
+            display: inline-block;
+            background-color: #f72585;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .post-meta img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .post-meta span {
+            margin-right: 1rem;
+        }
+
+        .post-meta i {
+            margin-right: 0.5rem;
+        }
+
+        .featured-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #f72585;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            color: #b5179e;
+            transform: translateX(5px);
+        }
+
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .post-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .post-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .post-card:hover .post-img img {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .post-card .post-meta {
+            margin-bottom: 1rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-widget {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-widget h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-form {
+            display: flex;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 0.9rem;
+        }
+
+        .search-form button {
+            background-color: #f72585;
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .categories-list,
+        .recent-posts-list {
+            list-style: none;
+        }
+
+        .categories-list li,
+        .recent-posts-list li {
+            border-bottom: 1px solid #eee;
+            padding: 0.8rem 0;
+        }
+
+        .categories-list li:last-child,
+        .recent-posts-list li:last-child {
+            border-bottom: none;
+        }
+
+        .categories-list li a,
+        .recent-posts-list li a {
+            transition: color 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .categories-list li a span {
+            background-color: #f0f2f5;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+
+        .categories-list li a:hover,
+        .recent-posts-list li a:hover {
+            color: #f72585;
+        }
+
+        .recent-posts-list li {
+            display: flex;
+            align-items: center;
+        }
+
+        .recent-post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recent-post-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .recent-post-date {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f0f2f5;
+            padding: 0.4rem 0.8rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background-color: #f72585;
+            color: white;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .pagination a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .pagination a.active {
+            background-color: #f72585;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #f0f2f5;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0 1.5rem;
+            background-color: #f72585;
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #b5179e;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0d0d1a;
+            color: #ccc;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: #4cc9f0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #1a1a2e;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #f72585;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a2e;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-top: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                position: relative;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 101;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #1a1a2e;
+                padding: 5rem 1rem 2rem;
+                transition: left 0.3s ease;
+                z-index: 100;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                margin-top: 2rem;
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .cart-icon {
+                position: absolute;
+                top: 1rem;
+                right: 3rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .featured-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .featured-img {
+                height: 300px;
+            }
+
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form button {
+                border-radius: 30px;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .featured-img {
+                height: 200px;
+            }
+
+            .featured-content {
+                padding: 1.5rem;
+            }
+
+            .featured-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        /* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    background-color: white;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    position: relative;
+    padding: 2rem;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #777;
+    transition: color 0.3s;
+}
+
+.modal-close-btn:hover {
+    color: #f72585;
+}
+
+.modal-content img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #1a1a2e;
+}
+
+.modal-content .post-meta {
+    margin-bottom: 1.5rem;
+}
+
+.modal-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    .modal-container {
+        padding: 1.5rem;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+
+<style>
+    /* Header Styles */
+    .site-header {
+        background-color: #1a1a2e;
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #4cc9f0;
+    }
+
+    .logo span {
+        color: #f72585;
+    }
+
+    .main-nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-menu li {
+        margin: 0 1rem;
+    }
+
+    .nav-menu li a {
+        font-weight: 500;
+        transition: color 0.3s;
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 0;
+        position: relative;
+    }
+
+    .nav-menu li a:hover, 
+    .nav-menu li a.active {
+        color: #4cc9f0;
+    }
+
+    .nav-menu li a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #f72585;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-toggle, 
+    .cart-icon {
+        font-size: 1.2rem;
+        margin-left: 1.5rem;
+        color: white;
+        text-decoration: none;
+        position: relative;
+    }
+
+    .search-toggle:hover, 
+    .cart-icon:hover {
+        color: #4cc9f0;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #f72585;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+        font-weight: bold;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+        .main-nav {
+            justify-content: flex-end;
+        }
+        
+        .nav-menu li {
+            margin: 0 0.8rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header-container {
+            padding: 0 1rem;
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            order: 3;
+            margin-left: 1rem;
+        }
+        
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            height: 100vh;
+            background-color: #1a1a2e;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            justify-content: flex-start;
+        }
+        
+        .main-nav.active {
+            left: 0;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-menu {
+            flex-direction: column;
+            width: 100%;
+            padding: 5rem 2rem 2rem;
+        }
+        
+        .nav-menu li {
+            margin: 1rem 0;
+            width: 100%;
+        }
+        
+        .nav-menu li a {
+            display: block;
+            padding: 0.8rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .nav-menu li a.active::after {
+            display: none;
+        }
+        
+        .header-actions {
+            margin-left: auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 1.5rem;
+        }
+        
+        .search-toggle {
+            display: none;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo">micro<span>shop</span>gear</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Products</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/" class="active">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                
+                <a href="javascript.:void(0)" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <h1>Music Gear Blog</h1>
+        <p>Tips, tutorials, reviews, and industry insights to enhance your musical journey</p>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-section container">
+        <div class="blog-container">
+            <div class="main-content">
+                <!-- Featured Post -->
+                <article class="featured-post">
+                    <div class="featured-img">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.jrcC7adCkL5t4tnxPZ59YAHaE8?rs=1&pid=ImgDetMain"
+                            alt="How to Choose Your First Electric Guitar">
+                    </div>
+                    <div class="featured-content">
+                        <span class="featured-tag">Featured</span>
+                        <h2>How to Choose Your First Electric Guitar: A Comprehensive Guide</h2>
+                        <div class="post-meta">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                alt="Alex Rivera">
+                            <span>By Alex Rivera</span>
+                            <span><i class="far fa-calendar"></i> April 12, 2025</span>
+                            <span><i class="far fa-comment"></i> 24 Comments</span>
+                        </div>
+                        <p>Buying your first electric guitar can be an overwhelming experience with countless options,
+                            price ranges, and technical specifications to consider. This comprehensive guide breaks down
+                            everything you need to know to make an informed decision that matches your playing style,
+                            musical preferences, and budget.</p>
+                        <p>We'll cover body types, neck profiles, pickup configurations, and much more, while providing
+                            recommendations for beginners at different price points. Whether you're into rock, blues,
+                            metal, or indie, we'll help you find the perfect instrument to start your musical journey.
+                        </p>
+                        <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Posts Grid -->
+                <div class="blog-posts">
+                    <article class="post-card">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                alt="Understanding Acoustic Guitar Tonewoods">
+                        </div>
+                        <div class="post-content">
+                            <h3>Understanding Acoustic Guitar Tonewoods and Their Impact on Sound</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> April 5, 2025</span>
+                                <span><i class="far fa-comment"></i> 18 Comments</span>
+                            </div>
+                            <p>Explore how different tonewoods affect the sound characteristics of acoustic guitars and
+                                learn which combinations might be ideal for your playing style.</p>
+                            <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <div class="post-img">
+                            <img src="https://th.bing.com/th/id/OIP.qhtu6So3hYEcohDbJilqIQHaEK?rs=1&pid=ImgDetMain"
+                                alt="Home Recording Studio Setup">
+                        </div>
+                        <div class="post-content">
+                            <h3>Setting Up Your First Home Recording Studio on a Budget</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 28, 2025</span>
+                                <span><i class="far fa-comment"></i> 32 Comments</span>
+                            </div>
+                            <p>Discover the essential equipment you need to create a functional home recording setup
+                                without breaking the bank, including mic recommendations and acoustic treatment tips.
+                            </p>
+                            <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                alt="Drum Maintenance Tips">
+                        </div>
+                        <div class="post-content">
+                            <h3>Essential Drum Maintenance Tips to Extend Your Kit's Life</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 20, 2025</span>
+                                <span><i class="far fa-comment"></i> 15 Comments</span>
+                            </div>
+                            <p>Learn proper techniques for tuning, cleaning, and maintaining your drum kit to ensure
+                                optimal sound quality and longevity for years to come.</p>
+                            <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                alt="Digital Pianos vs Synthesizers">
+                        </div>
+                        <div class="post-content">
+                            <h3>Digital Pianos vs. Synthesizers: Which One Is Right for You?</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 15, 2025</span>
+                                <span><i class="far fa-comment"></i> 21 Comments</span>
+                            </div>
+                            <p>Understand the key differences between digital pianos and synthesizers to make an
+                                informed decision based on your musical goals and preferences.</p>
+                            <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1507245921392-e902673ca772?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                alt="Guitar Effects Pedals Guide">
+                        </div>
+                        <div class="post-content">
+                            <h3>The Ultimate Beginner's Guide to Guitar Effects Pedals</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 8, 2025</span>
+                                <span><i class="far fa-comment"></i> 29 Comments</span>
+                            </div>
+                            <p>Dive into the world of guitar effects with this comprehensive guide explaining
+                                distortion, delay, reverb, modulation, and how to build your first pedalboard.</p>
+                            <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1589903308904-1010c2294adc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                alt="Vocal Microphone Selection">
+                        </div>
+                        <div class="post-content">
+                            <h3>How to Choose the Perfect Microphone for Your Vocal Style</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 1, 2025</span>
+                                <span><i class="far fa-comment"></i> 26 Comments</span>
+                            </div>
+                            <p>Find the ideal microphone for your voice with our in-depth comparison of dynamic,
+                                condenser, and ribbon mics across different vocal styles and recording scenarios.</p>
+                            <a href="" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="/blog/"><i class="fas fa-angle-left"></i></a>
+                    <a href="/blog/" class="active">1</a>
+                    <a href="/blog/">2</a>
+                    <a href="/blog/">3</a>
+                    <a href="/blog/">4</a>
+                    <a href="/blog/"><i class="fas fa-angle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Search Widget -->
+                <div class="sidebar-widget">
+                    <h3>Search</h3>
+                    <form class="search-form">
+                        <input type="text" placeholder="Search blog...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3>Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="/blog/">Guitars <span>12</span></a></li>
+                        <li><a href="/blog/">Keyboards & Pianos <span>9</span></a></li>
+                        <li><a href="/blog/">Drums & Percussion <span>7</span></a></li>
+                        <li><a href="/blog/">Recording Equipment <span>14</span></a></li>
+                        <li><a href="/blog/">Music Production <span>10</span></a></li>
+                        <li><a href="/blog/">Accessories <span>8</span></a></li>
+                        <li><a href="/blog/">Maintenance Tips <span>6</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3>Recent Posts</h3>
+                    <ul class="recent-posts-list">
+                        <li>
+                            <div class="recent-post-img">
+                                <img src="https://th.bing.com/th/id/OIP.qhtu6So3hYEcohDbJilqIQHaEK?rs=1&pid=ImgDetMain"
+                                    alt="First Electric Guitar">
+                            </div>
+                            <div class="recent-post-info">
+                                <h4><a href="javascript.:void(0)">How to Choose Your First Electric Guitar</a></h4>
+                                <span class="recent-post-date">April 12, 2025</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="recent-post-img">
+                                <img src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                    alt="Acoustic Guitar Tonewoods">
+                            </div>
+                            <div class="recent-post-info">
+                                <h4><a href="javascript.:void(0)">Understanding Acoustic Guitar Tonewoods</a></h4>
+                                <span class="recent-post-date">April 5, 2025</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="recent-post-img">
+                                <img src="https://tse4.mm.bing.net/th/id/OIP.jrcC7adCkL5t4tnxPZ59YAHaE8?rs=1&pid=ImgDetMain"
+                                    alt="Home Recording Studio">
+                            </div>
+                            <div class="recent-post-info">
+                                <h4><a href="javascript.:void(0)">Setting Up Your First Home Recording Studio</a></h4>
+                                <span class="recent-post-date">March 28,
+
+                        </li>
+                        <li>
+                            <div class="recent-post-img">
+                                <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                    alt="Drum Maintenance Tips">
+                            </div>
+                            <div class="recent-post-info">
+                                <h4><a href="javascript.:void(0)">Essential Drum Maintenance Tips</a></h4>
+                                <span class="recent-post-date">March 20, 2025</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3>Popular Tags</h3>
+                    <div class="tags-list">
+                        <a href="/blog/" class="tag">Guitar</a>
+                        <a href="/blog/" class="tag">Recording</a>
+                        <a href="/blog/" class="tag">Effects</a>
+                        <a href="/blog/" class="tag">Beginner</a>
+                        <a href="/blog/" class="tag">Studio</a>
+                        <a href="/blog/" class="tag">Drums</a>
+                        <a href="/blog/" class="tag">Electric</a>
+                        <a href="/blog/" class="tag">Acoustic</a>
+                        <a href="/blog/" class="tag">Keyboards</a>
+                        <a href="/blog/" class="tag">Tips</a>
+                        <a href="/blog/" class="tag">Maintenance</a>
+                        <a href="/blog/" class="tag">Amplifiers</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Stay updated with the latest gear reviews, tutorials, and exclusive offers straight to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>microshopgear</h3>
+                    <p>Your one-stop shop for premium music gear and accessories. Quality instruments for musicians at
+                        every level.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="/shop/">All Products</a></li>
+                        <li><a href="/blog/">Categories</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/contact/">Contact Us</a></li>
+                        <li><a href="/privacy/">Privacy</a></li>
+                        <li><a href="/terms/">Terms</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MicroShopGear. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    
+
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+
+
+
+    </script>
+
+    
+<script>
+    // Mobile Menu Toggle Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.querySelector('.main-nav');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                
+                // Change icon based on menu state
+                const icon = this.querySelector('i');
+                if (mainNav.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mainNav.contains(e.target) && 
+                !mobileMenuBtn.contains(e.target) && 
+                mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>

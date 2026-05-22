@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Discover the 5 amazing benefits of lip blushing treatment. From natural color enhancement to time-saving beauty routines, learn why lip blushing is transforming lives.">
+    <meta name="keywords"
+        content="lip blushing benefits, permanent lip color, lip enhancement, lip tattooing, natural lip color, lip blushing Winnipeg, semi permanent makeup">
+    <link rel="canonical" href="https://looksluxebeauty.com/blog/amazing-benefits-lip-blushing/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <title>5 Amazing Benefits of Lip Blushing You Need to Know | Looks Luxe Beauty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #f7e7ce;
+            --accent-color: #c9a961;
+            --dark-color: #2c1810;
+            --text-color: #4a4a4a;
+            --light-bg: #faf8f5;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #faf8f5 0%, #f7e7ce 100%);
+        }
+
+        /* Particles */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover:after,
+        .nav-menu a.active:after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark-color);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin-top: 0;
+        }
+
+        .breadcrumb-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .breadcrumb-nav a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb-nav .separator {
+            color: var(--accent-color);
+        }
+
+        /* Article Container */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Article Header */
+        .article-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-title {
+            font-size: 42px;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .article-subtitle {
+            font-size: 18px;
+            color: var(--text-color);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Article Image */
+        .article-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Article Content */
+        .article-content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .article-content h2 {
+            color: var(--dark-color);
+            font-size: 28px;
+            margin: 35px 0 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .article-content h2:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .article-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-content h3 {
+            color: var(--dark-color);
+            font-size: 22px;
+            margin: 25px 0 15px;
+            font-weight: 600;
+        }
+
+        .article-content p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .article-content ul {
+            margin: 20px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .article-content ul li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .article-content ul li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .highlight-box {
+            background: var(--secondary-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--dark-color);
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            color: var(--text-color);
+        }
+
+        /* Benefit Cards */
+        .benefit-card {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .benefit-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-icon {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .benefit-number {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .benefit-card h3 {
+            color: var(--dark-color);
+            font-size: 22px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        /* CTA Section */
+        .article-cta {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .article-cta h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .article-cta p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            margin: 5px;
+        }
+
+        .cta-button:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Back to Blog */
+        .back-to-blog {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: var(--dark-color);
+            color: var(--white);
+            padding: 50px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            color: var(--white);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-section a[style*="display: inline"] {
+            display: inline !important;
+            margin-right: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Cookie Popup Styles */
+        .cookie-popup {
+            position: fixed;
+            bottom: -200px;
+            left: 20px;
+            right: 20px;
+            max-width: 500px;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            transition: var(--transition);
+        }
+
+        .cookie-popup.show {
+            bottom: 20px;
+        }
+
+        .cookie-popup h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cookie-popup p {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .accept-btn {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .accept-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .decline-btn {
+            background: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .decline-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                flex-direction: column;
+                background: var(--white);
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                padding: 80px 40px;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+                transition: var(--transition);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-content {
+                padding: 30px;
+            }
+
+            .article-content h2 {
+                font-size: 24px;
+            }
+
+            .article-meta {
+                gap: 15px;
+            }
+
+            .benefit-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .article-container {
+                padding: 40px 15px;
+            }
+
+            .article-title {
+                font-size: 26px;
+            }
+
+            .article-content {
+                padding: 25px;
+            }
+
+            .article-image {
+                height: 250px;
+                margin: 30px 0;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .benefit-card {
+                padding: 20px;
+            }
+
+            .benefit-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cookie-popup {
+                left: 10px;
+                right: 10px;
+                padding: 20px;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles -->
+    <div id="particles-js"></div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/assets/images/looksluxebeauty.png" alt="Looks Luxe Beauty">
+            </a>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/blog/" class="active">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="breadcrumb-container">
+            <nav class="breadcrumb-nav">
+                <a href="/">Home</a>
+                <span class="separator">></span>
+                <a href="/blog/">Blog</a>
+                <span class="separator">></span>
+                <span>Amazing Benefits of Lip Blushing</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Article -->
+    <article class="article-container">
+        <!-- Article Header -->
+        <header class="article-header">
+            <div class="article-meta">
+                <span><i class="fas fa-calendar"></i> December 5, 2024</span>
+                <span><i class="fas fa-clock"></i> 5 min read</span>
+                <span><i class="fas fa-tag"></i> Lip Enhancement</span>
+            </div>
+            <h1 class="article-title">5 Amazing Benefits of Lip Blushing You Need to Know</h1>
+            <p class="article-subtitle">Discover why lip blushing has become the most sought-after permanent makeup treatment</p>
+        </header>
+
+        <!-- Article Image -->
+        <div class="article-image">
+            <img src="/assets/images/blog-lip-blushing-benefits.webp" alt="Benefits of Lip Blushing Treatment">
+        </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <p>Lip blushing has taken the permanent makeup world by storm, and for good reason! This revolutionary treatment is transforming the way people think about lip enhancement, offering natural-looking results that boost confidence and simplify daily beauty routines.</p>
+
+            <p>As a permanent makeup specialist, I've seen firsthand how lip blushing can change lives. From clients who've never felt confident without lipstick to those looking to enhance their natural features, the benefits of this treatment extend far beyond just aesthetics.</p>
+
+            <p>Let's explore the five amazing benefits that make lip blushing such a game-changer in the world of beauty enhancement.</p>
+
+            <div class="benefit-card">
+                <div class="benefit-header">
+                    <div class="benefit-number">1</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Enhanced Natural Lip Color</h3>
+                </div>
+                <p>One of the most significant benefits of lip blushing is its ability to enhance your natural lip color beautifully. Unlike traditional lip tattoos that can look artificial, lip blushing creates a subtle tint that looks like your lips, but better. The technique deposits pigment into the superficial layers of the skin, creating a natural flush that complements your skin tone perfectly.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-header">
+                    <div class="benefit-number">2</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-shapes"></i>
+                    </div>
+                    <h3>Improved Lip Shape and Definition</h3>
+                </div>
+                <p>Lip blushing isn't just about color – it's also about creating better shape and definition. Whether you have naturally thin lips, uneven borders, or lips that have lost definition with age, this treatment can subtly reshape and define your lip line. The result is fuller-looking, more symmetrical lips that frame your smile beautifully.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-header">
+                    <div class="benefit-number">3</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Time-Saving Beauty Routine</h3>
+                </div>
+                <p>Imagine waking up every morning with perfectly tinted lips! Lip blushing eliminates the daily need for lip color application, saving you precious time in your morning routine. Whether you're rushing to work, hitting the gym, or going for a swim, your lips will always look polished and put-together without any effort on your part.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-header">
+                    <div class="benefit-number">4</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Long-Lasting, Smudge-Proof Results</h3>
+                </div>
+                <p>Unlike traditional lipstick or lip stain that fades throughout the day, lip blushing provides long-lasting color that won't smudge, transfer, or fade with eating, drinking, or kissing. The semi-permanent results typically last 1-2 years, making it an excellent investment in your beauty routine. You'll never have to worry about lipstick on your coffee cup or reapplying throughout the day again!</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-header">
+                    <div class="benefit-number">5</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Boosted Confidence and Self-Esteem</h3>
+                </div>
+                <p>Perhaps the most important benefit of lip blushing is the confidence boost it provides. Many of my clients tell me they feel more beautiful and self-assured after their treatment. Having naturally enhanced lips that look great 24/7 can significantly impact how you feel about your appearance, leading to increased confidence in both professional and personal situations.</p>
+            </div>
+
+            <h2>Who Is a Good Candidate for Lip Blushing?</h2>
+
+            <p>Lip blushing is ideal for almost everyone, but it's particularly beneficial for those who:</p>
+
+            <ul>
+                <li>Have naturally pale or uneven lip color</li>
+                <li>Want to enhance their natural lip shape</li>
+                <li>Are tired of constantly reapplying lipstick</li>
+                <li>Have lips that have lost color or definition with age</li>
+                <li>Want a natural enhancement rather than dramatic change</li>
+                <li>Lead an active lifestyle and want low-maintenance beauty</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Perfect for Active Lifestyles</h4>
+                <p>If you're someone who exercises regularly, travels frequently, or simply values convenience, lip blushing is perfect for you. Your lips will look great whether you're at the gym, on a beach vacation, or in an important meeting.</p>
+            </div>
+
+            <h2>What to Expect During the Process</h2>
+
+            <p>The lip blushing process is carefully designed to ensure your comfort and satisfaction:</p>
+
+            <h3>Consultation and Design</h3>
+            <p>We begin with a thorough consultation to understand your goals and preferences. Together, we'll choose the perfect color that complements your skin tone and desired look. I'll map out the ideal shape for your lips based on your facial structure.</p>
+
+            <h3>The Treatment</h3>
+            <p>The actual procedure takes 2-3 hours and involves applying a topical numbing agent to ensure your comfort. Using a specialized machine, I'll deposit the chosen pigment into your lips, creating the perfect tint and shape.</p>
+
+            <h3>Healing and Results</h3>
+            <p>Initial healing takes about a week, during which your lips will appear darker than the final result. Once fully healed, you'll be left with beautiful, naturally enhanced lips that look like your own – just better!</p>
+
+            <div class="highlight-box">
+                <h4>Touch-Up Included</h4>
+                <p>Your initial treatment includes a touch-up appointment 6-8 weeks later to perfect the color and ensure even coverage. This is essential for achieving the best possible results.</p>
+            </div>
+
+            <h2>Maintaining Your Results</h2>
+
+            <p>One of the best things about lip blushing is how low-maintenance it is once healed. Simply:</p>
+
+            <ul>
+                <li>Use SPF lip balm to protect from sun exposure</li>
+                <li>Keep lips moisturized with a gentle balm</li>
+                <li>Avoid harsh exfoliating products directly on the lips</li>
+                <li>Schedule a refresh treatment every 1-2 years as needed</li>
+            </ul>
+
+            <p>With proper care, your lip blushing results will continue to look beautiful and natural for years to come, making it one of the best investments you can make in your beauty routine.</p>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="article-cta">
+            <h3>Ready to Experience the Benefits of Lip Blushing?</h3>
+            <p>Transform your lips and simplify your beauty routine with professional lip blushing. Book your consultation today!</p>
+            <a href="/contact/" class="cta-button">Book Consultation</a>
+            <a href="/services/" class="cta-button">Learn More</a>
+        </div>
+
+        <!-- Back to Blog -->
+        <div class="back-to-blog">
+            <a href="/blog/" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blog
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="/" class="logo">
+                    <img src="/assets/images/looksluxebeauty.png" alt="Looks Luxe Beauty">
+                </a>
+                <p>Your trusted beauty destination in Winnipeg for premium permanent makeup and beauty services.</p>
+                <p style="margin-top: 15px;"><i class="fas fa-map-marker-alt"></i> 200 Salter St, Winnipeg, MB R2W 4K2</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/">Home</a>
+                <a href="/about/">About Us</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/contact/">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <a href="/services/">Microblading</a>
+                <a href="/services/">Hybrid/Combination Brows</a>
+                <a href="/services/">Powder Brows</a>
+                <a href="/services/">Nano Brows</a>
+                <a href="/services/">Eyelash Enhancement</a>
+                <a href="/services/">Lip Blushing</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-phone"></i> +1 204-421-0019</p>
+                <p><i class="fas fa-envelope"></i> info@looksluxebeauty.com</p>
+                <div style="margin-top: 15px;">
+                    <a href="/privacy/" style="display: inline;">Privacy</a> |
+                    <a href="/terms/" style="display: inline;">Terms</a> |
+                    <a href="/cookies/" style="display: inline;">Cookies</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Looks Luxe Beauty. All Rights Reserved. | Website by Professional Web Design</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Popup -->
+    <div class="cookie-popup" id="cookiePopup">
+        <h4><i class="fas fa-cookie-bite"></i> Cookie Notice</h4>
+        <p>We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept", you consent to our use of cookies.</p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn accept-btn" id="acceptCookies">Accept</button>
+            <button class="cookie-btn decline-btn" id="declineCookies">Decline</button>
+        </div>
+    </div>
+
+    <script>
+        // Wait for particles.js to load
+        window.addEventListener('load', function () {
+            // Particles.js
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: '#d4af37' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: '#d4af37', opacity: 0.2, width: 1 },
+                        move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+                        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                    },
+                    retina_detect: true
+                });
+            }
+        });
+
+        // Three.js Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('three-canvas'),
+            alpha: true,
+            antialias: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 5;
+
+        // Create glowing particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        const colors = [];
+
+        for (let i = 0; i < 2000; i++) {
+            vertices.push(
+                Math.random() * 20 - 10,
+                Math.random() * 20 - 10,
+                Math.random() * 20 - 10
+            );
+
+            // Gold color variations
+            colors.push(
+                0.8 + Math.random() * 0.2,
+                0.7 + Math.random() * 0.2,
+                0.3 + Math.random() * 0.2
+            );
+        }
+
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.05,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0007;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Cookie Popup
+        const cookiePopup = document.getElementById('cookiePopup');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Show cookie popup if not already accepted/declined
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookiePopup.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookiePopup.classList.remove('show');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookiePopup.classList.remove('show');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

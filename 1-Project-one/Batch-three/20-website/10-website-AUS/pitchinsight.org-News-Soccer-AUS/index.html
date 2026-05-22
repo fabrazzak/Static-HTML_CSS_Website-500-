@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PitchInsight - Latest Soccer News & Updates from Australia</title>
+    <meta name="description" content="Get the latest soccer news, match updates, and analysis from Australia and around the world. Stay informed with PitchInsight.">
+    <meta name="keywords" content="soccer news, football updates, Australian soccer, A-League, Premier League, La Liga, Serie A, Bundesliga, match analysis, football transfers">
+    <meta name="geo.region" content="AU-NSW">
+    <meta name="geo.placename" content="Sydney">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1e88e5;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #1565c0;
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: #1a237e;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #1e88e5;
+            margin: 15px auto 0;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo span {
+            color: #1e88e5;
+        }
+        
+        nav ul {
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #1e88e5;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 120px 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* About Overview */
+        .about-overview {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Services Preview */
+        .services-preview {
+            background-color: #f5f5f5;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+        
+        /* Why Choose Us */
+        .why-choose-us {
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #1e88e5;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card:hover .feature-icon {
+            color: white;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background-color: #f5f5f5;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            color: #1e88e5;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            color: #1a237e;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* News Highlights */
+        .news-highlights {
+            background-color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .news-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .news-card:hover .news-img img {
+            transform: scale(1.1);
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .news-content h3 {
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(rgba(26, 35, 126, 0.9), rgba(26, 35, 126, 0.9)), 
+                        url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .contact-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a237e;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #1e88e5;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #1e88e5;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #1e88e5;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #1a237e;
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .contact-cta h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Pitch<span>Insight</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Ultimate Source for Soccer News</h1>
+                <p>Stay updated with the latest matches, transfers, and analysis from Australia and around the world.</p>
+                <a href="/news/" class="btn">Explore Latest News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Overview Section -->
+    <section class="section about-overview">
+        <div class="container">
+            <h2 class="section-title">About PitchInsight</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>PitchInsight is Australia's premier soccer news platform, dedicated to bringing you the most comprehensive coverage of the beautiful game. From the A-League to European competitions and international tournaments, we've got you covered.</p>
+                    <p>Our team of experienced journalists and analysts work around the clock to deliver accurate, insightful, and engaging content for soccer fans of all levels.</p>
+                    <a href="/about/" class="btn" style="margin-top: 20px;">Learn More About Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Soccer team celebrating">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="section services-preview">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Match analysis">
+                    </div>
+                    <div class="service-content">
+                        <h3>Match Analysis</h3>
+                        <p>In-depth tactical breakdowns and post-match analysis of major games from around the world.</p>
+                        <a href="/services/" class="btn" style="margin-top: 15px;">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://www.nbc.com/sites/nbcblog/files/2024/07/paris-2024-olympics-soccer.jpg" alt="Transfer news">
+                    </div>
+                    <div class="service-content">
+                        <h3>Transfer News</h3>
+                        <p>The latest rumors, confirmed deals, and expert opinions on player movements across leagues.</p>
+                        <a href="/services/" class="btn" style="margin-top: 15px;">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHVn1cV4wqXK2zUaJO1_6rVKGnohu2hTlPJsKzvmAwOXzdjXWDxGHt45yQ3OAgopOf4o0&usqp=CAU" alt="Fantasy football">
+                    </div>
+                    <div class="service-content">
+                        <h3>Fantasy Football</h3>
+                        <p>Expert tips, player recommendations, and strategy guides to help you dominate your fantasy league.</p>
+                        <a href="/services/" class="btn" style="margin-top: 15px;">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section why-choose-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose PitchInsight</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fast Updates</h3>
+                    <p>Get breaking news and live updates faster than any other platform in Australia.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Expert Analysis</h3>
+                    <p>Our team includes former players and coaches who provide unique insights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Coverage</h3>
+                    <p>From local A-League matches to European giants, we cover it all.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access our content seamlessly on any device, anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Readers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>PitchInsight has become my go-to source for soccer news. Their analysis is always spot-on and their coverage of the A-League is unparalleled.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith">
+                        </div>
+                        <div class="author-info">
+                            <h4>John Smith</h4>
+                            <p>Sydney FC Supporter</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>As a fantasy football player, their weekly guides have helped me climb to the top of my league. Highly recommended for any serious fan!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Fantasy Football Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>I love how PitchInsight covers both international and local Australian soccer. Their transfer news is always the first to break major stories.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Wilson">
+                        </div>
+                        <div class="author-info">
+                            <h4>David Wilson</h4>
+                            <p>Melbourne Victory Fan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Highlights Section -->
+    <section class="section news-highlights">
+        <div class="container">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Soccer match">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">Jan 15, 2025</div>
+                        <h3>A-League: Sydney FC Secures Dramatic Derby Win</h3>
+                        <p>In a thrilling Sydney derby, Sydney FC came from behind to defeat Western Sydney Wanderers 3-2 with a last-minute winner.</p>
+                        <a href="/news/" class="btn" style="margin-top: 15px; display: inline-block;">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1552667466-07770ae110d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Soccer player">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">Jan 12, 2025</div>
+                        <h3>Matildas Star Signs with European Champions</h3>
+                        <p>Australian international Sam Kerr has completed a blockbuster move to Barcelona, signing a three-year deal with the Spanish giants.</p>
+                        <a href="/news/" class="btn" style="margin-top: 15px; display: inline-block;">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Soccer stadium">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">Jan 10, 2025</div>
+                        <h3>Australia to Host 2026 World Cup Qualifiers</h3>
+                        <p>Football Australia has announced that Melbourne and Sydney will host crucial World Cup qualifiers against Japan and Saudi Arabia.</p>
+                        <a href="/news/" class="btn" style="margin-top: 15px; display: inline-block;">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Have Questions or Feedback?</h2>
+            <p>We love hearing from our readers. Whether you have a story tip, feedback, or just want to say hello, our team is ready to connect with you.</p>
+            <a href="/contact/" class="btn">Contact Us Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PitchInsight</h3>
+                    <p>Your premier source for soccer news, analysis, and updates from Australia and around the world.</p>
+                    <div class="social-links">
+
+
+                        <a href="https://facebook.com/" target="_blank"  aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/"  target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/"  target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/"  target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://linkedin.com/"target="_blank"  aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">Latest News</a></li>
+                        <li><a href="/services/">Our Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="/news/">A-League</a></li>
+                        <li><a href="/news/">Premier League</a></li>
+                        <li><a href="/news/">La Liga</a></li>
+                        <li><a href="/news/">Serie A</a></li>
+                        <li><a href="/news/">Bundesliga</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Level 10/50 Pitt St, Sydney NSW 2000, Australia</li>
+                        <li><i class="fas fa-phone"></i> +612 8080 7900</li>
+                        <li><i class="fas fa-envelope"></i> info@pitchinsight.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PitchInsight. All Rights Reserved. | <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add to cart simulation
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productName = this.getAttribute('data-product');
+                alert(`${productName} has been added to your cart!`);
+            });
+        });
+    </script>
+</body>
+</html>

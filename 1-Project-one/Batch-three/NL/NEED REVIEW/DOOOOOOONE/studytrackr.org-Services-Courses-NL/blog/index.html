@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | StudyTrackr - Online Learning Resources</title>
+    <meta name="description" content="Read our latest articles on online learning, career advice, and study tips from StudyTrackr experts in the Netherlands.">
+    <meta name="keywords" content="online learning blog, study tips, education articles, career advice, e-learning resources, Netherlands education">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #3498db;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #2980b9;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #3498db;
+            color: #3498db;
+        }
+        
+        .btn-outline:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+            margin: 15px auto 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 15px 0;
+            background-color: #f1f5f9;
+            margin-top: 80px;
+        }
+        
+        .breadcrumb-list {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb-item {
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb-item:not(:last-child):after {
+            content: '/';
+            margin-left: 10px;
+            color: #64748b;
+        }
+        
+        /* Blog Hero */
+        .blog-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .blog-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .blog-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Blog Container */
+        .blog-container {
+            background-color: white;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .blog-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .blog-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .blog-img img {
+            transform: scale(1.1);
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .blog-date {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-date i {
+            margin-right: 5px;
+        }
+        
+        .blog-category {
+            background-color: #e2e8f0;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .blog-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .blog-excerpt {
+            margin-bottom: 20px;
+            color: #64748b;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .pagination-list {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+        
+        .pagination-item a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: #f1f5f9;
+            color: #2c3e50;
+        }
+        
+        .pagination-item a:hover,
+        .pagination-item.active a {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background-color: #f1f5f9;
+            padding: 60px 0;
+        }
+        
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            margin-bottom: 30px;
+            color: #64748b;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            padding: 0 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-logo span {
+            color: #3498db;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bdc3c7;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #3498db;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 5px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .blog-hero {
+                padding: 80px 0;
+            }
+            
+            .blog-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .blog-hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .blog-img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Study<span>Trackr</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/privacy/">Privacy</a></li>
+                    <li><a href="/terms/">Terms</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item">Blog</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>StudyTrackr Blog</h1>
+            <p>Discover the latest insights, tips, and resources for online learning and career development.</p>
+            <a href="/services/" class="btn">Explore Our Courses</a>
+        </div>
+    </section>
+
+    <!-- Blog Container -->
+    <section class="section blog-container">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+            
+            <div class="blog-grid">
+                <!-- Article 1 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Online Learning Tips">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> March 15, 2025</span>
+                            <span class="blog-category">Learning Tips</span>
+                        </div>
+                        <h3>5 Tips for Effective Online Learning</h3>
+                        <p class="blog-excerpt">Discover strategies to maximize your learning experience in online courses and stay motivated throughout your journey.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- Article 2 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Career Growth">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> February 28, 2025</span>
+                            <span class="blog-category">Career Advice</span>
+                        </div>
+                        <h3>How Upskilling Can Accelerate Your Career</h3>
+                        <p class="blog-excerpt">Learn how acquiring new skills can open doors to better job opportunities and higher salaries in today's competitive market.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- Article 3 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Tech Trends">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> January 10, 2025</span>
+                            <span class="blog-category">Tech Trends</span>
+                        </div>
+                        <h3>Top Tech Skills in Demand for 2025</h3>
+                        <p class="blog-excerpt">Find out which technical skills employers are looking for this year and how you can acquire them through online learning.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- Article 4 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Time Management">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> January 5, 2025</span>
+                            <span class="blog-category">Productivity</span>
+                        </div>
+                        <h3>Time Management Strategies for Online Students</h3>
+                        <p class="blog-excerpt">Learn how to balance work, life, and studies with these effective time management techniques for online learners.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- Article 5 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Study Group">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> Jan 20, 2025</span>
+                            <span class="blog-category">Community</span>
+                        </div>
+                        <h3>The Benefits of Virtual Study Groups</h3>
+                        <p class="blog-excerpt">Discover how joining or creating a virtual study group can enhance your learning experience and improve retention.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <!-- Article 6 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80" alt="Digital Marketing">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> Jan 5, 2025</span>
+                            <span class="blog-category">Career Advice</span>
+                        </div>
+                        <h3>How to Transition to a Digital Marketing Career</h3>
+                        <p class="blog-excerpt">A step-by-step guide for professionals looking to switch to digital marketing, including recommended courses and skills.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <ul class="pagination-list">
+                    <li class="pagination-item active"><a href="/blog/">1</a></li>
+                    <li class="pagination-item"><a href="/blog/">2</a></li>
+                    <li class="pagination-item"><a href="/blog/">3</a></li>
+                    <li class="pagination-item"><a href="/blog/"><i class="fas fa-chevron-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container newsletter-container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest study tips, course updates, and career advice directly to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Study<span>Trackr</span></div>
+                    <p>Empowering learners in the Netherlands and beyond with quality online education since 2020.</p>
+                    <div class="social-links">
+ <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Courses</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/contact/">Help Center</a></li>
+                        <li><a href="/contact/">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone-alt"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@studytrackr.org</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 StudyTrackr. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input[type="email"]').value;
+            
+            // In a real implementation, you would send this to your backend
+            console.log(`Subscribed with email: ${email}`);
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterForm.reset();
+        });
+    </script>
+</body>
+</html>

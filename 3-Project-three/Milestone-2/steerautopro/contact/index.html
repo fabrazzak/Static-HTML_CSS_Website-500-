@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Get in Touch | Steer Auto Pro</title>
+    <meta name="description" content="Contact Steer Auto Pro for expert automotive repair services. Get quotes, schedule appointments, or reach our 24/7 emergency service. Located at 50 Oxford Street, Soho, London with nationwide coverage.">
+    <meta name="keywords" content="contact steer auto pro, automotive repair contact, car bodyshop london, vehicle repair quote, emergency breakdown service, automotive consultation, fleet services contact, accident repair contact">
+    <link rel="canonical" href="https://steerautopro.com/contact/">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a73e8',
+                        secondary: '#34d399',
+                        dark: '#0f172a',
+                        darker: '#020617'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        html,body{
+            overflow-x: hidden
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #1a73e8; }
+            to { box-shadow: 0 0 30px #1a73e8, 0 0 40px #1a73e8; }
+        }
+        
+        .hamburger {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .hamburger-box {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .hamburger-inner {
+            display: block;
+            top: 50%;
+            margin-top: -2px;
+        }
+        
+        .hamburger-inner,
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            width: 30px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            position: absolute;
+            transition-property: transform;
+            transition-duration: 0.15s;
+            transition-timing-function: ease;
+        }
+        
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            content: "";
+            display: block;
+        }
+        
+        .hamburger-inner::before {
+            top: -8px;
+        }
+        
+        .hamburger-inner::after {
+            bottom: -8px;
+        }
+        
+        .hamburger.is-active .hamburger-inner {
+            transform: rotate(45deg);
+        }
+        
+        .hamburger.is-active .hamburger-inner::before {
+            top: 0;
+            transform: rotate(-90deg);
+        }
+        
+        .hamburger.is-active .hamburger-inner::after {
+            bottom: 0;
+            transform: rotate(-90deg);
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .section-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cookie-popup {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.3);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-white overflow-x-hidden">
+    <!-- Three.js Background -->
+    <canvas class="three-canvas" id="three-canvas"></canvas>
+    
+    <!-- Cookie Popup -->
+    <div id="cookie-popup" class="cookie-popup fixed bottom-0 left-0 right-0 bg-darker border-t border-gray-700 p-4 z-50">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between">
+            <p class="text-sm text-gray-300 mb-4 sm:mb-0">
+                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+            </p>
+            <div class="flex space-x-4">
+                <button id="accept-cookies" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    Accept All
+                </button>
+                <button id="decline-cookies" class="border border-gray-600 text-gray-300 px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-40">
+        <!-- Top Bar -->
+        <div class="bg-darker/80 backdrop-blur-md border-b border-gray-800" style="display: none;">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                    <div class="flex items-center space-x-6 mb-2 sm:mb-0">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-2"></i>
+                            <span class="text-gray-300">50 Oxford Street, Soho, London, W1D 1BS, UK</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary mr-2"></i>
+                            <span class="text-gray-300">+44 20 7636 7700</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="bg-dark/90 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center py-4">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-14">
+                       </a>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <a href="/" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+                        <a href="/locations/" class="text-gray-300 hover:text-primary transition-colors">Locations</a>
+                        <a href="/corporate/" class="text-gray-300 hover:text-primary transition-colors">Corporate</a>
+                        <a href="/commercial/" class="text-gray-300 hover:text-primary transition-colors">Commercial</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-primary transition-colors">Blog</a>
+                        <a href="/contact/" class="text-white font-medium">Contact</a>
+                       
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button id="mobile-menu-btn" class="hamburger">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-full  bg-darker  border-l border-gray-800 lg:hidden z-50">
+                <div class="p-6 bg-dark">
+                    <div class="flex justify-between items-center mb-8">
+                       <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-12 sm:h-14">
+                       </a>
+                        <button id="mobile-menu-close" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    <nav class="space-y-6">
+                        <a href="/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Home</a>
+                        <a href="/locations/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Locations</a>
+                        <a href="/corporate/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Corporate</a>
+                        <a href="/commercial/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Commercial</a>
+                        <a href="/blog/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Blog</a>
+                        <a href="/contact/" class="block text-white font-medium py-2 border-b border-gray-800">Contact</a>
+                         
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div id="particles-js" class="absolute inset-0"></div>
+        <div class="container mx-auto px-4 text-center z-10 relative">
+            <div class="max-w-4xl mx-auto section-animate">
+                <div class="inline-flex items-center bg-primary/20 rounded-full px-6 py-3 mb-6">
+                    <i class="fas fa-phone text-primary mr-3"></i>
+                    <span class="text-primary font-semibold">Get In Touch</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Contact Us
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 font-light">
+                    Ready to Experience Premium Automotive Care?
+                </p>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                    Get in touch with our expert team for quotes, consultations, or emergency services. 
+                    We're here to help with all your automotive repair and maintenance needs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Options -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="contact-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-primary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-phone text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Call Us Now</h3>
+                    <p class="text-gray-400 mb-4">Speak directly with our expert team</p>
+                    <a href="tel:+442076367700" class="text-primary text-xl font-semibold hover:text-blue-400 transition-colors">
+                        +44 20 7636 7700
+                    </a>
+                    <p class="text-sm text-gray-500 mt-2">24/7 Emergency Service Available</p>
+                </div>
+                
+                <div class="contact-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-secondary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-envelope text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Email Us</h3>
+                    <p class="text-gray-400 mb-4">Send us your enquiry anytime</p>
+                    <a href="mailto:info@steerautopro.com" class="text-secondary text-lg font-semibold hover:text-green-400 transition-colors">
+                        info@steerautopro.com
+                    </a>
+                    <p class="text-sm text-gray-500 mt-2">We respond within 2 hours</p>
+                </div>
+                
+                <div class="contact-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-purple-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Visit Us</h3>
+                    <p class="text-gray-400 mb-4">Come to our central London location</p>
+                    <address class="text-gray-300 not-italic">
+                        50 Oxford Street<br>
+                        Soho, London<br>
+                        W1D 1BS, UK
+                    </address>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="section-animate">
+                    <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Send Us a Message
+                    </h2>
+                    <p class="text-gray-300 mb-8 leading-relaxed">
+                        Fill out the form below and our team will get back to you within 2 hours during business hours. 
+                        For urgent matters, please call our 24/7 emergency line.
+                    </p>
+                    
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-300 mb-2">
+                                    First Name *
+                                </label>
+                                <input type="text" id="firstName" name="firstName" required 
+                                       class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-300 mb-2">
+                                    Last Name *
+                                </label>
+                                <input type="text" id="lastName" name="lastName" required 
+                                       class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 focus:outline-none">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
+                                Email Address *
+                            </label>
+                            <input type="email" id="email" name="email" required 
+                                   class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">
+                                Phone Number
+                            </label>
+                            <input type="tel" id="phone" name="phone" 
+                                   class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label for="serviceType" class="block text-sm font-medium text-gray-300 mb-2">
+                                Service Type *
+                            </label>
+                            <select id="serviceType" name="serviceType" required 
+                                    class="form-input w-full px-4 py-3 rounded-lg text-white focus:outline-none">
+                                <option value="">Select a service</option>
+                                <option value="accident-repair">Accident Repair</option>
+                                <option value="paintless-dent-removal">Paintless Dent Removal</option>
+                                <option value="alloy-wheel-repair">Alloy Wheel Repair</option>
+                                <option value="air-conditioning">Air Conditioning Service</option>
+                                <option value="fleet-services">Commercial Fleet Services</option>
+                                <option value="insurance-claim">Insurance Claim</option>
+                                <option value="general-enquiry">General Enquiry</option>
+                                <option value="emergency">Emergency Service</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="vehicleDetails" class="block text-sm font-medium text-gray-300 mb-2">
+                                Vehicle Details
+                            </label>
+                            <input type="text" id="vehicleDetails" name="vehicleDetails" 
+                                   placeholder="e.g., 2020 BMW 3 Series, Registration: AB12 CDE"
+                                   class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">
+                                Message *
+                            </label>
+                            <textarea id="message" name="message" rows="5" required 
+                                      placeholder="Please describe your requirements or the issue you're experiencing..."
+                                      class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 focus:outline-none resize-none"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="consent" name="consent" required 
+                                       class="mr-3 w-4 h-4 text-primary bg-gray-700 border-gray-600 rounded focus:ring-primary">
+                                <span class="text-sm text-gray-300">
+                                    I agree to the <a href="/privacy/" class="text-primary hover:underline">Privacy Policy</a> 
+                                    and consent to being contacted about my enquiry.
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-all transform hover:scale-[1.02] animate-glow">
+                            Send Message
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information & Map -->
+                <div class="section-animate">
+                    <div class="glass-effect rounded-xl p-8 mb-8">
+                        <h3 class="text-2xl font-bold text-white mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-primary rounded-lg p-3">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">Address</h4>
+                                    <p class="text-gray-400">50 Oxford Street, Soho<br>London, W1D 1BS, United Kingdom</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-secondary rounded-lg p-3">
+                                    <i class="fas fa-phone text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">Phone</h4>
+                                    <p class="text-gray-400">+44 20 7636 7700</p>
+                                    <p class="text-sm text-gray-500">24/7 Emergency Service</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-purple-500 rounded-lg p-3">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">Email</h4>
+                                    <p class="text-gray-400">info@steerautopro.com</p>
+                                    <p class="text-sm text-gray-500">Response within 2 hours</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-orange-500 rounded-lg p-3">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">Business Hours</h4>
+                                    <p class="text-gray-400">
+                                        Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                        Saturday: 9:00 AM - 4:00 PM<br>
+                                        Sunday: Emergency Service Only
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Maps Embed -->
+                    <div class="map-container glass-effect rounded-xl overflow-hidden">
+                        <div class="map-overlay"></div>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.6739734076085!2d-0.13157518423007817!3d51.515419079637944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b2e8de6dd4f%3A0x4bb60e8f9c6c5c5c!2s50%20Oxford%20St%2C%20London%20W1D%201AB%2C%20UK!5e0!3m2!1sen!2suk!4v1633024799999!5m2!1sen!2suk"
+                            width="100%" 
+                            height="300" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Quick answers to common questions about our services and processes.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <div class="glass-effect rounded-xl section-animate">
+                        <button class="faq-button w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold text-white">How quickly can you provide a quote?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-6 pt-0">
+                            <p class="text-gray-400">We provide quotes within 2 hours during business hours. For urgent cases, we can often provide preliminary estimates over the phone immediately. Our experienced team can assess most repairs quickly and accurately.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl section-animate">
+                        <button class="faq-button w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold text-white">Do you work with all insurance companies?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-6 pt-0">
+                            <p class="text-gray-400">Yes, we work with all major UK insurance companies and can handle the entire claims process for you. We also provide competitive rates for private customers who prefer to pay directly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl section-animate">
+                        <button class="faq-button w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold text-white">What is your typical turnaround time?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-6 pt-0">
+                            <p class="text-gray-400">Turnaround times vary depending on the complexity of the repair. Minor repairs like paintless dent removal can often be completed same-day, while major bodywork may take 3-7 days. We always provide realistic timeframes upfront.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl section-animate">
+                        <button class="faq-button w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold text-white">Do you provide courtesy cars?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-6 pt-0">
+                            <p class="text-gray-400">Yes, we provide courtesy cars subject to availability for repairs taking more than one day. We also offer collection and delivery services within London to minimize inconvenience to our customers.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl section-animate">
+                        <button class="faq-button w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors" onclick="toggleFAQ(this)">
+                            <h3 class="text-lg font-semibold text-white">What warranty do you provide?</h3>
+                            <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden p-6 pt-0">
+                            <p class="text-gray-400">All our repairs come with a comprehensive warranty. Paint work is covered for 5 years, while mechanical repairs typically have a 12-month warranty. We stand behind our work and use only high-quality parts and materials.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-800">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-14">
+                       </a>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
+                        The UK's leading automotive repair business, committed to excellence, 
+                        environmental responsibility, and exceptional customer service.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Quick Links</h4>
+                    <nav class="space-y-3">
+                        <a href="/" class="block text-gray-400 hover:text-primary transition-colors">Home</a>
+                        <a href="/locations/" class="block text-gray-400 hover:text-primary transition-colors">Locations</a>
+                        <a href="/corporate/" class="block text-gray-400 hover:text-primary transition-colors">Corporate</a>
+                        <a href="/commercial/" class="block text-gray-400 hover:text-primary transition-colors">Commercial</a>
+                        <a href="/blog/" class="block text-gray-400 hover:text-primary transition-colors">Blog</a>
+                    </nav>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Legal</h4>
+                    <nav class="space-y-3">
+                        <a href="/privacy/" class="block text-gray-400 hover:text-primary transition-colors">Privacy Policy</a>
+                        <a href="/terms/" class="block text-gray-400 hover:text-primary transition-colors">Terms of Service</a>
+                        <a href="/cookies/" class="block text-gray-400 hover:text-primary transition-colors">Cookies Policy</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Steer Auto Pro. All rights reserved. | Carbon Neutral in Accordance with PAS2060
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Three.js Background Animation
+        let scene, camera, renderer, particles;
+        
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Create particles
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            
+            for (let i = 0; i < 1500; i++) {
+                vertices.push(
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000
+                );
+            }
+            
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            const material = new THREE.PointsMaterial({ color: 0x1a73e8, size: 0.8 });
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+            
+            camera.position.z = 1000;
+            animate();
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.x += 0.0001;
+            particles.rotation.y += 0.0003;
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#1a73e8" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.2, "random": false },
+                "size": { "value": 1, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#1a73e8", "opacity": 0.1, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 400 }, "bubble": { "distance": 400, "size": 40 }, "repulse": { "distance": 200 } }
+            },
+            "retina_detect": true
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+            mobileMenuBtn.classList.add('is-active');
+        });
+        
+        mobileMenuClose.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBtn.classList.remove('is-active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('is-active');
+            }
+        });
+        
+        // Contact form handling
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Simulate form submission
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Message Sent!';
+                submitBtn.classList.remove('bg-primary', 'hover:bg-blue-600');
+                submitBtn.classList.add('bg-green-500');
+                
+                // Reset form
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.classList.remove('bg-green-500');
+                    submitBtn.classList.add('bg-primary', 'hover:bg-blue-600');
+                    submitBtn.disabled = false;
+                }, 3000);
+                
+            }, 2000);
+        });
+        
+        // FAQ toggle functionality
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            content.classList.toggle('hidden');
+            icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+        
+        // Scroll animations
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.section-animate');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Cookie popup functionality
+        const cookiePopup = document.getElementById('cookie-popup');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const declineCookies = document.getElementById('decline-cookies');
+        
+        // Show cookie popup if no preference is stored
+        if (!localStorage.getItem('cookiePreference')) {
+            setTimeout(() => {
+                cookiePopup.classList.add('show');
+            }, 2000);
+        }
+        
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookiePreference', 'accepted');
+            cookiePopup.classList.remove('show');
+        });
+        
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookiePreference', 'declined');
+            cookiePopup.classList.remove('show');
+        });
+        
+        // Form validation enhancements
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value) {
+                    this.style.borderColor = '#ef4444';
+                } else {
+                    this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                }
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.style.borderColor === 'rgb(239, 68, 68)') {
+                    this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                }
+            });
+        });
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initThree();
+            revealOnScroll();
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+    </script>
+</body>
+</html>

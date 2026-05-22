@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our complete collection of Minecraft products at Minecoinscard.com. Find Minecoins, game bundles, gift cards, and premium content for all platforms.">
+    <meta name="keywords" content="minecraft shop, minecoins store, minecraft bundles, digital codes, gaming shop, minecraft marketplace, bedrock edition, java edition, gift cards">
+    <meta name="title" content="Shop Minecraft Products - Minecoinscard">
+    <link rel="canonical" href="https://minecoinscard.com/shop/">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <title>Shop Minecraft Products - Minecoinscard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #4CAF50;
+            --dark-bg: #0a0e1a;
+            --card-bg: #1a1f35;
+            --accent-blue: #00d4ff;
+            --accent-purple: #9c27b0;
+            --accent-orange: #ff6348;
+            --text-light: #e0e0e0;
+            --text-gray: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.3rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: linear-gradient(135deg, #ff4757, #ff6348);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 71, 87, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(76, 175, 80, 0.4);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .shop-hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+            position: relative;
+        }
+
+        .shop-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .shop-hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .section {
+            padding: 80px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        .shop-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border-radius: 50px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(26, 31, 53, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(26, 31, 53, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-green);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(0, 212, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .product-desc {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(26, 31, 53, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            border-color: transparent;
+        }
+
+        .pagination-btn:hover:not(.active) {
+            border-color: var(--primary-green);
+        }
+
+        .categories-section {
+            background: rgba(26, 31, 53, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: rgba(10, 14, 26, 0.5);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-green);
+            box-shadow: 0 15px 35px rgba(76, 175, 80, 0.3);
+        }
+
+        .category-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .category-card p {
+            color: var(--text-gray);
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(0, 212, 255, 0.2));
+            padding: 3rem;
+            border-radius: 30px;
+            text-align: center;
+            margin: 4rem 0;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .promo-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .promo-banner p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: rgba(10, 14, 26, 0.95);
+            padding: 4rem 2rem 2rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 31, 53, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            z-index: 9999;
+            border-top: 2px solid var(--primary-green);
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cookie-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+        }
+
+        .cookie-decline {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: rgba(10, 14, 26, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                transition: right 0.5s ease;
+                border-left: 2px solid rgba(0, 212, 255, 0.3);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .shop-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .shop-hero p {
+                font-size: 1.1rem;
+            }
+
+            .shop-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .filter-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 50px 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="canvas-container"></div>
+    
+    <div class="content-wrapper">
+        <header>
+            <nav class="nav-container">
+                <a href="/" class="logo">
+                    <img src="/images/logo.png" alt="Minecoinscard Logo" style="height: 56px;">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li class="account-nav" style="display: none;"><a href="/account/">Account</a></li>
+                    <li><a href="/login/"><i class="fas fa-user"></i></a></li>
+                    <li>
+                        <a href="/cart/" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Shop Hero Section -->
+        <section class="shop-hero">
+            <h1>Minecraft Shop</h1>
+            <p>Browse our complete collection of Minecraft products, bundles, and digital content</p>
+        </section>
+
+        <!-- Shop Controls -->
+        <section class="section">
+            <div class="shop-controls">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
+                </div>
+                <div class="filter-controls">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="minecoins">Minecoins</option>
+                        <option value="bundles">Game Bundles</option>
+                        <option value="gift-cards">Gift Cards</option>
+                        <option value="premium">Premium Content</option>
+                    </select>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid"></div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="section">
+            <div class="categories-section">
+                <h2 class="section-title">Browse by Category</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('minecoins')">
+                        <div class="category-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Minecoins</h3>
+                        <p>Purchase Minecoins for the Minecraft Marketplace</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('bundles')">
+                        <div class="category-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h3>Game Bundles</h3>
+                        <p>Complete game editions and special bundles</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('gift-cards')">
+                        <div class="category-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Gift Cards</h3>
+                        <p>Digital gift cards for all platforms</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('premium')">
+                        <div class="category-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Premium Content</h3>
+                        <p>Exclusive skins, worlds, and add-ons</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promo Banner -->
+        <section class="section">
+            <div class="promo-banner">
+                <h2>Register Now to Get Special Bonus!</h2>
+                <p>Join thousands of gamers and unlock exclusive rewards</p>
+                <a href="/register/" class="btn btn-primary">
+                    <span>Create Account</span>
+                    <i class="fas fa-user-plus"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Minecoinscard</h3>
+                    <p>Your trusted platform for purchasing Minecraft coins, bundles, and digital content. We provide instant delivery and secure transactions.</p>
+                     
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@minecoinscard.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (819) 824-3146</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 490 Chem. de Vassan<br>Val-d'Or, QC J9P 0C1<br>Canada</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Minecoinscard.com. All rights reserved.</p>
+                <p>We are not an affiliate agency. All products are sold independently through our platform.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-blue);">Learn more</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
+                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: 'Minecraft Triple Bundle',
+                price: 59.99,
+                image: '/images/minecraft-triple.jpg',
+                description: 'Includes Java & Bedrock Edition plus bonus content for Windows 10',
+                category: 'bundles'
+            },
+            {
+                id: 2,
+                name: '3500 Minecoins',
+                price: 29.99,
+                image: '/images/minecoins.jpg',
+                description: 'Get 3500 Minecoins for Minecraft Marketplace purchases and exclusive content',
+                category: 'minecoins'
+            },
+            {
+                id: 3,
+                name: '1720 Minecoins Pack',
+                price: 14.99,
+                image: '/images/1720-minecoins.jpg',
+                description: 'Perfect starter pack for accessing Minecraft Marketplace skins and worlds',
+                category: 'minecoins'
+            },
+            {
+                id: 4,
+                name: 'Deluxe Collection Bundle',
+                price: 79.99,
+                image: '/images/deluxe-collection.jpg',
+                description: 'Ultimate bundle with game editions and premium Minecoins package',
+                category: 'bundles'
+            },
+            {
+                id: 5,
+                name: 'Minecraft Java Edition',
+                price: 26.95,
+                image: '/images/minecraft-java.jpg',
+                description: 'The original Minecraft experience with unlimited creativity',
+                category: 'bundles'
+            },
+            {
+                id: 6,
+                name: 'Minecraft Bedrock Edition',
+                price: 29.99, 
+                image: '/images/minicraft-bedrock.webp',
+                description: 'Cross-platform version for Windows, consoles, and mobile',
+                category: 'bundles'
+            },
+            {
+                id: 7,
+                name: '500 Minecoins',
+                price: 9.99,
+                image: '/images/500-minecoins.avif',
+                description: 'Small pack for trying out the Minecraft Marketplace',
+                category: 'minecoins'
+            },
+            {
+                id: 8,
+                name: '1000 Minecoins',
+                price: 19.99,
+                image: '/images/1000-minecoins.jpg',
+                description: 'Medium pack for regular Marketplace shoppers',
+                category: 'minecoins'
+            },           
+            
+            {
+                id: 15,
+                name: 'Minecraft Dungeons Hero Edition',
+                price: 39.99,
+                image: '/images/minecraft-dungeons.webp',
+                description: 'Action-adventure dungeon crawler with DLC included',
+                category: 'bundles'
+            }
+        ];
+
+        // Pagination variables
+        let currentPage = 1;
+        const productsPerPage = 8;
+        let filteredProducts = [...products];
+
+        // DOM Elements
+        const productsGrid = document.getElementById('productsGrid');
+        const pagination = document.getElementById('pagination');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortFilter = document.getElementById('sortFilter');
+
+        // Initialize shop
+        function initShop() {
+            renderProducts();
+            setupEventListeners();
+            updateCartCount();
+            checkUserAuth();
+            showCookieBanner();
+        }
+
+        // Render products based on current filters and page
+        function renderProducts() {
+            // Clear existing products
+            productsGrid.innerHTML = '';
+            
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+            
+            // Render products
+            productsToShow.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div class="product-footer">
+                            <span class="product-price">$${product.price.toFixed(2)}</span>
+                            <button class="add-to-cart" onclick="addToCart(${product.id})">
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+            
+            // Render pagination
+            renderPagination();
+        }
+
+        // Render pagination controls
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            
+            // Clear existing pagination
+            pagination.innerHTML = '';
+            
+            // Previous button
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('div');
+                prevBtn.className = 'pagination-btn';
+                prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                prevBtn.addEventListener('click', () => {
+                    currentPage--;
+                    renderProducts();
+                });
+                pagination.appendChild(prevBtn);
+            }
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('div');
+                pageBtn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderProducts();
+                });
+                pagination.appendChild(pageBtn);
+            }
+            
+            // Next button
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('div');
+                nextBtn.className = 'pagination-btn';
+                nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                nextBtn.addEventListener('click', () => {
+                    currentPage++;
+                    renderProducts();
+                });
+                pagination.appendChild(nextBtn);
+            }
+        }
+
+        // Filter products based on search and category
+        function filterProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const category = categoryFilter.value;
+            const sortBy = sortFilter.value;
+            
+            // Filter by search term and category
+            filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                     product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || product.category === category;
+                return matchesSearch && matchesCategory;
+            });
+            
+            // Sort products
+            switch(sortBy) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                default:
+                    // Featured - keep original order
+                    break;
+            }
+            
+            // Reset to first page
+            currentPage = 1;
+            
+            // Re-render products
+            renderProducts();
+        }
+
+        // Filter by category from category cards
+        function filterByCategory(category) {
+            categoryFilter.value = category;
+            filterProducts();
+        }
+
+        // Add product to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            const btn = event.target.closest('.add-to-cart');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i><span>Added!</span>';
+            btn.style.background = 'linear-gradient(135deg, #00d4ff, #0099cc)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = 'linear-gradient(135deg, var(--primary-green), #45a049)';
+            }, 1500);
+        }
+
+        // Update cart count in header
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        // Check if user is logged in
+        function checkUserAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const accountNav = document.querySelector('.account-nav');
+            
+            if (isLoggedIn && accountNav) {
+                accountNav.style.display = 'block';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search input
+            searchInput.addEventListener('input', filterProducts);
+            
+            // Filter dropdowns
+            categoryFilter.addEventListener('change', filterProducts);
+            sortFilter.addEventListener('change', filterProducts);
+            
+            // Hamburger menu
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        // Cookie functions
+        function showCookieBanner() {
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (!cookieConsent) {
+                setTimeout(() => {
+                    document.getElementById('cookieBanner').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        // Three.js animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0x4CAF50,
+            emissive: 0x00d4ff,
+            emissiveIntensity: 0.2,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.3
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.005;
+            torusKnot.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            torusKnot.rotation.z = scrolled * 0.001;
+        });
+
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize everything
+        animate();
+        initShop();
+    </script>
+</body>
+</html>

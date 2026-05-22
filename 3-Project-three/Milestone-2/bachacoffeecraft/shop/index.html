@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Coffee Shop - Bacha Coffee Craft Collection | El Verger, Spain</title>
+    <meta name="description" content="Shop premium Arabica coffee, gift boxes, accessories at Bacha Coffee Craft. Expert sourced, slow-roasted beans, luxury coffee accessories. Free shipping available.">
+    <meta name="keywords" content="buy premium coffee, coffee shop online, arabica coffee beans, coffee gift boxes, coffee accessories, luxury coffee, Spanish coffee roasters, gourmet coffee online, specialty coffee shop, premium coffee collection">
+    <link rel="canonical" href="https://bachacoffeecraft.com/shop/">
+     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gold: #D4AF37;
+            --deep-brown: #2C1810;
+            --dark-coffee: #1A0E08;
+            --medium-brown: #3D2817;
+            --light-gold: #F4E4BC;
+            --warm-gray: #8B7355;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-coffee);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--deep-brown);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse-gold {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+            }
+        }
+        
+        /* Utility Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+        
+        .pulse-gold {
+            animation: pulse-gold 2s infinite;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass Morphism */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: linear-gradient(to right, #92400e, #b45309);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .cookie-text {
+            font-size: 14px;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .cookie-accept {
+            background-color: #ca8a04;
+        }
+        
+        .cookie-accept:hover {
+            background-color: #a16207;
+        }
+        
+        .cookie-decline {
+            background-color: #6b7280;
+        }
+        
+        .cookie-decline:hover {
+            background-color: #4b5563;
+        }
+        
+        /* Header Styles */
+        header {
+            position: relative;
+            z-index: 50;
+        }
+        
+        .top-header {
+            background: linear-gradient(to right, #92400e, #b45309);
+            padding: 8px 0;
+        }
+        
+        .top-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-link {
+            color: inherit;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: #fde047;
+        }
+        
+        .main-header {
+            padding: 16px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+        
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            font-weight: 500;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fbbf24;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .cart-btn:hover {
+            color: #fbbf24;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ca8a04;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--primary-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 13px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 26px;
+            transform-origin: left center;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -3px;
+            left: 8px;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 39px;
+            left: 8px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-brown), var(--dark-coffee));
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-nav.open {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+        
+        .mobile-nav-title {
+            font-size: 24px;
+        }
+        
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-mobile-nav:hover {
+            color: #fbbf24;
+        }
+        
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: inherit;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: #fbbf24;
+        }
+        
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-gold), #B8941F);
+            color: var(--dark-coffee);
+            border: none;
+            padding: 12px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-outline {
+            border: 2px solid #ca8a04;
+            color: #ca8a04;
+            background: transparent;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-outline:hover {
+            background: #ca8a04;
+            color: #000;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .page-header {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+        
+        .page-subtitle {
+            font-size: 24px;
+            color: #d1d5db;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .breadcrumb a {
+            color: #fbbf24;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #f59e0b;
+        }
+        
+        /* Shop Filters */
+        .shop-filters {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            align-items: end;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #fbbf24;
+        }
+        
+        .filter-select,
+        .filter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: white;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .filter-select:focus,
+        .filter-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .filter-select option {
+            background: var(--dark-coffee);
+            color: white;
+        }
+        
+        .price-range {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .price-separator {
+            color: #9ca3af;
+        }
+        
+        .clear-filters {
+            background: transparent;
+            border: 2px solid #6b7280;
+            color: #6b7280;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .clear-filters:hover {
+            border-color: #fbbf24;
+            color: #fbbf24;
+        }
+        
+        /* Shop Results */
+        .shop-results {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .results-count {
+            font-size: 16px;
+            color: #d1d5db;
+        }
+        
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .sort-label {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .sort-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 32px;
+        }
+        
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        /* Product Card Styles */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 16px;
+            overflow: hidden;
+            padding: 24px;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .product-image {
+            height: 240px;
+            background: linear-gradient(to bottom right, #92400e, #b45309);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .product-image i {
+            font-size: 64px;
+            color: #fde047;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #dc2626;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .product-badge.new {
+            background: #059669;
+        }
+        
+        .product-badge.sale {
+            background: #dc2626;
+        }
+        
+        .product-badge.limited {
+            background: #7c3aed;
+        }
+        
+        .product-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .product-rating {
+            display: flex;
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+        
+        .product-description {
+            color: #9ca3af;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .product-price-old {
+            font-size: 18px;
+            color: #9ca3af;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+        
+        .btn-add-to-cart {
+            background: #ca8a04;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .btn-add-to-cart:hover {
+            background: #a16207;
+            transform: translateY(-2px);
+        }
+        
+        .btn-add-to-cart:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Quick View Modal */
+        .quick-view-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        .product-card:hover .quick-view-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .quick-view-btn:hover {
+            background: #fbbf24;
+            color: #000;
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            margin-bottom: 64px;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 48px;
+            color: #fbbf24;
+            margin-bottom: 16px;
+        }
+        
+        .category-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .category-count {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 64px;
+        }
+        
+        .pagination-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .pagination-btn:hover:not(.disabled) {
+            background: #fbbf24;
+            color: #000;
+        }
+        
+        .pagination-btn.active {
+            background: #ca8a04;
+            color: #000;
+        }
+        
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(146, 64, 14, 0.3), #000);
+            padding: 64px 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        
+        .footer-description {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .footer-social a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: #ca8a04;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .footer-credits {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .footer-credits .heart {
+            color: #ef4444;
+        }
+        
+        /* Background Sections */
+        .bg-gradient-1 {
+            background: linear-gradient(to bottom, transparent, rgba(146, 64, 14, 0.1));
+        }
+        
+        .bg-gradient-2 {
+            background: linear-gradient(to right, rgba(146, 64, 14, 0.2), rgba(180, 83, 9, 0.2));
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .grid-cols-4 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 40px;
+            }
+            
+            .grid-cols-3,
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .shop-results {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .top-header-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            .top-header{
+                display: none;
+            }
+            
+            .top-header-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .page-title {
+                font-size: 32px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .grid-cols-2,
+            .grid-cols-3,
+            .grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-card {
+                padding: 16px;
+            }
+            
+            .product-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="cookie-content">
+            <p class="cookie-text">We use cookies to enhance your browsing experience. By continuing, you agree to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-accept">Accept</button>
+                <button id="decline-cookies" class="cookie-btn cookie-decline">Decline</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-content">
+                    <div class="top-header-left">
+                        <span><i class="fas fa-map-marker-alt"></i> Av. Valencia, 36, El Verger, Spain</span>
+                        <span><i class="fas fa-phone"></i> +34 965 750 227</span>
+                    </div>
+                    <div class="top-header-right">
+                        <a href="https://www.instagram.com/BachaCoffee/" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@bachacoffee" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://x.com/BachaCoffee" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Header -->
+        <nav class="main-header glass-morphism">
+            <div class="container">
+                <div class="nav-container">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    
+                    <!-- Desktop Navigation -->
+                    <ul class="desktop-nav">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/shop/" class="nav-link active">Shop</a></li>
+                        <li><a href="/about/" class="nav-link">About</a></li>
+                        <li><a href="/blog/" class="nav-link">Blog</a></li>
+                        <li><a href="/contact/" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <!-- Cart & Mobile Menu -->
+                    <div class="header-actions">
+                        <button id="cart-btn" class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </button>
+                        
+                        <!-- Hamburger Menu -->
+                        <div class="hamburger" id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <h2 class="font-display mobile-nav-title gradient-text">Menu</h2>
+                <button id="close-mobile-nav" class="close-mobile-nav">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="mobile-nav-link">Home</a></li>
+                <li><a href="/shop/" class="mobile-nav-link active">Shop</a></li>
+                <li><a href="/about/" class="mobile-nav-link">About</a></li>
+                <li><a href="/blog/" class="mobile-nav-link">Blog</a></li>
+                <li><a href="/contact/" class="mobile-nav-link">Contact</a></li>
+                <li><a href="/cart/" class="mobile-nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header bg-gradient-1">
+            <div class="container">
+                <div class="animate-fade-in-up">
+                    <h1 class="page-title font-display gradient-text">
+                        Premium Coffee Collection
+                    </h1>
+                    <p class="page-subtitle">
+                        Discover our expertly curated selection of the world's finest coffee experiences
+                    </p>
+                    
+                    <div class="breadcrumb">
+                        <a href="/">Home</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Shop Categories -->
+        <section class="section categories-section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 48px;">
+                    <h2 class="font-display gradient-text" style="font-size: 36px; margin-bottom: 16px;">
+                        Shop by Category
+                    </h2>
+                    <p style="color: #d1d5db; font-size: 18px;">
+                        Explore our carefully organized coffee collections
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-4">
+                    <div class="category-card animate-fade-in-up" data-category="coffee">
+                        <div class="category-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <h3 class="category-title font-display">Coffee Bags</h3>
+                        <p class="category-count">12 Products</p>
+                    </div>
+                    
+                    <div class="category-card animate-fade-in-up" data-category="gifts" style="animation-delay: 0.1s;">
+                        <div class="category-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3 class="category-title font-display">Gift Boxes</h3>
+                        <p class="category-count">8 Products</p>
+                    </div>
+                    
+                    <div class="category-card animate-fade-in-up" data-category="accessories" style="animation-delay: 0.2s;">
+                        <div class="category-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="category-title font-display">Accessories</h3>
+                        <p class="category-count">15 Products</p>
+                    </div>
+                    
+                    <div class="category-card animate-fade-in-up" data-category="limited" style="animation-delay: 0.3s;">
+                        <div class="category-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="category-title font-display">Limited Edition</h3>
+                        <p class="category-count">6 Products</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Filters & Search -->
+        <section class="section" style="padding-top: 0; display: none;">
+            <div class="container">
+                <div class="shop-filters animate-fade-in-up">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label class="filter-label">Search Products</label>
+                            <input type="text" id="search-input" class="filter-input" placeholder="Search coffee, accessories...">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">Category</label>
+                            <select id="category-filter" class="filter-select">
+                                <option value="">All Categories</option>
+                                <option value="coffee">Coffee Bags</option>
+                                <option value="gifts">Gift Boxes</option>
+                                <option value="accessories">Accessories</option>
+                                <option value="limited">Limited Edition</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">Price Range</label>
+                            <div class="price-range">
+                                <input type="number" id="min-price" class="filter-input" placeholder="Min" style="width: 80px;">
+                                <span class="price-separator">-</span>
+                                <input type="number" id="max-price" class="filter-input" placeholder="Max" style="width: 80px;">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">Rating</label>
+                            <select id="rating-filter" class="filter-select">
+                                <option value="">All Ratings</option>
+                                <option value="5">5 Stars</option>
+                                <option value="4">4+ Stars</option>
+                                <option value="3">3+ Stars</option>
+                                <option value="2">2+ Stars</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <button id="clear-filters" class="clear-filters">
+                                <i class="fas fa-times" style="margin-right: 8px;"></i>Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Shop Results & Products -->
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+                <!-- Results Info -->
+                <div class="shop-results">
+                    <div class="results-count">
+                        Showing <span id="showing-count">12</span> of <span id="total-count">35</span> products
+                    </div>
+                    
+                    <div class="sort-options" style="display: none;">
+                        <span class="sort-label">Sort by:</span>
+                        <select id="sort-select" class="sort-select">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                            <option value="rating">Rating</option>
+                            <option value="newest">Newest First</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div id="products-grid" class="grid grid-cols-3">
+                    <!-- Product 1 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="coffee" data-price="27.00" data-rating="3">
+                        <div class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="product-badge">BESTSELLER</div>
+                            <img src="/images/products/mount-kenya-coffee-gift-box.jpg" alt="Mount Kenya Coffee Bag Gift Box">
+                        </div>
+                        <h3 class="product-title font-display">Mount Kenya Coffee Bag Gift Box</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Premium single-serve gift box with captivating aromas from the highlands of Kenya</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$27.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="1" 
+                                data-name="Mount Kenya Coffee Bag Gift Box" 
+                                data-price="27.00" 
+                                data-image="/images/products/mount-kenya-coffee-gift-box.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="coffee" data-price="54.00" data-rating="0" style="animation-delay: 0.1s;">
+                        <div class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="2">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="product-badge new">NEW</div>
+                            <img src="/images/products/explorer-coffee-bag-taster.webp" alt="Explorer Coffee Bag Taster">
+                        </div>
+                        <h3 class="product-title font-display">Explorer Coffee Bag Taster</h3>
+                        <div class="product-rating">
+                            <span style="color: #9ca3af; font-size: 14px;">No reviews yet</span>
+                        </div>
+                        <p class="product-description">Embark on a coffee journey with our explorer tasting collection</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$54.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="2" 
+                                data-name="Explorer Coffee Bag Taster" 
+                                data-price="54.00" 
+                                data-image="/images/products/explorer-coffee-bag-taster.webp">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="accessories" data-price="85.00" data-rating="4" style="animation-delay: 0.2s;">
+                        <div class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="3">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/out-of-africa-scented-candle.jpg" alt="Out of Africa Scented Candle">
+                        </div>
+                        <h3 class="product-title font-display">Out of Africa Scented Candle</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Aromatic candle infused with coffee essence (250g/8.8oz)</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$85.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="3" 
+                                data-name="Out of Africa Scented Candle" 
+                                data-price="85.00" 
+                                data-image="/images/products/out-of-africa-scented-candle.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="limited" data-price="27.00" data-rating="2" style="animation-delay: 0.3s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="4">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="product-badge limited">LIMITED</div>
+                            <img src="/images/products/king-of-africa-coffee-gift-box.jpg" alt="King of Africa Coffee Bag Gift Box">
+                        </div>
+                        <h3 class="product-title font-display">King of Africa Coffee Bag</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Royal blend from the finest African highlands</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$27.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="4" 
+                                data-name="King of Africa Coffee Bag Gift Box" 
+                                data-price="27.00" 
+                                data-image="/images/products/king-of-africa-coffee-gift-box.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="coffee" data-price="42.00" data-rating="3" style="animation-delay: 0.4s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="5">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/nairobi-rain-coffee-ground-beans.jpg" alt="Nairobi Rain Coffee Ground Beans">
+                        </div>
+                        <h3 class="product-title font-display">Nairobi Rain Coffee</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Ground beans with refreshing notes inspired by African</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$42.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="5" 
+                                data-name="Nairobi Rain Coffee - Ground Beans" 
+                                data-price="42.00" 
+                                data-image="/images/products/nairobi-rain-coffee-ground-beans.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="coffee" data-price="63.00" data-rating="0" style="animation-delay: 0.5s;">
+                        <div  class="product-image">
+                            <button  style="display: none;" class="quick-view-btn" data-product="6">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/expedition-to-el-campo.jpg" alt="Expedition to El Campo">
+                        </div>
+                        <h3 class="product-title font-display">Expedition to El Campo</h3>
+                        <div class="product-rating">
+                            <span style="color: #9ca3af; font-size: 14px;">No reviews yet</span>
+                        </div>
+                        <p class="product-description">Adventure blend from remote coffee fields</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$63.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="6" 
+                                data-name="Expedition to El Campo" 
+                                data-price="63.00" 
+                                data-image="/images/products/expedition-to-el-campo.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 7 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="accessories" data-price="38.00" data-rating="5" style="animation-delay: 0.6s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="7">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/bacha-coffee-glass.jpg" alt="Bacha Coffee Glass">
+                        </div>
+                        <h3 class="product-title font-display">Bacha Coffee Glass</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="product-description">Premium glass for the perfect coffee experience</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$38.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="7" 
+                                data-name="Bacha Coffee Glass" 
+                                data-price="38.00" 
+                                data-image="/images/products/bacha-coffee-glass.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 8 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="accessories" data-price="15.00" data-rating="4" style="animation-delay: 0.7s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="8">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="product-badge sale">SALE</div>
+                            <img src="/images/products/bacha-coffee-scoop-silver.jpg" alt="Bacha Coffee Scoop in Silver">
+                        </div>
+                        <h3 class="product-title font-display">Coffee Scoop Silver</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Precision silver scoop for perfect measurements</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price-old">$20.00</span>
+                                <span class="product-price gradient-text">$15.00</span>
+                            </div>
+                            <button class="btn-add-to-cart" 
+                                data-id="8" 
+                                data-name="Bacha Coffee Scoop in Silver" 
+                                data-price="15.00" 
+                                data-image="/images/products/bacha-coffee-scoop-silver.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 9 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="accessories" data-price="88.00" data-rating="5" style="animation-delay: 0.8s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="9">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/marrakech-press-coffee-pot-gold-800ml.jpg" alt="Marrakech Press Coffee Pot in Gold 800ml">
+                        </div>
+                        <h3 class="product-title font-display">Marrakech Press Pot</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="product-description">Luxury gold press pot, 800ml capacity</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$88.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="9" 
+                                data-name="Marrakech Press Coffee Pot in Gold, 800ml" 
+                                data-price="88.00" 
+                                data-image="/images/products/marrakech-press-coffee-pot-gold-800ml.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 10 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="accessories" data-price="1.70" data-rating="3" style="animation-delay: 0.9s;">
+                        <div class="product-image">
+                            <button style="display: none;"   class="quick-view-btn" data-product="10">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/glass-straw-amber.jpg" alt="Glass Straw in Amber">
+                        </div>
+                        <h3 class="product-title font-display">Glass Straw Amber</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Elegant amber glass straw for cold beverages</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$1.70</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="10" 
+                                data-name="Glass Straw in Amber" 
+                                data-price="1.70" 
+                                data-image="/images/products/glass-straw-amber.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 11 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="gifts" data-price="20.00" data-rating="4" style="animation-delay: 1.0s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="11">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/milk-chocolate-covered-coffee-beans.jpg" alt="Milk Chocolate Covered Coffee Beans">
+                        </div>
+                        <h3 class="product-title font-display">Milk Chocolate Coffee Beans</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Premium coffee beans covered in smooth milk chocolate</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$20.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="11" 
+                                data-name="Milk Chocolate Covered Coffee Beans" 
+                                data-price="20.00" 
+                                data-image="/images/products/milk-chocolate-covered-coffee-beans.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 12 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" data-category="gifts" data-price="20.00" data-rating="4" style="animation-delay: 1.1s;">
+                        <div  class="product-image">
+                            <button style="display: none;" class="quick-view-btn" data-product="12">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <img src="/images/products/dark-chocolate-covered-coffee-beans.webp" alt="Dark Chocolate Covered Coffee Beans">
+                        </div>
+                        <h3 class="product-title font-display">Dark Chocolate Coffee Beans</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Rich coffee beans covered in premium dark chocolate</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$20.00</span>
+                            <button class="btn-add-to-cart" 
+                                data-id="12" 
+                                data-name="Dark Chocolate Covered Coffee Beans" 
+                                data-price="20.00" 
+                                data-image="/images/products/dark-chocolate-covered-coffee-beans.webp">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div>
+                    <div class="logo" style="margin-bottom: 16px;">
+                         <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    <p class="footer-description">
+                        Premium Arabica coffee experiences from the heart of Spain, bringing you the finest flavors from around the world.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/BachaCoffee/">
+                            <i class="fab fa-instagram" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/">
+                            <i class="fab fa-facebook" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee">
+                            <i class="fab fa-linkedin" style="font-size: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Products -->
+                <div class="footer-section">
+                    <h4>Products</h4>
+                     <ul class="footer-links">
+                        <li><a href="/shop/">Coffee Bags</a></li>
+                        <li><a href="/shop/">Gift Boxes</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                        <li><a href="/shop/">Limited Editions</a></li>
+                        <li><a href="/shop/">Merchandise</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                        <li><a href="/cart/">Shopping Cart</a></li>
+                        <li><a href="/checkout/">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Bacha Coffee Craft. All rights reserved.
+                </p>
+                <div class="footer-credits">
+                    <span>Made with <i class="fas fa-heart heart"></i> in Spain</span>
+                    <span>•</span>
+                    <span>Premium Coffee Since 2021</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Sample product data
+        const allProducts = [
+            { id: 1, name: "Mount Kenya Coffee Bag Gift Box", price: 27.00, category: "coffee", rating: 3, image: "/images/products/mount-kenya-coffee-gift-box.jpg" },
+            { id: 2, name: "Explorer Coffee Bag Taster", price: 54.00, category: "coffee", rating: 0, image: "/images/products/explorer-coffee-bag-taster.jpg" },
+            { id: 3, name: "Out of Africa Scented Candle", price: 85.00, category: "accessories", rating: 4, image: "/images/products/out-of-africa-scented-candle.jpg" },
+            { id: 4, name: "King of Africa Coffee Bag Gift Box", price: 27.00, category: "limited", rating: 2, image: "/images/products/king-of-africa-coffee-gift-box.jpg" },
+            { id: 5, name: "Nairobi Rain Coffee - Ground Beans", price: 42.00, category: "coffee", rating: 3, image: "/images/products/nairobi-rain-coffee-ground-beans.jpg" },
+            { id: 6, name: "Expedition to El Campo", price: 63.00, category: "coffee", rating: 0, image: "/images/products/expedition-to-el-campo.jpg" },
+            { id: 7, name: "Bacha Coffee Glass", price: 38.00, category: "accessories", rating: 5, image: "/images/products/bacha-coffee-glass.jpg" },
+            { id: 8, name: "Bacha Coffee Scoop in Silver", price: 15.00, category: "accessories", rating: 4, image: "/images/products/bacha-coffee-scoop-silver.jpg" },
+            { id: 9, name: "Marrakech Press Coffee Pot in Gold, 800ml", price: 88.00, category: "accessories", rating: 5, image: "/images/products/marrakech-press-coffee-pot-gold-800ml.jpg" },
+            { id: 10, name: "Glass Straw in Amber", price: 1.70, category: "accessories", rating: 3, image: "/images/products/glass-straw-amber.jpg" },
+            { id: 11, name: "Milk Chocolate Covered Coffee Beans", price: 20.00, category: "gifts", rating: 4, image: "/images/products/milk-chocolate-covered-coffee-beans.jpg" },
+            { id: 12, name: "Dark Chocolate Covered Coffee Beans", price: 20.00, category: "gifts", rating: 4, image: "/images/products/dark-chocolate-covered-coffee-beans.jpg" }
+        ];
+        
+        let filteredProducts = [...allProducts];
+        
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('bachaCoffeeCart') || '[]');
+        
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+        
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: parseFloat(product.price),
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('bachaCoffeeCart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show success message
+            showNotification(`${product.name} added to cart!`, 'success');
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 16px;
+                right: 16px;
+                z-index: 50;
+                padding: 12px 24px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                transform: translateX(100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                background-color: ${type === 'success' ? '#059669' : '#3b82f6'};
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Filter and sort functionality
+        function applyFilters() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const categoryFilter = document.getElementById('category-filter').value;
+            const minPrice = parseFloat(document.getElementById('min-price').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('max-price').value) || Infinity;
+            const ratingFilter = parseInt(document.getElementById('rating-filter').value) || 0;
+            
+            filteredProducts = allProducts.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = !categoryFilter || product.category === categoryFilter;
+                const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
+                const matchesRating = ratingFilter === 0 || product.rating >= ratingFilter;
+                
+                return matchesSearch && matchesCategory && matchesPrice && matchesRating;
+            });
+            
+            applySorting();
+            updateProductsGrid();
+        }
+        
+        function applySorting() {
+            const sortBy = document.getElementById('sort-select').value;
+            
+            switch (sortBy) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'newest':
+                    filteredProducts.sort((a, b) => b.id - a.id);
+                    break;
+                default: // featured
+                    filteredProducts.sort((a, b) => a.id - b.id);
+            }
+        }
+        
+        function updateProductsGrid() {
+            document.getElementById('showing-count').textContent = filteredProducts.length;
+            document.getElementById('total-count').textContent = allProducts.length;
+        }
+        
+        function clearFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('category-filter').value = '';
+            document.getElementById('min-price').value = '';
+            document.getElementById('max-price').value = '';
+            document.getElementById('rating-filter').value = '';
+            document.getElementById('sort-select').value = 'featured';
+            
+            applyFilters();
+        }
+        
+        // Event listeners for filters
+        document.getElementById('search-input').addEventListener('input', applyFilters);
+        document.getElementById('category-filter').addEventListener('change', applyFilters);
+        document.getElementById('min-price').addEventListener('input', applyFilters);
+        document.getElementById('max-price').addEventListener('input', applyFilters);
+        document.getElementById('rating-filter').addEventListener('change', applyFilters);
+        document.getElementById('sort-select').addEventListener('change', applyFilters);
+        document.getElementById('clear-filters').addEventListener('click', clearFilters);
+        
+        // Category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.dataset.category;
+                document.getElementById('category-filter').value = category;
+                applyFilters();
+                
+                // Smooth scroll to products
+                document.getElementById('products-grid').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add to cart event listeners
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const product = {
+                    id: this.dataset.id,
+                    name: this.dataset.name,
+                    price: this.dataset.price,
+                    image: this.dataset.image
+                };
+                addToCart(product);
+            });
+        });
+        
+        // Cart button click
+        document.getElementById('cart-btn').addEventListener('click', function() {
+            window.location.href = '/cart/';
+        });
+        
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+        
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
+        
+        closeMobileNav.addEventListener('click', function() {
+            hamburger.classList.remove('open');
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile nav when clicking on links
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Cookie consent
+        function showCookiePopup() {
+            const cookieConsent = localStorage.getItem('bachaCoffeeCookieConsent');
+            if (!cookieConsent) {
+                const popup = document.getElementById('cookie-popup');
+                setTimeout(() => {
+                    popup.classList.add('show');
+                }, 1000);
+            }
+        }
+        
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'accepted');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+        
+        document.getElementById('decline-cookies').addEventListener('click', function() {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'declined');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            showCookiePopup();
+            initParticles();
+            initThreeJS();
+            applyFilters();
+        });
+        
+        // Particles.js initialization
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 50,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: '#D4AF37'
+                    },
+                    shape: {
+                        type: 'circle'
+                    },
+                    opacity: {
+                        value: 0.1,
+                        random: true
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: false
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'repulse'
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push'
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+        
+        // Three.js background
+        function initThreeJS() {
+            const canvas = document.getElementById('three-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            // Create coffee bean geometry
+            const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.3
+            });
+            
+            const beans = [];
+            for (let i = 0; i < 100; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                );
+                bean.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                scene.add(bean);
+                beans.push(bean);
+            }
+            
+            camera.position.z = 5;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                beans.forEach(bean => {
+                    bean.rotation.x += 0.001;
+                    bean.rotation.y += 0.001;
+                    bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.0005;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle resize
+            window.addEventListener('resize', function() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe animated elements
+        document.querySelectorAll('[class*="animate-"]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+        
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Quick view functionality
+        document.querySelectorAll('.quick-view-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productId = this.dataset.product;
+                showNotification('Quick view coming soon!', 'info');
+            });
+        });
+    </script>
+</body>
+</html>

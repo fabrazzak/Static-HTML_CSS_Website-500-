@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - MakerMind Academy | Creative Tips & Tutorials</title>
+    <meta name="description"
+        content="Discover creative insights, DIY tutorials, fashion design tips, and home decor inspiration on MakerMind Academy's blog. Expert advice for makers and creators.">
+    <meta name="keywords"
+        content="DIY blog, fashion design tips, home decor ideas, creative tutorials, maker blog, craft tutorials, design inspiration">
+    <link rel="canonical" href="https://makermindacademy.com/blog/">
+    <link rel="shortcut icon" href="/assets/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0f0f1a;
+            --secondary-bg: #1a1a2e;
+            --accent-bg: #252547;
+            --card-bg: #1e1e3a;
+            --primary-color: #D97D55;
+            --secondary-color: #8a4fff;
+            --gradient-primary: linear-gradient(135deg, #D97D55 0%, #8a4fff 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #b8c5d6;
+            --text-muted: #6b7a94;
+            --border-color: #3a3a5e;
+            --highlight-color: #D97D55;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+            --warning-color: #ff9800;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Header Styles */
+        .header-top {
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+        }
+
+        .header-top .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .header-info-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .header-info-item i {
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        .header-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-social a {
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .header-social a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: var(--secondary-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .main-header.scrolled {
+            background: rgba(26, 26, 46, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-header .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .main-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 125, 85, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(217, 125, 85, 0.4);
+        }
+
+        /* Unique Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 32px;
+            height: 24px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 0;
+            width: 100%;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 10px;
+            width: 80%;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 20px;
+            width: 100%;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 10px;
+            width: 100%;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 10px;
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--secondary-bg);
+            padding: 100px 30px 30px;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .mobile-menu nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 600;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .mobile-menu nav a:hover,
+        .mobile-menu nav a.active {
+            background: var(--accent-bg);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, var(--secondary-bg) 0%, var(--primary-bg) 70%);
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .hero .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .gradient-text {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Blog Categories */
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .blog-category {
+            padding: 12px 30px;
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .blog-category:hover,
+        .blog-category.active {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* Featured Blog Post */
+        .featured-post {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 80px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .featured-post:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 30px 80px rgba(217, 125, 85, 0.2);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .featured-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .featured-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-post:hover .featured-image img {
+            transform: scale(1.1);
+        }
+
+        .featured-content {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .blog-category-tag {
+            background: var(--accent-bg);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            overflow: hidden;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .blog-stats {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .blog-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .read-more-btn {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 125, 85, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            align-self: flex-start;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(217, 125, 85, 0.4);
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .blog-post {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 60px rgba(217, 125, 85, 0.2);
+        }
+
+        .blog-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-post:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 30px;
+        }
+
+        .blog-content .blog-meta {
+            margin-bottom: 15px;
+        }
+
+        .blog-content h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .blog-content .blog-excerpt {
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-content .blog-stats {
+            margin-bottom: 25px;
+        }
+
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .blog-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .blog-tag {
+            background: var(--accent-bg);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .read-more-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .read-more-link:hover {
+            transform: translateX(5px);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: var(--secondary-bg);
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .newsletter-content p {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(217, 125, 85, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .newsletter-btn {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(217, 125, 85, 0.3);
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(217, 125, 85, 0.4);
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .footer-col p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--secondary-bg);
+            border-top: 2px solid var(--primary-color);
+            padding: 25px;
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .cookie-text p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-buttons button {
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+        }
+
+        .cookie-decline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .cookie-learn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .cookie-buttons button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .featured-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-content {
+                padding: 40px;
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .hero-text p {
+                font-size: 18px;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+
+            .blog-categories {
+                gap: 10px;
+            }
+
+            .featured-content {
+                padding: 30px;
+            }
+
+            .featured-content h2 {
+                font-size: 28px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .featured-content {
+                padding: 20px;
+            }
+
+            .blog-content {
+                padding: 20px;
+            }
+
+            .blog-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Top Bar -->
+    <div class="header-top">
+        <div class="container">
+            <div class="header-info">
+                <div class="header-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>490 Chem. de Vassan, Val-d'Or, QC J9P 0C1, Canada</span>
+                </div>
+                <div class="header-info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (819) 824-3146</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <a href="/">
+                <img class="logo" src="/assets/images/makermindacademy.png" alt="logo">
+            </a>
+
+            <nav class="main-nav">
+                <a href="/">Home</a>
+                <a href="/courses/">Courses</a>
+                <a href="/about/">About</a>
+                <a href="/blog/" class="active">Blog</a>
+                <a href="/contact/">Contact</a>
+                <a href="/apply/" class="btn-primary">Enroll Now</a>
+            </nav>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/courses/">Courses</a>
+                <a href="/about/">About</a>
+                <a href="/blog/" class="active">Blog</a>
+                <a href="/contact/">Contact</a>
+                <a href="/apply/" class="btn-primary">Enroll Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div id="particles-js"></div>
+        <div id="three-canvas"></div>
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <div class="hero-text">
+                    <h1>Creative <span class="gradient-text">Insights</span></h1>
+                    <p>Discover expert tips, tutorials, and inspiration to fuel your creative journey. From DIY projects
+                        to fashion trends and home decor ideas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section style="padding: 60px 0;">
+        <div class="container">
+            <div class="blog-categories">
+                <a href="#" class="blog-category active" data-category="all">All Posts</a>
+                <a href="#" class="blog-category" data-category="diy">DIY & Crafts</a>
+                <a href="#" class="blog-category" data-category="fashion">Fashion Design</a>
+                <a href="#" class="blog-category" data-category="home">Home Decor</a>
+                <a href="#" class="blog-category" data-category="tutorials">Tutorials</a>
+                <a href="#" class="blog-category" data-category="inspiration">Inspiration</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Blog Post -->
+    <section style="padding-top: 0;">
+        <div class="container">
+            <article class="featured-post" data-category="diy tutorials">
+                <div class="featured-badge">Featured Post</div>
+                <div class="featured-layout">
+                    <div class="featured-image">
+                        <img src="/assets/images/the-ultimate-guide-to-woodworking.webp"
+                            alt="Ultimate Guide to Woodworking for Beginners">
+                    </div>
+                    <div class="featured-content">
+                        <div class="blog-meta">
+                            <span class="blog-category-tag">DIY & Crafts</span>
+                            <div class="blog-author">
+                                <div class="author-avatar">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Wilson">
+                                </div>
+                                <span>James Wilson</span>
+                            </div>
+                            <span>Jan 15, 2024</span>
+                        </div>
+
+                        <h2>The Ultimate Guide to Woodworking for Beginners: Essential Tools and Techniques</h2>
+
+                        <p class="blog-excerpt">
+                            Discover the fundamentals of woodworking with our comprehensive beginner's guide. Learn
+                            about essential tools, basic techniques, and safety practices that will set you up for
+                            success in your woodworking journey. From choosing the right wood to mastering your first
+                            joints, this guide covers everything you need to know to start creating beautiful,
+                            functional pieces.
+                        </p>
+
+                        <div class="blog-stats">
+                            <div class="blog-stat">
+                                <i class="far fa-clock"></i>
+                                <span>12 min read</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-eye"></i>
+                                <span>2,847 views</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-heart"></i>
+                                <span>156 likes</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-comment"></i>
+                                <span>23 comments</span>
+                            </div>
+                        </div>
+
+                        <a href="/blog/woodworking-beginners-guide/" class="read-more-btn">
+                            Read Full Article
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Regular Blog Posts -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest Articles</h2>
+                <p>Stay updated with our latest creative insights, tutorials, and inspiration.</p>
+            </div>
+
+            <div class="blog-grid">
+                <!-- Blog Post 1 -->
+                <article class="blog-post" data-category="fashion tutorials">
+                    <div class="blog-image">
+                        <img src="/assets/images/fashion-design-trends.webp" alt="Fashion Design Trends 2024">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category-tag">Fashion Design</span>
+                            <div class="blog-author">
+                                <span>Sarah Chen</span>
+                            </div>
+                            <span>Jan 12, 2024</span>
+                        </div>
+
+                        <h3>Fashion Design Trends 2024: What Every Designer Should Know</h3>
+
+                        <p class="blog-excerpt">
+                            Explore the latest fashion trends shaping 2024, from sustainable materials to bold color
+                            palettes. Learn how to incorporate these trends into your designs while maintaining your
+                            unique style.
+                        </p>
+
+                        <div class="blog-stats">
+                            <div class="blog-stat">
+                                <i class="far fa-clock"></i>
+                                <span>8 min read</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-eye"></i>
+                                <span>1,923 views</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-heart"></i>
+                                <span>89 likes</span>
+                            </div>
+                        </div>
+
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">Trends</span>
+                                <span class="blog-tag">Design</span>
+                                <span class="blog-tag">2024</span>
+                            </div>
+                            <a href="/blog/fashion-trends-2024/" class="read-more-link">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="blog-post" data-category="home inspiration">
+                    <div class="blog-image">
+                        <img src="/assets/images/budget-friendly-home-decor-ideas.jpg" alt="Budget Home Decor Ideas">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category-tag">Home Decor</span>
+                            <div class="blog-author">
+                                <span>Emma Davis</span>
+                            </div>
+                            <span>Jan 10, 2024</span>
+                        </div>
+
+                        <h3>10 Budget-Friendly Home Decor Ideas That Look Expensive</h3>
+
+                        <p class="blog-excerpt">
+                            Transform your living space without breaking the bank. Discover creative decorating
+                            solutions that deliver maximum impact for minimal cost, from DIY art pieces to strategic
+                            styling tricks.
+                        </p>
+
+                        <div class="blog-stats">
+                            <div class="blog-stat">
+                                <i class="far fa-clock"></i>
+                                <span>6 min read</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-eye"></i>
+                                <span>3,156 views</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-heart"></i>
+                                <span>127 likes</span>
+                            </div>
+                        </div>
+
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">Budget</span>
+                                <span class="blog-tag">DIY</span>
+                                <span class="blog-tag">Decor</span>
+                            </div>
+                            <a href="/blog/budget-home-decor/" class="read-more-link">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="blog-post" data-category="diy tutorials">
+                    <div class="blog-image">
+                        <img src="/assets/images/building-your-first-craft-room.jpeg" alt="Essential Crafting Tools">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category-tag">DIY & Crafts</span>
+                            <div class="blog-author">
+                                <span>Michael Rodriguez</span>
+                            </div>
+                            <span>Jan 8, 2024</span>
+                        </div>
+
+                        <h3>Building Your First Craft Room: Essential Tools and Organization Tips</h3>
+
+                        <p class="blog-excerpt">
+                            Create the perfect creative workspace with our comprehensive guide to setting up your craft
+                            room. Learn about must-have tools, storage solutions, and organization strategies for
+                            maximum productivity.
+                        </p>
+
+                        <div class="blog-stats">
+                            <div class="blog-stat">
+                                <i class="far fa-clock"></i>
+                                <span>10 min read</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-eye"></i>
+                                <span>1,645 views</span>
+                            </div>
+                            <div class="blog-stat">
+                                <i class="far fa-heart"></i>
+                                <span>73 likes</span>
+                            </div>
+                        </div>
+
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">Workspace</span>
+                                <span class="blog-tag">Tools</span>
+                                <span class="blog-tag">Organization</span>
+                            </div>
+                            <a href="/blog/craft-room-setup/" class="read-more-link">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>Stay Creative & Inspired</h3>
+                <p>Subscribe to our newsletter and get the latest tutorials, tips, and creative inspiration delivered
+                    straight to your inbox every week.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-btn" id="newsletterBtn">Subscribe</button>
+                </form>
+                <p style="margin-top: 15px; font-size: 14px; color: var(--text-muted);">
+                    Join 5,000+ creative minds. Unsubscribe anytime.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="/">
+                        <img class="logo" src="/assets/images/makermindacademy.png" alt="logo">
+                    </a>
+                    <p>Empowering creative minds through premium DIY, Fashion & Home Deco courses. Transform your
+                        passion into skill with our expert-led programs.</p>
+
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/courses/">Courses</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/apply/">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"
+                                style="color: var(--primary-color); margin-right: 10px;"></i>490 Chem. de Vassan,
+                            Val-d'Or, QC J9P 0C1, Canada</li>
+                        <li><i class="fas fa-phone" style="color: var(--primary-color); margin-right: 10px;"></i>+1
+                            (819) 824-3146</li>
+                        <li><i class="fas fa-envelope"
+                                style="color: var(--primary-color); margin-right: 10px;"></i>info@makermindacademy.com
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MakerMind Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>We Value Your Privacy</h3>
+                <p>We use cookies to enhance your browsing experience and analyze our traffic. By continuing to use our
+                    site, you consent to our use of cookies.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-accept" id="acceptCookies">Accept All</button>
+                <button class="cookie-decline" id="declineCookies">Decline</button>
+                <button class="cookie-learn" id="learnMore">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileToggle.addEventListener('click', function () {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('.main-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#D97D55"
+                },
+                shape: {
+                    type: "circle"
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#8a4fff",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Three.js Background
+        function initThreeJS() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('three-canvas').appendChild(renderer.domElement);
+
+            // Create floating geometric shapes
+            const geometry = new THREE.IcosahedronGeometry(1, 0);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xD97D55,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.1
+            });
+
+            const shapes = [];
+            for (let i = 0; i < 10; i++) {
+                const shape = new THREE.Mesh(geometry, material);
+                shape.position.x = Math.random() * 20 - 10;
+                shape.position.y = Math.random() * 20 - 10;
+                shape.position.z = Math.random() * 20 - 10;
+                shape.rotation.x = Math.random() * Math.PI;
+                shape.rotation.y = Math.random() * Math.PI;
+                shapes.push(shape);
+                scene.add(shape);
+            }
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                shapes.forEach(shape => {
+                    shape.rotation.x += 0.005;
+                    shape.rotation.y += 0.005;
+                });
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', function () {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Initialize Three.js after page load
+        window.addEventListener('load', initThreeJS);
+
+        // Blog Category Filtering
+        const categoryLinks = document.querySelectorAll('.blog-category');
+        const blogPosts = document.querySelectorAll('.blog-post');
+        const featuredPost = document.querySelector('.featured-post');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Remove active class from all categories
+                categoryLinks.forEach(cat => cat.classList.remove('active'));
+
+                // Add active class to clicked category
+                this.classList.add('active');
+
+                // Get category to filter by
+                const categoryToFilter = this.getAttribute('data-category');
+
+                // Filter blog posts
+                filterBlogPosts(categoryToFilter);
+            });
+        });
+
+        function filterBlogPosts(category) {
+            // Handle featured post
+            if (category === 'all') {
+                featuredPost.style.display = 'block';
+            } else {
+                const featuredCategories = featuredPost.getAttribute('data-category');
+                if (featuredCategories.includes(category)) {
+                    featuredPost.style.display = 'block';
+                } else {
+                    featuredPost.style.display = 'none';
+                }
+            }
+
+            // Handle regular blog posts
+            blogPosts.forEach(post => {
+                if (category === 'all') {
+                    post.style.display = 'block';
+                } else {
+                    const postCategories = post.getAttribute('data-category');
+                    if (postCategories.includes(category)) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                }
+            });
+
+            // Add fade-in animation to visible posts
+            setTimeout(() => {
+                document.querySelectorAll('.blog-post:not([style*="display: none"]), .featured-post:not([style*="display: none"])').forEach((post, index) => {
+                    post.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+                });
+            }, 50);
+        }
+
+        // Newsletter Form
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterBtn = document.getElementById('newsletterBtn');
+
+        newsletterForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show loading state
+            const originalText = newsletterBtn.textContent;
+            newsletterBtn.textContent = 'Subscribing...';
+            newsletterBtn.disabled = true;
+            newsletterForm.classList.add('loading');
+
+            // Simulate subscription
+            setTimeout(() => {
+                // Get email value
+                const email = this.querySelector('.newsletter-input').value;
+
+                // Store subscription in localStorage
+                let subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+                subscriptions.push({
+                    email: email,
+                    subscribedAt: new Date().toISOString(),
+                    source: 'blog-page'
+                });
+                localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+
+                // Show success state
+                newsletterBtn.textContent = 'Subscribed!';
+                newsletterBtn.style.background = 'var(--success-color)';
+
+                // Reset form
+                this.reset();
+
+                // Reset button after delay
+                setTimeout(() => {
+                    newsletterBtn.textContent = originalText;
+                    newsletterBtn.disabled = false;
+                    newsletterBtn.style.background = '';
+                    newsletterForm.classList.remove('loading');
+                }, 2000);
+
+            }, 1500);
+        });
+
+        // Cookie Consent using localStorage
+        const cookieConsent = document.getElementById('cookieConsent');
+        const acceptCookies = document.getElementById('acceptCookies');
+        const declineCookies = document.getElementById('declineCookies');
+        const learnMore = document.getElementById('learnMore');
+
+        // Check if user has already made a choice
+        window.addEventListener('load', function () {
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            if (!cookieChoice) {
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+        });
+
+        // Accept cookies
+        acceptCookies.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'accepted');
+            localStorage.setItem('cookieDate', new Date().toISOString());
+            cookieConsent.classList.remove('show');
+        });
+
+        // Decline cookies
+        declineCookies.addEventListener('click', function () {
+            localStorage.setItem('cookieConsent', 'declined');
+            localStorage.setItem('cookieDate', new Date().toISOString());
+            cookieConsent.classList.remove('show');
+        });
+
+        // Learn more about cookies
+        learnMore.addEventListener('click', function () {
+            window.location.href = '/cookies/';
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.featured-post, .blog-post').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Staggered animation for blog posts
+        document.querySelectorAll('.blog-post').forEach((post, index) => {
+            post.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Reading time calculation (for future blog posts)
+        function calculateReadingTime(text) {
+            const wordsPerMinute = 200;
+            const words = text.trim().split(/\s+/).length;
+            const readingTime = Math.ceil(words / wordsPerMinute);
+            return readingTime;
+        }
+
+        // Blog analytics tracking
+        function trackBlogInteraction(action, postTitle) {
+            const analyticsData = {
+                action: action,
+                postTitle: postTitle,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                referrer: document.referrer
+            };
+
+            let analytics = JSON.parse(localStorage.getItem('blogAnalytics') || '[]');
+            analytics.push(analyticsData);
+
+            // Keep only last 50 interactions
+            if (analytics.length > 50) {
+                analytics = analytics.slice(-50);
+            }
+
+            localStorage.setItem('blogAnalytics', JSON.stringify(analytics));
+        }
+
+        // Track blog post clicks
+        document.querySelectorAll('.read-more-btn, .read-more-link').forEach(link => {
+            link.addEventListener('click', function () {
+                const postTitle = this.closest('article').querySelector('h2, h3').textContent;
+                trackBlogInteraction('read_more_click', postTitle);
+            });
+        });
+
+        // Track category filtering
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                const category = this.getAttribute('data-category');
+                trackBlogInteraction('category_filter', category);
+            });
+        });
+
+        // User session tracking (stored in localStorage)
+        function trackUserSession() {
+            const sessionData = {
+                visitTime: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                pageUrl: window.location.href,
+                timeSpent: 0,
+                scrollDepth: 0
+            };
+
+            let sessions = JSON.parse(localStorage.getItem('userSessions') || '[]');
+            sessions.push(sessionData);
+
+            // Keep only last 10 sessions
+            if (sessions.length > 10) {
+                sessions = sessions.slice(-10);
+            }
+
+            localStorage.setItem('userSessions', JSON.stringify(sessions));
+
+            // Track scroll depth
+            let maxScroll = 0;
+            window.addEventListener('scroll', () => {
+                const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+                if (scrollPercent > maxScroll) {
+                    maxScroll = scrollPercent;
+                    sessions[sessions.length - 1].scrollDepth = maxScroll;
+                    localStorage.setItem('userSessions', JSON.stringify(sessions));
+                }
+            });
+
+            // Track time on page
+            let startTime = Date.now();
+            window.addEventListener('beforeunload', () => {
+                sessions[sessions.length - 1].timeSpent = Math.floor((Date.now() - startTime) / 1000);
+                localStorage.setItem('userSessions', JSON.stringify(sessions));
+            });
+        }
+
+        trackUserSession();
+
+        // Social sharing functions (for future implementation)
+        function shareOnSocial(platform, url, title) {
+            const shareUrls = {
+                twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+                linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
+            };
+
+            if (shareUrls[platform]) {
+                window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+                trackBlogInteraction('social_share', platform);
+            }
+        }
+    </script>
+</body>
+
+</html>

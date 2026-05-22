@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchSet News - Latest Tennis Updates from Australia & Worldwide</title>
+    <meta name="description" content="Get the latest tennis news, match results, player interviews, and tournament updates from Australia and around the world. Stay informed with MatchSet News.">
+    <meta name="keywords" content="tennis news, Australian tennis, Grand Slam updates, ATP tour, WTA tour, tennis rankings, match results, tennis tournaments">
+    <meta name="geo.region" content="AU-NSW">
+    <meta name="geo.placename" content="Sydney">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #222;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .btn-outline:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #e74c3c;
+            margin: 15px auto 0;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        /* About Overview */
+        .about-overview {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Services Preview */
+        .services-preview {
+            background-color: #f5f5f5;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .service-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        /* Why Choose Us */
+        .why-choose-us {
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background-color: #f5f5f5;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            font-size: 5rem;
+            color: #e74c3c;
+            opacity: 0.1;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: serif;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* News Highlights */
+        .news-highlights {
+            background-color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-date {
+            display: block;
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .news-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .contact-cta h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .contact-cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .footer-column p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: #e74c3c;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #e74c3c;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text, .about-image {
+                flex: none;
+                width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 50px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .hero {
+                padding: 100px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/index.html" class="logo">Match<span>Set</span>News</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/tournaments/">Tournaments</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Ultimate Source for Tennis News</h1>
+                <p>Stay updated with the latest matches, player insights, and tournament coverage from Australia and around the world.</p>
+                <a href="/news/" class="btn">Explore Latest News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Overview Section -->
+    <section class="about-overview section">
+        <div class="container">
+            <h2 class="section-title">About MatchSet News</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>MatchSet News is Australia's premier tennis news platform, dedicated to bringing you comprehensive coverage of all things tennis. From Grand Slam tournaments to local Australian competitions, we've got you covered.</p>
+                    <p>Founded in 2023 by a team of tennis enthusiasts and professional journalists, our mission is to deliver accurate, timely, and engaging content to tennis fans worldwide.</p>
+                    <p>Our team consists of former players, coaches, and seasoned sports journalists who bring unique perspectives and in-depth analysis to our coverage.</p>
+                    <a href="/about/" class="btn btn-outline">Learn More About Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tennis players shaking hands after a match">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services-preview section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tennis match coverage">
+                    </div>
+                    <div class="service-content">
+                        <h3>Match Coverage</h3>
+                        <p>Comprehensive live updates, scores, and analysis of all major ATP and WTA tournaments, including Australian Open coverage.</p>
+                        <a href="/services/" class="btn btn-outline">View Coverage</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Player interviews">
+                    </div>
+                    <div class="service-content">
+                        <h3>Player Interviews</h3>
+                        <p>Exclusive interviews with top players, rising stars, and tennis legends. Get insights straight from the players themselves.</p>
+                        <a href="/services/" class="btn btn-outline">Read Interviews</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tennis coaching">
+                    </div>
+                    <div class="service-content">
+                        <h3>Training Guides</h3>
+                        <p>Expert training tips and drills from professional coaches to help improve your game, whether you're a beginner or advanced player.</p>
+                        <a href="/services/" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us section">
+        <div class="container">
+            <h2 class="section-title">Why Choose MatchSet News</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Expert Analysis</h3>
+                    <p>Our team includes former ATP/WTA players who provide unique insights you won't find elsewhere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3>Australian Focus</h3>
+                    <p>While we cover global tennis, we maintain special coverage of Australian players and tournaments.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Real-time Updates</h3>
+                    <p>Get live scores and updates from all major tournaments as they happen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>In-depth Reporting</h3>
+                    <p>We go beyond scores with features, interviews, and behind-the-scenes content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <div class="container">
+            <h2 class="section-title">What Our Readers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>As a tennis coach in Sydney, I rely on MatchSet News for the most comprehensive coverage of Australian tennis. Their analysis helps me stay informed and pass valuable insights to my students.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="David Thompson">
+                        </div>
+                        <div class="author-info">
+                            <h4>David Thompson</h4>
+                            <p>Tennis Coach, Sydney</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>I've been following MatchSet News since its launch. Their coverage of the Australian Open is unparalleled - they capture the excitement while providing thoughtful analysis that true tennis fans appreciate.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Sarah Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Chen</h4>
+                            <p>Tennis Fan, Melbourne</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>The player interviews are my favorite part. MatchSet News gets access to players that other outlets don't, and they ask the questions that real fans want answered. Keep up the great work!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Michael Rodriguez">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <p>University Tennis Team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Highlights Section -->
+    <section class="news-highlights section">
+        <div class="container">
+            <h2 class="section-title">Latest Tennis News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1622279450239-1400411f3a84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Australian Open">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">Jan 15, 2025</span>
+                        <h3>Australian Open 2025: Quarterfinal Predictions</h3>
+                        <p>Our experts analyze the remaining players and predict who will advance to the semifinals in this year's thrilling tournament.</p>
+                        <a href="/news/australian-open-quarterfinals/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1579751626651-0c7d3170c98e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Rising star">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">Jan 10, 2025</span>
+                        <h3>Meet Australia's Newest Tennis Prodigy</h3>
+                        <p>At just 17 years old, Emma Wilson is making waves on the junior circuit. We profile this exciting new talent from Brisbane.</p>
+                        <a href="/news/australian-prodigy-emma-wilson/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tennis gear">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">Jan 5, 2025</span>
+                        <h3>2025 Tennis Gear Guide: What the Pros Are Using</h3>
+                        <p>From rackets to shoes, we break down the equipment choices of top players and what might work for your game.</p>
+                        <a href="/news/2025-tennis-gear-guide/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="/news/" class="btn">View All News Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta section">
+        <div class="container">
+            <h2 class="section-title">Have Tennis News Tips?</h2>
+            <p>We're always looking for new stories, player interviews, and tournament coverage opportunities. Get in touch with our editorial team.</p>
+            <a href="/contact/" class="btn">Contact Our Team</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MatchSet News</h3>
+                    <p>Australia's premier source for tennis news, player interviews, tournament coverage, and training tips.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/share?url=matchsetnews.org" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/intent/tweet?url=matchsetnews.org" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/share?url=matchsetnews.org" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/shareArticle?url=matchsetnews.org" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/news/">Latest News</a></li>
+                        <li><a href="/tournaments/">Tournaments</a></li>
+                        <li><a href="/rankings/">Player Rankings</a></li>
+                        <li><a href="/services/">Our Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/advertise/">Advertise With Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p>Level 10/50 Pitt St, Sydney NSW 2000, Australia</p>
+                    <p>Phone: +612 8080 7900</p>
+                    <p>Email: info@matchsetnews.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MatchSet News. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('show');
+        });
+        
+        // Simple cart simulation for services
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.btn-add-to-cart');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const serviceName = this.getAttribute('data-service');
+                    alert(`Added "${serviceName}" to your cart!`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Shop premium coffee beans, espresso, organic coffee, syrups, and equipment at Canada Coffee Hub. Sourced from the finest beans across North America.">
+    <meta name="keywords"
+        content="buy coffee online, coffee beans canada, espresso beans, organic coffee, torani syrup, monin syrup, coffee equipment, coffee shop, canadian coffee">
+    <link rel="canonical" href="https://canadacoffeehub.com/shop/">
+    <title>Shop Premium Coffee & Equipment | Canada Coffee Hub</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --dark-bg: #1a0f0a;
+            --light-bg: #2d1810;
+            --text-light: #f5f5f5;
+            --text-dark: #1a0f0a;
+            --gold: #DAA520;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: var(--dark-bg);
+        }
+
+        /* Canvas Background */
+        #particles-js,
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .contact-info i {
+            color: var(--gold);
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(26, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Add this rule to hide hamburger when menu is active */
+        .hamburger.active {
+            display: none;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .close-menu {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--gold);
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        /* Add this to show close menu when nav is active */
+        nav.active~.close-menu {
+            display: block;
+        }
+
+        /* Shop Hero */
+        .shop-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            background-image: url('/assets/images/shop-hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .shop-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 15, 10, 0.85) 0%, rgba(45, 24, 16, 0.75) 100%);
+            z-index: 0;
+        }
+
+        .shop-hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shop-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .shop-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Shop Content */
+        .shop-content {
+            padding: 60px 20px;
+            background: rgba(26, 15, 10, 0.8);
+        }
+
+        .shop-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .search-filter-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 12px 20px 12px 45px;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            background: rgba(26, 15, 10, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.5);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Filter Sidebar */
+        .filter-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: rgba(26, 15, 10, 0.98);
+            padding: 80px 30px 30px;
+            transition: right 0.4s ease;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .filter-sidebar.active {
+            right: 0;
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .filter-header h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .close-filter {
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-filter:hover {
+            transform: rotate(90deg);
+        }
+
+        .filter-group {
+            margin-bottom: 30px;
+        }
+
+        .filter-group h4 {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .filter-option:hover {
+            color: var(--gold);
+        }
+
+        .filter-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+        }
+
+        .price-range {
+            width: 100%;
+            margin: 15px 0;
+            accent-color: var(--gold);
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(245, 245, 245, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .apply-filters,
+        .clear-filters {
+            flex: 1;
+            padding: 15px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filters {
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+        }
+
+        .clear-filters {
+            background: rgba(45, 24, 16, 0.8);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .apply-filters:hover,
+        .clear-filters:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, rgba(26, 15, 10, 0.95), rgba(45, 24, 16, 0.95));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(218, 165, 32, 0.3);
+            border-color: var(--gold);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: 1;
+        }
+
+        .product-card:hover .product-image::before {
+            left: 100%;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .product-info p {
+            color: rgba(245, 245, 245, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .add-to-cart {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Results Count */
+        .results-count {
+            margin-bottom: 30px;
+            color: rgba(245, 245, 245, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .results-count span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 15, 10, 0.98);
+            padding: 60px 20px 20px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(245, 245, 245, 0.7);
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .footer-section p i {
+            color: var(--gold);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(218, 165, 32, 0.2);
+            color: rgba(245, 245, 245, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(26, 15, 10, 0.98);
+                padding: 80px 30px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 25px;
+                align-items: flex-start;
+            }
+
+            .close-menu {
+                display: block;
+            }
+
+            .shop-hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .shop-hero p {
+                font-size: 1.1rem;
+            }
+
+            .filter-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .search-box input {
+                width: 250px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .top-header {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .shop-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-filter-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .shop-hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle.js Background -->
+    <div id="particles-js"></div>
+
+    <!-- Three.js Background -->
+    <div id="three-container"></div>
+
+    <div class="content-wrapper">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="top-header-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> 2551 Priest Ave, Merritt, BC V1K 1B3</span>
+                    <span><i class="fas fa-phone"></i> +1 (250) 378-6966</span>
+                    <span><i class="fas fa-envelope"></i> info@canadacoffeehub.com</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                </a>
+
+                <nav id="mainNav">
+                    <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li class="cart-icon">
+                            <a href="/cart/">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Shop Hero -->
+        <section class="shop-hero">
+            <div class="shop-hero-content">
+                <h2>Premium Coffee Collection</h2>
+                <p>Discover our carefully curated selection of premium coffee beans, syrups, teas, and equipment.
+                    Sourced from the finest producers across North America.</p>
+            </div>
+        </section>
+
+        <!-- Shop Content -->
+        <section class="shop-content">
+            <div class="shop-container">
+                <div class="shop-header">
+                    <h2 class="section-title">Our Products</h2>
+                    <div class="search-filter-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search products...">
+                        </div>
+                        <button class="filter-btn" id="filterToggle">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-count" id="resultsCount">
+                    Showing <span id="resultsNumber">15</span> products
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Sidebar -->
+        <div class="filter-sidebar" id="filterSidebar">
+            <div class="filter-header">
+                <h3>Filter Products</h3>
+                <span class="close-filter" id="closeFilter"><i class="fas fa-times"></i></span>
+            </div>
+
+            <div class="filter-group">
+                <h4>Categories</h4>
+                <div class="filter-options" id="categoryFilters">
+                    <!-- Categories will be loaded dynamically -->
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <input type="range" min="0" max="100" value="100" class="price-range" id="priceRange">
+                <div class="price-values">
+                    <span>$0</span>
+                    <span>$100+</span>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Brands</h4>
+                <div class="filter-options" id="brandFilters">
+                    <!-- Brands will be loaded dynamically -->
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="apply-filters" id="applyFilters">Apply Filters</button>
+                <button class="clear-filters" id="clearFilters">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                    </div>
+                    <p>Premium coffee roasting and distribution since 1970. Serving coffee lovers across Canada with the
+                        finest arabica beans and equipment.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="/">Home</a>
+                    <a href="/shop/">Shop</a>
+                    <a href="/about/">About Us</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/cookies/">Cookie Policy</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>2551 Priest Ave, Merritt, BC V1K 1B3, Canada</p>
+                    <p><i class="fas fa-phone"></i>+1 (250) 378-6966</p>
+                    <p><i class="fas fa-envelope"></i> info@canadacoffeehub.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Canada Coffee Hub. All rights reserved. Crafted with passion for coffee lovers.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Product Data - 15 products
+        const products = [
+            {
+                id: 1,
+                name: "Colombian Supremo",
+                price: 24.99,
+                image: "/assets/images/colombian-supremo-coffee.webp",
+                description: "Rich and smooth with chocolate notes",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub",
+                badge: "Bestseller"
+            },
+            {
+                id: 2,
+                name: "Ethiopian Yirgacheffe",
+                price: 28.99,
+                image: "/assets/images/ethiopian-coffee.webp",
+                description: "Floral and fruity with wine-like qualities",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub",
+                badge: "Premium"
+            },
+            {
+                id: 3,
+                name: "Colombian Fair Trade Organic",
+                price: 32.99,
+                image: "/assets/images/organic-coffee.webp",
+                description: "Certified organic with smooth caramel notes",
+                category: "organic-coffee",
+                brand: "canada-coffee-hub",
+                badge: "Organic"
+            },
+            {
+                id: 4,
+                name: "Sumatra Dark Roast",
+                price: 26.99,
+                image: "/assets/images/sumatra-coffee.jpg",
+                description: "Bold and earthy with low acidity",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub",
+                badge: "Dark Roast"
+            },
+            {
+                id: 5,
+                name: "Guatemala Antigua",
+                price: 29.99,
+                image: "/assets/images/guatemala-coffee.jpeg",
+                description: "Complex with chocolate and spice notes",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub"
+            },
+            {
+                id: 6,
+                name: "Hazelnut Flavored Coffee",
+                price: 22.99,
+                image: "/assets/images/hazelnut-coffee.webp",
+                description: "Smooth medium roast with hazelnut flavor",
+                category: "flavored-coffee",
+                brand: "canada-coffee-hub",
+                badge: "Sale"
+            },
+            {
+                id: 7,
+                name: "Torani French Vanilla Syrup",
+                price: 11.95,
+                image: "/assets/images/torani-vanilla-syrup.jpg",
+                description: "Classic French vanilla flavor for coffee and drinks",
+                category: "syrups",
+                brand: "torani",
+                badge: "Sale"
+            },
+            {
+                id: 8,
+                name: "Monin Pumpkin Spice Syrup",
+                price: 12.95,
+                image: "/assets/images/monin-pumpkin-syrup.webp",
+                description: "Seasonal favorite with warm spice notes",
+                category: "syrups",
+                brand: "monin",
+                badge: "Seasonal"
+            },
+            {
+                id: 9,
+                name: "Bigelow English Breakfast Tea",
+                price: 8.99,
+                image: "/assets/images/bigelow-tea.webp",
+                description: "Robust black tea perfect for mornings",
+                category: "tea",
+                brand: "bigelow"
+            },
+            {
+                id: 10,
+                name: "Ghirardelli Chocolate Powder",
+                price: 15.99,
+                image: "/assets/images/ghirardelli-chocolate.jpg",
+                description: "Premium chocolate for mochas and hot cocoa",
+                category: "syrups",
+                brand: "ghirardelli"
+            },
+            {
+                id: 11,
+                name: "French Press Coffee Maker",
+                price: 39.99,
+                image: "/assets/images/french-press.jpg",
+                description: "Classic 8-cup French press for rich coffee",
+                category: "equipment",
+                brand: "canada-coffee-hub"
+            },
+            {
+                id: 12,
+                name: "Espresso Machine",
+                price: 299.99,
+                image: "/assets/images/espresso-machine.png",
+                description: "Professional-grade home espresso machine",
+                category: "equipment",
+                brand: "canada-coffee-hub",
+                badge: "Premium"
+            },
+            {
+                id: 13,
+                name: "Brazil Santos Coffee Beans",
+                price: 23.99,
+                image: "/assets/images/brazil-coffee.jpg",
+                description: "Nutty and sweet with low acidity",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub"
+            },
+            {
+                id: 14,
+                name: "Costa Rica Tarrazu",
+                price: 31.99,
+                image: "/assets/images/costa-rica-coffee.jpg",
+                description: "Bright and crisp with citrus notes",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub",
+                badge: "New"
+            },
+            {
+                id: 15,
+                name: "Torani Caramel Syrup",
+                price: 11.95,
+                image: "/assets/images/torani-caramel-syrup.jpg",
+                description: "Rich caramel flavor for coffee and desserts",
+                category: "syrups",
+                brand: "torani"
+            },
+            {
+                id: 16,
+                name: "Kenya AA Coffee Beans",
+                price: 34.99,
+                image: "/assets/images/kenya-aa-coffee.webp",
+                description: "Bright and winey with black currant notes",
+                category: "coffee-beans",
+                brand: "canada-coffee-hub",
+                badge: "Premium"
+            }
+        ];
+
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#DAA520' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#CD853F',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize Three.js
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create coffee bean particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 1000; i++) {
+            vertices.push(
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000
+            );
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0xDAA520, size: 2, transparent: true, opacity: 0.6 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 500;
+
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animateThree();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Shop Functionality
+        let filteredProducts = [...products];
+
+        // Get unique categories and brands from products
+        function getUniqueCategories() {
+            const categories = [...new Set(products.map(product => product.category))];
+            return categories;
+        }
+
+        function getUniqueBrands() {
+            const brands = [...new Set(products.map(product => product.brand))];
+            return brands;
+        }
+
+        // Load Filters
+        function loadFilters() {
+            const categories = getUniqueCategories();
+            const brands = getUniqueBrands();
+
+            const categoryFilters = document.getElementById('categoryFilters');
+            const brandFilters = document.getElementById('brandFilters');
+
+            // Add "All" option for categories
+            categoryFilters.innerHTML = `
+                <label class="filter-option">
+                    <input type="checkbox" name="category" value="all" checked>
+                    <span>All Categories</span>
+                </label>
+            `;
+
+            // Add category options
+            categories.forEach(category => {
+                const formattedCategory = category.split('-').map(word =>
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+
+                categoryFilters.innerHTML += `
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="${category}" checked>
+                        <span>${formattedCategory}</span>
+                    </label>
+                `;
+            });
+
+            // Add "All" option for brands
+            brandFilters.innerHTML = `
+                <label class="filter-option">
+                    <input type="checkbox" name="brand" value="all" checked>
+                    <span>All Brands</span>
+                </label>
+            `;
+
+            // Add brand options
+            brands.forEach(brand => {
+                const formattedBrand = brand.split('-').map(word =>
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+
+                brandFilters.innerHTML += `
+                    <label class="filter-option">
+                        <input type="checkbox" name="brand" value="${brand}" checked>
+                        <span>${formattedBrand}</span>
+                    </label>
+                `;
+            });
+        }
+
+        // Load Products
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            const resultsCount = document.getElementById('resultsNumber');
+
+            grid.innerHTML = filteredProducts.map(product => `
+        <div class="product-card">
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.name}">
+                ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                </div>
+                <div class="product-footer">
+                    <span class="price">$${product.price.toFixed(2)}</span>
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+            // Update results count
+            resultsCount.textContent = filteredProducts.length;
+        }
+
+        // Filter Products
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+            const selectedBrands = Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(cb => cb.value);
+            const maxPrice = document.getElementById('priceRange').value;
+
+            // If "All" is selected for categories, include all categories
+            const categoriesToFilter = selectedCategories.includes('all')
+                ? getUniqueCategories()
+                : selectedCategories;
+
+            // If "All" is selected for brands, include all brands
+            const brandsToFilter = selectedBrands.includes('all')
+                ? getUniqueBrands()
+                : selectedBrands;
+
+            filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = categoriesToFilter.includes(product.category);
+                const matchesBrand = brandsToFilter.includes(product.brand);
+                const matchesPrice = product.price <= maxPrice;
+
+                return matchesSearch && matchesCategory && matchesBrand && matchesPrice;
+            });
+
+            loadProducts();
+        }
+
+        // Clear All Filters
+        function clearAllFilters() {
+            // Reset search
+            document.getElementById('searchInput').value = '';
+
+            // Reset price range
+            document.getElementById('priceRange').value = 100;
+
+            // Reset all checkboxes to checked
+            document.querySelectorAll('input[name="category"]').forEach(checkbox => {
+                checkbox.checked = true;
+            });
+
+            document.querySelectorAll('input[name="brand"]').forEach(checkbox => {
+                checkbox.checked = true;
+            });
+
+            // Apply the cleared filters
+            filterProducts();
+        }
+
+        // Cart Functions
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const cart = getCart();
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            saveCart(cart);
+
+            // Show feedback
+            const btn = event.target.closest('.add-to-cart');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            btn.style.background = '#28a745';
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('mainNav');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+        });
+
+        // Filter Sidebar
+        const filterToggle = document.getElementById('filterToggle');
+        const filterSidebar = document.getElementById('filterSidebar');
+        const closeFilter = document.getElementById('closeFilter');
+        const applyFilters = document.getElementById('applyFilters');
+        const clearFilters = document.getElementById('clearFilters');
+
+        filterToggle.addEventListener('click', () => {
+            filterSidebar.classList.add('active');
+        });
+
+        closeFilter.addEventListener('click', () => {
+            filterSidebar.classList.remove('active');
+        });
+
+        applyFilters.addEventListener('click', () => {
+            filterProducts();
+            filterSidebar.classList.remove('active');
+        });
+
+        clearFilters.addEventListener('click', clearAllFilters);
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        let searchTimeout;
+
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(filterProducts, 500);
+        });
+
+        // Price range functionality
+        const priceRange = document.getElementById('priceRange');
+        priceRange.addEventListener('input', filterProducts);
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            }
+
+            if (!filterSidebar.contains(e.target) && !filterToggle.contains(e.target) && filterSidebar.classList.contains('active')) {
+                filterSidebar.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        loadFilters();
+        loadProducts();
+        updateCartCount();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - The Grounds Roastery | Our Story & Passion for Coffee</title>
+    <meta name="description"
+        content="Discover the story behind The Grounds Roastery. From a forgotten industrial space to Sydney's most beloved coffee destination. Learn about our passion for quality, community, and creating unforgettable experiences.">
+    <meta name="keywords"
+        content="about The Grounds, coffee story, Alexandria venue, hospitality, specialty coffee, Sydney cafe, coffee roastery history, community cafe">
+    <link rel="canonical" href="http://groundsfoodandcoffee.com/about/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-coffee: #4a2c2a;
+            --secondary-coffee: #8B4513;
+            --accent-gold: #D4AF37;
+            --warm-cream: #F5F2E8;
+            --rich-brown: #3C1810;
+            --medium-roast: #6B4423;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            color: #fff;
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        .animate-slide-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2) { top: 8px; }
+        .hamburger span:nth-child(3) { top: 16px; }
+
+        .hamburger.active span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 24, 16, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent-gold), rgba(212, 175, 55, 0.3));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .timeline-content {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 55%;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: 2rem;
+            }
+
+            .timeline-content {
+                width: calc(100% - 5rem);
+                margin-left: 5rem !important;
+                margin-right: 0 !important;
+            }
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-gold);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 0 0 0;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding: 0 0 1.5rem 0;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon.active {
+            transform: rotate(45deg);
+        }
+
+        /* Team Cards */
+        .team-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        /* Statistics Counter */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Close Button -->
+        <button class="absolute top-6 right-6 text-3xl text-white hover:text-yellow-400 transition-colors z-10"
+            onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Home</a>
+            <a href="/shop/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Shop</a>
+            <a href="/about/" class="block text-3xl font-bold mb-8 text-yellow-400"
+                onclick="closeMobileMenu()">About</a>
+            <a href="/blog/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Blog</a>
+            <a href="/contact/" class="block text-3xl font-bold mb-8 text-white hover:text-yellow-400 transition-colors"
+                onclick="closeMobileMenu()">Contact</a>
+        </nav>
+        
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-50">
+        <!-- Main Navigation -->
+        <nav class="glass py-4 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold playfair text-yellow-400">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="/" class="hover:text-yellow-400 transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="hover:text-yellow-400 transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="text-yellow-400 font-medium">About</a>
+                    <a href="/blog/" class="hover:text-yellow-400 transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="relative hover:text-yellow-400 transition-colors" onclick="toggleCart()">
+                        <a href="/cart/">
+                         <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cartBadge" class="cart-badge hidden">0</span>
+                       </a>
+                    </button>
+
+                    <!-- Mobile Hamburger -->
+                    <div class="lg:hidden hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[60vh] flex items-center justify-center px-4 parallax"
+            style="background-image: url('/assets/images/grounds-alexandria-exterior.jpg');">
+            <div class="text-center max-w-4xl mx-auto relative z-10 animate-slide-up">
+                <nav class="text-sm mb-6">
+                    <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                    <span class="text-gray-400 mx-2">/</span>
+                    <span class="text-yellow-400">About Us</span>
+                </nav>
+                <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 animate-float">
+                    <span class="text-yellow-400">Our</span> Story
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                    From a forgotten industrial space to Sydney's most beloved coffee destination. Discover the passion, community, and creativity that makes The Grounds special.
+                </p>
+            </div>
+        </section>
+
+        <!-- Introduction Section -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-8 text-yellow-400">The Grounds Group</h2>
+                    <p class="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                        We are a hospitality and event organisation that specialises in creating the best possible experiences in beautiful spaces for our guests. Our talented team of passionate and hard-working individuals make The Grounds what it is – a home where creativity thrives.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8 animate-slide-left">
+                        <div class="glass-dark p-8 rounded-2xl">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-4">What We Do</h3>
+                            <p class="text-gray-300 leading-relaxed mb-6">
+                                It all started with a simple idea: to turn a forgotten industrial space into a welcoming sanctuary. Back in 2012, we opened the doors to The Grounds of Alexandria, transforming a former pie factory and its concrete car park into a thriving urban oasis of lush gardens, specialty coffee, and wholesome food.
+                            </p>
+                            <p class="text-gray-300 leading-relaxed">
+                                We wanted to create more than just a café; we wanted to build a community.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative animate-slide-right">
+                        <img src="/assets/images/secret-garden-display.jpg" alt="Secret Garden themed display" 
+                             class="w-full h-80 object-cover rounded-2xl animate-float">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-2xl"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <p class="text-sm opacity-90">The Secret Garden themed display at The Grounds of Alexandria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">Our Journey</h2>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Follow the evolution of The Grounds from a single venue to a beloved hospitality group.</p>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-3">2012</h3>
+                            <h4 class="text-xl font-semibold mb-4">The Beginning</h4>
+                            <p class="text-gray-300">The Grounds of Alexandria opens its doors, transforming a former pie factory into a unique café experience with lush gardens and specialty coffee.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-3">2014</h3>
+                            <h4 class="text-xl font-semibold mb-4">Recognition</h4>
+                            <p class="text-gray-300">Gains recognition as one of the world's most Instagrammable destinations, attracting visitors from around the globe to our themed installations.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-3">2016</h3>
+                            <h4 class="text-xl font-semibold mb-4">Expansion</h4>
+                            <p class="text-gray-300">Launch of The Grounds Roastery, bringing our passion for coffee bean-to-cup with premium roasting and wholesale services.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-3">2018</h3>
+                            <h4 class="text-xl font-semibold mb-4">City Presence</h4>
+                            <p class="text-gray-300">Opening of additional venues across Sydney, each with its own distinct character while maintaining our commitment to quality and community.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-3">2020</h3>
+                            <h4 class="text-xl font-semibold mb-4">Events & Catering</h4>
+                            <p class="text-gray-300">Launch of The Grounds Events and Catering services, bringing our expertise to weddings, corporate events, and special occasions.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="text-2xl font-bold playfair text-yellow-400 mb-3">2025</h3>
+                            <h4 class="text-xl font-semibold mb-4">Today</h4>
+                            <p class="text-gray-300">A thriving hospitality group continuing to create beautiful, memorable experiences while staying true to our community roots and passion for quality.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="glass-dark rounded-3xl p-8 md:p-16">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div class="space-y-4">
+                            <div class="stat-number" data-count="13">0</div>
+                            <p class="text-gray-300 font-medium">Years of Excellence</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="stat-number" data-count="8">0</div>
+                            <p class="text-gray-300 font-medium">Unique Venues</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="stat-number" data-count="500000">0</div>
+                            <p class="text-gray-300 font-medium">Happy Customers</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="stat-number" data-count="1200000">0</div>
+                            <p class="text-gray-300 font-medium">Cups of Coffee Served</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Makes Us Special -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">What Makes Us Special</h2>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">The unique elements that set The Grounds apart in Sydney's hospitality landscape.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-seedling"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Immersive Experiences</h3>
+                        <p class="text-gray-300">Ever-evolving themed installations and seasonal displays that make each visit visually memorable and Instagram-worthy.</p>
+                    </div>
+                    
+                    <div class="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-coffee"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Specialty Coffee</h3>
+                        <p class="text-gray-300">Premium, freshly roasted coffee beans sourced from the world's finest growing regions and expertly crafted by our roasters.</p>
+                    </div>
+                    
+                    <div class="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-users"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Community Focus</h3>
+                        <p class="text-gray-300">Building connections and fostering community through shared experiences, events, and spaces that bring people together.</p>
+                    </div>
+                    
+                    <div class="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-palette"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Creative Design</h3>
+                        <p class="text-gray-300">Innovative styling and unique architectural elements that transform industrial spaces into magical, welcoming environments.</p>
+                    </div>
+                    
+                    <div class="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-leaf"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Sustainable Practices</h3>
+                        <p class="text-gray-300">Commitment to environmental responsibility through sustainable sourcing, waste reduction, and eco-friendly operations.</p>
+                    </div>
+                    
+                    <div class="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl text-yellow-400 mb-6"><i class="fas fa-award"></i></div>
+                        <h3 class="text-xl font-bold playfair mb-4">Quality Excellence</h3>
+                        <p class="text-gray-300">Uncompromising standards in food, service, and experiences, ensuring every visit exceeds expectations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 text-yellow-400">Frequently Asked Questions</h2>
+                    <p class="text-xl text-gray-300">Everything you need to know about The Grounds.</p>
+                </div>
+
+                <div class="glass-dark rounded-2xl p-8">
+                    <div class="space-y-4" id="faqContainer">
+                        <!-- FAQ items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-dark py-16 px-4 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <img class="w-44 object-cover" src="/assets/images/groundsfoodandcoffee.png" alt="Logo">
+                    <p class="text-gray-300">Crafting exceptional coffee experiences since 2012. From bean to bag, every
+                        cup tells a story.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thegrounds"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thegrounds/"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCanbYdT7mgd7TImlIJYQ3EQ"
+                            class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/" class="text-gray-300 hover:text-yellow-400 transition-colors">Home</a>
+                        <a href="/shop/" class="text-gray-300 hover:text-yellow-400 transition-colors">Shop</a>
+                        <a href="/about/" class="text-yellow-400">About</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-yellow-400 transition-colors">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-yellow-400 transition-colors">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Customer Service</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="/privacy/" class="text-gray-300 hover:text-yellow-400 transition-colors">Privacy
+                            Policy</a>
+                        <a href="/terms/" class="text-gray-300 hover:text-yellow-400 transition-colors">Terms of
+                            Service</a>
+                        <a href="/cookies/" class="text-gray-300 hover:text-yellow-400 transition-colors">Cookie
+                            Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold text-yellow-400">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-300 flex items-start">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1"></i>
+                            163 Commercial Rd, South Yarra VIC 3141
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-phone text-yellow-400 mr-3"></i>
+                            +61 3 8290 8220
+                        </p>
+                        <p class="text-gray-300 flex items-center">
+                            <i class="fas fa-envelope text-yellow-400 mr-3"></i>
+                            info@groundsfoodandcoffee.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 The Grounds Roastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let cart = JSON.parse(localStorage.getItem('groundsCart')) || [];
+        let scene, camera, renderer;
+
+        // FAQ Data
+        const faqData = [
+            {
+                question: "What Is The Grounds?",
+                answer: "The Grounds is a hospitality and events organisation specialising in creating exceptional experiences in beautiful spaces. We operate unique venues across Sydney, each with its own character but sharing our commitment to quality, creativity, and community."
+            },
+            {
+                question: "Is The Grounds of Alexandria your only venue?",
+                answer: "No, while The Grounds of Alexandria was our first location and flagship venue, we now operate multiple unique venues across Sydney, each offering distinct experiences while maintaining our signature quality and style."
+            },
+            {
+                question: "Do I need a booking to visit The Grounds of Alexandria?",
+                answer: "Bookings are recommended, especially during peak times and weekends, to guarantee your preferred seating and avoid disappointment. However, we do accept walk-ins subject to availability."
+            },
+            {
+                question: "What are the famous themed displays?",
+                answer: "Our venues feature ever-evolving seasonal themed installations and displays that transform our spaces throughout the year. From our Secret Garden displays to Christmas wonderlands, each theme is carefully designed to create memorable, Instagram-worthy experiences."
+            },
+            {
+                question: "Can I take photos or videos in your venues?",
+                answer: "Absolutely! Our venues are designed to be photographed and shared. We encourage guests to capture their experiences, but please be respectful of other guests and follow any specific photography guidelines at each location."
+            },
+            {
+                question: "How can I find out about all of The Grounds venues?",
+                answer: "Visit our website or follow our social media channels for information about all our venues, their unique features, opening hours, and special events. Each venue has its own dedicated page with detailed information."
+            },
+            {
+                question: "Do you offer wholesale services?",
+                answer: "Yes, The Grounds Roastery supplies high-quality coffee, fresh bread, and pastries to local cafes through our wholesale service. We provide continuous client support and training to ensure exceptional quality."
+            },
+            {
+                question: "Do you offer catering services?",
+                answer: "Yes, The Grounds Catering extends our culinary experience with gourmet offerings for pick-up or delivery across Sydney. We cater for events of all sizes with creative styling and curated menus."
+            },
+            {
+                question: "Can I host an event at The Grounds?",
+                answer: "Absolutely! The Grounds Events team manages beautiful settings for any occasion, from intimate gatherings to large weddings and corporate events. Contact us to discuss your requirements and explore our stunning event spaces."
+            }
+        ];
+
+        // Initialize Three.js Scene
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create floating coffee beans
+            const geometry = new THREE.SphereGeometry(0.08, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8B4513, transparent: true, opacity: 0.4 });
+
+            for (let i = 0; i < 30; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.x = (Math.random() - 0.5) * 15;
+                bean.position.y = (Math.random() - 0.5) * 15;
+                bean.position.z = (Math.random() - 0.5) * 15;
+                bean.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01,
+                        (Math.random() - 0.5) * 0.01
+                    )
+                };
+                scene.add(bean);
+            }
+
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate coffee beans
+            scene.children.forEach(bean => {
+                if (bean.userData && bean.userData.velocity) {
+                    bean.position.add(bean.userData.velocity);
+                    bean.rotation.x += 0.005;
+                    bean.rotation.y += 0.005;
+
+                    // Reset position if out of bounds
+                    if (Math.abs(bean.position.x) > 8) bean.userData.velocity.x *= -1;
+                    if (Math.abs(bean.position.y) > 8) bean.userData.velocity.y *= -1;
+                    if (Math.abs(bean.position.z) > 8) bean.userData.velocity.z *= -1;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    color: { value: "#D4AF37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: false },
+                    size: { value: 2, random: true },
+                    line_linked: { enable: true, distance: 120, color: "#D4AF37", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1.5, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Cart Functions
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+            updateCartDisplay();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            cartItems.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="flex items-center space-x-4 p-4 glass rounded-lg">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white">${item.name}</h4>
+                            <p class="text-gray-400">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('groundsCart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartBadge();
+        }
+
+        // FAQ Functions
+        function loadFAQ() {
+            const container = document.getElementById('faqContainer');
+            container.innerHTML = faqData.map((item, index) => `
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(${index})">
+                        <h3 class="text-lg font-semibold">${item.question}</h3>
+                        <i class="fas fa-plus faq-icon text-yellow-400" id="faq-icon-${index}"></i>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-${index}">
+                        <p class="text-gray-300">${item.answer}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        // Statistics Counter
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Intersection Observer for animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                        
+                        // Trigger counter animation when stats section is visible
+                        if (entry.target.querySelector('.stat-number')) {
+                            animateCounters();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (renderer && camera) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initThreeJS();
+            initParticles();
+            loadFAQ();
+            updateCartBadge();
+            initScrollAnimations();
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetNewsZone - Latest Basketball News & Updates</title>
+    <meta name="description" content="Get the latest basketball news, scores, stats, and analysis from NBA, EuroLeague, and international competitions. Stay updated with NetNewsZone.">
+    <meta name="keywords" content="basketball news, NBA updates, EuroLeague scores, basketball stats, NBA rumors, basketball analysis, Netherlands basketball, FIBA news">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #004499;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            color: white;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #e74c3c;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .logo span {
+            color: #e74c3c;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1790&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* About Overview */
+        .about-overview {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Services Preview */
+        .services-preview {
+            background-color: #f1f1f1;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 10px;
+            color: #e74c3c;
+        }
+        
+        /* Why Choose Us */
+        .features {
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            flex-shrink: 0;
+        }
+        
+        .feature-text h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background-color: #f1f1f1;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            font-size: 5rem;
+            color: #e74c3c;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: serif;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* News Highlights */
+        .news-highlights {
+            background-color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('https://res.cloudinary.com/ddsbdyeyj/image/upload/ar_16:9,c_lfill,g_auto/w_1800,c_lfill/q_auto/v1/ddc916b7-b2a0-4c25-85f4-97138ca95802');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .contact-cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .contact-cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #aaa;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #e74c3c;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .services-grid, .testimonial-grid, .news-grid, .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a1a;
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-grid, .testimonial-grid, .news-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">NET<span>NEWS</span>ZONE</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/scores/">Scores</a></li>
+                    <li><a href="/teams/">Teams</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 style="color: white;">Your Source for the Latest Basketball News</h1>
+            <p>Stay updated with comprehensive coverage of NBA, EuroLeague, and international basketball competitions from around the world.</p>
+            <a href="/news/" class="btn">Explore Latest News</a>
+        </div>
+    </section>
+
+    <!-- About Overview Section -->
+    <section class="section about-overview">
+        <div class="container">
+            <h2 class="section-title">About NetNewsZone</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>NetNewsZone is the premier destination for basketball enthusiasts in the Netherlands and beyond. Founded in 2023, we've quickly become a trusted source for comprehensive basketball coverage.</p>
+                    <p>Our team of dedicated journalists and analysts bring you the latest news, scores, stats, and in-depth analysis from all major basketball competitions around the globe.</p>
+                    <p>Whether you're a fan of the NBA, EuroLeague, or local Dutch basketball leagues, NetNewsZone has you covered with timely updates and expert commentary.</p>
+                    <a href="/about/" class="btn">Learn More About Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Basketball team huddle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="section services-preview">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrCHMwdmKP6iSJnrGGFb-vOoXYzkYE2qy1QA&s" alt="Live scores service">
+                    </div>
+                    <div class="service-content">
+                        <h3>Live Scores</h3>
+                        <p>Get real-time updates from all major basketball competitions with our comprehensive live scores service.</p>
+                        <a href="/scores/" class="btn">View Scores</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzC4C16DjpIN_2nREWX1w9UBqw2gbwFRMIkEhVPUvCnl2dl735IB4hqA1nwOBm-tsAjxQ&usqp=CAU" alt="News analysis service">
+                    </div>
+                    <div class="service-content">
+                        <h3>In-Depth Analysis</h3>
+                        <p>Our expert analysts break down games, strategies, and player performances with detailed reports.</p>
+                        <a href="/news/" class="btn">Read Analysis</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8uPcCo2hWbMbj-i-q326j5Qdy0krf3CNgvg&s" alt="Player stats service">
+                    </div>
+                    <div class="service-content">
+                        <h3>Player Statistics</h3>
+                        <p>Access comprehensive player stats, rankings, and performance metrics from all major leagues.</p>
+                        <a href="/scores/" class="btn">View Stats</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">Why Choose NetNewsZone</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Fastest Updates</h3>
+                        <p>We deliver breaking news and score updates faster than any other basketball news platform in the Netherlands.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Global Coverage</h3>
+                        <p>From NBA to EuroLeague to local Dutch competitions, we cover basketball at all levels worldwide.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Advanced Analytics</h3>
+                        <p>Our unique statistical models and visualizations help you understand the game at a deeper level.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Expert Team</h3>
+                        <p>Our journalists and analysts include former players, coaches, and seasoned basketball experts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Readers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>NetNewsZone has become my go-to source for basketball news. Their EuroLeague coverage is unmatched in the Netherlands.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark van Dijk">
+                        </div>
+                        <div class="author-info">
+                            <h4>Mark van Dijk</h4>
+                            <p>Amsterdam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>As a basketball coach, I rely on NetNewsZone for their in-depth analysis and timely updates on player performances.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Elena Petrova">
+                        </div>
+                        <div class="author-info">
+                            <h4>Elena Petrova</h4>
+                            <p>Rotterdam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>The live scores feature is incredibly accurate and updates faster than the official league apps. Highly recommended!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>David Johnson</h4>
+                            <p>Utrecht</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Highlights Section -->
+    <section class="section news-highlights">
+        <div class="container">
+            <h2 class="section-title">Latest Basketball News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1484482340112-e1e2682b4856?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="NBA Finals game">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">March 15, 2025</p>
+                        <h3>NBA Finals: Celtics Take Game 1 in Overtime Thriller</h3>
+                        <p>Boston edges out Denver in a classic matchup that went down to the wire with Jayson Tatum scoring 42 points.</p>
+                        <a href="/news/" class="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://proconnectbasketball.com/cdn/shop/articles/FOR_ARTICLES_16_bf63b3e6-d19f-4b32-b05a-d87da7dcf658.png?v=1714616603&width=1100" alt="Dončić playing">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">March 14, 2025</p>
+                        <h3>Luka Dončić Named EuroLeague MVP for Third Straight Year</h3>
+                        <p>The Slovenian superstar continues to dominate European basketball with another stellar season.</p>
+                        <a href="/news/" class="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://res.cloudinary.com/ddsbdyeyj/image/upload/ar_16:9,c_lfill,g_auto/w_1800,c_lfill/q_auto/v1/ddc916b7-b2a0-4c25-85f4-97138ca95802" alt="Dutch basketball">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">March 12, 2025</p>
+                        <h3>Netherlands National Team Announces Roster for FIBA Qualifiers</h3>
+                        <p>Coach Arik Shivek selects 12 players to represent the Netherlands in upcoming qualifiers.</p>
+                        <a href="/news/" class="btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="/news/" class="btn">View All News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Have Questions or Feedback?</h2>
+            <p>We'd love to hear from you! Contact our team for inquiries, suggestions, or to report any issues.</p>
+            <a href="/contact/" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>NetNewsZone</h3>
+                    <p>Your premier source for basketball news, scores, and analysis from around the world.</p>
+                    <div class="social-links">
+   <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">News</a></li>
+                        <li><a href="/scores/">Scores</a></li>
+                        <li><a href="/teams/">Teams</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <address>
+                        Blijmarkt 20<br>
+                        8011 NE Zwolle<br>
+                        Netherlands<br>
+                        Phone: +31 572 388 188<br>
+                        Email: info@netnewszone.org
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NetNewsZone. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

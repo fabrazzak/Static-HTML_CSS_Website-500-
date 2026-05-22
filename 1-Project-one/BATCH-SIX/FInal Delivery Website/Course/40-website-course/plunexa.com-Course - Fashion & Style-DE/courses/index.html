@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fashion & Style Courses | Plunexa</title>
+    <meta
+      name="description"
+      content="Explore our comprehensive fashion and style courses. Learn personal styling, trend forecasting, wardrobe styling and more from industry experts."
+    />
+    <meta
+      name="keywords"
+      content="fashion courses, style courses, online fashion education, personal styling course, fashion trend course, wardrobe styling course"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Internal CSS - Same as homepage */
+      :root {
+        --primary-color: #ff4e7f;
+        --secondary-color: #6a5acd;
+        --dark-color: #333;
+        --light-color: #f8f9fa;
+        --gray-color: #6c757d;
+        --white-color: #fff;
+        --black-color: #000;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--light-color);
+      }
+
+      body.modal-open {
+        overflow: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .btn:hover {
+        background-color: var(--secondary-color);
+        color: var(--white-color);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 15px 0;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        color: var(--dark-color);
+        font-weight: 500;
+        position: relative;
+      }
+
+      nav ul li a.active {
+        color: var(--primary-color);
+      }
+
+      nav ul li a:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        bottom: -5px;
+        left: 0;
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover:after,
+      nav ul li a.active:after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--dark-color);
+        cursor: pointer;
+      }
+
+      /* Page Header */
+      .page-header {
+        padding: 180px 0 80px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 78, 127, 0.1) 0%,
+          rgba(106, 90, 205, 0.1) 100%
+        );
+        text-align: center;
+        margin-top: 80px;
+      }
+
+      .page-header h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+      }
+
+      .page-header p {
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--gray-color);
+      }
+
+      /* Breadcrumbs */
+      .breadcrumbs {
+        padding: 15px 0;
+        background-color: var(--white-color);
+        border-bottom: 1px solid #eee;
+      }
+
+      .breadcrumbs ol {
+        display: flex;
+        list-style: none;
+        font-size: 14px;
+      }
+
+      .breadcrumbs ol li {
+        margin-right: 10px;
+      }
+
+      .breadcrumbs ol li:after {
+        content: "/";
+        margin-left: 10px;
+        color: var(--gray-color);
+      }
+
+      .breadcrumbs ol li:last-child:after {
+        display: none;
+      }
+
+      .breadcrumbs ol li a {
+        color: var(--gray-color);
+      }
+
+      .breadcrumbs ol li a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Courses Section */
+      .courses-list {
+        padding: 80px 0;
+      }
+
+      .courses-filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .filter-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .filter-group label {
+        margin-right: 10px;
+        font-weight: 500;
+      }
+
+      .filter-select {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--white-color);
+        cursor: pointer;
+      }
+
+      .search-box {
+        position: relative;
+        width: 300px;
+        margin-bottom: 15px;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 10px 15px 10px 40px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-color);
+      }
+
+      .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+      }
+
+      .course-card {
+        background-color: var(--white-color);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .course-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .course-image {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .course-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .course-card:hover .course-image img {
+        transform: scale(1.1);
+      }
+
+      .course-content {
+        padding: 20px;
+      }
+
+      .course-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: var(--gray-color);
+      }
+
+      .course-level {
+        display: inline-block;
+        padding: 3px 10px;
+        background-color: var(--light-color);
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .course-level.beginner {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+      }
+
+      .course-level.intermediate {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+      }
+
+      .course-level.advanced {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+      }
+
+      .course-content h3 {
+        margin-bottom: 10px;
+        font-size: 22px;
+      }
+
+      .course-content p {
+        color: var(--gray-color);
+        margin-bottom: 15px;
+      }
+
+      .course-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+
+      .course-price {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 18px;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
+      .pagination a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+        border-radius: 50%;
+        background-color: var(--white-color);
+        color: var(--dark-color);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .pagination a:hover,
+      .pagination a.active {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+      }
+
+      /* Categories Section */
+      .categories {
+        padding: 80px 0;
+        background-color: var(--white-color);
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .category-card {
+        background-color: var(--light-color);
+        border-radius: 10px;
+        padding: 30px 20px;
+        text-align: center;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .category-card:hover {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        transform: translateY(-5px);
+      }
+
+      .category-card i {
+        font-size: 40px;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      .category-card:hover i {
+        color: var(--white-color);
+      }
+
+      .category-card h3 {
+        font-size: 20px;
+        transition: var(--transition);
+      }
+
+      .category-card:hover h3 {
+        color: var(--white-color);
+      }
+
+      /* CTA Section */
+      .cta {
+        padding: 80px 0;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: var(--white-color);
+        text-align: center;
+      }
+
+      .cta h2 {
+        color: var(--white-color);
+        margin-bottom: 20px;
+      }
+
+      .cta p {
+        max-width: 700px;
+        margin: 0 auto 30px;
+        opacity: 0.9;
+      }
+
+      .cta .btn {
+        background-color: var(--white-color);
+        color: var(--primary-color);
+      }
+
+      .cta .btn:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white-color);
+        padding: 60px 0 20px;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .footer-col h3 {
+        color: var(--white-color);
+        margin-bottom: 20px;
+        font-size: 18px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h3:after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 2px;
+        background-color: var(--primary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-col p {
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: var(--white-color);
+        opacity: 0.8;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+        padding-left: 5px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 15px;
+      }
+
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+
+      .footer-social a:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-5px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 14px;
+        opacity: 0.7;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background-color: var(--white-color);
+        max-width: 800px;
+        margin: 50px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        color: var(--gray-color);
+        cursor: pointer;
+        transition: var(--transition);
+        z-index: 1;
+      }
+
+      .close-modal:hover {
+        color: var(--primary-color);
+        transform: rotate(90deg);
+      }
+
+      .modal-body {
+        padding: 40px;
+      }
+
+      .modal-image {
+        height: 300px;
+        overflow: hidden;
+      }
+
+      .modal-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Enrollment Form */
+      .enrollment-form {
+        margin-top: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: "Montserrat", sans-serif;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 78, 127, 0.2);
+      }
+
+      textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      /* Notification */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 3000;
+        display: none;
+        animation: slideIn 0.3s ease, fadeOut 0.5s ease 3s forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .courses-filter {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .search-box {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: 0;
+          width: 100%;
+          background-color: var(--white-color);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          transform: translateY(-150%);
+          transition: transform 0.3s ease;
+          z-index: 999;
+        }
+
+        nav.active {
+          transform: translateY(0);
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav ul li {
+          margin: 0 0 15px 0;
+        }
+
+        .page-header {
+          padding: 150px 0 60px;
+          margin-top: 60px;
+        }
+
+        .page-header h1 {
+          font-size: 36px;
+        }
+
+        .modal-body {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .courses-grid,
+        .categories-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .page-header {
+          padding: 130px 0 50px;
+        }
+
+        .page-header h1 {
+          font-size: 32px;
+        }
+
+        .footer-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Plunexa<span>.</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/courses/" class="active">Courses</a></li>
+            <li><a href="/pricing/">Pricing</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Our Fashion & Style Courses</h1>
+        <p>
+          Discover our comprehensive range of fashion and style courses designed
+          by industry experts. Whether you're a beginner or looking to advance
+          your skills, we have the perfect course for you.
+        </p>
+      </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>Courses</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Courses List -->
+    <section class="courses-list">
+      <div class="container">
+        <div class="courses-filter">
+          <div class="filter-group">
+            <label for="category-filter">Filter by:</label>
+            <select id="category-filter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="personal">Personal Styling</option>
+              <option value="trend">Trend Forecasting</option>
+              <option value="wardrobe">Wardrobe Styling</option>
+              <option value="business">Fashion Business</option>
+              <option value="sustainable">Sustainable Fashion</option>
+              <option value="photography">Fashion Photography</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="level-filter">Level:</label>
+            <select id="level-filter" class="filter-select">
+              <option value="all">All Levels</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="course-search"
+              placeholder="Search courses..."
+            />
+          </div>
+        </div>
+
+        <div class="courses-grid" id="courses-container">
+          <!-- Courses will be dynamically loaded here -->
+        </div>
+
+        <div class="pagination" id="pagination">
+          <!-- Pagination will be dynamically loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+      <div class="container">
+        <h2 class="section-title">Browse by Category</h2>
+        <p class="section-subtitle">
+          Find the perfect course for your fashion journey
+        </p>
+
+        <div class="categories-grid">
+          <!-- Category 1 -->
+          <div class="category-card" data-category="personal">
+            <i class="fas fa-user-tie"></i>
+            <h3>Personal Styling</h3>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="category-card" data-category="trend">
+            <i class="fas fa-chart-line"></i>
+            <h3>Trend Forecasting</h3>
+          </div>
+
+          <!-- Category 3 -->
+          <div class="category-card" data-category="wardrobe">
+            <i class="fas fa-tshirt"></i>
+            <h3>Wardrobe Styling</h3>
+          </div>
+
+          <!-- Category 4 -->
+          <div class="category-card" data-category="sustainable">
+            <i class="fas fa-leaf"></i>
+            <h3>Sustainable Fashion</h3>
+          </div>
+
+          <!-- Category 5 -->
+          <div class="category-card" data-category="business">
+            <i class="fas fa-briefcase"></i>
+            <h3>Fashion Business</h3>
+          </div>
+
+          <!-- Category 6 -->
+          <div class="category-card" data-category="photography">
+            <i class="fas fa-camera"></i>
+            <h3>Fashion Photography</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to Start Your Fashion Journey?</h2>
+        <p>
+          Join thousands of students who have transformed their style and
+          fashion knowledge with our courses. Whether you're looking to refine
+          your personal style or start a career in fashion, we have the perfect
+          course for you.
+        </p>
+        <a href="/pricing/" class="btn">View Pricing Plans</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-col">
+            <h3>Plunexa</h3>
+            <p>
+              Your premier destination for fashion education and style
+              development. Empowering individuals to express themselves through
+              fashion.
+            </p>
+            <div class="footer-social">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/courses/">Courses</a></li>
+              <li><a href="/pricing/">Pricing</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Legal</h3>
+            <ul class="footer-links">
+              <li><a href="/terms/">Terms of Service</a></li>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Contact Us</h3>
+            <p>Schloßpl. 1, 08648 Bad Brambach, Germany</p>
+            <p>Phone: +49 160 4697373</p>
+            <p>Email: info@plunexa.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Plunexa. All Rights Reserved. |
+            <a href="/privacy/">Privacy Policy</a> |
+            <a href="/terms/">Terms & Conditions</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Course Modal -->
+    <div class="modal" id="courseModal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+          <div class="modal-image">
+            <img id="modalCourseImage" src="" alt="Course Image" />
+          </div>
+          <h2 id="modalCourseTitle"></h2>
+          <div id="modalCourseDetails"></div>
+          <div class="enrollment-form">
+            <h3 style="margin-top: 30px">Enroll in This Course</h3>
+            <form id="enrollmentForm">
+              <div class="form-group">
+                <label for="enroll-name">Full Name</label>
+                <input
+                  type="text"
+                  id="enroll-name"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="enroll-email">Email Address</label>
+                <input
+                  type="email"
+                  id="enroll-email"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="enroll-phone">Phone Number</label>
+                <input type="tel" id="enroll-phone" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="enroll-message">Message (Optional)</label>
+                <textarea id="enroll-message" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn">Complete Enrollment</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      Thank you! We will contact you as soon as possible.
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = mainNav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Course data
+      const courses = [
+        {
+          id: 1,
+          title: "Personal Styling Fundamentals",
+          image:
+            "https://img-c.udemycdn.com/course/750x422/4609516_713c_2.jpg",
+          category: "personal",
+          level: "beginner",
+          duration: "6 weeks",
+          lessons: "25 lessons",
+          price: "€99",
+          description: `
+                    <div class="course-meta" style="margin-bottom: 20px;">
+                        <span class="course-level beginner" style="margin-right: 15px;">Beginner</span>
+                        <span style="margin-right: 15px;"><i class="far fa-clock"></i> 6 weeks</span>
+                        <span><i class="fas fa-video"></i> 25 lessons</span>
+                    </div>
+                    <p>This comprehensive course will teach you how to develop your unique style identity and dress for your body type, coloring, and lifestyle. You'll learn the fundamental principles of personal styling that can transform how you present yourself to the world.</p>
+                    
+                    <h3 style="margin-top: 30px;">What You'll Learn</h3>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">How to determine your body type and dress to flatter your shape</li>
+                        <li style="margin-bottom: 8px;">Color theory and how to create a personalized color palette</li>
+                        <li style="margin-bottom: 8px;">Wardrobe essentials for every body type and lifestyle</li>
+                        <li style="margin-bottom: 8px;">How to build a capsule wardrobe</li>
+                        <li style="margin-bottom: 8px;">Accessorizing techniques to complete your looks</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">Course Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p><strong>Duration:</strong> 6 weeks (self-paced)</p>
+                            <p><strong>Level:</strong> Beginner</p>
+                            <p><strong>Format:</strong> Video lessons + assignments</p>
+                        </div>
+                        <div>
+                            <p><strong>Instructor:</strong> Sophie Laurent</p>
+                            <p><strong>Certificate:</strong> Included</p>
+                            <p><strong>Price:</strong> €99</p>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          id: 2,
+          title: "Fashion Trend Forecasting",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcsiMXfrciptll4_UGCR0VYKQjZmTX7MSdIA&s",
+          category: "trend",
+          level: "intermediate",
+          duration: "8 weeks",
+          lessons: "32 lessons",
+          price: "€149",
+          description: `
+                    <div class="course-meta" style="margin-bottom: 20px;">
+                        <span class="course-level intermediate" style="margin-right: 15px;">Intermediate</span>
+                        <span style="margin-right: 15px;"><i class="far fa-clock"></i> 8 weeks</span>
+                        <span><i class="fas fa-video"></i> 32 lessons</span>
+                    </div>
+                    <p>Master the art of predicting fashion trends and learn how to incorporate them into your wardrobe or business. This course is perfect for aspiring fashion professionals or anyone who wants to stay ahead of the style curve.</p>
+                    
+                    <h3 style="margin-top: 30px;">What You'll Learn</h3>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">How to identify emerging fashion trends</li>
+                        <li style="margin-bottom: 8px;">The lifecycle of fashion trends</li>
+                        <li style="margin-bottom: 8px;">How to interpret runway shows and street style</li>
+                        <li style="margin-bottom: 8px;">Incorporating trends into your personal style or business</li>
+                        <li style="margin-bottom: 8px;">Creating trend reports and mood boards</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">Course Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p><strong>Duration:</strong> 8 weeks (self-paced)</p>
+                            <p><strong>Level:</strong> Intermediate</p>
+                            <p><strong>Format:</strong> Video lessons + case studies</p>
+                        </div>
+                        <div>
+                            <p><strong>Instructor:</strong> James Wilson</p>
+                            <p><strong>Certificate:</strong> Included</p>
+                            <p><strong>Price:</strong> €149</p>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          id: 3,
+          title: "Professional Wardrobe Styling",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbeUcQ2QielzjfQgPzFBTWNOB1aBRFquD9WQ&s",
+          category: "wardrobe",
+          level: "advanced",
+          duration: "10 weeks",
+          lessons: "40 lessons",
+          price: "€199",
+          description: `
+                    <div class="course-meta" style="margin-bottom: 20px;">
+                        <span class="course-level advanced" style="margin-right: 15px;">Advanced</span>
+                        <span style="margin-right: 15px;"><i class="far fa-clock"></i> 10 weeks</span>
+                        <span><i class="fas fa-video"></i> 40 lessons</span>
+                    </div>
+                    <p>Develop skills to create complete looks for clients, photoshoots, or your personal wardrobe. This hands-on course will teach you the professional techniques used by top stylists in the industry.</p>
+                    
+                    <h3 style="margin-top: 30px;">What You'll Learn</h3>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">How to analyze a client's needs and preferences</li>
+                        <li style="margin-bottom: 8px;">Creating cohesive looks for different occasions</li>
+                        <li style="margin-bottom: 8px;">Shopping strategies for clients</li>
+                        <li style="margin-bottom: 8px;">Working with different body types and budgets</li>
+                        <li style="margin-bottom: 8px;">Preparing for photoshoots and events</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">Course Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p><strong>Duration:</strong> 10 weeks (self-paced)</p>
+                            <p><strong>Level:</strong> Advanced</p>
+                            <p><strong>Format:</strong> Video lessons + practical assignments</p>
+                        </div>
+                        <div>
+                            <p><strong>Instructor:</strong> Aisha Johnson</p>
+                            <p><strong>Certificate:</strong> Included</p>
+                            <p><strong>Price:</strong> €199</p>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          id: 4,
+          title: "Sustainable Fashion Practices",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0vhFgi0YmE8xz5Db1kevx5VyrlVASCpjE5A&s",
+          category: "sustainable",
+          level: "intermediate",
+          duration: "6 weeks",
+          lessons: "24 lessons",
+          price: "€129",
+          description: `
+                    <div class="course-meta" style="margin-bottom: 20px;">
+                        <span class="course-level intermediate" style="margin-right: 15px;">Intermediate</span>
+                        <span style="margin-right: 15px;"><i class="far fa-clock"></i> 6 weeks</span>
+                        <span><i class="fas fa-video"></i> 24 lessons</span>
+                    </div>
+                    <p>Learn how to build an eco-conscious wardrobe and understand sustainable fashion principles. This course covers everything from ethical sourcing to circular fashion practices.</p>
+                    
+                    <h3 style="margin-top: 30px;">What You'll Learn</h3>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">Understanding sustainable materials and production</li>
+                        <li style="margin-bottom: 8px;">How to build a capsule wardrobe with sustainability in mind</li>
+                        <li style="margin-bottom: 8px;">Ethical fashion brands and how to identify them</li>
+                        <li style="margin-bottom: 8px;">Circular fashion and upcycling techniques</li>
+                        <li style="margin-bottom: 8px;">Sustainable fashion business models</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">Course Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p><strong>Duration:</strong> 6 weeks (self-paced)</p>
+                            <p><strong>Level:</strong> Intermediate</p>
+                            <p><strong>Format:</strong> Video lessons + reading materials</p>
+                        </div>
+                        <div>
+                            <p><strong>Instructor:</strong> Emma Green</p>
+                            <p><strong>Certificate:</strong> Included</p>
+                            <p><strong>Price:</strong> €129</p>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          id: 5,
+          title: "Fashion Business & Marketing",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsA6c_-9aqKc1uJuWUDdxmyGYf_HSoa2JaOw&s",
+          category: "business",
+          level: "advanced",
+          duration: "12 weeks",
+          lessons: "48 lessons",
+          price: "€179",
+          description: `
+                    <div class="course-meta" style="margin-bottom: 20px;">
+                        <span class="course-level advanced" style="margin-right: 15px;">Advanced</span>
+                        <span style="margin-right: 15px;"><i class="far fa-clock"></i> 12 weeks</span>
+                        <span><i class="fas fa-video"></i> 48 lessons</span>
+                    </div>
+                    <p>Understand the business side of fashion, from branding to retail strategies and digital marketing. This comprehensive course is ideal for aspiring fashion entrepreneurs.</p>
+                    
+                    <h3 style="margin-top: 30px;">What You'll Learn</h3>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">Fashion business models and revenue streams</li>
+                        <li style="margin-bottom: 8px;">Branding and positioning in the fashion industry</li>
+                        <li style="margin-bottom: 8px;">Retail strategies and e-commerce for fashion</li>
+                        <li style="margin-bottom: 8px;">Digital marketing for fashion brands</li>
+                        <li style="margin-bottom: 8px;">Financial planning for fashion businesses</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">Course Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p><strong>Duration:</strong> 12 weeks (self-paced)</p>
+                            <p><strong>Level:</strong> Advanced</p>
+                            <p><strong>Format:</strong> Video lessons + case studies</p>
+                        </div>
+                        <div>
+                            <p><strong>Instructor:</strong> Michael Chen</p>
+                            <p><strong>Certificate:</strong> Included</p>
+                            <p><strong>Price:</strong> €179</p>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          id: 6,
+          title: "Fashion Photography & Styling",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgWcl1tPtI5eeuTHxiTx7dGPwoDiYuEn_evw&s",
+          category: "photography",
+          level: "intermediate",
+          duration: "8 weeks",
+          lessons: "32 lessons",
+          price: "€159",
+          description: `
+                    <div class="course-meta" style="margin-bottom: 20px;">
+                        <span class="course-level intermediate" style="margin-right: 15px;">Intermediate</span>
+                        <span style="margin-right: 15px;"><i class="far fa-clock"></i> 8 weeks</span>
+                        <span><i class="fas fa-video"></i> 32 lessons</span>
+                    </div>
+                    <p>Learn how to style and photograph fashion looks for editorials, social media, and portfolios. This practical course combines styling techniques with photography skills.</p>
+                    
+                    <h3 style="margin-top: 30px;">What You'll Learn</h3>
+                    <ul style="margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">Styling for different photography genres</li>
+                        <li style="margin-bottom: 8px;">Working with models and directing poses</li>
+                        <li style="margin-bottom: 8px;">Lighting techniques for fashion photography</li>
+                        <li style="margin-bottom: 8px;">Creating mood boards and styling concepts</li>
+                        <li style="margin-bottom: 8px;">Post-production and editing for fashion images</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">Course Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p><strong>Duration:</strong> 8 weeks (self-paced)</p>
+                            <p><strong>Level:</strong> Intermediate</p>
+                            <p><strong>Format:</strong> Video lessons + practical assignments</p>
+                        </div>
+                        <div>
+                            <p><strong>Instructor:</strong> David Müller</p>
+                            <p><strong>Certificate:</strong> Included</p>
+                            <p><strong>Price:</strong> €159</p>
+                        </div>
+                    </div>
+                `,
+        },
+      ];
+
+      // DOM Elements
+      const coursesContainer = document.getElementById("courses-container");
+      const paginationContainer = document.getElementById("pagination");
+      const categoryFilter = document.getElementById("category-filter");
+      const levelFilter = document.getElementById("level-filter");
+      const courseSearch = document.getElementById("course-search");
+      const courseModal = document.getElementById("courseModal");
+      const notification = document.getElementById("notification");
+      const enrollmentForm = document.getElementById("enrollmentForm");
+
+      // Pagination variables
+      const coursesPerPage = 6;
+      let currentPage = 1;
+      let filteredCourses = [...courses];
+
+      // Initialize the page
+      function init() {
+        renderCourses();
+        renderPagination();
+        setupEventListeners();
+      }
+
+      // Render courses based on filters and pagination
+      function renderCourses() {
+        coursesContainer.innerHTML = "";
+
+        const startIndex = (currentPage - 1) * coursesPerPage;
+        const endIndex = startIndex + coursesPerPage;
+        const coursesToDisplay = filteredCourses.slice(startIndex, endIndex);
+
+        if (coursesToDisplay.length === 0) {
+          coursesContainer.innerHTML =
+            '<p style="grid-column: 1 / -1; text-align: center;">No courses found matching your criteria.</p>';
+          return;
+        }
+
+        coursesToDisplay.forEach((course) => {
+          const courseCard = document.createElement("div");
+          courseCard.className = "course-card";
+          courseCard.innerHTML = `
+                    <div class="course-image">
+                        <img src="${course.image}" alt="${course.title}">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span class="course-level ${course.level}">${
+            course.level.charAt(0).toUpperCase() + course.level.slice(1)
+          }</span>
+                            <span><i class="far fa-clock"></i> ${
+                              course.duration
+                            }</span>
+                        </div>
+                        <h3>${course.title}</h3>
+                        <p>${
+                          course.description.split("<p>")[1].split("</p>")[0]
+                        }</p>
+                        <div class="course-footer">
+                            <span class="course-price">${course.price}</span>
+                            <a href="javascript.:void(0)" class="btn btn-outline view-course" data-id="${
+                              course.id
+                            }">View Details</a>
+                        </div>
+                    </div>
+                `;
+          coursesContainer.appendChild(courseCard);
+        });
+      }
+
+      // Render pagination buttons
+      function renderPagination() {
+        paginationContainer.innerHTML = "";
+        const pageCount = Math.ceil(filteredCourses.length / coursesPerPage);
+
+        if (pageCount <= 1) return;
+
+        // Previous button
+        if (currentPage > 1) {
+          const prevBtn = document.createElement("a");
+          prevBtn.href = "#";
+          prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+          prevBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            currentPage--;
+            renderCourses();
+            window.scrollTo({
+              top: coursesContainer.offsetTop - 100,
+              behavior: "smooth",
+            });
+          });
+          paginationContainer.appendChild(prevBtn);
+        }
+
+        // Page numbers
+        for (let i = 1; i <= pageCount; i++) {
+          const pageBtn = document.createElement("a");
+          pageBtn.href = "#";
+          pageBtn.textContent = i;
+          if (i === currentPage) {
+            pageBtn.classList.add("active");
+          }
+          pageBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            currentPage = i;
+            renderCourses();
+            window.scrollTo({
+              top: coursesContainer.offsetTop - 100,
+              behavior: "smooth",
+            });
+          });
+          paginationContainer.appendChild(pageBtn);
+        }
+
+        // Next button
+        if (currentPage < pageCount) {
+          const nextBtn = document.createElement("a");
+          nextBtn.href = "#";
+          nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+          nextBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            currentPage++;
+            renderCourses();
+            window.scrollTo({
+              top: coursesContainer.offsetTop - 100,
+              behavior: "smooth",
+            });
+          });
+          paginationContainer.appendChild(nextBtn);
+        }
+      }
+
+      // Filter courses based on selected criteria
+      function filterCourses() {
+        const categoryValue = categoryFilter.value;
+        const levelValue = levelFilter.value;
+        const searchValue = courseSearch.value.toLowerCase();
+
+        filteredCourses = courses.filter((course) => {
+          const matchesCategory =
+            categoryValue === "all" || course.category === categoryValue;
+          const matchesLevel =
+            levelValue === "all" || course.level === levelValue;
+          const matchesSearch =
+            course.title.toLowerCase().includes(searchValue) ||
+            course.description.toLowerCase().includes(searchValue);
+
+          return matchesCategory && matchesLevel && matchesSearch;
+        });
+
+        currentPage = 1;
+        renderCourses();
+        renderPagination();
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Filter event listeners
+        categoryFilter.addEventListener("change", filterCourses);
+        levelFilter.addEventListener("change", filterCourses);
+        courseSearch.addEventListener("input", filterCourses);
+
+        // Category cards
+        document.querySelectorAll(".category-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            const category = card.getAttribute("data-category");
+            categoryFilter.value = category;
+            filterCourses();
+          });
+        });
+
+        // Course modal
+        document.addEventListener("click", (e) => {
+          if (e.target.classList.contains("view-course")) {
+            e.preventDefault();
+            const courseId = parseInt(e.target.getAttribute("data-id"));
+            const course = courses.find((c) => c.id === courseId);
+
+            if (course) {
+              document.getElementById("modalCourseTitle").textContent =
+                course.title;
+              document.getElementById("modalCourseImage").src = course.image;
+              document.getElementById("modalCourseImage").alt = course.title;
+              document.getElementById("modalCourseDetails").innerHTML =
+                course.description;
+
+              // Reset form
+              enrollmentForm.reset();
+
+              // Show modal
+              courseModal.style.display = "block";
+              document.body.classList.add("modal-open");
+            }
+          }
+        });
+
+        // Close modal
+        document.querySelector(".close-modal").addEventListener("click", () => {
+          courseModal.style.display = "none";
+          document.body.classList.remove("modal-open");
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener("click", (e) => {
+          if (e.target === courseModal) {
+            courseModal.style.display = "none";
+            document.body.classList.remove("modal-open");
+          }
+        });
+
+        // Enrollment form submission
+        enrollmentForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // Here you would typically send the form data to a server
+          // For this example, we'll just show a notification
+
+          // Show notification
+          notification.style.display = "block";
+
+          // Hide notification after animation completes
+          setTimeout(() => {
+            notification.style.display = "none";
+          }, 3500);
+
+          // Close modal
+          courseModal.style.display = "none";
+          document.body.classList.remove("modal-open");
+
+          // Reset form
+          enrollmentForm.reset();
+        });
+      }
+
+      // Initialize the page
+      init();
+    </script>
+  </body>
+</html>

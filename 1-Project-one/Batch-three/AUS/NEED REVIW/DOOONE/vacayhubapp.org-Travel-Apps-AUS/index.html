@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VacayHub - Your Ultimate Travel Companion App</title>
+    <meta name="description"
+        content="VacayHub is the best travel app for Australian travelers. Discover destinations, plan trips, and book accommodations with ease.">
+    <meta name="keywords"
+        content="travel app, vacation planner, trip organizer, Australia travel, hotel booking, flight deals, itinerary planner">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #4285f4;
+            color: white;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #4285f4;
+            color: #4285f4;
+        }
+
+        .btn-outline:hover {
+            background-color: #4285f4;
+            color: white;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #222;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4285f4;
+        }
+
+        .logo span {
+            color: #34a853;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4285f4;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4285f4;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* About Overview */
+        .about-overview {
+            background-color: white;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services Preview */
+        .services-preview {
+            background-color: #f5f7fa;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .service-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* Why Choose Us */
+        .why-choose-us {
+            background-color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 20px;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #4285f4;
+        }
+
+        .feature-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: #f5f7fa;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Blog Highlights */
+        .blog-highlights {
+            background-color: white;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .blog-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .blog-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .blog-card:hover .blog-img img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-date {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .blog-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .contact-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #4285f4;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #4285f4;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #4285f4;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+
+            .services-grid,
+            .testimonials-grid,
+            .blog-grid,
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 0;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+            }
+
+            nav.active {
+                transform: translateY(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .services-grid,
+            .testimonials-grid,
+            .blog-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 150px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Vacay<span>Hub</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Your Ultimate Travel Companion</h1>
+            <p>Discover, plan, and book your perfect Australian getaway with VacayHub - the all-in-one travel app
+                designed for modern explorers.</p>
+            <div class="hero-btns">
+                <a href="/services/" class="btn">Explore Services</a>
+                <a href="/contact/" class="btn btn-outline" style="background-color: black;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Overview Section -->
+    <section class="section about-overview">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About VacayHub</h2>
+                    <p>VacayHub is an innovative travel app startup based in Sydney, Australia, dedicated to
+                        revolutionizing the way Australians plan and experience their vacations. Our mission is to
+                        simplify travel planning while enhancing the overall experience.</p>
+                    <p>Founded in 2023, we've quickly become a trusted name in the Australian travel tech industry,
+                        helping thousands of travelers discover hidden gems and create unforgettable memories.</p>
+                    <a href="/about/" class="btn">Learn More About Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://vacayhub.com/img/pages/welcome/hero-img.webp" alt="Travelers using VacayHub app">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="section services-preview">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">VacayHub offers comprehensive travel solutions to make your vacation planning
+                seamless and enjoyable.</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1433838552652-f9a46b332c40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                            alt="Trip Planning Service">
+                    </div>
+                    <div class="service-content">
+                        <h3>Smart Trip Planning</h3>
+                        <p>Our AI-powered trip planner creates personalized itineraries based on your preferences,
+                            budget, and travel style.</p>
+                        <a href="/services/" class="btn">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                            alt="Hotel Booking Service">
+                    </div>
+                    <div class="service-content">
+                        <h3>Exclusive Hotel Deals</h3>
+                        <p>Access our network of premium accommodations across Australia with special member-only rates
+                            and perks.</p>
+                        <a href="/services/" class="btn">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                            alt="Local Experiences Service">
+                    </div>
+                    <div class="service-content">
+                        <h3>Local Experiences</h3>
+                        <p>Discover authentic Australian experiences curated by locals - from hidden beaches to secret
+                            dining spots.</p>
+                        <a href="/services/" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section why-choose-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose VacayHub</h2>
+            <p class="section-subtitle">We're redefining travel planning with innovative features designed specifically
+                for Australian travelers.</p>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Australian Focus</h3>
+                        <p>Specialized in Australian destinations with up-to-date information on local attractions,
+                            weather, and travel conditions.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Price Guarantee</h3>
+                        <p>We guarantee the best prices for flights and accommodations or we'll match the difference.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>24/7 Aussie Support</h3>
+                        <p>Round-the-clock customer service from our Sydney-based team who understand local needs.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Travel Protection</h3>
+                        <p>Comprehensive insurance options tailored for Australian travelers and domestic trips.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Offline Access</h3>
+                        <p>Download itineraries and maps for offline use - perfect for remote Australian destinations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Community Verified</h3>
+                        <p>All recommendations are verified by our community of Australian travel experts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <p class="section-subtitle">Don't just take our word for it - hear from travelers who've transformed their
+                vacations with VacayHub.</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "VacayHub completely changed how I travel around Australia. The itinerary suggestions saved me
+                        hours of research and led me to places I'd never have found on my own."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah J.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Melbourne, VIC</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As a frequent traveler, I've tried many apps but VacayHub stands out for its Australian focus.
+                        The local tips and exclusive deals are unmatched."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael T.</h4>
+                            <p>Brisbane, QLD</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The family trip planner feature helped us create the perfect Gold Coast vacation that kept both
+                        kids and adults happy. Worth every penny!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa and David R.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Lisa and David R.</h4>
+                            <p>Perth, WA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Highlights Section -->
+    <section class="section blog-highlights">
+        <div class="container">
+            <h2 class="section-title">Travel Tips & Stories</h2>
+            <p class="section-subtitle">Get inspired by our latest travel articles and Australian destination guides.
+            </p>
+
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                            alt="Hidden Gems in NSW">
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date">Jan 15, 2025</p>
+                        <h3>5 Hidden Gems in New South Wales You Must Visit</h3>
+                        <p>Discover these lesser-known but breathtaking destinations just a short drive from Sydney.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                            alt="Family Travel Tips">
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date">Feb 2, 2025</p>
+                        <h3>Ultimate Guide to Family Travel in Australia</h3>
+                        <p>Our top tips for traveling with kids across Australia, from packing lists to kid-friendly
+                            activities.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1505832018823-50331d70d237?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                            alt="Budget Travel Australia">
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date">Mar 10, 2025</p>
+                        <h3>How to Explore Australia on a Budget</h3>
+                        <p>Smart strategies to experience the best of Australia without breaking the bank.</p>
+                        <a href="/blog/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Ready to Transform Your Travel Experience?</h2>
+            <p>Download VacayHub today or contact our travel experts to plan your dream Australian vacation.</p>
+            <div class="hero-btns">
+                <a href="/contact/" class="btn">Get In Touch</a>
+                <a href="/services/" class="btn btn-outline" style="background-color: black;">View Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>VacayHub</h3>
+                    <p>Your ultimate travel companion for exploring Australia. We make vacation planning seamless and
+                        enjoyable.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="/services/">Trip Planning</a></li>
+                        <li><a href="/services/">Hotel Booking</a></li>
+                        <li><a href="/services/">Local Experiences</a></li>
+                        <li><a href="/services/">Flight Deals</a></li>
+                        <li><a href="/services/">Travel Insurance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Level 10/50 Pitt St, Sydney NSW 2000, Australia</p>
+                    <p><i class="fas fa-phone"></i> +61280807900</p>
+                    <p><i class="fas fa-envelope"></i> info@vacayhubapp.org</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 VacayHub. All Rights Reserved. | <a href="/privacy/">Privacy Policy</a> | <a
+                        href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="/"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                }
+
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+
+        // Add to cart simulation
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const service = this.getAttribute('data-service');
+                alert(`Added ${service} to your cart!`);
+            });
+        });
+    </script>
+</body>
+
+</html>

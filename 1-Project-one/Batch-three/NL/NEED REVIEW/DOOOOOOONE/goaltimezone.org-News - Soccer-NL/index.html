@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goaltimezone - Latest Soccer News, Scores & Updates</title>
+    <meta name="description" content="Get the latest soccer news, match results, league standings, and transfer updates from around the world. Your premier destination for football coverage.">
+    <meta name="keywords" content="soccer news, football updates, match scores, premier league, la liga, serie a, bundesliga, champions league, transfer news, live scores">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #004499;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #004499;
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0066cc;
+        }
+        
+        .logo span {
+            color: #ff5500;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* About Overview */
+        .about-overview {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .about-overview .container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Services Preview */
+        .services-preview {
+            padding: 80px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        /* Why Choose Us */
+        .why-choose-us {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #0066cc;
+            margin-bottom: 20px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* News Highlights */
+        .news-highlights {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-cta h2 {
+            margin-bottom: 20px;
+        }
+        
+        .contact-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .footer-logo span {
+            color: #ff5500;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #0066cc;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+        }
+        
+        .footer-contact p {
+            color: #bbb;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: #0066cc;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-overview .container {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 80px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Goal<span>TimeZone</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                 <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/tournaments/">Tournaments</a></li>    
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+
+
+
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 style="color: white;">Your Ultimate Soccer News Destination</h1>
+            <p>Stay updated with the latest matches, transfers, and analysis from leagues around the world. Comprehensive coverage of Premier League, La Liga, Bundesliga, and more.</p>
+            <a href="/news/" class="btn">Explore Latest News</a>
+        </div>
+    </section>
+
+    <!-- About Overview -->
+    <section class="about-overview">
+        <div class="container">
+            <div class="about-content">
+                <h2>About Goaltimezone</h2>
+                <p>Goaltimezone is your premier destination for comprehensive soccer coverage. Founded , we've grown to become one of the most trusted sources for football news, analysis, and statistics.</p>
+                <p>Our team of experienced journalists and analysts work around the clock to bring you the most accurate and timely updates from all major leagues and competitions worldwide.</p>
+                <a href="/about/" class="btn btn-outline">Learn More About Us</a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Soccer team celebrating">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="services-preview">
+        <div class="container">
+            <div class="section-title">
+                <h2 >Our Services</h2>
+                <p>We offer comprehensive coverage and analysis for soccer enthusiasts</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://cdn.vox-cdn.com/thumbor/CoGFSvNa9uREvidBcbopBv38Jm8=/0x0:6409x4170/1200x800/filters:focal(2693x1573:3717x2597)/cdn.vox-cdn.com/uploads/chorus_image/image/74020799/2191764333.0.jpg" alt="Live match coverage">
+                    </div>
+                    <div class="service-content">
+                        <h3>Live Match Coverage</h3>
+                        <p>Real-time updates, commentary, and statistics for all major league matches happening around the world.</p>
+                        <a href="/services/" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://www.thesun.co.uk/wp-content/uploads/2023/12/RB-TRANSFER-TOPIC-BANNER-750X352-2.jpg?strip=all&w=750&h=352&crop=1" alt="Transfer news">
+                    </div>
+                    <div class="service-content">
+                        <h3>Transfer News & Rumors</h3>
+                        <p>Stay ahead with the latest transfer news, confirmed deals, and reliable rumors from trusted sources.</p>
+                        <a href="/services/" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://www.catapult.com/wp-content/uploads/2024/09/EPISODE-02-%E2%80%93-EXTRACTING-PERFORMANCE-INSIGHTS-INTO-MATCHTRACKER-FINAL-1024x576.jpg" alt="Match analysis">
+                    </div>
+                    <div class="service-content">
+                        <h3>In-Depth Match Analysis</h3>
+                        <p>Expert tactical breakdowns, player ratings, and post-match analysis from our team of professionals.</p>
+                        <a href="/services/" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Goaltimezone</h2>
+                <p>What makes us different from other soccer news platforms</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast Updates</h3>
+                    <p>We deliver news and match updates faster than anyone else in the industry, keeping you informed in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Verified Sources</h3>
+                    <p>All our news comes from trusted and verified sources, ensuring you get accurate information without the rumors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Coverage</h3>
+                    <p>From Premier League to MLS, we cover all major leagues and competitions around the world.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Advanced Statistics</h3>
+                    <p>Access in-depth player and team statistics to enhance your understanding of the game.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Readers Say</h2>
+                <p>Feedback from our valued community of soccer fans</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Goaltimezone has become my go-to source for soccer news. The analysis is insightful and the updates come faster than any other site I've used."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Mark Johnson</h4>
+                            <p>Season Ticket Holder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"As a fantasy football player, the detailed statistics and player performance analysis on Goaltimezone have helped me win my league two years running!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Williams">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Williams</h4>
+                            <p>Fantasy Football Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The tactical breakdowns after big matches are unparalleled. I've learned so much about the beautiful game from Goaltimezone's expert analysts."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="David Müller">
+                        </div>
+                        <div class="author-info">
+                            <h4>David Müller</h4>
+                            <p>Youth Soccer Coach</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Highlights -->
+    <section class="news-highlights">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Soccer News</h2>
+                <p>Stay updated with the most recent developments in the world of football</p>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Champions League match">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Apr 10, 2025</p>
+                        <h3>Champions League Quarterfinal Highlights</h3>
+                        <p>Recap of all the action from this week's thrilling Champions League quarterfinal matches.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://nationaldailyng.com/wp-content/uploads/2024/08/Premiership.jpg" alt="Player transfer">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Apr 8, 2025</p>
+                        <h3>Major Transfer Rumors Heating Up</h3>
+                        <p>The latest on potential big-money moves as the summer transfer window approaches.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <img src="https://newscentral.africa/wp-content/uploads/Premier-League-Title-Race-Intensifies-with-Liverpool-vs-Man-City.--1024x576.jpg" alt="League standings">
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Apr 5, 2025</p>
+                        <h3>Premier League Title Race Intensifies</h3>
+                        <p>With just 5 matches remaining, the battle for the Premier League crown is heating up.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Have Questions or Feedback?</h2>
+            <p>We value our readers' input and are always looking to improve our coverage. Reach out to us with your suggestions, questions, or partnership inquiries.</p>
+            <a href="/contact/" class="btn">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="/" class="footer-logo">Goal<span>TimeZone</span></a>
+                    <p>Your premier destination for comprehensive soccer news, analysis, and statistics from leagues around the world.</p>
+                    <div class="social-links">
+
+                        <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                                               <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/news/">Latest News</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Services</a></li>
+
+
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Leagues</h3>
+                    <ul>
+                        <li><a href="/news/">Premier League</a></li>
+                        <li><a href="/news/">La Liga</a></li>
+                        <li><a href="/news/">Bundesliga</a></li>
+                        <li><a href="/news/">Serie A</a></li>
+                        <li><a href="/news/">Ligue 1</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone-alt"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@goaltimezone.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Goaltimezone.org. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('#navMenu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navMenu').classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostari - Public Speaking Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Blog Page Specific Styles */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+
+        .post-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-post:hover .post-image img {
+            transform: scale(1.05);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s ease;
+        }
+
+        .close-modal:hover {
+            color: #000;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .blog-content {
+            line-height: 1.8;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Sidebar */
+        .sidebar-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .sidebar-widget h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-widget ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-widget li {
+            margin-bottom: 0.5rem;
+        }
+
+        .popular-post {
+            margin-bottom: 1rem;
+        }
+
+        .popular-post a {
+            color: var(--dark-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .popular-post p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-content {
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Host<span>ari</span></a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a style="font-weight: 600;" href="/">Home</a></li>
+                    <li><a style="font-weight: 600;" href="/courses/">Courses</a></li>
+                    <li><a style="font-weight: 600;" href="/about/">About</a></li>
+                    <li><a style="font-weight: 600;" href="/instructors/">Instructors</a></li>
+                    <li><a style="font-weight: 600;" href="/testimonials/">Testimonials</a></li>
+                    <li><a style="font-weight: 600;" href="/faq/" class="active">FAQ</a></li>
+                    <li><a style="font-weight: 600;" href="/contact/">Contact</a></li>
+                    <li><a style="font-weight: 600;" href="/blog/">Blog</a></li>
+                  </ul>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Public Speaking Insights & Tips</h1>
+                <p>
+                    Expert advice, practical tips, and industry trends to help you
+                    master the art of communication
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+                <!-- Blog Post 1 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://furtadosschoolofmusic.com/wp-content/uploads/2025/01/Top-10-Ways-for-Overcoming-Stage-Fright.jpg" alt="Overcoming Stage Fright">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>Jan15,2025</span>
+                            <span>By James Wilson</span>
+                        </div>
+                        <h3>10 Techniques to Overcome Stage Fright</h3>
+                        <p>
+                            Discover practical strategies to conquer performance anxiety and deliver confident
+                            presentations even when feeling nervous...
+                        </p>
+                        <button class="btn read-more" 
+                            data-title="10 Techniques to Overcome Stage Fright"
+                            data-date="Jan15,2025" 
+                            data-author="James Wilson"
+                            data-content="<p>Public speaking anxiety, commonly known as stage fright, affects nearly 75% of people. Even seasoned professionals experience moments of nervousness before important presentations. The good news is that with the right techniques, you can transform this anxiety into positive energy.</p><p>Here are ten proven strategies to help you overcome stage fright:</p><h4>1. Practice Deep Breathing</h4><p>Before your presentation, practice deep diaphragmatic breathing. Inhale slowly through your nose for a count of four, hold for two, and exhale through your mouth for six counts. This activates your parasympathetic nervous system, reducing stress hormones circulating in your body.</p><h4>2. Visualize Success</h4><p>Spend time visualizing yourself delivering a successful presentation. Imagine the room, the audience's positive reactions, and yourself speaking confidently. Mental rehearsal creates neural pathways similar to actual practice.</p><h4>3. Prepare Thoroughly</h4><p>Nothing builds confidence like being well-prepared. Know your material inside and out, but avoid memorizing word-for-word, which can increase anxiety if you forget something.</p><h4>4. Reframe Your Nervousness</h4><p>The physiological responses of nervousness and excitement are nearly identical. Try relabeling your anxiety as excitement about sharing your message with others.</p><h4>5. Focus on Serving Your Audience</h4><p>Shift your mindset from self-consciousness to audience service. Concentrate on delivering value to your listeners rather than worrying about how you're being perceived.</p><h4>6. Practice in Similar Conditions</h4><p>Rehearse in conditions similar to your actual presentation environment. If possible, practice in the actual space or simulate the audience size and setup.</p><h4>7. Use Progressive Exposure</h4><p>Gradually expose yourself to increasingly challenging speaking situations. Start with small, supportive groups before tackling larger audiences.</p><h4>8. Develop Pre-Performance Rituals</h4><p>Create a consistent routine to follow before presentations. This might include stretching, reviewing key points, or listening to energizing music.</p><h4>9. Connect With Your Audience Early</h4><p>Arrive early and chat with audience members before your presentation. This establishes rapport and helps you see them as individuals rather than an intimidating group.</p><h4>10. Embrace Imperfection</h4><p>Accept that perfect presentations don't exist. Even professional speakers make mistakes, and audiences are generally forgiving when they sense authenticity.</p><p>Remember that overcoming stage fright is a journey, not a destination. With consistent practice and application of these techniques, you'll gradually build your confidence and transform nervous energy into powerful presentation skills.</p>"
+                        >
+                            Read More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVW5hCoFvBHY6lYffApIIpCNKlp_ASPh8zcA&s" alt="Virtual Presentations">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>Jan12,2025</span>
+                            <span>By Sarah Nguyen</span>
+                        </div>
+                        <h3>Mastering Virtual Presentations</h3>
+                        <p>
+                            Essential tips for engaging remote audiences and making impact through digital platforms in today's hybrid work environment...
+                        </p>
+                        <button class="btn read-more" 
+                            data-title="Mastering Virtual Presentations" 
+                            data-date="Jan12,2025" 
+                            data-author="Sarah Nguyen"
+                            data-content="<p>The shift to remote and hybrid work environments has made virtual presentations a crucial skill for professionals across industries. While the fundamentals of good presenting remain, the virtual medium presents unique challenges and opportunities.</p><h4>Set Up Your Virtual Stage</h4><p>Your physical environment significantly impacts how your audience perceives you. Position your camera at eye level and ensure your face is well-lit, preferably with natural light facing you. A clean, uncluttered background minimizes distractions, while a good quality microphone ensures your message is heard clearly.</p><h4>Engage Through the Screen</h4><p>Virtual presentations require more intentional engagement techniques. Use polling features, chat functions, and direct questions to maintain audience participation. Breaking content into smaller chunks with interaction between sections helps combat 'Zoom fatigue.'</p><h4>Visual Aid Best Practices</h4><p>When presenting virtually, your slides become even more important. Keep designs clean with larger fonts than you might use in person. Limit text and use high-quality images that support your message. Consider sharing your screen in segments rather than keeping slides visible throughout.</p><h4>Master Your Delivery</h4><p>Speaking to a camera requires adjustments to your delivery style. Maintain eye contact by looking directly at your camera (not at your audience's videos). Increase your energy level by about 20% above what feels natural, as energy tends to dampen through screens. Use more vocal variety and deliberate pacing to maintain interest.</p><h4>Prepare for Technical Issues</h4><p>Have contingency plans for common technical problems. Prepare a backup presentation that can be quickly emailed if sharing fails. Know how to troubleshoot audio issues, and consider having a co-host who can take over if your connection drops.</p><h4>Use the Chat Strategically</h4><p>The chat feature is a powerful tool unique to virtual presentations. Designate specific moments for audience members to share thoughts or questions. Consider having a colleague monitor the chat so you can focus on your delivery.</p><h4>Practice Differently</h4><p>Practice your virtual presentation in the actual environment you'll use. Record yourself and review how you appear on camera. Pay attention to your facial expressions, gestures, and how quickly you move through content when visible on screen.</p><p>By adapting your presentation style to the virtual environment, you can create engaging, impactful remote presentations that achieve your communication goals despite the digital divide.</p>"
+                        >
+                            Read More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://susannagebauer.com/wp-content/uploads/2024/01/The-Power-of-Stories-in-Marketing-1024x1024.jpeg" alt="Business Storytelling">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>Jan8,2025</span>
+                            <span>By David O'Connor</span>
+                        </div>
+                        <h3>The Power of Business Storytelling</h3>
+                        <p>
+                            Learn how to craft compelling narratives that resonate with your audience and drive business results...
+                        </p>
+                        <button class="btn read-more" 
+                            data-title="The Power of Business Storytelling" 
+                            data-date="Jan8,2025" 
+                            data-author="David O'Connor"
+                            data-content="<p>In a world overflowing with data and information, storytelling has emerged as the secret weapon of influential business communicators. Research shows that stories are 22 times more memorable than facts alone, making them invaluable for business presentations, marketing, and leadership communications.</p><h4>Why Stories Work in Business</h4><p>Stories trigger neurological responses that facts alone cannot. When we hear a compelling narrative, our brains release oxytocin, the 'empathy hormone,' creating emotional connections between the storyteller, the story, and the audience. This emotional engagement makes messages stick and motivates action.</p><h4>The Essential Elements of Business Stories</h4><p>Effective business stories contain several key components:</p><ul><li><strong>A relatable protagonist</strong> - Whether it's a customer, employee, or the company itself</li><li><strong>A meaningful challenge</strong> - The obstacle or problem that creates tension</li><li><strong>A journey of change</strong> - How the protagonist navigates the challenge</li><li><strong>A resolution with insights</strong> - The outcome and lessons learned</li></ul><p>Unlike entertainment stories, business narratives should always connect back to strategic objectives and include clear takeaways for the audience.</p><h4>Finding Stories in Your Business</h4><p>Powerful stories exist throughout your organization:</p><ul><li>Customer success journeys and testimonials</li><li>Origin stories about your company or products</li><li>Employee experiences that demonstrate your values</li><li>Failure stories that showcase learning and resilience</li><li>Vision stories that paint a picture of future possibilities</li></ul><h4>Structuring Your Business Story</h4><p>While there are many frameworks available, the SAR method (Situation-Action-Result) works particularly well in business contexts:</p><p><strong>Situation:</strong> Establish the context and introduce the challenge</p><p><strong>Action:</strong> Describe what was done to address the challenge</p><p><strong>Result:</strong> Share the outcome and wider implications</p><h4>Delivery Tips for Business Storytellers</h4><p>When sharing business stories:</p><ul><li>Be authentic and use conversational language</li><li>Include specific details that create mental images</li><li>Keep stories concise and focused on one main message</li><li>Vary your vocal tone and pacing to enhance engagement</li><li>Connect the story explicitly to your business objective</li></ul><p>With practice, storytelling can become your most powerful business communication tool, helping you inspire teams, influence decisions, and drive meaningful results through the universal language of narrative.</p>"
+                        >
+                            Read More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Post 4 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://techjobsfair.com/wp-content/uploads/blog-images/2022/feb/develop-executive-presence-tips/factor-x-executive-presence.png" alt="Executive Presence">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>Jan5,2025</span>
+                            <span>By Elena Rodriguez</span>
+                        </div>
+                        <h3>Developing Executive Presence</h3>
+                        <p>
+                            Discover the elements of executive presence and how to cultivate this essential leadership quality...
+                        </p>
+                        <button class="btn read-more" 
+                            data-title="Developing Executive Presence" 
+                            data-date="Jan5,2025"
+                            data-author="Elena Rodriguez"
+                            data-content="<p>Executive presence—that elusive quality that distinguishes leaders who command attention and inspire confidence. While often described as something you either have or don't, executive presence can be developed through deliberate practice and self-awareness.</p><h4>What is Executive Presence?</h4><p>Executive presence encompasses how you act (behavior), how you speak (communication), and how you look (appearance). It's the ability to project confidence, credibility, and composure, especially under pressure. Research from the Center for Talent Innovation identifies three primary dimensions of executive presence:</p><ul><li><strong>Gravitas</strong> (67%) - How you act under pressure, demonstrate confidence, and make tough decisions</li><li><strong>Communication</strong> (28%) - How effectively you speak, listen, and read an audience</li><li><strong>Appearance</strong> (5%) - Looking polished and appropriate for your role and environment</li></ul><h4>Building Gravitas</h4><p>Gravitas forms the foundation of executive presence. Develop it by:</p><ul><li>Maintaining composure during crises and conflicts</li><li>Making decisions with confidence and conviction</li><li>Demonstrating emotional intelligence in challenging situations</li><li>Speaking truth to power when necessary</li><li>Taking calculated risks and owning outcomes</li></ul><h4>Mastering Communication</h4><p>Communication skills amplify your executive presence:</p><ul><li>Speak concisely with clear, jargon-free language</li><li>Vary your vocal pace and tone for emphasis</li><li>Use deliberate pauses to enhance impact</li><li>Practice active listening without interrupting</li><li>Adapt your message to different audiences</li></ul><h4>Refining Personal Presentation</h4><p>While appearance is weighted less heavily, it remains the first filter through which others experience your presence:</p><ul><li>Dress appropriately for your industry and slightly above your current level</li><li>Pay attention to grooming details</li><li>Use purposeful gestures and maintain good posture</li><li>Control nervous habits and distracting movements</li><li>Create a consistent personal brand</li></ul><h4>Actionable Development Strategies</h4><p>To strengthen your executive presence:</p><ul><li>Seek honest feedback from trusted colleagues</li><li>Record yourself presenting and analyze your performance</li><li>Find role models and observe their presence techniques</li><li>Practice high-stakes communications before delivering them</li><li>Work with an executive coach on specific development areas</li></ul><p>Remember that authentic executive presence builds on your genuine strengths rather than mimicking others. By aligning your outward presence with your inner values and expertise, you'll develop a powerful leadership presence that feels natural and inspires confidence in those around you.</p>"
+                        >
+                            Read More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Post 5 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/sites/123113/images/cfGLn3PRS8yVKIchmFGh_Beyond_Numbers_Visual.png" alt="Data Storytelling">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>Jan1,2025</span>
+                            <span>By Marcus Chen</span>
+                        </div>
+                        <h3>Data Storytelling: Beyond the Numbers</h3>
+                        <p>
+                            Transform complex data into compelling narratives that drive understanding and decision-making...
+                        </p>
+                        <button class="btn read-more" 
+                            data-title="Data Storytelling: Beyond the Numbers" 
+                            data-date="Jan1,2025" 
+                            data-author="Marcus Chen"
+                            data-content="<p>In today's data-driven business environment, the ability to translate complex data into compelling stories has become an essential skill. Data storytelling combines data science, narrative, and visualization to transform numbers into insights that drive action.</p><h4>The Problem with Data Alone</h4><p>Despite the growing emphasis on data-driven decision making, studies show that 67% of executives are uncomfortable accessing or using data. When presented with data alone, many stakeholders struggle to:</p><ul><li>Extract meaningful insights from raw numbers</li><li>Understand the business implications</li><li>Remember key points after the presentation</li><li>Feel emotionally invested in taking action</li></ul><p>This is where data storytelling bridges the gap between analysis and action.</p><h4>The Three Components of Data Storytelling</h4><p><strong>1. Data</strong> - The foundation of your story must be accurate, relevant, and comprehensive. Quality data creates credibility and substance.</p><p><strong>2. Narrative</strong> - The storyline that provides context, highlights relationships, and guides your audience through a logical journey from problem to solution.</p><p><strong>3. Visualization</strong> - The visual representation that makes patterns and insights immediately apparent, reducing cognitive load and increasing understanding.</p><h4>Crafting Your Data Story</h4><p>Follow these steps to create impactful data stories:</p><p><strong>Start with a clear objective</strong> - Define exactly what decision or action you want your data story to inform. This focus will guide your analysis and presentation.</p><p><strong>Know your audience</strong> - Tailor your story to the technical knowledge, priorities, and concerns of your specific audience. A CFO and a marketing team require different approaches.</p><p><strong>Find the narrative thread</strong> - Identify the most compelling insights in your data and build your narrative around them. Common structures include:</p><ul><li>Change over time (trend stories)</li><li>Comparison across categories (ranking stories)</li><li>Relationship between variables (correlation stories)</li><li>Composition of a whole (breakdown stories)</li></ul><p><strong>Choose effective visualizations</strong> - Select chart types that best communicate your specific insights:</p><ul><li>Line charts for trends</li><li>Bar charts for comparisons</li><li>Scatter plots for relationships</li><li>Pie charts for composition (used sparingly)</li></ul><p><strong>Simplify and focus</strong> - Remove extraneous data and visual elements that don't support your core message. Each slide or visualization should communicate one key insight.</p><h4>Delivering Your Data Story</h4><p>When presenting your data story:</p><ul><li>Lead with the insight, not the data process</li><li>Provide context before details</li><li>Use annotation to guide attention</li><li>Incorporate relevant real-world examples</li><li>Connect data insights to business outcomes</li></ul><p>By mastering data storytelling, you transform from being a data presenter to a trusted advisor who empowers informed decision-making and drives organizational change through the strategic use of information.</p>"
+                        >
+                            Read More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Blog Post 6 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4JpqUkSHvv07IIErR8dK-bRlZ6UYrfUZPsw&s" alt="Presentation Design">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>Jan 28,2025</span>
+                            <span>By Olivia Thompson</span>
+                        </div>
+                        <h3>Visual Design Principles for Powerful Presentations</h3>
+                        <p>
+                            Learn how to create visually stunning slides that enhance your message and captivate your audience...
+                        </p>
+                        <button class="btn read-more" 
+                            data-title="Visual Design Principles for Powerful Presentations" 
+                            data-date="Jan 28,2025" 
+                            data-author="Olivia Thompson"
+                            data-content="<p>The visual component of your presentation can significantly enhance or undermine your message. Research shows that people remember only 10% of what they hear three days later, but that retention jumps to 65% when visuals are added. However, not all visuals are created equal.</p><h4>The Psychology of Visual Processing</h4><p>Understanding how our brains process visual information helps create more effective presentation designs:</p><ul><li>We process images 60,000 times faster than text</li><li>Our attention gravitates to contrast and movement</li><li>Visual working memory has limited capacity (3-4 items)</li><li>Cognitive load increases with visual complexity</li></ul><p>These insights form the foundation of effective presentation design.</p><h4>Core Design Principles</h4><p><strong>1. Contrast</strong> - Create visual hierarchy through size, color, and weight differences. The elements you want noticed first should stand out most dramatically.</p><p><strong>2. Repetition</strong> - Repeat visual elements (colors, fonts, icons) throughout your presentation to create cohesion and reinforce your brand.</p><p><strong>3. Alignment</strong> - Align all elements to create invisible lines that organize your slide. Avoid centering everything, which often creates visual weakness.</p><p><strong>4. Proximity</strong> - Group related items together and separate unrelated ones to create clear relationships between content.</p><p><strong>5. White Space</strong> - Include empty space to give visual elements room to breathe and direct attention to what matters most.</p><h4>Color Strategy</h4><p>Use color deliberately to support your message:</p><ul><li>Limit your palette to 3-5 colors that complement each other</li><li>Consider color psychology (blue for trust, red for urgency, etc.)</li><li>Ensure sufficient contrast between text and background</li><li>Use accent colors sparingly to highlight key points</li><li>Test your slides in the presentation environment</li></ul><h4>Typography Best Practices</h4><p>Text should be both readable and reflect your message tone:</p><ul><li>Use no more than two complementary fonts per presentation</li><li>Choose sans-serif fonts for digital presentation</li><li>Maintain a minimum font size of 24pt for body text</li><li>Create clear hierarchy with font weights and sizes</li><li>Left-align text for easier reading</li></ul><h4>Visual Assets</h4><p>Select and use images, charts, and icons effectively:</p><ul><li>Choose high-quality, relevant imagery that supports your message</li><li>Simplify charts to focus on one key insight per visual</li><li>Use consistent icon styles throughout your presentation</li><li>Consider custom graphics for complex concepts</li><li>Apply the 'squint test' - your main point should be clear even when squinting</li></ul><h4>Slide Structure</h4><p>Design slides with these principles in mind:</p><ul><li>Follow the 'one idea per slide' rule</li><li>Create clear visual paths for the eye to follow</li><li>Use the Rule of Thirds for key element placement</li><li>Include only what supports your spoken message</li><li>Design in sequences that build understanding</li></ul><p>Remember that your slides should support and enhance your message, not be the message itself. The best presentation design is invisible, directing audience attention exactly where you want it without calling attention to the design itself.</p>"
+                        >
+                            Read More
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+           
+        </div>
+    </section>
+
+    <!-- Sidebar Section -->
+    <aside class="section" style="background-color: var(--light-color);">
+        <div class="container">
+            <div class="sidebar-content">
+                <!-- Categories -->
+                <div class="sidebar-widget">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="/blog/">Presentation Skills</a></li>
+                        <li><a href="/blog/">Communication Tips</a></li>
+                        <li><a href="/blog/">Career Development</a></li>
+                        <li><a href="/blog/">Success Stories</a></li>
+                        <li><a href="/blog/">Speaking Techniques</a></li>
+                        <li><a href="/blog/">Leadership Communication</a></li>
+                    </ul>
+                </div>
+
+                <!-- Popular Posts -->
+                <div class="sidebar-widget">
+                    <h3>Popular Posts</h3>
+                    <div class="popular-post">
+                        <a href="#">Body Language Secrets for Confident Speaking</a>
+                        <p>Jan1, 2025</p>
+                    </div>
+                    <div class="popular-post">
+                        <a href="#">How to Structure a Winning Pitch Deck</a>
+                        <p>Jan 25, 2025</p>
+                    </div>
+                    <div class="popular-post">
+                        <a href="#">Speaking Up in Meetings: Strategies for Introverts</a>
+                        <p>Jan 18, 2025</p>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="sidebar-widget">
+                    <h3>Subscribe</h3>
+                    <p>Get the latest public speaking tips and resources delivered to your inbox.</p>
+                    <form style="max-width: 300px;">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Modal Structure -->
+    <div class="modal" id="blogModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="blogTitle"></h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="blog-meta">
+                    <span id="blogDate"></span> | <span id="blogAuthor"></span>
+                </div>
+                <div id="blogContent" class="blog-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+          <div class="footer-container">
+            <div class="footer-col">
+              <h3>Hostari</h3>
+              <p>
+                Empowering professionals through exceptional communication skills
+                since 2018.
+              </p>
+             
+            </div>
+  
+            <div class="footer-col">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses/">Courses</a></li>
+                <li><a href="/about/">About Us</a></li>
+                <li><a href="/instructors/">Instructors</a></li>
+                <li><a href="/testimonials/">Testimonials</a></li>
+                <li><a href="/faq/">FAQ</a></li>
+              </ul>
+            </div>
+  
+            <div class="footer-col">
+              <h3>Legal</h3>
+              <ul>
+                <li><a href="/Privacy/">Privacy & Policy</a></li>
+                <li><a href="/terms/">Terms & Conditions</a></li>
+                <li><a href="/courses/">Business Storytelling</a></li>
+                <li><a href="/courses/">Executive Communication</a></li>
+                <li><a href="/courses/">Virtual Presentation Mastery</a></li>
+              </ul>
+            </div>
+  
+            <div class="footer-col">
+              <h3>Contact Us</h3>
+              <div class="footer-contact">
+                <p>
+                  <i class="fas fa-map-marker-alt"></i> 1 Beach St, Fremantle WA
+                  6160, Australia
+                </p>
+                <p><i class="fas fa-phone"></i> +61 8 6256 5662</p>
+                <p><i class="fas fa-envelope"></i> info@hostari.org</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9am - 5pm</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="footer-bottom">
+            <p>
+              &copy; 2025 Hostari. All Rights Reserved. |
+              <a href="/privacy/">Privacy Policy</a> |
+              <a href="/terms/">Terms & Conditions</a>
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Blog modal functionality
+        const modal = document.getElementById('blogModal');
+        const readMoreButtons = document.querySelectorAll('.read-more');
+        const closeModal = document.querySelector('.close-modal');
+        const blogTitle = document.getElementById('blogTitle');
+        const blogDate = document.getElementById('blogDate');
+        const blogAuthor = document.getElementById('blogAuthor');
+        const blogContent = document.getElementById('blogContent');
+
+        readMoreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                blogTitle.textContent = button.getAttribute('data-title');
+                blogDate.textContent = button.getAttribute('data-date');
+                blogAuthor.textContent = button.getAttribute('data-author');
+                blogContent.innerHTML = button.getAttribute('data-content');
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+
+</html>

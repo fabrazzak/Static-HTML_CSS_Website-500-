@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | LMB Flowers London</title>
+    <meta name="description" content="Complete your purchase of premium native Australian flowers from LMB Flowers. Cash on delivery available for London customers.">
+    <meta name="keywords" content="flower checkout london, australian flowers delivery, cash on delivery flowers, flower purchase london, buy flowers online, premium florist london checkout">
+    <link rel="canonical" href="https://lmbflowers.com/checkout/">
+    <link rel="icon" type="image/x-icon" href="/image/logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'sage': '#9CAF88',
+                        'eucalyptus': '#7A9B76',
+                        'terracotta': '#C67B5C',
+                        'cream': '#F7F5F3',
+                        'charcoal': '#2C3E50'
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .checkout-step {
+            position: relative;
+        }
+        
+        .checkout-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -2rem;
+            width: 2rem;
+            height: 2px;
+            background-color: #9CAF88;
+        }
+        
+        .checkout-step:last-child::after {
+            display: none;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus,
+        select:focus {
+            box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.3);
+        }
+        
+        .payment-method {
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method.selected {
+            border-color: #9CAF88;
+            box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.3);
+        }
+        
+        .form-error {
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="bg-cream font-sans">
+    <!-- Cookie Notice -->
+    <div id="cookie-notice" class="fixed top-0 left-0 right-0 bg-charcoal text-white p-4 z-50 transform -translate-y-full transition-transform duration-500">
+        <div class="container mx-auto flex justify-between items-center">
+            <p class="text-sm">We use cookies to enhance your experience. By continuing to browse, you agree to our <a href="/cookies/" class="text-sage underline">Cookie Policy</a>.</p>
+            <button id="accept-cookies" class="bg-sage text-white px-4 py-2 rounded hover:bg-eucalyptus transition-colors">Accept</button>
+        </div>
+    </div>
+    
+    <!-- Header Top Bar -->
+  <div class="bg-charcoal text-white py-2 text-sm hidden md:block">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <span class="flex items-center">
+                    <i class="fas fa-map-marker-alt mr-2 text-sage"></i>
+                    221B Baker Street, London, NW1 6XE
+                </span>
+                <span class="flex items-center">
+                    <i class="fas fa-phone mr-2 text-sage"></i>
+                    +44 20 7946 0958
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://www.facebook.com/thelittlemarketbunch" class="hover:text-sage transition-colors">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/homehardware/" class="hover:text-sage transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/littlemktbunch" class="hover:text-sage transition-colors">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="/" class="flex items-center">
+                     <a href="/">
+                         <img src="/image/logo.png" alt="LMB Flowers Logo" class="h-16 w-auto mr-3">
+                    </a>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-charcoal hover:text-sage transition-colors font-medium">Home</a>
+                    <a href="/shop/" class="text-charcoal hover:text-sage transition-colors font-medium">Shop</a>
+                    <a href="/about/" class="text-charcoal hover:text-sage transition-colors font-medium">About</a>
+                    <a href="/blog/" class="text-charcoal hover:text-sage transition-colors font-medium">Blog</a>
+                    <a href="/contact/" class="text-charcoal hover:text-sage transition-colors font-medium">Contact</a>
+                </nav>
+                
+                <!-- Cart & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <a href="/cart/" id="cart-btn" class="relative bg-sage text-white px-4 py-2 rounded-full hover:bg-eucalyptus transition-colors inline-flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Cart <span id="cart-count"> 0</span>
+                        <span id="cart-total" class="ml-2 font-bold">£0.00</span>
+                    </a>
+                    
+                    <!-- Mobile Hamburger -->
+                    <button id="mobile-menu-btn" class="lg:hidden flex flex-col space-y-1 p-2">
+                        <span class="hamburger-line w-6 h-0.5 bg-charcoal"></span>
+                        <span class="hamburger-line w-6 h-0.5 bg-charcoal"></span>
+                        <span class="hamburger-line w-6 h-0.5 bg-charcoal"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <nav id="mobile-nav" class="lg:hidden hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">Home</a>
+                    <a href="/shop/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">Shop</a>
+                    <a href="/about/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">About</a>
+                    <a href="/blog/" class="text-charcoal hover:text-sage transition-colors py-2 border-b border-gray-200">Blog</a>
+                    <a href="/contact/" class="text-charcoal hover:text-sage transition-colors py-2">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Checkout Header -->
+    <section class="py-12 bg-gradient-to-r from-sage to-eucalyptus text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-4">Checkout</h2>
+            <p class="text-xl">Complete your purchase of beautiful native blooms</p>
+        </div>
+    </section>
+    
+    <!-- Checkout Steps -->
+    <section class="py-8 bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center items-center space-x-8 md:space-x-16">
+                <div class="checkout-step flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-sage text-white flex items-center justify-center font-semibold">1</div>
+                    <span class="ml-2 font-medium text-sage">Cart</span>
+                </div>
+                <div class="checkout-step flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-sage text-white flex items-center justify-center font-semibold">2</div>
+                    <span class="ml-2 font-medium text-sage">Details</span>
+                </div>
+                <div class="checkout-step flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-sage text-white flex items-center justify-center font-semibold">3</div>
+                    <span class="ml-2 font-medium text-sage">Payment</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">4</div>
+                    <span class="ml-2 font-medium text-gray-600">Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Checkout Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div id="checkout-empty" class="hidden text-center py-16">
+                <div class="inline-block p-8 bg-white rounded-full shadow-lg mb-6">
+                    <i class="fas fa-shopping-cart text-6xl text-gray-300"></i>
+                </div>
+                <h3 class="text-3xl font-serif font-bold text-charcoal mb-4">Your cart is empty</h3>
+                <p class="text-gray-600 mb-8 max-w-md mx-auto">It looks like you haven't added any beautiful native flowers to your cart yet.</p>
+                <a href="/shop/" class="bg-sage text-white px-8 py-3 rounded-full hover:bg-eucalyptus transition-colors font-semibold inline-flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                </a>
+            </div>
+            
+            <div id="checkout-with-items" class="hidden">
+                <form id="checkout-form" class="flex flex-col lg:flex-row gap-8">
+                    <!-- Checkout Form -->
+                    <div class="lg:w-2/3">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-2xl font-serif font-bold text-charcoal">Delivery Information</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                                        <input type="text" id="first-name" name="first-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                        <p class="text-red-500 text-sm mt-1 hidden" id="first-name-error">Please enter your first name</p>
+                                    </div>
+                                    <div>
+                                        <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                                        <input type="text" id="last-name" name="last-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                        <p class="text-red-500 text-sm mt-1 hidden" id="last-name-error">Please enter your last name</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                    <p class="text-red-500 text-sm mt-1 hidden" id="email-error">Please enter a valid email address</p>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                    <p class="text-red-500 text-sm mt-1 hidden" id="phone-error">Please enter a valid phone number</p>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address *</label>
+                                    <input type="text" id="address" name="address" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                    <p class="text-red-500 text-sm mt-1 hidden" id="address-error">Please enter your delivery address</p>
+                                </div>
+                                
+                                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                                    <div>
+                                        <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City *</label>
+                                        <input type="text" id="city" name="city" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                        <p class="text-red-500 text-sm mt-1 hidden" id="city-error">Please enter your city</p>
+                                    </div>
+                                    <div>
+                                        <label for="postcode" class="block text-sm font-medium text-gray-700 mb-1">Postcode *</label>
+                                        <input type="text" id="postcode" name="postcode" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                        <p class="text-red-500 text-sm mt-1 hidden" id="postcode-error">Please enter your postcode</p>
+                                    </div>
+                                    <div>
+                                        <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country *</label>
+                                        <select id="country" name="country" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="US">United States</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="delivery-date" class="block text-sm font-medium text-gray-700 mb-1">Preferred Delivery Date *</label>
+                                    <input type="date" id="delivery-date" name="delivery-date" required min="" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage">
+                                    <p class="text-red-500 text-sm mt-1 hidden" id="delivery-date-error">Please select a delivery date</p>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="delivery-instructions" class="block text-sm font-medium text-gray-700 mb-1">Delivery Instructions (Optional)</label>
+                                    <textarea id="delivery-instructions" name="delivery-instructions" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Method -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-2xl font-serif font-bold text-charcoal">Payment Method</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="mb-4">
+                                    <div class="payment-method border-2 border-gray-200 rounded-lg p-4 cursor-pointer selected" data-method="cod">
+                                        <div class="flex items-center">
+                                            <div class="w-6 h-6 rounded-full border-2 border-sage bg-sage flex items-center justify-center mr-3">
+                                                <i class="fas fa-check text-white text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-semibold text-charcoal">Cash on Delivery</h4>
+                                                <p class="text-sm text-gray-600">Pay with cash when your flowers arrive</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-100 p-4 rounded-lg mt-4">
+                                    <p class="text-sm text-gray-600">For cash on delivery orders, please have the exact amount ready for our delivery driver. A receipt will be provided with your order.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="lg:w-1/3">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden sticky top-32">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-2xl font-serif font-bold text-charcoal">Order Summary</h3>
+                            </div>
+                            <div class="p-6">
+                                <div id="checkout-items" class="mb-6">
+                                    <!-- Checkout items will be dynamically loaded -->
+                                </div>
+                                
+                                <div class="space-y-3 mb-6">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Subtotal</span>
+                                        <span class="font-semibold" id="checkout-subtotal">£0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Delivery</span>
+                                        <span class="font-semibold" id="checkout-delivery">£0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Tax</span>
+                                        <span class="font-semibold" id="checkout-tax">£0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                                        <span class="text-lg font-semibold text-charcoal">Total</span>
+                                        <span class="text-2xl font-bold text-sage" id="checkout-total">£0.00</span>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-sage text-white text-center py-4 rounded-lg hover:bg-eucalyptus transition-colors font-semibold mb-4">
+                                    Complete Order
+                                </button>
+                                
+                                <div class="text-center">
+                                    <p class="text-sm text-gray-600 mb-2">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="/privacy/" class="text-sage underline">privacy policy</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-charcoal text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-4xl font-serif font-bold mb-4">Stay In Bloom</h3>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Subscribe to receive care tips, new arrival notifications, and exclusive offers on native flower arrangements.</p>
+            
+            <div class="max-w-md mx-auto">
+                <div class="flex">
+                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-l-full text-charcoal focus:outline-none focus:ring-2 focus:ring-sage">
+                    <button class="bg-sage px-8 py-3 rounded-r-full hover:bg-eucalyptus transition-colors font-semibold">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                         <a href="/">
+                         <img src="/image/logo.png" alt="LMB Flowers Logo" class="h-16 w-auto mr-3">
+                    </a>
+                    </div>
+                    <p class="text-gray-400 mb-6">Bringing the beauty of Australian native flora to London with premium quality arrangements and exceptional service.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/thelittlemarketbunch" class="text-sage hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/homehardware/" class="text-sage hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://x.com/littlemktbunch" class="text-sage hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-6">Quick Links</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="text-gray-400 hover:text-sage transition-colors">Home</a></li>
+                        <li><a href="/shop/" class="text-gray-400 hover:text-sage transition-colors">Shop</a></li>
+                        <li><a href="/about/" class="text-gray-400 hover:text-sage transition-colors">About</a></li>
+                       
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-6">Customer Care</h5>
+                    <ul class="space-y-3">
+                         <li><a href="/blog/" class="text-gray-400 hover:text-sage transition-colors">Blog</a></li>
+                        <li><a href="/contact/" class="text-gray-400 hover:text-sage transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-6">Contact Info</h5>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-sage mr-3 mt-1"></i>
+                            <div>
+                                <p class="text-gray-400">221B Baker Street</p>
+                                <p class="text-gray-400">London, NW1 6XE</p>
+                                <p class="text-gray-400">United Kingdom</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-sage mr-3"></i>
+                            <a href="tel:+442079460958" class="text-gray-400 hover:text-sage transition-colors">+44 20 7946 0958</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-sage mr-3"></i>
+                            <a href="mailto:info@lmbflowers.com" class="text-gray-400 hover:text-sage transition-colors">info@lmbflowers.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 LMB Flowers. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="/privacy/" class="text-gray-400 hover:text-sage transition-colors">Privacy Policy</a>
+                    <a href="/terms/" class="text-gray-400 hover:text-sage transition-colors">Terms of Service</a>
+                    <a href="/cookies/" class="text-gray-400 hover:text-sage transition-colors">Cookies Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Order Success Modal -->
+    <div id="order-success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-8 text-center">
+            <div class="w-16 h-16 rounded-full bg-sage text-white flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif font-bold text-charcoal mb-4">Order Confirmed!</h3>
+            <p class="text-gray-600 mb-6">Thank you for your order. Your order number is <span id="order-number" class="font-semibold">#LMB12345</span>. You will receive a confirmation email shortly.</p>
+            <div class="flex space-x-4">
+                <a href="/" class="flex-1 bg-gray-200 text-charcoal px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors font-semibold">
+                    Home
+                </a>
+                <a href="/shop/" class="flex-1 bg-sage text-white px-6 py-3 rounded-lg hover:bg-eucalyptus transition-colors font-semibold">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart Management
+        let cart = JSON.parse(localStorage.getItem('lmb-cart')) || [];
+        
+        function updateCheckoutDisplay() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('cart-count').textContent = cartCount;
+            document.getElementById('cart-total').textContent = `£${cartTotal.toFixed(2)}`;
+            
+            // Set minimum delivery date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const minDate = tomorrow.toISOString().split('T')[0];
+            document.getElementById('delivery-date').setAttribute('min', minDate);
+            
+            // Show empty cart or checkout with items
+            if (cartCount === 0) {
+                document.getElementById('checkout-empty').classList.remove('hidden');
+                document.getElementById('checkout-with-items').classList.add('hidden');
+            } else {
+                document.getElementById('checkout-empty').classList.add('hidden');
+                document.getElementById('checkout-with-items').classList.remove('hidden');
+                
+                // Render checkout items
+                renderCheckoutItems();
+                
+                // Update order summary
+                updateOrderSummary(cartTotal);
+            }
+        }
+        
+        function renderCheckoutItems() {
+            const container = document.getElementById('checkout-items');
+            container.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex items-center justify-between mb-4 pb-4 border-b border-gray-200';
+                itemElement.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden mr-4">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-charcoal">${item.name}</h4>
+                            <p class="text-sm text-gray-600">Qty: ${item.quantity}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-semibold text-sage">£${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                `;
+                container.appendChild(itemElement);
+            });
+        }
+        
+        function updateOrderSummary(subtotal) {
+            const delivery = subtotal > 0 ? 5.95 : 0;
+            const tax = subtotal * 0.2; // 20% VAT
+            const total = subtotal + delivery + tax;
+            
+            document.getElementById('checkout-subtotal').textContent = `£${subtotal.toFixed(2)}`;
+            document.getElementById('checkout-delivery').textContent = `£${delivery.toFixed(2)}`;
+            document.getElementById('checkout-tax').textContent = `£${tax.toFixed(2)}`;
+            document.getElementById('checkout-total').textContent = `£${total.toFixed(2)}`;
+        }
+        
+        function validateForm() {
+            let isValid = true;
+            
+            // Reset errors
+            document.querySelectorAll('[id$="-error"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Validate first name
+            const firstName = document.getElementById('first-name');
+            if (!firstName.value.trim()) {
+                document.getElementById('first-name-error').classList.remove('hidden');
+                firstName.classList.add('form-error');
+                isValid = false;
+            } else {
+                firstName.classList.remove('form-error');
+            }
+            
+            // Validate last name
+            const lastName = document.getElementById('last-name');
+            if (!lastName.value.trim()) {
+                document.getElementById('last-name-error').classList.remove('hidden');
+                lastName.classList.add('form-error');
+                isValid = false;
+            } else {
+                lastName.classList.remove('form-error');
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                document.getElementById('email-error').classList.remove('hidden');
+                email.classList.add('form-error');
+                isValid = false;
+            } else {
+                email.classList.remove('form-error');
+            }
+            
+            // Validate phone
+            const phone = document.getElementById('phone');
+            if (!phone.value.trim()) {
+                document.getElementById('phone-error').classList.remove('hidden');
+                phone.classList.add('form-error');
+                isValid = false;
+            } else {
+                phone.classList.remove('form-error');
+            }
+            
+            // Validate address
+            const address = document.getElementById('address');
+            if (!address.value.trim()) {
+                document.getElementById('address-error').classList.remove('hidden');
+                address.classList.add('form-error');
+                isValid = false;
+            } else {
+                address.classList.remove('form-error');
+            }
+            
+            // Validate city
+            const city = document.getElementById('city');
+            if (!city.value.trim()) {
+                document.getElementById('city-error').classList.remove('hidden');
+                city.classList.add('form-error');
+                isValid = false;
+            } else {
+                city.classList.remove('form-error');
+            }
+            
+            // Validate postcode
+            const postcode = document.getElementById('postcode');
+            if (!postcode.value.trim()) {
+                document.getElementById('postcode-error').classList.remove('hidden');
+                postcode.classList.add('form-error');
+                isValid = false;
+            } else {
+                postcode.classList.remove('form-error');
+            }
+            
+            // Validate delivery date
+            const deliveryDate = document.getElementById('delivery-date');
+            if (!deliveryDate.value) {
+                document.getElementById('delivery-date-error').classList.remove('hidden');
+                deliveryDate.classList.add('form-error');
+                isValid = false;
+            } else {
+                deliveryDate.classList.remove('form-error');
+            }
+            
+            return isValid;
+        }
+        
+        function processOrder() {
+            // Generate a random order number
+            const orderNumber = 'LMB' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('order-number').textContent = '#' + orderNumber;
+            
+            // Show success modal
+            document.getElementById('order-success-modal').classList.remove('hidden');
+            
+            // Clear cart
+            cart = [];
+            localStorage.setItem('lmb-cart', JSON.stringify(cart));
+            
+            // Update cart display
+            updateCheckoutDisplay();
+        }
+        
+        // Cookie Management
+        function showCookieNotice() {
+            if (!localStorage.getItem('cookies-accepted')) {
+                document.getElementById('cookie-notice').style.transform = 'translateY(0)';
+            }
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCheckoutDisplay();
+            showCookieNotice();
+            
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                this.classList.toggle('hamburger-active');
+                document.getElementById('mobile-nav').classList.toggle('hidden');
+            });
+            
+            // Cookie acceptance
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                localStorage.setItem('cookies-accepted', 'true');
+                document.getElementById('cookie-notice').style.transform = 'translateY(-100%)';
+            });
+            
+            // Form submission
+            document.getElementById('checkout-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    processOrder();
+                }
+            });
+            
+            // Input validation on blur
+            document.querySelectorAll('input[required]').forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        this.classList.remove('form-error');
+                        document.getElementById(this.id + '-error').classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

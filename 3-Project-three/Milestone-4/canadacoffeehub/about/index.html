@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn about Canada Coffee Hub's rich history, our passion for premium coffee, and our commitment to quality since 1970 in Merritt, BC.">
+    <meta name="keywords"
+        content="about canada coffee hub, coffee company history, premium coffee roasters, canadian coffee company, coffee roasting expertise">
+    <link rel="canonical" href="https://canadacoffeehub.com/about/">
+    <title>About Canada Coffee Hub - Our Story & Passion for Coffee | Merritt, BC</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --dark-bg: #1a0f0a;
+            --light-bg: #2d1810;
+            --text-light: #f5f5f5;
+            --text-dark: #1a0f0a;
+            --gold: #DAA520;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: var(--dark-bg);
+        }
+
+        /* Canvas Background */
+        #particles-js,
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .contact-info i {
+            color: var(--gold);
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(26, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Add this rule to hide hamburger when menu is active */
+.hamburger.active {
+    display: none;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+.close-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--gold);
+    cursor: pointer;
+    z-index: 1002;
+}
+
+/* Add this to show close menu when nav is active */
+nav.active ~ .close-menu {
+    display: block;
+}
+
+        /* About Hero */
+        .about-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+            background-image: url('/assets/images/about-hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 15, 10, 0.85) 0%, rgba(45, 24, 16, 0.75) 100%);
+            z-index: 0;
+        }
+
+        .about-hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .about-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Story Section */
+        .story {
+            padding: 100px 20px;
+            background: rgba(26, 15, 10, 0.8);
+        }
+
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: rgba(245, 245, 245, 0.9);
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 100px 20px;
+            background: rgba(45, 24, 16, 0.6);
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline-items {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-items::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            width: 50%;
+            padding: 30px 40px;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba(218, 165, 32, 0.3);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(26, 15, 10, 0.9), rgba(45, 24, 16, 0.9));
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(218, 165, 32, 0.3);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .timeline-description {
+            color: rgba(245, 245, 245, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 100px 20px;
+            background: rgba(26, 15, 10, 0.8);
+        }
+
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, rgba(45, 24, 16, 0.9), rgba(26, 15, 10, 0.9));
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(218, 165, 32, 0.3);
+            border-color: var(--gold);
+        }
+
+        .value-icon {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .value-card p {
+            color: rgba(245, 245, 245, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 100px 20px;
+            background: rgba(26, 15, 10, 0.9);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(45, 24, 16, 0.6), rgba(26, 15, 10, 0.6));
+            border-radius: 15px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            color: rgba(245, 245, 245, 0.9);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .about-cta {
+            padding: 100px 20px;
+            background: rgba(45, 24, 16, 0.6);
+            text-align: center;
+        }
+
+        .about-cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .about-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: rgba(245, 245, 245, 0.9);
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--secondary-color));
+            color: white;
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(218, 165, 32, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 15, 10, 0.98);
+            padding: 60px 20px 20px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(245, 245, 245, 0.7);
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .footer-section p i {
+            color: var(--gold);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(218, 165, 32, 0.2);
+            color: rgba(245, 245, 245, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(26, 15, 10, 0.98);
+                padding: 80px 30px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 25px;
+                align-items: flex-start;
+            }
+
+            .close-menu {
+                display: block;
+            }
+
+            .about-hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+
+            .story-image {
+                height: 400px;
+            }
+
+            .timeline-items::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item::before {
+                left: 20px !important;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .top-header {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .values-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .story-text h3 {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle.js Background -->
+    <div id="particles-js"></div>
+
+    <!-- Three.js Background -->
+    <div id="three-container"></div>
+
+    <div class="content-wrapper">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="top-header-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> 2551 Priest Ave, Merritt, BC V1K 1B3</span>
+                    <span><i class="fas fa-phone"></i> +1 (250) 378-6966</span>
+                    <span><i class="fas fa-envelope"></i> info@canadacoffeehub.com</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                </a>
+
+                <nav id="mainNav">
+                    <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li class="cart-icon">
+                            <a href="/cart/">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- About Hero -->
+        <section class="about-hero">
+            <div class="about-hero-content">
+                <h2>Our Coffee Journey</h2>
+                <p>For over five decades, we've been passionate about bringing the finest coffee experiences to Canadians. From bean selection to your cup, excellence is our tradition.</p>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section class="story">
+            <div class="story-container">
+                <h2 class="section-title">Our Story</h2>
+                <div class="story-content">
+                    <div class="story-image">
+                        <img src="/assets/images/coffee-roasting-heritage.webp" alt="Canada Coffee Hub Roasting Heritage">
+                    </div>
+                    <div class="story-text">
+                        <h3>Roasting Excellence Since 1970</h3>
+                        <p>Canada Coffee Hub began as a small family-owned roastery in Merritt, British Columbia, with a simple mission: to source and roast the world's finest coffee beans for Canadian coffee lovers.</p>
+                        <p>Founded by the Thompson family, our journey started with a single roaster and a commitment to quality that has stood the test of time. Through decades of perfecting our craft, we've grown from a local favorite to a respected name across Canada.</p>
+                        <p>Today, while we've expanded our operations and product range, we remain true to our roots. Every batch of coffee is still roasted with the same care and attention to detail that defined our early years.</p>
+                    </div>
+                </div>
+                <div class="story-content reverse">
+                    <div class="story-text">
+                        <h3>Our Passion for Quality</h3>
+                        <p>At Canada Coffee Hub, we believe that exceptional coffee begins with exceptional beans. That's why we travel across North America to source only the finest 100% Arabica beans from sustainable farms.</p>
+                        <p>Our master roasters bring over 55 years of combined experience to every batch. They understand that each bean variety has its own unique characteristics that need to be carefully developed through precise roasting techniques.</p>
+                        <p>From light roasts that highlight delicate floral notes to dark roasts with rich, chocolatey undertones, we craft each blend to perfection. Our commitment to quality extends beyond roasting to every aspect of our operation.</p>
+                    </div>
+                    <div class="story-image">
+                        <img src="/assets/images/coffee-quality-passion.jpg" alt="Coffee Quality and Passion">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline">
+            <div class="timeline-container">
+                <h2 class="section-title">Our Journey</h2>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">1970</div>
+                            <h3 class="timeline-title">Humble Beginnings</h3>
+                            <p class="timeline-description">Founded as a small roastery in Merritt, BC with a single roaster and a dream to bring quality coffee to Canadian homes.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">1985</div>
+                            <h3 class="timeline-title">Expansion</h3>
+                            <p class="timeline-description">Opened our first retail location and expanded our roasting facility to meet growing demand across British Columbia.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">1998</div>
+                            <h3 class="timeline-title">Organic Certification</h3>
+                            <p class="timeline-description">Introduced our first line of certified organic and fair trade coffees, supporting sustainable farming practices.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2005</div>
+                            <h3 class="timeline-title">National Reach</h3>
+                            <p class="timeline-description">Launched our e-commerce platform, making our premium coffees available to customers across Canada.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2015</div>
+                            <h3 class="timeline-title">Product Diversification</h3>
+                            <p class="timeline-description">Expanded our offerings to include syrups, teas, and coffee equipment, becoming a complete coffee destination.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2025</div>
+                            <h3 class="timeline-title">Modern Innovation</h3>
+                            <p class="timeline-description">Renovated our facility with state-of-the-art roasting technology while preserving our traditional craftsmanship.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values">
+            <div class="values-container">
+                <h2 class="section-title">Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-seedling"></i></div>
+                        <h3>Sustainability</h3>
+                        <p>We're committed to ethical sourcing and sustainable practices that support coffee-growing communities and protect our environment for future generations.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-award"></i></div>
+                        <h3>Quality</h3>
+                        <p>Every bean is carefully selected and roasted to perfection. We never compromise on quality, from sourcing to packaging to delivery.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-heart"></i></div>
+                        <h3>Passion</h3>
+                        <p>Coffee is more than a business to us—it's our passion. We're dedicated to sharing our love for exceptional coffee with every customer.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-users"></i></div>
+                        <h3>Community</h3>
+                        <p>We believe in building strong relationships with our customers, suppliers, and the communities we serve across Canada.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>Innovation</h3>
+                        <p>While honoring traditional roasting methods, we continuously innovate to bring new flavors and experiences to coffee lovers.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Integrity</h3>
+                        <p>We conduct our business with honesty and transparency, ensuring fair treatment for all partners in our supply chain.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stats-container">
+                <h2 class="section-title">By The Numbers</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">55+</span>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">30+</span>
+                        <div class="stat-label">Coffee Varieties</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <div class="stat-label">Arabica Beans</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <div class="stat-label">Canadian Provinces</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <div class="stat-label">Fresh Roasting</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="about-cta">
+            <div class="about-cta-container">
+                <h2>Experience Our Passion</h2>
+                <p>Ready to taste the difference that five decades of coffee expertise makes? Explore our premium selection and discover your new favorite coffee today.</p>
+                <div class="cta-buttons">
+                    <a href="/shop/" class="btn btn-primary">Shop Our Coffee</a>
+                    <a href="/contact/" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/images/canada-coffee-hub-logo.png" alt="Canada Coffee Hub Logo">
+                    </div>
+                    <p>Premium coffee roasting and distribution since 1970. Serving coffee lovers across Canada with the
+                        finest arabica beans and equipment.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="/">Home</a>
+                    <a href="/shop/">Shop</a>
+                    <a href="/about/">About Us</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/cookies/">Cookie Policy</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>2551 Priest Ave, Merritt, BC V1K 1B3, Canada</p>
+                    <p><i class="fas fa-phone"></i>+1 (250) 378-6966</p>
+                    <p><i class="fas fa-envelope"></i> info@canadacoffeehub.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Canada Coffee Hub. All rights reserved. Crafted with passion for coffee lovers.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#DAA520' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#CD853F',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize Three.js
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create coffee bean particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 1000; i++) {
+            vertices.push(
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000,
+                Math.random() * 2000 - 1000
+            );
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0xDAA520, size: 2, transparent: true, opacity: 0.6 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 500;
+
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animateThree();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Cart Functions
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('mainNav');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target) && nav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        // Animate stats counter
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const durations = [2000, 1800, 1600, 1400, 1200, 1000];
+            
+            statNumbers.forEach((stat, index) => {
+                const target = parseInt(stat.textContent);
+                const duration = durations[index];
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + (stat.textContent.includes('+') ? '+' : '');
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
+                    }
+                }, 16);
+            });
+        }
+
+        // Initialize stats animation when in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // Initialize
+        updateCartCount();
+    </script>
+</body>
+
+</html>

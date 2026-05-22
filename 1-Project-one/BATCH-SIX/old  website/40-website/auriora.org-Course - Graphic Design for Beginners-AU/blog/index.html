@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Blog - auriora.org</title>
+    <meta name="description" content="Explore our graphic design blog for tutorials, tips, and inspiration. Learn about color theory, typography, design tools, and industry trends.">
+    <meta name="keywords" content="graphic design blog, design tutorials, design tips, Photoshop, Illustrator, design inspiration, color theory, typography">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #6c5ce7;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #5649c0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #6c5ce7;
+            color: #6c5ce7;
+        }
+        
+        .btn-outline:hover {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: #2d3436;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #636e72;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+        
+        .logo span {
+            color: #2d3436;
+        }
+        
+        .nav-menu {
+            display: flex;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: #6c5ce7;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #2d3436;
+        }
+        
+        /* Blog Main Content */
+        .blog-page {
+            padding-top: 140px;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .blog-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #2d3436;
+        }
+        
+        .blog-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+        
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .category-btn {
+            padding: 8px 20px;
+            background-color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .blog-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #6c5ce7;
+            margin-bottom: 10px;
+        }
+        
+        .blog-date {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-bottom: 10px;
+        }
+        
+        .blog-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #2d3436;
+        }
+        
+        .blog-excerpt {
+            color: #636e72;
+            margin-bottom: 20px;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .author-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background-color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        /* Sidebar Styles */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+        
+        .sidebar {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #2d3436;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #6c5ce7;
+        }
+        
+        .popular-posts {
+            margin-bottom: 40px;
+        }
+        
+        .popular-post {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popular-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-post-image {
+            width: 80px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .popular-post-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .popular-post-date {
+            font-size: 0.8rem;
+            color: #636e72;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            padding: 6px 12px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background-color: #f5f5f5;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .newsletter-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .newsletter-input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2d3436;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #a29bfe;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #a29bfe;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #6c5ce7;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #b2bec3;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: -1;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .blog-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">auriora<span>.org</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses/">Courses</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Blog Main Content -->
+    <main class="blog-page">
+        <div class="container">
+            <div class="blog-header">
+                <h1>Design Insights & Tutorials</h1>
+                <p>Explore our collection of articles, tutorials, and resources to enhance your design skills and stay updated with industry trends.</p>
+            </div>
+            
+            <div class="blog-container">
+                <div class="blog-main">
+                    <!-- Blog Categories -->
+                    <div class="blog-categories">
+                        <button class="category-btn active">All</button>
+                        <button class="category-btn">Tutorials</button>
+                        <button class="category-btn">Inspiration</button>
+                        <button class="category-btn">Tools</button>
+                        <button class="category-btn">Trends</button>
+                        <button class="category-btn">Resources</button>
+                    </div>
+                    
+                    <!-- Blog Grid -->
+                    <div class="blog-grid">
+                        <!-- Blog Post 1 -->
+                        <article class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Color Theory Basics" class="blog-image">
+                            <div class="blog-content">
+                                <span class="blog-category">Tutorials</span>
+                                <div class="blog-date">Jan 15, 2025</div>
+                                <h2 class="blog-title">Color Theory for Beginners: How to Choose the Perfect Palette</h2>
+                                <p class="blog-excerpt">Learn how to select and combine colors effectively in your designs with these fundamental principles that every designer should know.</p>
+                                <a href="javascript.:void(0)" class="btn btn-outline">Read More</a>
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jessica Lee" class="author-image">
+                                    <div>
+                                        <div class="author-name">Jessica Lee</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 2 -->
+                        <article class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Photoshop Tips" class="blog-image">
+                            <div class="blog-content">
+                                <span class="blog-category">Tools</span>
+                                <div class="blog-date">Feb 03, 2025</div>
+                                <h2 class="blog-title">5 Essential Photoshop Tools Every Beginner Should Master</h2>
+                                <p class="blog-excerpt">Discover the most powerful tools in Photoshop that will dramatically improve your workflow and help you create professional designs faster.</p>
+                                <a href="javascript.:void(0)" class="btn btn-outline">Read More</a>
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="David Kim" class="author-image">
+                                    <div>
+                                        <div class="author-name">David Kim</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 3 -->
+                        <article class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Design Portfolio" class="blog-image">
+                            <div class="blog-content">
+                                <span class="blog-category">Resources</span>
+                                <div class="blog-date">Mar 22, 2025</div>
+                                <h2 class="blog-title">How to Build a Winning Design Portfolio With No Experience</h2>
+                                <p class="blog-excerpt">Practical advice for creating a portfolio that gets noticed, even if you're just starting out in the design industry.</p>
+                                <a href="javascript.:void(0)" class="btn btn-outline">Read More</a>
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez" class="author-image">
+                                    <div>
+                                        <div class="author-name">Emma Rodriguez</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 4 -->
+                        <article class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Typography Guide" class="blog-image">
+                            <div class="blog-content">
+                                <span class="blog-category">Tutorials</span>
+                                <div class="blog-date">Apr 05, 2025</div>
+                                <h2 class="blog-title">Typography 101: Choosing Fonts That Enhance Your Design</h2>
+                                <p class="blog-excerpt">A comprehensive guide to selecting and pairing fonts that will make your designs more effective and visually appealing.</p>
+                                <a href="javascript.:void(0)" class="btn btn-outline">Read More</a>
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Chen" class="author-image">
+                                    <div>
+                                        <div class="author-name">Michael Chen</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 5 -->
+                        <article class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Design Trends" class="blog-image">
+                            <div class="blog-content">
+                                <span class="blog-category">Trends</span>
+                                <div class="blog-date">Apr 18, 2025</div>
+                                <h2 class="blog-title">2025 Design Trends: What's Hot and What's Not</h2>
+                                <p class="blog-excerpt">Stay ahead of the curve with our breakdown of the most significant design trends emerging this year across various industries.</p>
+                                <a href="javascript.:void(0)" class="btn btn-outline">Read More</a>
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="author-image">
+                                    <div>
+                                        <div class="author-name">Sarah Johnson</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 6 -->
+                        <article class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Logo Design" class="blog-image">
+                            <div class="blog-content">
+                                <span class="blog-category">Inspiration</span>
+                                <div class="blog-date">Jan 02, 2025</div>
+                                <h2 class="blog-title">10 Logo Design Principles for Creating Memorable Brands</h2>
+                                <p class="blog-excerpt">Learn the key principles that make logos effective and memorable, with examples from some of the world's most recognizable brands.</p>
+                                <a href="javascript.:void(0)" class="btn btn-outline">Read More</a>
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Alex Turner" class="author-image">
+                                    <div>
+                                        <div class="author-name">Alex Turner</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <!-- <div class="pagination">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">Next</button>
+                    </div> -->
+                </div>
+                
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Popular Posts -->
+                    <div class="popular-posts">
+                        <h3 class="sidebar-title">Popular Posts</h3>
+                        <div class="popular-post">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Color Theory" class="popular-post-image">
+                            <div>
+                                <h4 class="popular-post-title">Color Theory for Beginners</h4>
+                                <div class="popular-post-date">Jan 15, 2025</div>
+                            </div>
+                        </div>
+                        <div class="popular-post">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Design Portfolio" class="popular-post-image">
+                            <div>
+                                <h4 class="popular-post-title">Building a Design Portfolio</h4>
+                                <div class="popular-post-date">Mar 22, 2025</div>
+                            </div>
+                        </div>
+                        <div class="popular-post">
+                            <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Photoshop Tools" class="popular-post-image">
+                            <div>
+                                <h4 class="popular-post-title">Essential Photoshop Tools</h4>
+                                <div class="popular-post-date">Feb 03, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="tags-section">
+                        <h3 class="sidebar-title">Tags</h3>
+                        <div class="tags">
+                            <a href="/blog/" class="tag">Photoshop</a>
+                            <a href="/blog/" class="tag">Illustrator</a>
+                            <a href="/blog/" class="tag">Typography</a>
+                            <a href="/blog/" class="tag">Color</a>
+                            <a href="/blog/" class="tag">Logo</a>
+                            <a href="/blog/" class="tag">Branding</a>
+                            <a href="/blog/" class="tag">UI/UX</a>
+                            <a href="/blog/" class="tag">Web Design</a>
+                            <a href="/blog/" class="tag">Print</a>
+                            <a href="/blog/" class="tag">Tutorial</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="newsletter">
+                        <h3 class="newsletter-title">Design Newsletter</h3>
+                        <p>Get the latest design tips and resources straight to your inbox.</p>
+                        <form class="newsletter-form">
+                            <input type="text" placeholder="Your Name" class="newsletter-input">
+                            <input type="email" placeholder="Your Email" class="newsletter-input">
+                            <button type="submit" class="btn">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>auriora.org</h3>
+                    <p>Making graphic design education accessible to everyone, regardless of experience level.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/courses/">Courses</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/contact/">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li> Wood Buffalo, AB T9K 2Z1, Canada </li>
+                        <li>Phone:  +17808282905 </li>
+                        <li>Email: info@auriora.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 auriora.org. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Category Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In a real implementation, this would filter blog posts
+            });
+        });
+        
+        // Pagination
+        const pageBtns = document.querySelectorAll('.page-btn');
+        
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                pageBtns.forEach(b => b.classList.remove('active'));
+                if (!btn.textContent.includes('Next')) {
+                    btn.classList.add('active');
+                }
+                // In a real implementation, this would load the selected page
+            });
+        });
+    </script>
+</body>
+</html>

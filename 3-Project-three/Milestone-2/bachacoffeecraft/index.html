@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacha Coffee Craft - Premium Arabica Coffee Experience | El Verger, Spain</title>
+    <meta name="description"
+        content="Discover premium Arabica coffee at Bacha Coffee Craft. Expertly sourced, slow-roasted beans from El Verger, Spain. Coffee gift boxes, accessories & more.">
+    <meta name="keywords"
+        content="premium coffee, arabica coffee, coffee gift boxes, specialty coffee, El Verger coffee, Spanish coffee roasters, coffee accessories, gourmet coffee, artisan coffee, luxury coffee experience">
+    <link rel="canonical" href="https://bachacoffeecraft.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-gold: #D4AF37;
+            --deep-brown: #2C1810;
+            --dark-coffee: #1A0E08;
+            --medium-brown: #3D2817;
+            --light-gold: #F4E4BC;
+            --warm-gray: #8B7355;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-coffee);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-brown);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse-gold {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            }
+        }
+
+        /* Utility Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-gold {
+            animation: pulse-gold 2s infinite;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glass Morphism */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: linear-gradient(to right, #92400e, #b45309);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .cookie-popup.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .cookie-text {
+            font-size: 14px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cookie-accept {
+            background-color: #ca8a04;
+        }
+
+        .cookie-accept:hover {
+            background-color: #a16207;
+        }
+
+        .cookie-decline {
+            background-color: #6b7280;
+        }
+
+        .cookie-decline:hover {
+            background-color: #4b5563;
+        }
+
+        /* Header Styles */
+        header {
+            position: relative;
+            z-index: 50;
+        }
+
+        .top-header {
+            background: linear-gradient(to right, #92400e, #b45309);
+            padding: 8px 0;
+        }
+
+        .top-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .social-link {
+            color: inherit;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: #fde047;
+        }
+
+        .main-header {
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            font-weight: 500;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #fbbf24;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .cart-btn:hover {
+            color: #fbbf24;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ca8a04;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--primary-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 13px;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 26px;
+            transform-origin: left center;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -3px;
+            left: 8px;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 39px;
+            left: 8px;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-brown), var(--dark-coffee));
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-nav.open {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+
+        .mobile-nav-title {
+            font-size: 24px;
+        }
+
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-mobile-nav:hover {
+            color: #fbbf24;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .mobile-nav-link {
+            color: inherit;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav-link:hover {
+            color: #fbbf24;
+        }
+
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-gold), #B8941F);
+            color: var(--dark-coffee);
+            border: none;
+            padding: 12px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            border: 2px solid #ca8a04;
+            color: #ca8a04;
+            background: transparent;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background: #ca8a04;
+            color: #000;
+        }
+
+        /* Product Card Hover Effects */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: #d1d5db;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 64px;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 96px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 32px;
+            color: #d1d5db;
+            max-width: 768px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .floating-elements {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-bean {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .floating-bean:nth-child(1) {
+            top: 80px;
+            left: 40px;
+            width: 16px;
+            height: 16px;
+            background: #ca8a04;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-bean:nth-child(2) {
+            top: 160px;
+            right: 80px;
+            width: 24px;
+            height: 24px;
+            background: #d97706;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+
+        .floating-bean:nth-child(3) {
+            bottom: 160px;
+            left: 25%;
+            width: 12px;
+            height: 12px;
+            background: #a16207;
+            opacity: 0.25;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        .floating-bean:nth-child(4) {
+            bottom: 80px;
+            right: 33.333333%;
+            width: 20px;
+            height: 20px;
+            background: #d97706;
+            opacity: 0.35;
+            animation: float 6s ease-in-out infinite 0.5s;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Product Card Styles */
+        .product-image {
+            height: 192px;
+            background: linear-gradient(to bottom right, #92400e, #b45309);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .product-image i {
+            font-size: 64px;
+            color: #fde047;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #dc2626;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-rating {
+            display: flex;
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #9ca3af;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .btn-add-to-cart {
+            background: #ca8a04;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-add-to-cart:hover {
+            background: #a16207;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        .process-step {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .process-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .process-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .process-description {
+            color: #9ca3af;
+        }
+
+        /* Blog Card Styles */
+        .blog-card {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .blog-image {
+            height: 192px;
+            background: linear-gradient(to bottom right, #92400e, #b45309);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-image i {
+            font-size: 64px;
+            color: #fde047;
+        }
+
+        .blog-content {
+            padding: 24px;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .blog-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .blog-excerpt {
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .blog-link {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .blog-link:hover {
+            color: #f59e0b;
+        }
+
+        /* Testimonial Styles */
+        .testimonial {
+            padding: 24px;
+            border-radius: 16px;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            color: #fbbf24;
+        }
+
+        .testimonial-content {
+            color: #d1d5db;
+            font-style: italic;
+        }
+
+        /* Newsletter Styles */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 448px;
+            margin: 0 auto 32px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .newsletter-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 32px;
+        }
+
+        .social-links a {
+            color: #9ca3af;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #fbbf24;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(146, 64, 14, 0.3), #000);
+            padding: 64px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: #ca8a04;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .footer-credits {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .footer-credits .heart {
+            color: #ef4444;
+        }
+
+        /* Background Sections */
+        .bg-gradient-1 {
+            background: linear-gradient(to bottom, transparent, rgba(146, 64, 14, 0.1));
+        }
+
+        .bg-gradient-2 {
+            background: linear-gradient(to right, rgba(146, 64, 14, 0.2), rgba(180, 83, 9, 0.2));
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .grid-cols-3,
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .top-header-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .top-header {
+                display: none;
+            }
+
+            .top-header-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: url('/assets/home-bg.png') center center/cover no-repeat;
+  overflow: hidden;
+}
+
+.hero-section .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* dark overlay */
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2; /* keeps text above overlay */
+}
+
+.floating-elements {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="cookie-content">
+            <p class="cookie-text">We use cookies to enhance your browsing experience. By continuing, you agree to our
+                use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-accept">Accept</button>
+                <button id="decline-cookies" class="cookie-btn cookie-decline">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-content">
+                    <div class="top-header-left">
+                        <span><i class="fas fa-map-marker-alt"></i> Av. Valencia, 36, El Verger, Spain</span>
+                        <span><i class="fas fa-phone"></i> +34 965 750 227</span>
+                    </div>
+                    <div class="top-header-right">
+                        <a href="https://www.instagram.com/BachaCoffee/" class="social-link"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/" class="social-link"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee" class="social-link"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@bachacoffee" class="social-link"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://x.com/BachaCoffee" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="main-header glass-morphism">
+            <div class="container">
+                <div class="nav-container">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <ul class="desktop-nav">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/shop/" class="nav-link">Shop</a></li>
+                        <li><a href="/about/" class="nav-link">About</a></li>
+                        <li><a href="/blog/" class="nav-link">Blog</a></li>
+                        <li><a href="/contact/" class="nav-link">Contact</a></li>
+                    </ul>
+
+                    <!-- Cart & Mobile Menu -->
+                    <div class="header-actions">
+                        <button id="cart-btn" class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </button>
+
+                        <!-- Hamburger Menu -->
+                        <div class="hamburger" id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <h2 class="font-display mobile-nav-title gradient-text">Menu</h2>
+                <button id="close-mobile-nav" class="close-mobile-nav">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="mobile-nav-link">Home</a></li>
+                <li><a href="/shop/" class="mobile-nav-link">Shop</a></li>
+                <li><a href="/about/" class="mobile-nav-link">About</a></li>
+                <li><a href="/blog/" class="mobile-nav-link">Blog</a></li>
+                <li><a href="/contact/" class="mobile-nav-link">Contact</a></li>
+                <li><a href="/cart/" class="mobile-nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Section 1: Hero -->
+        <section class="hero-section">
+            <div class="overlay"></div> <!-- overlay layer -->
+            <div class="container">
+                <div class="animate-fade-in-up">
+                    <h2 class="hero-title font-display gradient-text">
+                        Premium Coffee<br>Experience
+                    </h2>
+                    <p class="hero-subtitle">
+                        Journey through the finest Arabica beans, expertly sourced and slow-roasted to perfection in the
+                        heart of Spain
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="/shop/" class="btn-gold">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Coffee Beans -->
+            <div class="floating-elements">
+                <div class="floating-bean"></div>
+                <div class="floating-bean"></div>
+                <div class="floating-bean"></div>
+                <div class="floating-bean"></div>
+            </div>
+        </section>
+
+
+        <!-- Section 2: Featured Products -->
+        <section class="section bg-gradient-1">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h3 class="section-title font-display gradient-text animate-fade-in-up">
+                        Signature Creations
+                    </h3>
+                    <p class="section-subtitle animate-fade-in-up">
+                        Discover our carefully curated selection of premium coffee experiences
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3">
+                    <!-- Product 1 -->
+                    <div class="product-card glass-morphism animate-slide-in-left" style="padding: 24px;">
+                        <div class="product-image">
+                            <img src="/images/products/mount-kenya-coffee-gift-box.jpg"
+                                alt="Mount Kenya Coffee Bag Gift Box">
+                        </div>
+                        <h4 class="product-title font-display">Mount Kenya Coffee Bag Gift Box</h4>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Premium single-serve gift box with captivating aromas from the
+                            highlands of Kenya</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$27.00</span>
+                            <button class="btn-add-to-cart" data-id="1" data-name="Mount Kenya Coffee Bag Gift Box"
+                                data-price="27.00" data-image="/images/products/mount-kenya-coffee-gift-box.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card glass-morphism animate-fade-in-up"
+                        style="padding: 24px; animation-delay: 0.2s;">
+                        <div class="product-image">
+                            <img src="/images/products/explorer-coffee-bag-taster.webp" alt="Explorer Coffee Bag Taster">
+                        </div>
+                        <h4 class="product-title font-display">Explorer Coffee Bag Taster</h4>
+                        <div class="product-rating">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Embark on a coffee journey with our explorer tasting collection
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$54.00</span>
+                            <button class="btn-add-to-cart" data-id="2" data-name="Explorer Coffee Bag Taster"
+                                data-price="54.00" data-image="/images/products/explorer-coffee-bag-taster.webp">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card glass-morphism animate-slide-in-right"
+                        style="padding: 24px; animation-delay: 0.4s;">
+                        <div class="product-image">
+                            <img src="/images/products/out-of-africa-scented-candle.jpg"
+                                alt="Out of Africa Scented Candle">
+                        </div>
+                        <h4 class="product-title font-display">Out of Africa Scented Candle</h4>
+                        <div style="margin-bottom: 8px;">
+                            <span style="font-size: 14px; color: #9ca3af;">250g/8.8oz</span>
+                        </div>
+                        <p class="product-description">Aromatic candle infused with coffee essence for the perfect
+                            ambiance</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$85.00</span>
+                            <button class="btn-add-to-cart" data-id="3" data-name="Out of Africa Scented Candle"
+                                data-price="85.00" data-image="/images/products/out-of-africa-scented-candle.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: About Excellence -->
+        <section class="section bg-gradient-2">
+            <div class="container">
+                <div class="grid grid-cols-2" style="align-items: center;">
+                    <div class="animate-slide-in-left">
+                        <h3 class="section-title font-display gradient-text"
+                            style="text-align: left; margin-bottom: 24px;">
+                            Our Commitment to Excellence
+                        </h3>
+                        <p style="font-size: 18px; color: #d1d5db; margin-bottom: 32px; line-height: 1.7;">
+                            At Bacha Coffee, meticulous attention to each harvest from cultivation to bean selection is
+                            as crucial as our artisanal roasting process. By sourcing directly from coffee planters, we
+                            guarantee the finest cultivation techniques and freshest beans.
+                        </p>
+
+                        <div class="feature-grid">
+                            <div class="feature-item glass-morphism">
+                                <div class="feature-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <h4 class="feature-title">Expert Sourcing</h4>
+                                <p class="feature-description">Direct from planters</p>
+                            </div>
+                            <div class="feature-item glass-morphism">
+                                <div class="feature-icon">
+                                    <i class="fas fa-coffee"></i>
+                                </div>
+                                <h4 class="feature-title">100% Arabica</h4>
+                                <p class="feature-description">Premium quality beans</p>
+                            </div>
+                            <div class="feature-item glass-morphism">
+                                <div class="feature-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <h4 class="feature-title">Slow Roasting</h4>
+                                <p class="feature-description">Artisanal process</p>
+                            </div>
+                            <div class="feature-item glass-morphism">
+                                <div class="feature-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <h4 class="feature-title">CO₂ Decaffeinated</h4>
+                                <p class="feature-description">Natural process</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animate-slide-in-right">
+                        <div
+                            style="height: 384px; background: linear-gradient(to bottom right, #92400e, #b45309); border-radius: 16px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                            <img src="/images/coffee-plantation-mountains.jpg" alt="Coffee plantation in mountains"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
+                            <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.2);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Coffee Process -->
+        <section class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h3 class="section-title font-display gradient-text animate-fade-in-up">
+                        From Bean to Cup
+                    </h3>
+                    <p class="section-subtitle animate-fade-in-up">
+                        Experience the journey of our carefully crafted coffee
+                    </p>
+                </div>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="process-icon pulse-gold">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h4 class="process-title font-display">1. Sourcing</h4>
+                        <p class="process-description">Direct partnerships with premium coffee farms worldwide</p>
+                    </div>
+
+                    <div class="process-step" style="animation-delay: 0.2s;">
+                        <div class="process-icon pulse-gold">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4 class="process-title font-display">2. Selection</h4>
+                        <p class="process-description">Meticulous hand-picking of the finest beans</p>
+                    </div>
+
+                    <div class="process-step" style="animation-delay: 0.4s;">
+                        <div class="process-icon pulse-gold">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h4 class="process-title font-display">3. Roasting</h4>
+                        <p class="process-description">Slow artisanal roasting to unlock unique flavors</p>
+                    </div>
+
+                    <div class="process-step" style="animation-delay: 0.6s;">
+                        <div class="process-icon pulse-gold">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <h4 class="process-title font-display">4. Brewing</h4>
+                        <p class="process-description">Perfect preparation for the ultimate experience</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Signature Collection -->
+        <section class="section bg-gradient-1">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h3 class="section-title font-display gradient-text animate-fade-in-up">
+                        Signature Nomad Collection
+                    </h3>
+                    <p class="section-subtitle animate-fade-in-up">
+                        From the banks of the Seine to the sun-baked highlands of the Arabian Peninsula, discover
+                        flavors from far and wide
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3">
+                    <!-- Signature Product 1 -->
+                    <div class="product-card glass-morphism animate-slide-in-left" style="padding: 24px;">
+                        <div class="product-image">
+                            <div class="product-badge">LIMITED</div>
+                            <img src="/images/products/king-of-africa-coffee-gift-box.jpg"
+                                alt="King of Africa Coffee Bag Gift Box">
+                        </div>
+                        <h4 class="product-title font-display">King of Africa Coffee Bag</h4>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Royal blend from the finest African highlands</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$27.00</span>
+                            <button class="btn-add-to-cart" data-id="4" data-name="King of Africa Coffee Bag Gift Box"
+                                data-price="27.00" data-image="/images/products/king-of-africa-coffee-gift-box.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Signature Product 2 -->
+                    <div class="product-card glass-morphism animate-fade-in-up"
+                        style="padding: 24px; animation-delay: 0.2s;">
+                        <div class="product-image">
+                            <img src="/images/products/nairobi-rain-coffee-ground-beans.jpg"
+                                alt="Nairobi Rain Coffee Ground Beans">
+                        </div>
+                        <h4 class="product-title font-display">Nairobi Rain Coffee</h4>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Ground beans with refreshing notes inspired </p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$42.00</span>
+                            <button class="btn-add-to-cart" data-id="5" data-name="Nairobi Rain Coffee - Ground Beans"
+                                data-price="42.00" data-image="/images/products/nairobi-rain-coffee-ground-beans.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Signature Product 3 -->
+                    <div class="product-card glass-morphism animate-slide-in-right"
+                        style="padding: 24px; animation-delay: 0.4s;">
+                        <div class="product-image">
+                            <img src="/images/products/expedition-to-el-campo.jpg" alt="Expedition to El Campo">
+                        </div>
+                        <h4 class="product-title font-display">Expedition to El Campo</h4>
+                        <div class="product-rating">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="product-description">Adventure blend from remote coffee fields</p>
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">$63.00</span>
+                            <button class="btn-add-to-cart" data-id="6" data-name="Expedition to El Campo"
+                                data-price="63.00" data-image="/images/products/expedition-to-el-campo.jpg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Coffee Accessories -->
+        <section class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h3 class="section-title font-display gradient-text animate-fade-in-up">
+                        Luxury Accessories
+                    </h3>
+                    <p class="section-subtitle animate-fade-in-up">
+                        Complete your coffee experience with our premium accessories
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-4">
+                    <!-- Accessory 1 -->
+                    <div class="product-card glass-morphism animate-fade-in-up" style="padding: 16px;">
+                        <div
+                            style="height: 128px; background: linear-gradient(to bottom right, #92400e, #b45309); border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+                            <img src="/images/products/bacha-coffee-glass.jpg" alt="Bacha Coffee Glass"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                        </div>
+                        <h4 style="font-weight: 600; margin-bottom: 4px; font-size: 14px;">Bacha Coffee Glass</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 18px; font-weight: 700;" class="gradient-text">$38.00</span>
+                            <button class="btn-add-to-cart"
+                                style="padding: 4px 8px; border-radius: 4px; font-size: 12px;" data-id="7"
+                                data-name="Bacha Coffee Glass" data-price="38.00"
+                                data-image="/images/products/bacha-coffee-glass.jpg">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Accessory 2 -->
+                    <div class="product-card glass-morphism animate-fade-in-up"
+                        style="padding: 16px; animation-delay: 0.1s;">
+                        <div
+                            style="height: 128px; background: linear-gradient(to bottom right, #92400e, #b45309); border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+                            <img src="/images/products/bacha-coffee-scoop-silver.jpg" alt="Bacha Coffee Scoop in Silver"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                        </div>
+                        <h4 style="font-weight: 600; margin-bottom: 4px; font-size: 14px;">Coffee Scoop Silver</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 18px; font-weight: 700;" class="gradient-text">$15.00</span>
+                            <button class="btn-add-to-cart"
+                                style="padding: 4px 8px; border-radius: 4px; font-size: 12px;" data-id="8"
+                                data-name="Bacha Coffee Scoop in Silver" data-price="15.00"
+                                data-image="/images/products/bacha-coffee-scoop-silver.jpg">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Accessory 3 -->
+                    <div class="product-card glass-morphism animate-fade-in-up"
+                        style="padding: 16px; animation-delay: 0.2s;">
+                        <div
+                            style="height: 128px; background: linear-gradient(to bottom right, #92400e, #b45309); border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+                            <img src="/images/products/marrakech-press-coffee-pot-gold-800ml.jpg"
+                                alt="Marrakech Press Coffee Pot in Gold 800ml"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                        </div>
+                        <h4 style="font-weight: 600; margin-bottom: 4px; font-size: 14px;">Marrakech Press Pot</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 18px; font-weight: 700;" class="gradient-text">$88.00</span>
+                            <button class="btn-add-to-cart"
+                                style="padding: 4px 8px; border-radius: 4px; font-size: 12px;" data-id="9"
+                                data-name="Marrakech Press Coffee Pot in Gold, 800ml" data-price="88.00"
+                                data-image="/images/products/marrakech-press-coffee-pot-gold-800ml.jpg">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Accessory 4 -->
+                    <div class="product-card glass-morphism animate-fade-in-up"
+                        style="padding: 16px; animation-delay: 0.3s;">
+                        <div
+                            style="height: 128px; background: linear-gradient(to bottom right, #92400e, #b45309); border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+                            <img src="/images/products/glass-straw-amber.jpg" alt="Glass Straw in Amber"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                        </div>
+                        <h4 style="font-weight: 600; margin-bottom: 4px; font-size: 14px;">Glass Straw Amber</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 18px; font-weight: 700;" class="gradient-text">$1.70</span>
+                            <button class="btn-add-to-cart"
+                                style="padding: 4px 8px; border-radius: 4px; font-size: 12px;" data-id="10"
+                                data-name="Glass Straw in Amber" data-price="1.70"
+                                data-image="/images/products/glass-straw-amber.jpg">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Coffee Stories -->
+        <section class="section bg-gradient-2">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h3 class="section-title font-display gradient-text animate-fade-in-up">
+                        Coffee Stories
+                    </h3>
+                    <p class="section-subtitle animate-fade-in-up">
+                        A window to the world of fine coffees and brewing techniques
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3">
+                    <!-- Story 1 -->
+                    <article class="blog-card glass-morphism animate-slide-in-left">
+                        <div class="blog-image">
+                            <img src="/images/blog/paris-artist-collaboration.jpg"
+                                alt="I Love Paris Coffee Artist Collaboration">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <i class="fas fa-calendar"></i>
+                                <span>07 september 2025</span>
+                                <span>•</span>
+                                <span>3 minutes</span>
+                            </div>
+                            <h4 class="blog-title font-display">Special Edition: I Love Paris Coffee Artist
+                                Collaboration</h4>
+                            <p class="blog-excerpt">Exclusively at our Champs-Élysées boutique, celebrating the
+                                fascinating relationship .</p>
+                            <a href="/blog/paris-artist-collaboration/" class="blog-link">Read More <i
+                                    class="fas fa-arrow-right" style="margin-left: 4px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Story 2 -->
+                    <article class="blog-card glass-morphism animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="blog-image">
+                            <img src="/images/blog/cold-brew-french-press.webp" alt="Cold Brew Coffee French Press">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <i class="fas fa-calendar"></i>
+                                <span>02 September 2025</span>
+                                <span>•</span>
+                                <span>4 minutes</span>
+                            </div>
+                            <h4 class="blog-title font-display">How to Make Cold Brew Coffee Using a French Press</h4>
+                            <p class="blog-excerpt">Discover how you can enjoy refreshing cold brew coffee at home with
+                                simple techniques.</p>
+                            <a href="/blog/cold-brew-french-press/" class="blog-link">Read More <i
+                                    class="fas fa-arrow-right" style="margin-left: 4px;"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Story 3 -->
+                    <article class="blog-card glass-morphism animate-slide-in-right" style="animation-delay: 0.4s;">
+                        <div class="blog-image">
+                            <img src="/images/blog/perfect-iced-coffee.jpg" alt="Perfect Iced Coffee">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <i class="fas fa-calendar"></i>
+                                <span>18 september 2025</span>
+                                <span>•</span>
+                                <span>3 minutes</span>
+                            </div>
+                            <h4 class="blog-title font-display">How to Make the Perfect Iced Coffee 5 tips .</h4>
+                            <p class="blog-excerpt">5 tips for keeping your coffee cool when the weather heats up.</p>
+                            <a href="/blog/perfect-iced-coffee/" class="blog-link">Read More <i
+                                    class="fas fa-arrow-right" style="margin-left: 4px;"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Testimonials -->
+        <section class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 64px;">
+                    <h3 class="section-title font-display gradient-text animate-fade-in-up">
+                        What Our Customers Say
+                    </h3>
+                    <p class="section-subtitle animate-fade-in-up">
+                        Hear from coffee enthusiasts around the world
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial glass-morphism animate-slide-in-left">
+                        <div class="testimonial-header">
+                            
+                            <div>
+                                <h4 class="testimonial-author">Maria Rodriguez</h4>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-content">"The Mount Kenya blend is absolutely exceptional. The flavor
+                            profile is complex and sophisticated - exactly what I've been searching for in a premium
+                            coffee."</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial glass-morphism animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="testimonial-header">
+                           
+                            <div>
+                                <h4 class="testimonial-author">James Thompson</h4>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-content">"Bacha Coffee has revolutionized my morning routine. The quality
+                            is unmatched, and the packaging makes it perfect for gifting."</p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial glass-morphism animate-slide-in-right" style="animation-delay: 0.4s;">
+                        <div class="testimonial-header">
+                           
+                            <div>
+                                <h4 class="testimonial-author">Sophie Chen</h4>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-content">"The attention to detail in every aspect, from sourcing to
+                            roasting, is evident in every cup. A truly premium experience."</p>
+                    </div>
+                </div>
+
+                
+            </div>
+        </section>
+
+        <!-- Section 9: Newsletter -->
+        <section class="section bg-gradient-1">
+            <div class="container">
+                <div style="max-width: 1024px; margin: 0 auto; text-align: center;">
+                    <div class="animate-fade-in-up">
+                        <h3 class="section-title font-display gradient-text">
+                            Stay Connected
+                        </h3>
+                        <p class="section-subtitle">
+                            Subscribe to our newsletter for exclusive offers, brewing tips, and the latest from our
+                            coffee journey
+                        </p>
+
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Enter your email address" class="newsletter-input">
+                            <button type="submit" class="btn-gold" style="white-space: nowrap;">Subscribe</button>
+                        </form>
+
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/BachaCoffee/">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://web.facebook.com/BachaCoffeeOfficial/">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/bacha-coffee">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@bachacoffee">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                            <a href="https://x.com/BachaCoffee">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Contact & Location -->
+        <section class="section bg-gradient-2">
+            <div class="container">
+                <div class="grid grid-cols-2" style="align-items: center;">
+                    <div class="animate-slide-in-left">
+                        <h3 class="section-title font-display gradient-text"
+                            style="text-align: left; margin-bottom: 24px;">
+                            Visit Our Roastery
+                        </h3>
+                        <p style="font-size: 18px; color: #d1d5db; margin-bottom: 32px;">
+                            Experience the art of coffee roasting at our flagship location in El Verger, Spain. Witness
+                            the journey from bean to cup.
+                        </p>
+
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <i class="fas fa-map-marker-alt" style="color: #fbbf24;"></i>
+                                <span>Av. Valencia, 36, 03770 El Verger, Alicante, Spain</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <i class="fas fa-phone" style="color: #fbbf24;"></i>
+                                <span>+34 965 750 227</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <i class="fas fa-envelope" style="color: #fbbf24;"></i>
+                                <span>info@bachacoffeecraft.com</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <i class="fas fa-clock" style="color: #fbbf24;"></i>
+                                <span>Mon-Sat: 8:00 AM - 6:00 PM</span>
+                            </div>
+                        </div>
+
+                        <a href="/contact/" class="btn-gold">Get Directions</a>
+                    </div>
+
+                    <div class="animate-slide-in-right">
+                        <div
+                            style="height: 384px; background: linear-gradient(to bottom right, #92400e, #b45309); border-radius: 16px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                            <img src="/images/coffee-plantation-mountains.jpg" alt="Bacha Coffee Roastery Location"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
+                            <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.2);"></div>
+                            <div style="position: absolute; bottom: 16px; left: 16px; right: 16px;">
+                                <div class="glass-morphism" style="border-radius: 8px; padding: 16px;">
+                                    <h4 style="font-weight: 600; margin-bottom: 4px;">Bacha Coffee Craft</h4>
+                                    <p style="font-size: 14px; color: #d1d5db; margin: 0;">Premium Coffee Roastery</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div>
+                    <div class="logo" style="margin-bottom: 16px;">
+                         <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    <p class="footer-description">
+                        Premium Arabica coffee experiences from the heart of Spain, bringing you the finest flavors from
+                        around the world.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/BachaCoffee/">
+                            <i class="fab fa-instagram" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/">
+                            <i class="fab fa-facebook" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee">
+                            <i class="fab fa-linkedin" style="font-size: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Products -->
+                <div class="footer-section">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="/shop/">Coffee Bags</a></li>
+                        <li><a href="/shop/">Gift Boxes</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                        <li><a href="/shop/">Limited Editions</a></li>
+                        <li><a href="/shop/">Merchandise</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                        <li><a href="/cart/">Shopping Cart</a></li>
+                        <li><a href="/checkout/">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Bacha Coffee Craft. All rights reserved.
+                </p>
+                <div class="footer-credits">
+                    <span>Made with <i class="fas fa-heart heart"></i> in Spain</span>
+                    <span>•</span>
+                    <span>Premium Coffee Since 2021</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('bachaCoffeeCart') || '[]');
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: parseFloat(product.price),
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem('bachaCoffeeCart', JSON.stringify(cart));
+            updateCartCount();
+
+            // Show success message
+            showNotification(`${product.name} added to cart!`, 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 16px;
+                right: 16px;
+                z-index: 50;
+                padding: 12px 24px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                transform: translateX(100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                background-color: ${type === 'success' ? '#059669' : '#3b82f6'};
+            `;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 100);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Add to cart event listeners
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const product = {
+                    id: this.dataset.id,
+                    name: this.dataset.name,
+                    price: this.dataset.price,
+                    image: this.dataset.image
+                };
+                addToCart(product);
+            });
+        });
+
+        // Cart button click
+        document.getElementById('cart-btn').addEventListener('click', function () {
+            window.location.href = '/cart/';
+        });
+
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+
+        hamburger.addEventListener('click', function () {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
+
+        closeMobileNav.addEventListener('click', function () {
+            hamburger.classList.remove('open');
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+
+        // Close mobile nav when clicking on links
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Cookie consent
+        function showCookiePopup() {
+            const cookieConsent = localStorage.getItem('bachaCoffeeCookieConsent');
+            if (!cookieConsent) {
+                const popup = document.getElementById('cookie-popup');
+                setTimeout(() => {
+                    popup.classList.add('show');
+                }, 1000);
+            }
+        }
+
+        document.getElementById('accept-cookies').addEventListener('click', function () {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'accepted');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+
+        document.getElementById('decline-cookies').addEventListener('click', function () {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'declined');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartCount();
+            showCookiePopup();
+            initParticles();
+            initThreeJS();
+        });
+
+        // Particles.js initialization
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 50,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: '#D4AF37'
+                    },
+                    shape: {
+                        type: 'circle'
+                    },
+                    opacity: {
+                        value: 0.1,
+                        random: true
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: false
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'repulse'
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push'
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Three.js background
+        function initThreeJS() {
+            const canvas = document.getElementById('three-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+
+            // Create coffee bean geometry
+            const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.3
+            });
+
+            const beans = [];
+            for (let i = 0; i < 100; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                );
+                bean.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                scene.add(bean);
+                beans.push(bean);
+            }
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                beans.forEach(bean => {
+                    bean.rotation.x += 0.001;
+                    bean.rotation.y += 0.001;
+                    bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.0005;
+                });
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', function () {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('[class*="animate-"]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Newsletter form
+        document.querySelector('.newsletter-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                showNotification('Thank you for subscribing!', 'success');
+                this.reset();
+            }
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-bean');
+
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function () {
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+
+</html>

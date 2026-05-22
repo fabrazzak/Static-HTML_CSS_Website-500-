@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Tennis News | MatchSet News</title>
+    <meta name="description" content="Stay updated with the latest tennis news, match results, player interviews, and tournament updates from Australia and around the world.">
+    <meta name="keywords" content="tennis news, Australian tennis, Grand Slam updates, ATP tour, WTA tour, tennis rankings, match results">
+    <meta name="geo.region" content="AU-NSW">
+    <meta name="geo.placename" content="Sydney">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #222;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .btn-outline:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #e74c3c;
+            margin: 15px auto 0;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* News Page Specific Styles */
+        .news-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://static.independent.co.uk/2025/04/09/03/Australian_Ballkids_The_Doco_84721.jpg?quality=75&width=640&crop=3%3A2%2Csmart&auto=webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 0;
+        }
+        
+        .news-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .news-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .news-filter {
+            background-color: white;
+            padding: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 50px;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .filter-group label {
+            font-weight: 500;
+        }
+        
+        .filter-group select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .news-article {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .news-article:hover {
+            transform: translateY(-10px);
+        }
+        
+        .article-image {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .news-article:hover .article-image img {
+            transform: scale(1.1);
+        }
+        
+        .article-content {
+            padding: 25px;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .article-category {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #f5f5f5;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .article-category.tournament {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .article-category.player {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .article-category.australian {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+        
+        .article-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: white;
+            color: #333;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .page-link:hover, .page-link.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .page-link.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        /* Featured Article */
+        .featured-article {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+        
+        .featured-image {
+            height: 100%;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .featured-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .featured-content p {
+            margin-bottom: 25px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background-color: #f5f5f5;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #666;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-family: inherit;
+        }
+        
+        .newsletter-form button {
+            padding: 12px 25px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .footer-column p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: #e74c3c;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #e74c3c;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                height: 400px;
+            }
+            
+            .news-hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .news-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .news-hero p {
+                font-size: 1rem;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                border-radius: 4px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 50px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .news-hero {
+                padding: 100px 0;
+            }
+            
+            .news-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/index.html" class="logo">Match<span>Set</span>News</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/tournaments/">Tournaments</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- News Hero Section -->
+    <section class="news-hero">
+        <div class="container">
+            <h1>Latest Tennis News</h1>
+            <p>Stay updated with comprehensive coverage of all major tournaments, player interviews, and behind-the-scenes stories from the world of tennis.</p>
+        </div>
+    </section>
+
+  
+
+    <!-- Featured Article -->
+    <section class="section">
+        <div class="container">
+            <div class="featured-article">
+                <div class="featured-image">
+                    <img src="https://i.guim.co.uk/img/media/7017f1aeda09562a8fa5bda1e48b01fea2deda50/0_145_6137_3683/master/6137.jpg?width=465&dpr=1&s=none&crop=none" alt="Australian Open 2025">
+                </div>
+                <div class="featured-content">
+                    <span class="featured-category">Tournament</span>
+                    <h2>Australian Open 2025: Historic Victory for Local Star Alex De Minaur</h2>
+                    <p>In a thrilling five-set final that lasted nearly five hours, Australia's Alex De Minaur claimed his first Grand Slam title on home soil, defeating the world No. 1 in an epic showdown that will be remembered for years to come.</p>
+                    <a href="/news/" class="btn">Read Full Story</a>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="news-grid">
+                <article class="news-article">
+                    <div class="article-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqkI29jOTJoRZnhDeWnIP2nqDePwCpze2Unr9tPYo42vPNZIZfNm-B2_XhXS9CgpcdW0Q&usqp=CAU" alt="Tennis match">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">Jan 18, 2025</span>
+                            <span class="article-category tournament">Tournament</span>
+                        </div>
+                        <h3>ATP Cup 2025: Team Australia Advances to Semifinals</h3>
+                        <p>The Australian team, led by De Minaur and Popyrin, secured their spot in the semifinals with a decisive victory over Spain in the quarterfinals.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </article>
+
+                <article class="news-article">
+                    <div class="article-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOmbFoIwbDTzHrlVnrKLPrPuUXqirgDsovXp_zFgSjqL6qV2jbXaQ16iMYsKBYyYlH0eQ&usqp=CAU" alt="Tennis player">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">Jan 16, 2025</span>
+                            <span class="article-category player">Player</span>
+                        </div>
+                        <h3>Ash Barty Announces Comeback to Competitive Tennis</h3>
+                        <p>The former world No. 1 reveals plans to return to the WTA tour after a three-year hiatus, targeting the clay court season.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </article>
+
+                <article class="news-article">
+                    <div class="article-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYuFETApUBUQX_U2SnfMXohxvRxhznQwhmntNwD8Io-TRtDc52tuhh__4y-7ZyNKNzvTU&usqp=CAU" alt="Young tennis player">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">Jan 14, 2025</span>
+                            <span class="article-category australian">Australian</span>
+                        </div>
+                        <h3>16-Year-Old Queenslander Wins Junior Australian Open</h3>
+                        <p>Melbourne - Rising star Jessica Wong becomes the youngest Australian to win the junior title since 2005, signaling a bright future for Australian women's tennis.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </article>
+
+                <article class="news-article">
+                    <div class="article-image">
+                        <img src="https://www.atptour.com/-/media/2024-images/news/2024/04/13/18/49/djokovic-monte-carlo-2024-sf.jpg" alt="Tennis gear">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">Jan 12, 2025</span>
+                            <span class="article-category">Gear</span>
+                        </div>
+                        <h3>New Racket Technology Changing the Game in 2025</h3>
+                        <p>Manufacturers unveil revolutionary racket designs that promise to increase power and control, already adopted by several top 10 players.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </article>
+
+                <article class="news-article">
+                    <div class="article-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSK1pZvwa0x0QMh3xdmhMWExpF3S595P71kPCqGmL4VuBtbYZ_hSJ6LqHjPaV9S8k_Nj4&usqp=CAU" alt="Tennis doubles">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">Jan 10, 2025</span>
+                            <span class="article-category tournament">Tournament</span>
+                        </div>
+                        <h3>Australian Duo Wins Sydney International Doubles Title</h3>
+                        <p>In an all-Australian final, Ebden and Peers defeated up-and-coming pair Hijikata and Kubler in straight sets at the Sydney International.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </article>
+
+                <article class="news-article">
+                    <div class="article-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmw1n4h7Zc_PgW3Wryv8FrOf-Tsjy52feTFc1dSb51rH0adPVK1gbLHy9WoBjQw2hKJHE&usqp=CAU" alt="Tennis coach">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">Jan 8, 2025</span>
+                            <span class="article-category">Coaching</span>
+                        </div>
+                        <h3>Legendary Coach Darren Cahill Returns to Work With Australian Players</h3>
+                        <p>The renowned coach, known for guiding multiple players to Grand Slam titles, will consult with Tennis Australia's development program.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="/news/" class="page-link disabled"><i class="fas fa-chevron-left"></i></a>
+                <a href="/news/" class="page-link active">1</a>
+                <a href="/news/" class="page-link">2</a>
+                <a href="/news/" class="page-link">3</a>
+                <a href="/news/" class="page-link">4</a>
+                <a href="/news/" class="page-link"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Never Miss a Tennis Update</h2>
+            <p>Subscribe to our newsletter and get the latest tennis news delivered straight to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MatchSet News</h3>
+                    <p>Australia's premier source for tennis news, player interviews, tournament coverage, and training tips.</p>
+                    <div class="social-links">
+                      <a href="https://facebook.com/" target="_blank"  aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank"  aria-label="Twitter"><i class="fab fa-twitter"></i></a></div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">Latest News</a></li>
+                        <li><a href="/services/">Our Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p>Level 10/50 Pitt St, Sydney NSW 2000, Australia</p>
+                    <p>Phone: +612 8080 7900</p>
+                    <p>Email: info@matchsetnews.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MatchSet News. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('show');
+        });
+        
+        // Simple filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryFilter = document.getElementById('category');
+            const dateFilter = document.getElementById('date');
+            const searchInput = document.querySelector('.search-box input');
+            
+            // These would be connected to actual filtering logic in a real implementation
+            [categoryFilter, dateFilter, searchInput].forEach(element => {
+                element.addEventListener('change', function() {
+                    console.log('Filtering articles by:', {
+                        category: categoryFilter.value,
+                        date: dateFilter.value,
+                        search: searchInput.value
+                    });
+                    // In a real site, this would filter or reload articles
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    console.log('Searching for:', searchInput.value);
+                    // In a real site, this would trigger a search
+                }
+            });
+        });
+    </script>
+</body>
+</html>

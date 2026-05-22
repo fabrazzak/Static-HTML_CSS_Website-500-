@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Matrix Auto - Premium Pre-Owned Vehicles in Winnipeg</title>
+    <meta name="description" content="Discover quality pre-owned luxury vehicles at Motor Matrix Auto in Winnipeg. Browse our extensive inventory of BMW, Mercedes-Benz, Audi, and more premium brands with expert service and financing options.">
+    <meta name="keywords" content="used cars Winnipeg, luxury vehicles, BMW, Mercedes-Benz, Audi, pre-owned cars, car dealership, automotive sales, vehicle financing, car service">
+    <link rel="canonical" href="https://motormatrixauto.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Background Effects */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Header Styles */
+        .header-top {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .header-top-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #ffd700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info i {
+            color: #ffd700;
+        }
+
+        .header-main {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ffd700;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            padding: 80px 30px 30px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav li {
+            margin: 20px 0;
+        }
+
+        .mobile-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: #ffd700;
+            padding-left: 10px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #000000;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffd700;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Featured Cars Grid */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .car-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .car-price {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #000000;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .car-details {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .car-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .car-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .feature {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-small {
+            padding: 12px 24px;
+            font-size: 14px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-inquire {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #000000;
+            flex: 1;
+        }
+
+        .btn-inquire:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(45deg, #ffed4e, #ff8c52);
+        }
+
+        .btn-test-drive {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            flex: 1;
+        }
+
+        .btn-test-drive:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffd700;
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        /* Categories Section */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .category-card p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .category-card .btn {
+            margin-top: auto;
+        }
+
+        /* Reviews Section */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .reviewer {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 50px 0 30px;
+            position: relative;
+            z-index: 100;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .footer-section p, .footer-section li {
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999999;
+        }
+
+        /* Cookie Notification */
+        .cookie-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.95);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1002;
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-notification.show {
+            display: block;
+        }
+
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .cookie-text {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .cookie-accept {
+            background: #ffd700;
+            color: #000000;
+        }
+
+        .cookie-decline {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header-top {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                display: none;
+            }
+
+            .header-top-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hero {
+            height: 70vh;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .car-card, .category-card, .service-card {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div id="particles-js"></div>
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="header-top-content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/bellauto1/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/bellauto1/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/BellAuto1" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/channel/UC_eLbfodtbYwignhvh8tjYA" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> 1665 Kenaston Blvd, Winnipeg, MB R3P 2M4</span>
+                    <span><i class="fas fa-phone"></i> +1 (204) 488-2052</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="header-main-content">
+                <a href="/" class="logo">
+                    <img src="/assets/images/MotorMatrixAuto.png" alt="Motor Matrix Auto Logo">
+                </a>
+                
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/inventory/">Inventory</a></li>
+                         
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav>
+            <ul class="mobile-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/inventory/">Inventory</a></li>
+                 
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Pre-Owned Vehicles</h1>
+            <p>Discover exceptional quality and unmatched service at Motor Matrix Auto. Your trusted partner for luxury pre-owned vehicles in Winnipeg.</p>
+            <div class="cta-buttons">
+                <a href="/inventory/" class="btn btn-primary">Browse Inventory</a>
+                <a href="/contact/" class="btn btn-secondary">Schedule Test Drive</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Cars Section -->
+    <section class="section" id="featured-cars">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Vehicles</h2>
+                <p>Handpicked premium vehicles from our exclusive collection</p>
+            </div>
+            <div class="cars-grid">
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/assets/images/car1.jpeg')">
+                        <div class="car-price">$25,988</div>
+                    </div>
+                    <div class="car-details">
+                        <h3>2022 Mercedes-Benz A-Class</h3>
+                        <div class="car-features">
+                            <span class="feature">AMG Sport</span>
+                            <span class="feature">Premium Pkg</span>
+                            <span class="feature">Navigation</span>
+                            <span class="feature">Sunroof</span>
+                        </div>
+                        <div class="car-actions">
+                            <a href="/contact/?vehicle=mercedes-a-class-2022" class="btn-small btn-inquire">
+                                <i class="fas fa-shopping-cart"></i> Inquire Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/assets/images/car2.jpg')">
+                        <div class="car-price">$26,888</div>
+                    </div>
+                    <div class="car-details">
+                        <h3>2022 BMW X1 xDrive28i</h3>
+                        <div class="car-features">
+                            <span class="feature">M-Sport Pkg</span>
+                            <span class="feature">Navigation</span>
+                            <span class="feature">Panoramic</span>
+                            <span class="feature">No Accident</span>
+                        </div>
+                        <div class="car-actions">
+                            <a href="/contact/?vehicle=bmw-x1-2022" class="btn-small btn-inquire">
+                                <i class="fas fa-shopping-cart"></i> Inquire Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-image" style="background-image: url('/assets/images/car3.jpg')">
+                        <div class="car-price">$25,988</div>
+                    </div>
+                    <div class="car-details">
+                        <h3>2023 Audi A3 Komfort</h3>
+                        <div class="car-features">
+                            <span class="feature">Panoroof</span>
+                            <span class="feature">Park Assist</span>
+                            <span class="feature">Heated Leather</span>
+                            <span class="feature">Digital Dash</span>
+                        </div>
+                        <div class="car-actions">
+                            <a href="/contact/" class="btn-small btn-inquire">
+                                <i class="fas fa-shopping-cart"></i> Inquire Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="/inventory/" class="btn btn-primary">View All Vehicles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Browse by Category</h2>
+                <p>Find the perfect vehicle that matches your lifestyle</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Luxury Sedans</h3>
+                    <p>Premium comfort and performance in our selection of luxury sedans</p>
+                    <a href="/inventory/?category=sedans" class="btn btn-secondary">Sedans</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>SUVs & Crossovers</h3>
+                    <p>Spacious and versatile vehicles perfect for families and adventures</p>
+                    <a href="/inventory/?category=suvs" class="btn btn-secondary">SUVs</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Electric & Hybrid</h3>
+                    <p>Eco-friendly options for the environmentally conscious driver</p>
+                    <a href="/inventory/?category=electric" class="btn btn-secondary">Electric</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Sports Cars</h3>
+                    <p>High-performance vehicles for the ultimate driving experience</p>
+                    <a href="/inventory/?category=sports" class="btn btn-secondary">Sports</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Motor Matrix Auto</h2>
+                <p>Your trusted partner in premium pre-owned vehicles</p>
+            </div>
+            <div class="contact-content">
+                <div>
+                    <h3 style="color: #ffd700; font-size: 2rem; margin-bottom: 20px;">Excellence in Every Detail</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px; color: #cccccc;">At Motor Matrix Auto, we've been serving the Winnipeg community for over two decades, specializing in premium pre-owned vehicles. Our commitment to quality, transparency, and exceptional customer service has made us the region's most trusted automotive dealership.</p>
+                    <p style="font-size: 1.1rem; margin-bottom: 30px; color: #cccccc;">With an extensive inventory of luxury brands including BMW, Mercedes-Benz, Audi, and more, we ensure every vehicle meets our rigorous standards before joining our showroom. Our expert team provides comprehensive support from selection to service.</p>
+                    <a href="/about/" class="btn btn-primary">Learn More About Us</a>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 40px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);margin-top: 36px;">
+                    <h4 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 20px;">Why Choose Us?</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 15px 0; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-check-circle" style="color: #ffd700; font-size: 18px;"></i>
+                            <span>Over 20 years of automotive excellence</span>
+                        </li>
+                        <li style="margin: 15px 0; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-check-circle" style="color: #ffd700; font-size: 18px;"></i>
+                            <span>Rigorous multi-point inspections</span>
+                        </li>
+                        <li style="margin: 15px 0; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-check-circle" style="color: #ffd700; font-size: 18px;"></i>
+                            <span>Competitive financing options</span>
+                        </li>
+                        <li style="margin: 15px 0; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-check-circle" style="color: #ffd700; font-size: 18px;"></i>
+                            <span>Full-service maintenance center</span>
+                        </li>
+                        <li style="margin: 15px 0; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-check-circle" style="color: #ffd700; font-size: 18px;"></i>
+                            <span>Award-winning customer service</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer Reviews</h2>
+                <p>What our satisfied customers say about their experience</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Exceptional service from start to finish! The team at Motor Matrix Auto made buying my BMW a seamless experience. Their attention to detail and customer care is unmatched in Winnipeg."</p>
+                    <div class="reviewer">Sarah M.</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"I've purchased three vehicles from Motor Matrix Auto over the years. Their commitment to quality and honest pricing keeps me coming back. Highly recommend!"</p>
+                    <div class="reviewer">Michael R.</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"The staff went above and beyond to help me find the perfect vehicle within my budget. Professional, knowledgeable, and genuinely caring about customer satisfaction."</p>
+                    <div class="reviewer">Jennifer L.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="/" class="logo" style="margin-bottom: 20px; display: inline-block;">
+                        <img src="/assets/images/MotorMatrixAuto.png" alt="Motor Matrix Auto Logo" style="height: 40px; margin-right: 10px;">
+                    </a>
+                    <p>Your trusted partner for premium pre-owned vehicles in Winnipeg. Over 20 years of automotive excellence and customer satisfaction.</p>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="https://www.facebook.com/bellauto1/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/bellauto1/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/BellAuto1" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/channel/UC_eLbfodtbYwignhvh8tjYA" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/inventory/">Vehicle Inventory</a></li>
+                         
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog & News</a></li>
+                        <li><a href="/contact/">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy</a></li>
+                        <li><a href="/terms/">Terms</a></li>
+                        <li><a href="/cookies/">Cookies</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 1665 Kenaston Blvd<br>Winnipeg, MB R3P 2M4</p>
+                    <p><i class="fas fa-phone"></i> +1 (204) 488-2052</p>
+                    <p><i class="fas fa-envelope"></i> info@motormatrixauto.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Motor Matrix Auto. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Notification -->
+    <div class="cookie-notification" id="cookie-notification">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <strong>We use cookies to enhance your browsing experience.</strong> By continuing to use our website, you agree to our use of cookies. Learn more in our <a href="/cookies/" style="color: #ffd700;">Cookie Policy</a>.
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept</button>
+                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particle.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ffd700'
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 40,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffd700',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 400,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Three.js Background Animation
+        let scene, camera, renderer, geometry, material, mesh;
+
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('three-canvas'),
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Create floating geometric shapes
+            const shapes = [];
+            for (let i = 0; i < 50; i++) {
+                const geometries = [
+                    new THREE.BoxGeometry(0.5, 0.5, 0.5),
+                    new THREE.SphereGeometry(0.3, 8, 6),
+                    new THREE.ConeGeometry(0.3, 0.8, 6)
+                ];
+                
+                geometry = geometries[Math.floor(Math.random() * geometries.length)];
+                material = new THREE.MeshBasicMaterial({ 
+                    color: Math.random() > 0.5 ? 0xffd700 : 0xff6b35,
+                    transparent: true,
+                    opacity: 0.1
+                });
+                mesh = new THREE.Mesh(geometry, material);
+                
+                mesh.position.x = (Math.random() - 0.5) * 100;
+                mesh.position.y = (Math.random() - 0.5) * 100;
+                mesh.position.z = (Math.random() - 0.5) * 100;
+                
+                mesh.rotation.x = Math.random() * Math.PI;
+                mesh.rotation.y = Math.random() * Math.PI;
+                
+                shapes.push(mesh);
+                scene.add(mesh);
+            }
+            
+            camera.position.z = 30;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                shapes.forEach(shape => {
+                    shape.rotation.x += 0.01;
+                    shape.rotation.y += 0.01;
+                    shape.position.y += Math.sin(Date.now() * 0.001 + shape.position.x) * 0.01;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Initialize Three.js when page loads
+        window.addEventListener('load', initThree);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Cookie Management
+        function showCookieNotification() {
+            const notification = document.getElementById('cookie-notification');
+            const accepted = localStorage.getItem('cookies-accepted');
+            
+            if (!accepted) {
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 2000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookies-accepted', 'true');
+            document.getElementById('cookie-notification').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookies-accepted', 'false');
+            document.getElementById('cookie-notification').classList.remove('show');
+        }
+
+        // Saved Cars Functionality - REMOVED (no longer needed)
+        // Cookie Management remains the same
+
+        // Cookie Management
+        function showCookieNotification() {
+            const notification = document.getElementById('cookie-notification');
+            const accepted = localStorage.getItem('cookies-accepted');
+            
+            if (!accepted) {
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 2000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookies-accepted', 'true');
+            document.getElementById('cookie-notification').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookies-accepted', 'false');
+            document.getElementById('cookie-notification').classList.remove('show');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            showCookieNotification();
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header-main');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

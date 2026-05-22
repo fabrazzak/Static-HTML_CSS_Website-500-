@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Training Blog | StayNova Basketball App</title>
+    <meta name="description" content="Stay updated with the latest basketball training tips, drills, and strategies from StayNova's expert coaches.">
+    <meta name="keywords" content="basketball blog, basketball tips, training drills, basketball strategies, basketball coaching, basketball Australia">
+    <meta name="author" content="StayNova Basketball">
+    <meta name="geo.region" content="AU-NSW">
+    <meta name="geo.placename" content="Sydney">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .btn-outline:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #e74c3c;
+            margin: 15px auto;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .logo span {
+            color: #e74c3c;
+        }
+        
+        nav ul {
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Blog Hero */
+        .blog-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 80px;
+        }
+        
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .blog-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Blog Content */
+        .blog-main {
+            background-color: white;
+        }
+        
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+        
+        .blog-posts {
+            display: grid;
+            gap: 40px;
+        }
+        
+        .blog-post {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+        
+        .blog-post:last-child {
+            border-bottom: none;
+        }
+        
+        .post-header {
+            margin-bottom: 20px;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .post-meta span {
+            margin-right: 15px;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+            color: #e74c3c;
+        }
+        
+        .post-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .post-image {
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .post-image:hover img {
+            transform: scale(1.02);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            padding-left: 30px;
+            border-left: 1px solid #eee;
+        }
+        
+        .sidebar-widget {
+            margin-bottom: 40px;
+        }
+        
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .widget-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .popular-posts {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .popular-post {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .popular-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .popular-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .popular-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        
+        .popular-post-content .post-date {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .categories-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            transition: color 0.3s ease;
+        }
+        
+        .categories-list a:hover {
+            color: #e74c3c;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .page-numbers {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .page-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .page-number:hover, .page-number.current {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        /* Newsletter */
+        .newsletter-form {
+            margin-top: 20px;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #e74c3c;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-top: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .blog-hero {
+                padding: 150px 0 80px;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                transition: left 0.3s ease;
+                padding: 30px;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 20px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 40px 0;
+            }
+            
+            .blog-hero {
+                padding: 130px 0 60px;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .post-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Stay<span>Nova</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>StayNova Basketball Blog</h1>
+            <p>Get the latest training tips, drills, and basketball insights from our team of professional coaches.</p>
+        </div>
+    </section>
+
+    <!-- Blog Main Content -->
+    <section class="section blog-main">
+        <div class="container">
+            <div class="blog-container">
+                <div class="blog-posts">
+                    <!-- Blog Post 1 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.unsplash.com/photo-1477949331575-2763034b5fb5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basketball Drills">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Jan 15, 2025</span>
+                                <span><i class="far fa-user"></i> By Coach Mike</span>
+                                <span><i class="far fa-folder"></i> <a href="/blog/category/training/">Training</a></span>
+                            </div>
+                            <h2 class="post-title"><a href="/blog/5-essential-drills/">5 Essential Drills to Improve Your Ball Handling</a></h2>
+                        </div>
+                        <div class="post-excerpt">
+                            <p>Mastering ball handling is crucial for any basketball player looking to elevate their game. In this post, we break down five fundamental drills that will help you develop better control, speed, and confidence with the ball...</p>
+                        </div>
+                        <a href="/blog/5-essential-drills/" class="btn">Read More</a>
+                    </article>
+                    
+                    <!-- Blog Post 2 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basketball Nutrition">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Feb 2, 2025</span>
+                                <span><i class="far fa-user"></i> By Coach Sarah</span>
+                                <span><i class="far fa-folder"></i> <a href="/blog/category/nutrition/">Nutrition</a></span>
+                            </div>
+                            <h2 class="post-title"><a href="/blog/nutrition-guide/">The Ultimate Nutrition Guide for Basketball Players</a></h2>
+                        </div>
+                        <div class="post-excerpt">
+                            <p>What you eat directly impacts your performance on the court. This comprehensive guide covers everything from pre-game meals to recovery nutrition, helping you fuel your body for optimal basketball performance...</p>
+                        </div>
+                        <a href="/blog/nutrition-guide/" class="btn">Read More</a>
+                    </article>
+                    
+                    <!-- Blog Post 3 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Basketball Defense">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Mar 10, 2025</span>
+                                <span><i class="far fa-user"></i> By Coach David</span>
+                                <span><i class="far fa-folder"></i> <a href="/blog/category/strategy/">Strategy</a></span>
+                            </div>
+                            <h2 class="post-title"><a href="/blog/defensive-strategies/">Defensive Strategies That Win Games</a></h2>
+                        </div>
+                        <div class="post-excerpt">
+                            <p>Defense wins championships, and in this post we break down the most effective defensive strategies used by elite teams. Learn how to improve your on-ball defense, help defense, and team defensive concepts...</p>
+                        </div>
+                        <a href="/blog/defensive-strategies/" class="btn">Read More</a>
+                    </article>
+                    
+                    <!-- Blog Post 4 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1025&q=80" alt="Team Basketball">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Apr 5, 2025</span>
+                                <span><i class="far fa-user"></i> By Coach James</span>
+                                <span><i class="far fa-folder"></i> <a href="/blog/category/team-play/">Team Play</a></span>
+                            </div>
+                            <h2 class="post-title"><a href="/blog/team-chemistry/">Building Team Chemistry On and Off the Court</a></h2>
+                        </div>
+                        <div class="post-excerpt">
+                            <p>The best teams aren't always the most talented - they're the ones with the best chemistry. Discover practical strategies for building trust, communication, and cohesion with your teammates that will translate to better performance during games...</p>
+                        </div>
+                        <a href="/blog/team-chemistry/" class="btn">Read More</a>
+                    </article>
+                    
+                    <!-- Blog Post 5 -->
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <img src="https://images.unsplash.com/photo-1517649763962-0c6230660b61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basketball Shooting">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar-alt"></i> Apr 12, 2025</span>
+                                <span><i class="far fa-user"></i> By Coach Emily</span>
+                                <span><i class="far fa-folder"></i> <a href="/blog/category/shooting/">Shooting</a></span>
+                            </div>
+                            <h2 class="post-title"><a href="/blog/shooting-mechanics/">Perfecting Your Shooting Mechanics: A Step-by-Step Guide</a></h2>
+                        </div>
+                        <div class="post-excerpt">
+                            <p>Consistent shooting starts with proper mechanics. This detailed guide breaks down each component of the perfect shot, from foot placement to follow-through, with drills to help you practice each element...</p>
+                        </div>
+                        <a href="/blog/shooting-mechanics/" class="btn">Read More</a>
+                    </article>
+                </div>
+                
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Search</h3>
+                        <form class="search-form">
+                            <input type="text" placeholder="Search articles...">
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Search</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Popular Posts -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Popular Posts</h3>
+                        <div class="popular-posts">
+                            <div class="popular-post">
+                                <div class="popular-post-img">
+                                    <img src="https://images.unsplash.com/photo-1517649763962-0c6230660b61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Shooting Tips">
+                                </div>
+                                <div class="popular-post-content">
+                                    <h4><a href="/blog/shooting-tips/">10 Tips to Improve Your Shooting Accuracy</a></h4>
+                                    <div class="post-date">Mar 22, 2025</div>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <div class="popular-post-img">
+                                    <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basketball Nutrition">
+                                </div>
+                                <div class="popular-post-content">
+                                    <h4><a href="/blog/pre-game-meals/">Best Pre-Game Meals for Optimal Performance</a></h4>
+                                    <div class="post-date">Feb 15, 2025</div>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <div class="popular-post-img">
+                                    <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Defensive Drills">
+                                </div>
+                                <div class="popular-post-content">
+                                    <h4><a href="/blog/defensive-drills/">5 Defensive Drills to Shut Down Your Opponent</a></h4>
+                                    <div class="post-date">Jan 28, 2025</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="/blog/category/training/">Training <span>(12)</span></a></li>
+                            <li><a href="/blog/category/shooting/">Shooting <span>(8)</span></a></li>
+                            <li><a href="/blog/category/defense/">Defense <span>(5)</span></a></li>
+                            <li><a href="/blog/category/nutrition/">Nutrition <span>(7)</span></a></li>
+                            <li><a href="/blog/category/team-play/">Team Play <span>(4)</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Tags</h3>
+                        <div class="tags">
+                            <a href="/blog/tag/drills/" class="tag">Drills</a>
+                            <a href="/blog/tag/shooting/" class="tag">Shooting</a>
+                            <a href="/blog/tag/defense/" class="tag">Defense</a>
+                            <a href="/blog/tag/footwork/" class="tag">Footwork</a>
+                            <a href="/blog/tag/conditioning/" class="tag">Conditioning</a>
+                            <a href="/blog/tag/nutrition/" class="tag">Nutrition</a>
+                            <a href="/blog/tag/recovery/" class="tag">Recovery</a>
+                            <a href="/blog/tag/strategy/" class="tag">Strategy</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Newsletter</h3>
+                        <p>Subscribe to get weekly basketball tips and training advice.</p>
+                        <form class="newsletter-form">
+                            <input type="text" placeholder="Your Name">
+                            <input type="email" placeholder="Your Email">
+                            <button type="submit" class="btn">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="page-numbers">
+                    <a href="/blog/" class="page-number current">1</a>
+                    <a href="/blog/page/2/" class="page-number">2</a>
+                    <a href="/blog/page/3/" class="page-number">3</a>
+                    <a href="/blog/page/4/" class="page-number">Next <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StayNova</h3>
+                    <p>Australia's premier basketball training app helping players of all levels improve their skills and performance.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/staynovabasketball" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/staynovabb" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/staynovabb" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/staynovabasketball" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/services/">Beginner Training</a></li>
+                        <li><a href="/services/">Advanced Skills</a></li>
+                        <li><a href="/services/">Shooting Programs</a></li>
+                        <li><a href="/services/">Defensive Training</a></li>
+                        <li><a href="/services/">Team Packages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <address>
+                        Level 10/50 Pitt St<br>
+                        Sydney NSW 2000, Australia<br>
+                        Phone: +612 8080 7900<br>
+                        Email: info@staynova.org
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 StayNova Basketball. All Rights Reserved. | <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('#mainNav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mainNav').classList.remove('active');
+            });
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = this.querySelector('input[type="text"]').value;
+                const email = this.querySelector('input[type="email"]').value;
+                
+                // In a real implementation, you would send this data to your server
+                alert(`Thanks for subscribing, ${name}! We've sent a confirmation to ${email}.`);
+                this.reset();
+            });
+        }
+        
+        // Search form submission
+        const searchForm = document.querySelector('.search-form');
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const query = this.querySelector('input[type="text"]').value;
+                alert(`Searching for: ${query}\nIn a real implementation, this would search the blog.`);
+            });
+        }
+    </script>
+</body>
+</html>

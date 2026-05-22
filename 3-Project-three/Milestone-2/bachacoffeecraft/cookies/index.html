@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - Bacha Coffee Craft | Premium Coffee Experience</title>
+    <meta name="description" content="Learn about how Bacha Coffee Craft uses cookies to enhance your browsing experience. Our cookie policy explains what cookies we use and why. Last updated: 2025.">
+    <meta name="keywords" content="cookie policy, Bacha Coffee, website cookies, privacy, user experience, coffee shop cookies, online store cookies, tracking cookies">
+    <link rel="canonical" href="https://bachacoffeecraft.com/cookies/">
+     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        /* Import the same styles from the home page */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gold: #D4AF37;
+            --deep-brown: #2C1810;
+            --dark-coffee: #1A0E08;
+            --medium-brown: #3D2817;
+            --light-gold: #F4E4BC;
+            --warm-gray: #8B7355;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-coffee);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--deep-brown);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass Morphism */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: linear-gradient(to right, #92400e, #b45309);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .cookie-text {
+            font-size: 14px;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .cookie-accept {
+            background-color: #ca8a04;
+        }
+        
+        .cookie-accept:hover {
+            background-color: #a16207;
+        }
+        
+        .cookie-decline {
+            background-color: #6b7280;
+        }
+        
+        .cookie-decline:hover {
+            background-color: #4b5563;
+        }
+        
+        /* Header Styles */
+        header {
+            position: relative;
+            z-index: 50;
+        }
+        
+        .top-header {
+            background: linear-gradient(to right, #92400e, #b45309);
+            padding: 8px 0;
+        }
+        
+        .top-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-link {
+            color: inherit;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: #fde047;
+        }
+        
+        .main-header {
+            padding: 16px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+        
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            font-weight: 500;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: #fbbf24;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .cart-btn:hover {
+            color: #fbbf24;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ca8a04;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--primary-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 13px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 26px;
+            transform-origin: left center;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -3px;
+            left: 8px;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 39px;
+            left: 8px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-brown), var(--dark-coffee));
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-nav.open {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+        
+        .mobile-nav-title {
+            font-size: 24px;
+        }
+        
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-mobile-nav:hover {
+            color: #fbbf24;
+        }
+        
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: inherit;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #fbbf24;
+        }
+        
+        /* Cookies Page Specific Styles */
+        .cookies-section {
+            padding: 80px 0;
+            min-height: 100vh;
+        }
+        
+        .cookies-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .cookies-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .cookies-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .cookies-subtitle {
+            font-size: 18px;
+            color: #d1d5db;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cookies-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 48px;
+        }
+        
+        .cookies-section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 32px 0 16px;
+            color: var(--primary-gold);
+        }
+        
+        .cookies-section-title:first-child {
+            margin-top: 0;
+        }
+        
+        .cookies-text {
+            margin-bottom: 16px;
+            color: #d1d5db;
+        }
+        
+        .cookies-list {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .cookies-list li {
+            margin-bottom: 8px;
+            color: #d1d5db;
+        }
+        
+        .cookie-type {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 3px solid var(--primary-gold);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .cookie-type-name {
+            font-weight: 600;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+        
+        .cookie-type-description {
+            color: #d1d5db;
+            font-size: 14px;
+        }
+        
+        .highlight-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box-title {
+            font-weight: 600;
+            color: var(--primary-gold);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .last-updated {
+            text-align: center;
+            margin-top: 48px;
+            font-style: italic;
+            color: #9ca3af;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(146, 64, 14, 0.3), #000);
+            padding: 64px 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        
+        .footer-description {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .footer-social a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: #ca8a04;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .footer-credits {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .footer-credits .heart {
+            color: #ef4444;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cookies-title {
+                font-size: 32px;
+            }
+            
+            .cookies-content {
+                padding: 24px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .top-header-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .top-header-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .cookies-section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="cookie-content">
+            <p class="cookie-text">We use cookies to enhance your browsing experience. By continuing, you agree to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-accept">Accept</button>
+                <button id="decline-cookies" class="cookie-btn cookie-decline">Decline</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-content">
+                    <div class="top-header-left">
+                        <span><i class="fas fa-map-marker-alt"></i> Av. Valencia, 36, El Verger, Spain</span>
+                        <span><i class="fas fa-phone"></i> +34 965 750 227</span>
+                    </div>
+                    <div class="top-header-right">
+                        <a href="https://www.instagram.com/BachaCoffee/" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@bachacoffee" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://x.com/BachaCoffee" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Header -->
+        <nav class="main-header glass-morphism">
+            <div class="container">
+                <div class="nav-container">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    
+                    <!-- Desktop Navigation -->
+                    <ul class="desktop-nav">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/shop/" class="nav-link">Shop</a></li>
+                        <li><a href="/about/" class="nav-link">About</a></li>
+                        <li><a href="/blog/" class="nav-link">Blog</a></li>
+                        <li><a href="/contact/" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <!-- Cart & Mobile Menu -->
+                    <div class="header-actions">
+                        <button id="cart-btn" class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </button>
+                        
+                        <!-- Hamburger Menu -->
+                        <div class="hamburger" id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <h2 class="font-display mobile-nav-title gradient-text">Menu</h2>
+                <button id="close-mobile-nav" class="close-mobile-nav">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="mobile-nav-link">Home</a></li>
+                <li><a href="/shop/" class="mobile-nav-link">Shop</a></li>
+                <li><a href="/about/" class="mobile-nav-link">About</a></li>
+                <li><a href="/blog/" class="mobile-nav-link">Blog</a></li>
+                <li><a href="/contact/" class="mobile-nav-link">Contact</a></li>
+                <li><a href="/cart/" class="mobile-nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Cookie Policy Section -->
+        <section class="cookies-section">
+            <div class="container">
+                <div class="cookies-container">
+                    <div class="cookies-header animate-fade-in-up">
+                        <h1 class="cookies-title font-display gradient-text">Cookie Policy</h1>
+                        <p class="cookies-subtitle">Learn about how we use cookies to enhance your browsing experience and protect your privacy</p>
+                    </div>
+                    
+                    <div class="cookies-content glass-morphism animate-fade-in-up">
+                        <h2 class="cookies-section-title">What Are Cookies?</h2>
+                        <p class="cookies-text">
+                            Cookies are small text files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the owners of the site. Cookies allow websites to remember your preferences, login information, and other details to improve your browsing experience.
+                        </p>
+                        <p class="cookies-text">
+                            At Bacha Coffee Craft, we use cookies to enhance your experience on our website, analyze how our site is used, and deliver personalized content and advertisements. This Cookie Policy explains what cookies we use, why we use them, and how you can control them.
+                        </p>
+                        
+                        <h2 class="cookies-section-title">How We Use Cookies</h2>
+                        <p class="cookies-text">
+                            We use cookies for several purposes to improve your experience on our website:
+                        </p>
+                        <ul class="cookies-list">
+                            <li>To remember your preferences and settings</li>
+                            <li>To keep you logged in to your account</li>
+                            <li>To remember items in your shopping cart</li>
+                            <li>To analyze how our website is used and improve its performance</li>
+                            <li>To deliver personalized content and advertisements</li>
+                            <li>To provide social media features</li>
+                            <li>To protect against fraud and enhance security</li>
+                        </ul>
+                        
+                        <h2 class="cookies-section-title">Types of Cookies We Use</h2>
+                        
+                        <div class="cookie-type">
+                            <div class="cookie-type-name">Essential Cookies</div>
+                            <div class="cookie-type-description">
+                                These cookies are necessary for the website to function properly. They enable basic functions like page navigation, access to secure areas, and shopping cart functionality. The website cannot function properly without these cookies, and they cannot be disabled.
+                            </div>
+                        </div>
+                        
+                        <div class="cookie-type">
+                            <div class="cookie-type-name">Performance Cookies</div>
+                            <div class="cookie-type-description">
+                                These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. This includes data about which pages are most popular, how long visitors spend on the site, and any error messages encountered.
+                            </div>
+                        </div>
+                        
+                        <div class="cookie-type">
+                            <div class="cookie-type-name">Functionality Cookies</div>
+                            <div class="cookie-type-description">
+                                These cookies allow the website to remember choices you make (such as your username, language preference, or region) and provide enhanced, more personal features. They may also be used to provide services you have asked for, such as watching a video or commenting on a blog.
+                            </div>
+                        </div>
+                        
+                        <div class="cookie-type">
+                            <div class="cookie-type-name">Marketing Cookies</div>
+                            <div class="cookie-type-description">
+                                These cookies are used to deliver advertisements more relevant to you and your interests. They are also used to limit the number of times you see an advertisement and help measure the effectiveness of advertising campaigns. They remember that you have visited a website and this information is shared with advertising partners.
+                            </div>
+                        </div>
+                        
+                        <h2 class="cookies-section-title">Third-Party Cookies</h2>
+                        <p class="cookies-text">
+                            In addition to our own cookies, we may also use various third-party cookies to report website usage statistics, deliver advertisements on and through the website, and so on. These third-party services may include:
+                        </p>
+                        <ul class="cookies-list">
+                            <li><strong>Google Analytics:</strong> To analyze website traffic and user behavior</li>
+                            <li><strong>Google Ads:</strong> To display relevant advertisements</li>
+                            <li><strong>Facebook Pixel:</strong> To track conversions and create custom audiences</li>
+                            <li><strong>Instagram:</strong> For social media integration and marketing</li>
+                            <li><strong>Payment Processors:</strong> To securely process payments</li>
+                            <li><strong>Customer Support:</strong> To provide live chat and support services</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <div class="highlight-box-title">
+                                <i class="fas fa-info-circle"></i>
+                                Important Note
+                            </div>
+                            <p class="cookies-text" style="margin-bottom: 0;">
+                                Third-party cookies are controlled by the respective third-party services, not by Bacha Coffee Craft. We recommend reviewing the privacy policies of these third parties to understand how they use cookies and collect information.
+                            </p>
+                        </div>
+                        
+                        <h2 class="cookies-section-title">Cookie Consent and Preferences</h2>
+                        <p class="cookies-text">
+                            When you first visit our website, you will see a cookie consent banner asking for your consent to use cookies. You can choose to accept or decline cookies, with the exception of essential cookies which are necessary for the website to function.
+                        </p>
+                        <p class="cookies-text">
+                            Your cookie preferences are stored for 12 months. You can change your cookie preferences at any time by:
+                        </p>
+                        <ul class="cookies-list">
+                            <li>Clearing your browser's cookie settings</li>
+                            <li>Using the cookie preference center (if available)</li>
+                            <li>Contacting us directly at info@bachacoffeecraft.com</li>
+                        </ul>
+                        
+                        <h2 class="cookies-section-title">How to Control Cookies</h2>
+                        <p class="cookies-text">
+                            You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your preferences in the cookie consent manager or by setting your browser preferences.
+                        </p>
+                        
+                        <div class="highlight-box">
+                            <div class="highlight-box-title">
+                                <i class="fas fa-cog"></i>
+                                Browser Cookie Settings
+                            </div>
+                            <p class="cookies-text">
+                                Most web browsers automatically accept cookies, but you can modify your browser settings to decline cookies if you prefer. Here's how to manage cookies in popular browsers:
+                            </p>
+                            <ul class="cookies-list">
+                                <li><strong>Chrome:</strong> Settings → Advanced → Privacy and Security → Site Settings → Cookies</li>
+                                <li><strong>Firefox:</strong> Options → Privacy & Security → Cookies and Site Data</li>
+                                <li><strong>Safari:</strong> Preferences → Privacy → Cookies and Website Data</li>
+                                <li><strong>Edge:</strong> Settings → Site Permissions → Cookies and Site Data</li>
+                            </ul>
+                        </div>
+                        
+                        <h2 class="cookies-section-title">Impact of Disabling Cookies</h2>
+                        <p class="cookies-text">
+                            While you can choose to disable cookies, please note that this may affect the functionality of our website. If you disable cookies, you may experience:
+                        </p>
+                        <ul class="cookies-list">
+                            <li>Difficulty accessing your account or staying logged in</li>
+                            <li>Loss of personalized settings and preferences</li>
+                            <li>Shopping cart items not being saved between sessions</li>
+                            <li>Reduced website performance and functionality</li>
+                            <li>Less relevant content and advertisements</li>
+                        </ul>
+                        
+                        <h2 class="cookies-section-title">Cookie Retention</h2>
+                        <p class="cookies-text">
+                            Different types of cookies have different retention periods:
+                        </p>
+                        <ul class="cookies-list">
+                            <li><strong>Session Cookies:</strong> Deleted when you close your browser</li>
+                            <li><strong>Persistent Cookies:</strong> Remain on your device for a set period or until you delete them</li>
+                            <li><strong>Essential Cookies:</strong> Typically expire when you close your browser or after 24 hours</li>
+                            <li><strong>Analytics Cookies:</strong> Usually expire after 2 years</li>
+                            <li><strong>Marketing Cookies:</strong> May expire after 30 days to 2 years</li>
+                        </ul>
+                        
+                        <h2 class="cookies-section-title">Data Protection and Privacy</h2>
+                        <p class="cookies-text">
+                            We are committed to protecting your privacy and complying with applicable data protection laws, including the General Data Protection Regulation (GDPR) and other local privacy laws. Our use of cookies is governed by our Privacy Policy, which provides detailed information about how we collect, use, and protect your personal information.
+                        </p>
+                        <p class="cookies-text">
+                            Cookie data is processed in accordance with our legitimate interests in providing and improving our services, with your consent where required, and in compliance with applicable legal obligations.
+                        </p>
+                        
+                        <h2 class="cookies-section-title">Children's Privacy</h2>
+                        <p class="cookies-text">
+                            Our website is not intended for children under the age of 13, and we do not knowingly collect personal information from children under 13 through cookies or any other means. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us immediately.
+                        </p>
+                        
+                        <h2 class="cookies-section-title">Updates to This Cookie Policy</h2>
+                        <p class="cookies-text">
+                            We may update this Cookie Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we make changes, we will update the "Last Updated" date at the bottom of this policy and notify you through our website or other appropriate means.
+                        </p>
+                        <p class="cookies-text">
+                            We encourage you to review this Cookie Policy periodically to stay informed about how we use cookies and protect your information.
+                        </p>
+                        
+                        <h2 class="cookies-section-title">Contact Us</h2>
+                        <p class="cookies-text">
+                            If you have any questions about this Cookie Policy, our use of cookies, or your privacy rights, please contact us at:
+                        </p>
+                        <div class="highlight-box">
+                            <div class="highlight-box-title">
+                                <i class="fas fa-envelope"></i>
+                                Contact Information
+                            </div>
+                            <ul class="cookies-list">
+                                <li><strong>Email:</strong> info@bachacoffeecraft.com</li>
+                                <li><strong>Phone:</strong> +34 965 750 227</li>
+                                <li><strong>Address:</strong> Av. Valencia, 36, 03770 El Verger, Alicante, Spain</li>
+                                <li><strong>Business Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM (CET)</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="last-updated">Last updated: September 25, 2025</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div>
+                    <div class="logo" style="margin-bottom: 16px;">
+                         <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    <p class="footer-description">
+                        Premium Arabica coffee experiences from the heart of Spain, bringing you the finest flavors from around the world.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/BachaCoffee/">
+                            <i class="fab fa-instagram" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/">
+                            <i class="fab fa-facebook" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee">
+                            <i class="fab fa-linkedin" style="font-size: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Products -->
+                <div class="footer-section">
+                    <h4>Products</h4>
+                     <ul class="footer-links">
+                        <li><a href="/shop/">Coffee Bags</a></li>
+                        <li><a href="/shop/">Gift Boxes</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                        <li><a href="/shop/">Limited Editions</a></li>
+                        <li><a href="/shop/">Merchandise</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                        <li><a href="/cart/">Shopping Cart</a></li>
+                        <li><a href="/checkout/">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Bacha Coffee Craft. All rights reserved.
+                </p>
+                <div class="footer-credits">
+                    <span>Made with <i class="fas fa-heart heart"></i> in Spain</span>
+                    <span>•</span>
+                    <span>Premium Coffee Since 2021</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('bachaCoffeeCart') || '[]');
+        
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+        
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+        
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
+        
+        closeMobileNav.addEventListener('click', function() {
+            hamburger.classList.remove('open');
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile nav when clicking on links
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Cookie consent
+        function showCookiePopup() {
+            const cookieConsent = localStorage.getItem('bachaCoffeeCookieConsent');
+            if (!cookieConsent) {
+                const popup = document.getElementById('cookie-popup');
+                setTimeout(() => {
+                    popup.classList.add('show');
+                }, 1000);
+            }
+        }
+        
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'accepted');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+        
+        document.getElementById('decline-cookies').addEventListener('click', function() {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'declined');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            showCookiePopup();
+            initParticles();
+            initThreeJS();
+        });
+        
+        // Particles.js initialization
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 50,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: '#D4AF37'
+                    },
+                    shape: {
+                        type: 'circle'
+                    },
+                    opacity: {
+                        value: 0.1,
+                        random: true
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: false
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'repulse'
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push'
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+        
+        // Three.js background
+        function initThreeJS() {
+            const canvas = document.getElementById('three-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            // Create coffee bean geometry
+            const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.3
+            });
+            
+            const beans = [];
+            for (let i = 0; i < 100; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                );
+                bean.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                scene.add(bean);
+                beans.push(bean);
+            }
+            
+            camera.position.z = 5;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                beans.forEach(bean => {
+                    bean.rotation.x += 0.001;
+                    bean.rotation.y += 0.001;
+                    bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.0005;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle resize
+            window.addEventListener('resize', function() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe animated elements
+        document.querySelectorAll('[class*="animate-"]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

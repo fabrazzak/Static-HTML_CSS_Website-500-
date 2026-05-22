@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explore our comprehensive permanent makeup services in Winnipeg. Microblading, nano brows, hybrid brows, powder brows, lip blushing, and eyelash enhancement. Professional PMU treatments for natural beauty.">
+    <meta name="keywords"
+        content="permanent makeup services Winnipeg, microblading Winnipeg, nano brows, hybrid brows, powder brows, lip blushing, eyelash enhancement, PMU services, permanent makeup treatments">
+    <link rel="canonical" href="https://looksluxebeauty.com/services/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <title>Services | Looks Luxe Beauty | Professional Permanent Makeup Services in Winnipeg</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #f7e7ce;
+            --accent-color: #c9a961;
+            --dark-color: #2c1810;
+            --text-color: #4a4a4a;
+            --light-bg: #faf8f5;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #faf8f5 0%, #f7e7ce 100%);
+        }
+
+        /* Particles */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover:after,
+        .nav-menu a.active:after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark-color);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Page Header */
+        .page-header {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 20px 80px;
+            position: relative;
+            text-align: center;
+        }
+
+        .page-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .page-header-subtitle {
+            font-size: 20px;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            font-style: italic;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .section-title p {
+            color: var(--text-color);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-overlay {
+            opacity: 1;
+        }
+
+        .service-content {
+            padding: 35px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-content h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .service-description {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.8;
+            flex-grow: 1;
+        }
+
+        .service-features {
+            margin-bottom: 25px;
+        }
+
+        .service-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-features li {
+            color: var(--text-color);
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .service-features li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .service-pricing {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .price-label {
+            color: var(--text-color);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .price-amount {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .price-note {
+            color: var(--text-color);
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .service-duration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-bottom: 20px;
+            gap: 8px;
+        }
+
+        .book-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 14px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            margin-top: auto;
+        }
+
+        .book-btn:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Service Comparison Table */
+        .comparison-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 50px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .comparison-table th {
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .comparison-table td {
+            background: var(--white);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .comparison-table tr:hover td {
+            background: var(--light-bg);
+        }
+
+        /* FAQ Section */
+        .faq-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: var(--light-bg);
+        }
+
+        .faq-question.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 300px;
+            padding: 0 25px 25px;
+        }
+
+        .faq-answer p {
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* Aftercare Section */
+        .aftercare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .aftercare-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .aftercare-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .aftercare-icon {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        .aftercare-card h4 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .aftercare-card p {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 16px 45px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+            border: 2px solid var(--primary-color);
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: var(--dark-color);
+            color: var(--white);
+            padding: 50px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            color: var(--white);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-section a[style*="display: inline"] {
+            display: inline !important;
+            margin-right: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Cookie Popup Styles */
+        .cookie-popup {
+            position: fixed;
+            bottom: -200px;
+            left: 20px;
+            right: 20px;
+            max-width: 500px;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            transition: var(--transition);
+        }
+
+        .cookie-popup.show {
+            bottom: 20px;
+        }
+
+        .cookie-popup h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cookie-popup p {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .accept-btn {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .accept-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .decline-btn {
+            background: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .decline-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                flex-direction: column;
+                background: var(--white);
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                padding: 80px 40px;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+                transition: var(--transition);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-section {
+                padding: 30px 20px;
+            }
+
+            .comparison-table {
+                font-size: 14px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 15px 10px;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aftercare-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cookie-popup {
+                left: 10px;
+                right: 10px;
+                padding: 20px;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles -->
+    <div id="particles-js"></div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/assets/images/looksluxebeauty.png" alt="Looks Luxe Beauty">
+            </a>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/services/" class="active">Services</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Our Professional Services</h1>
+            <p class="page-header-subtitle">Comprehensive permanent makeup treatments designed to enhance your natural
+                beauty and boost your confidence</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Permanent Makeup Services</h2>
+                <p>Transform your daily beauty routine with our expert permanent makeup treatments</p>
+            </div>
+            <div class="services-grid">
+                <!-- Microblading -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/assets/images/microblading.jpeg" alt="Professional Microblading Service">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Microblading</h3>
+                        <p class="service-description">Individual hair strokes are meticulously created with a manual
+                            tool to achieve natural-looking, fuller brows that perfectly frame your face.</p>
+
+                        <div class="service-features">
+                            <ul>
+                                <li>Natural hair-like strokes</li>
+                                <li>Perfect for all skin types</li>
+                                <li>Long-lasting results (1-3 years)</li>
+                                <li>Customized to your face shape</li>
+                                <li>Minimal downtime</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>2.5 - 3 hours</span>
+                        </div>
+
+                        <div class="service-pricing">
+                            <div class="price-label">Starting at</div>
+                            <div class="price-amount">$399</div>
+                            <div class="price-note">*Includes touch-up session</div>
+                        </div>
+
+                        <a href="/contact/" class="book-btn">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Hybrid/Combination Brows -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/assets/images/hybrid-brows.jpeg" alt="Hybrid Combination Brows Service">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Hybrid/Combination Brows</h3>
+                        <p class="service-description">Our most popular service combining hair strokes and shading for a
+                            perfectly balanced, dimensional look that suits any lifestyle.</p>
+
+                        <div class="service-features">
+                            <ul>
+                                <li>Hair strokes + powder effect</li>
+                                <li>Most versatile technique</li>
+                                <li>Great for all skin types</li>
+                                <li>Fuller, defined appearance</li>
+                                <li>Longest-lasting results</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>3 - 3.5 hours</span>
+                        </div>
+
+                        <div class="service-pricing">
+                            <div class="price-label">Starting at</div>
+                            <div class="price-amount">$449</div>
+                            <div class="price-note">*Includes touch-up session</div>
+                        </div>
+
+                        <a href="/contact/" class="book-btn">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Powder Brows -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/assets/images/powder-brows.jpeg" alt="Powder Brows Service">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Powder Brows</h3>
+                        <p class="service-description">A full, soft-shaded look without hair strokes, perfect for those
+                            seeking bold and defined eyebrows with a makeup-ready appearance.</p>
+
+                        <div class="service-features">
+                            <ul>
+                                <li>Soft, powdered finish</li>
+                                <li>Best for oily skin types</li>
+                                <li>Bold, defined look</li>
+                                <li>Low maintenance</li>
+                                <li>Instagram-ready brows</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>2.5 - 3 hours</span>
+                        </div>
+
+                        <div class="service-pricing">
+                            <div class="price-label">Starting at</div>
+                            <div class="price-amount">$399</div>
+                            <div class="price-note">*Includes touch-up session</div>
+                        </div>
+
+                        <a href="/contact/" class="book-btn">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Nano Brows -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/assets/images/nano-brows.jpeg" alt="Nano Brows Service">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Nano Brows</h3>
+                        <p class="service-description">Ultra-fine hair strokes created with a digital machine for
+                            incredibly natural and realistic results that mimic your natural brow hairs.</p>
+
+                        <div class="service-features">
+                            <ul>
+                                <li>Ultra-fine precision strokes</li>
+                                <li>Digital machine technique</li>
+                                <li>Most natural appearance</li>
+                                <li>Suitable for sensitive skin</li>
+                                <li>Faster healing process</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>2.5 - 3 hours</span>
+                        </div>
+
+                        <div class="service-pricing">
+                            <div class="price-label">Starting at</div>
+                            <div class="price-amount">$429</div>
+                            <div class="price-note">*Includes touch-up session</div>
+                        </div>
+
+                        <a href="/contact/" class="book-btn">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Eyelash Enhancement -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/assets/images/eyelash-enhancement.jpeg" alt="Eyelash Enhancement Service">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Eyelash Enhancement</h3>
+                        <p class="service-description">Invisible eyeliner tattoo creating an ultra-thin black line along
+                            the lash line for defined, naturally enhanced eyes without the makeup look.</p>
+
+                        <div class="service-features">
+                            <ul>
+                                <li>Invisible, natural enhancement</li>
+                                <li>No makeup appearance</li>
+                                <li>Perfect for sensitive eyes</li>
+                                <li>Water-resistant results</li>
+                                <li>Saves daily makeup time</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>2 - 2.5 hours</span>
+                        </div>
+
+                        <div class="service-pricing">
+                            <div class="price-label">Starting at</div>
+                            <div class="price-amount">$299</div>
+                            <div class="price-note">*Includes touch-up session</div>
+                        </div>
+
+                        <a href="/contact/" class="book-btn">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Lip Blushing -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/assets/images/lip-blushing.jpeg" alt="Lip Blushing Service">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Lip Blushing</h3>
+                        <p class="service-description">A semi-permanent tattoo that enhances the color and shape of your
+                            lips for a naturally fuller appearance with a subtle tint.</p>
+
+                        <div class="service-features">
+                            <ul>
+                                <li>Natural lip color enhancement</li>
+                                <li>Subtle shape correction</li>
+                                <li>Long-lasting tint</li>
+                                <li>No daily lipstick needed</li>
+                                <li>Customized color selection</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>2.5 - 3 hours</span>
+                        </div>
+
+                        <div class="service-pricing">
+                            <div class="price-label">Starting at</div>
+                            <div class="price-amount">$399</div>
+                            <div class="price-note">*Includes touch-up session</div>
+                        </div>
+
+                        <a href="/contact/" class="book-btn">Book Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- FAQ Section -->
+    <section id="faq" style="background: rgba(255, 255, 255, 0.8);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Get answers to common questions about our permanent makeup services</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How long do permanent makeup results last?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Results typically last 1-3 years depending on the service, your skin type, lifestyle, and sun
+                            exposure. Touch-up appointments are recommended annually to maintain the best results.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Does permanent makeup hurt?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We use topical numbing agents to minimize discomfort. Most clients describe the sensation as
+                            mild to moderate, similar to threading or plucking. Pain tolerance varies by individual and
+                            treatment area.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What is the healing process like?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Initial healing takes 7-14 days with some scabbing and flaking. Complete healing occurs over
+                            4-6 weeks. We provide detailed aftercare instructions and support throughout the healing
+                            process.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I still wear makeup over permanent makeup?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! Permanent makeup is designed to enhance your natural features. You can still
+                            apply regular makeup over it if desired, though many clients find they need much less or
+                            none at all.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What should I do to prepare for my appointment?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Avoid alcohol, caffeine, and blood-thinning medications 24-48 hours before. Don't tweeze or
+                            wax brows for 2 weeks prior. Arrive with clean skin and avoid sun exposure. We'll provide a
+                            complete preparation guide.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is permanent makeup safe?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, when performed by trained professionals using sterile techniques and high-quality
+                            pigments. We follow strict health and safety protocols, use disposable tools, and maintain
+                            the highest sanitation standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aftercare Section -->
+    <section id="aftercare">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Aftercare</h2>
+                <p>Proper aftercare ensures optimal healing and long-lasting beautiful results</p>
+            </div>
+            <div class="aftercare-grid">
+                <div class="aftercare-card">
+                    <div class="aftercare-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <h4>Keep Clean & Dry</h4>
+                    <p>Gently clean the area with provided aftercare products. Avoid water, sweat, and makeup for the
+                        first 7-10 days to ensure proper healing.</p>
+                </div>
+
+                <div class="aftercare-card">
+                    <div class="aftercare-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Avoid Sun Exposure</h4>
+                    <p>Protect your investment by avoiding direct sunlight and tanning beds during healing. Use SPF 30+
+                        once fully healed to maintain color.</p>
+                </div>
+
+                <div class="aftercare-card">
+                    <div class="aftercare-icon">
+                        <i class="fas fa-droplet"></i>
+                    </div>
+                    <h4>Apply Healing Balm</h4>
+                    <p>Use the provided healing ointment as directed to keep the area moisturized and promote proper
+                        healing without over-application.</p>
+                </div>
+
+                <div class="aftercare-card">
+                    <div class="aftercare-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h4>Avoid Picking</h4>
+                    <p>Let scabs and flakes fall off naturally. Picking can cause scarring, uneven healing, and pigment
+                        loss requiring additional touch-ups.</p>
+                </div>
+
+                <div class="aftercare-card">
+                    <div class="aftercare-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h4>Stay in Touch</h4>
+                    <p>We're here to support you throughout healing. Contact us with any questions or concerns, and
+                        attend your follow-up appointments.</p>
+                </div>
+
+                <div class="aftercare-card">
+                    <div class="aftercare-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h4>Schedule Touch-Up</h4>
+                    <p>Your included touch-up appointment (4-8 weeks post-treatment) is essential for perfecting your
+                        results and ensuring longevity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ready to Transform Your Beauty Routine?</h2>
+                <p>Book your consultation today and start your journey to effortless beauty</p>
+            </div>
+            <div style="margin-top: 30px;">
+                <a href="/contact/" class="cta-button">Book Free Consultation</a>
+                <a href="/about/" class="cta-button"
+                    style="background: transparent; color: var(--primary-color); border: 2px solid var(--primary-color);">Learn
+                    About Our Specialist</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="/" class="logo">
+                    <img src="/assets/images/looksluxebeauty.png" alt="Looks Luxe Beauty">
+                </a>
+                <p>Your trusted beauty destination in Winnipeg for premium permanent makeup and beauty services.</p>
+                <p style="margin-top: 15px;"><i class="fas fa-map-marker-alt"></i> 200 Salter St, Winnipeg, MB R2W 4K2
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/">Home</a>
+                <a href="/about/">About Us</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/contact/">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <a href="/services/">Microblading</a>
+                <a href="/services/">Hybrid/Combination Brows</a>
+                <a href="/services/">Powder Brows</a>
+                <a href="/services/">Nano Brows</a>
+                <a href="/services/">Eyelash Enhancement</a>
+                <a href="/services/">Lip Blushing</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-phone"></i> +1 204-421-0019</p>
+                <p><i class="fas fa-envelope"></i> info@looksluxebeauty.com</p>
+                <div style="margin-top: 15px;">
+                    <a href="/privacy/" style="display: inline;">Privacy</a> |
+                    <a href="/terms/" style="display: inline;">Terms</a> |
+                    <a href="/cookies/" style="display: inline;">Cookies</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Looks Luxe Beauty. All Rights Reserved. | Website by Professional Web Design</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Popup -->
+    <div class="cookie-popup" id="cookiePopup">
+        <h4><i class="fas fa-cookie-bite"></i> Cookie Notice</h4>
+        <p>We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept", you consent
+            to our use of cookies.</p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn accept-btn" id="acceptCookies">Accept</button>
+            <button class="cookie-btn decline-btn" id="declineCookies">Decline</button>
+        </div>
+    </div>
+
+    <script>
+        // Wait for particles.js to load
+        window.addEventListener('load', function () {
+            // Particles.js
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: '#d4af37' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: '#d4af37', opacity: 0.2, width: 1 },
+                        move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+                        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                    },
+                    retina_detect: true
+                });
+            }
+        });
+
+        // Three.js Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('three-canvas'),
+            alpha: true,
+            antialias: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 5;
+
+        // Create glowing particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        const colors = [];
+
+        for (let i = 0; i < 2000; i++) {
+            vertices.push(
+                Math.random() * 20 - 10,
+                Math.random() * 20 - 10,
+                Math.random() * 20 - 10
+            );
+
+            // Gold color variations
+            colors.push(
+                0.8 + Math.random() * 0.2,
+                0.7 + Math.random() * 0.2,
+                0.3 + Math.random() * 0.2
+            );
+        }
+
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.05,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.x += 0.0005;
+            points.rotation.y += 0.0007;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // FAQ Toggle Function
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const isActive = button.classList.contains('active');
+
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-question').forEach(q => {
+                if (q !== button) {
+                    q.classList.remove('active');
+                    q.parentElement.querySelector('.faq-answer').classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ item
+            if (isActive) {
+                button.classList.remove('active');
+                answer.classList.remove('active');
+            } else {
+                button.classList.add('active');
+                answer.classList.add('active');
+            }
+        }
+
+        // Cookie Popup
+        const cookiePopup = document.getElementById('cookiePopup');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Show cookie popup if not already accepted/declined
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookiePopup.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookiePopup.classList.remove('show');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookiePopup.classList.remove('show');
+        });
+
+        // Service Card Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Full Presshoops Handmade Products</title>
+    <meta
+      name="description"
+      content="Complete your purchase of handmade artisan products from New Zealand"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reuse existing variables and base styles */
+      :root {
+        --primary-color:#B33771;
+        --secondary-color: #e8c07d;
+        --accent-color: #9c6644;
+        --light-color: #f9f5f0;
+        --dark-color: #182C61;
+        --white: #fff;
+        --gray: #777;
+        --light-gray: rgba(254,242,242);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-color);
+        line-height: 1.6;
+        background-color: var(--light-color);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent-color);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background-color: var(--accent-color);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Header Styles (same as main page) */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 600;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        bottom: -5px;
+        left: 0;
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Main Content */
+      .main {
+        padding: 120px 0 60px;
+      }
+
+      /* Checkout Page Styles */
+      .checkout-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .checkout-header h1 {
+        font-size: 36px;
+        margin-bottom: 15px;
+      }
+
+      .checkout-container {
+        display: flex;
+        gap: 40px;
+      }
+
+      .order-summary {
+        flex: 1;
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        height: fit-content;
+      }
+
+      .order-summary h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .order-items {
+        margin-bottom: 20px;
+      }
+
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed var(--light-gray);
+      }
+
+      .order-item-name {
+        flex: 2;
+      }
+
+      .order-item-quantity {
+        flex: 1;
+        text-align: center;
+      }
+
+      .order-item-price {
+        flex: 1;
+        text-align: right;
+      }
+
+      .order-totals {
+        margin-top: 20px;
+        border-top: 1px solid var(--light-gray);
+        padding-top: 20px;
+      }
+
+      .order-total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .order-total-row.total {
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      .checkout-btn-container {
+        margin-top: 30px;
+      }
+
+      /* Checkout Modal */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .checkout-modal {
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 40px;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transform: translateY(20px);
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active .checkout-modal {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        margin-bottom: 20px;
+      }
+
+      .modal-header h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--light-gray);
+        border-radius: 4px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .payment-info {
+        background-color: var(--light-color);
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+      }
+
+      /* Confirmation Modal */
+      .confirmation-modal {
+        text-align: center;
+        padding: 40px;
+      }
+
+      .confirmation-icon {
+        font-size: 60px;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+
+      .confirmation-modal h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+
+      .confirmation-modal p {
+        margin-bottom: 25px;
+        font-size: 18px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--white);
+        font-family: "Playfair Display", serif;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .footer-logo span {
+        color: var(--secondary-color);
+      }
+
+      .footer-about p {
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+      }
+
+      .footer-links h3 {
+        color: var(--white);
+        font-size: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-links h3::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .footer-links ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .footer-contact p {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray);
+        font-size: 14px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .checkout-container {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          transition: var(--transition);
+          padding: 30px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .cart-icon {
+          margin-left: auto;
+          margin-right: 20px;
+        }
+
+        .checkout-header h1 {
+          font-size: 32px;
+        }
+
+        .checkout-modal {
+          padding: 30px 20px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .checkout-header h1 {
+          font-size: 28px;
+        }
+
+        .modal-actions {
+          flex-direction: column;
+        }
+
+        .modal-actions .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Inntura <span>Shop</span></a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/cart/">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="container">
+        <div class="checkout-header">
+          <h1>Finalize Your Purchase</h1>
+          <p>Review your selected items and confirm your order</p>
+        </div>
+    
+        <div class="checkout-container">
+          <div class="order-summary">
+            <h2>Order Summary</h2>
+    
+            <div class="order-items" id="order-items">
+              <!-- Order items will be dynamically loaded here -->
+            </div>
+    
+            <div class="order-totals">
+              <div class="order-total-row">
+                <span>Subtotal</span>
+                <span>$<span id="order-subtotal">0.00</span></span>
+              </div>
+              <div class="order-total-row">
+                <span>Shipping</span>
+                <span>Free</span>
+              </div>
+              <div class="order-total-row total">
+                <span>Total</span>
+                <span>$<span id="order-total">0.00</span></span>
+              </div>
+            </div>
+    
+            <div class="checkout-btn-container">
+              <button class="btn" id="checkout-btn">Complete Your Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-about">
+            <a href="/" class="footer-logo">Inntura <span>Shop</span></a>
+            <p>
+              Your destination for chic styles and the latest fashion trends. Curated collections to keep you stylish since 2020.
+            </p>
+            <div class="social-links">
+              <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://pinterest.com/" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+              <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+    
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">Our Story</a></li>
+              <li><a href="/blog/">Style Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+    
+          <div class="footer-links">
+            <h3>Customer Care</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+            </ul>
+          </div>
+    
+          <div class="footer-contact">
+            <h3>Get in Touch</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 88 Style Street, Fashion City, NZ</p>
+            <p><i class="fas fa-phone"></i> +64 123 456 789</p>
+            <p><i class="fas fa-envelope"></i> support@inntura.org</p>
+          </div>
+        </div>
+    
+        <div class="footer-bottom">
+          <p>&copy; 2025 VogueNest. All rights reserved. Designed for trendsetters.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+      <div class="checkout-modal">
+        <div class="modal-header">
+          <h2>Complete Your Purchase</h2>
+          <p>Please fill in your details to complete your order</p>
+        </div>
+
+        <form id="checkout-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+
+          <div class="form-group">
+            <label for="address">Shipping Address</label>
+            <textarea id="address" name="address" required></textarea>
+          </div>
+
+          <div class="payment-info">
+            <p>
+              <i class="fas fa-info-circle"></i> Payment will be made upon
+              delivery.
+            </p>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-outline" id="cancel-checkout">
+              Cancel
+            </button>
+            <button type="submit" class="btn" id="place-order">
+              Order Now
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmation-modal">
+      <div class="checkout-modal confirmation-modal">
+        <div class="confirmation-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Thank You!</h2>
+        <p>Your order has been successfully placed!</p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+        const nav = document.querySelector("nav");
+
+        mobileMenuBtn.addEventListener("click", function () {
+          nav.classList.toggle("active");
+        });
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartCount = document.querySelector(".cart-count");
+        const orderItemsContainer = document.getElementById("order-items");
+        const orderSubtotal = document.getElementById("order-subtotal");
+        const orderTotal = document.getElementById("order-total");
+
+        // Update cart count
+        function updateCartCount() {
+          const totalItems = cart.reduce(
+            (total, item) => total + item.quantity,
+            0
+          );
+          cartCount.textContent = totalItems;
+        }
+
+        // Render order items
+        function renderOrderItems() {
+          if (cart.length === 0) {
+            orderItemsContainer.innerHTML = "<p>Your cart is empty</p>";
+            orderSubtotal.textContent = "0.00";
+            orderTotal.textContent = "0.00";
+            document.getElementById("checkout-btn").disabled = true;
+            return;
+          }
+
+          let itemsHTML = "";
+          let subtotal = 0;
+
+          cart.forEach((item) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            itemsHTML += `
+                        <div class="order-item">
+                            <div class="order-item-name">${item.name}</div>
+                            <div class="order-item-quantity">${
+                              item.quantity
+                            }</div>
+                            <div class="order-item-price">$${itemTotal.toFixed(
+                              2
+                            )}</div>
+                        </div>
+                    `;
+          });
+
+          orderItemsContainer.innerHTML = itemsHTML;
+          orderSubtotal.textContent = subtotal.toFixed(2);
+          orderTotal.textContent = subtotal.toFixed(2);
+        }
+
+        // Initialize
+        updateCartCount();
+        renderOrderItems();
+
+        // Modal functionality
+        const checkoutModal = document.getElementById("checkout-modal");
+        const confirmationModal = document.getElementById("confirmation-modal");
+        const checkoutBtn = document.getElementById("checkout-btn");
+        const cancelCheckoutBtn = document.getElementById("cancel-checkout");
+        const checkoutForm = document.getElementById("checkout-form");
+
+        checkoutBtn.addEventListener("click", function () {
+          checkoutModal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        });
+
+        cancelCheckoutBtn.addEventListener("click", function () {
+          checkoutModal.classList.remove("active");
+          document.body.style.overflow = "auto";
+        });
+
+        checkoutForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // In a real application, you would send the form data to your server here
+          console.log("Form submitted:", {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            address: document.getElementById("address").value,
+            items: cart,
+            total: parseFloat(orderTotal.textContent),
+          });
+
+          // Show confirmation modal
+          checkoutModal.classList.remove("active");
+          confirmationModal.classList.add("active");
+
+          // Clear cart
+          cart = [];
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartCount();
+
+          // Redirect after 3 seconds
+          setTimeout(function () {
+            window.location.href = "/shop/";
+          }, 3000);
+        });
+
+        // Close modals when clicking outside
+        [checkoutModal, confirmationModal].forEach((modal) => {
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+              modal.classList.remove("active");
+              document.body.style.overflow = "auto";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

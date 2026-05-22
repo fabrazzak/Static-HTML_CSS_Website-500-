@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart - Nestivo</title>
+    <meta
+      name="description"
+      content="Review your handmade items in the Nestivo cart. Ready to checkout with your artisan crafts."
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reuse your existing :root variables and base styles from the main page */
+      :root {
+        --primary-color: #6b4f3d;
+        --secondary-color: #e8c07d;
+        --accent-color: #9c6644;
+        --light-color: #f9f5f0;
+        --dark-color: #333;
+        --white: #fff;
+        --gray: #777;
+        --light-gray: #f5f5f5;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-color);
+        line-height: 1.6;
+        background-color: var(--light-color);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent-color);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background-color: var(--accent-color);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Header Styles (same as main page) */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 600;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        bottom: -5px;
+        left: 0;
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Main Content */
+      .main {
+        padding: 120px 0 60px;
+      }
+
+      /* Cart Page Styles */
+      .cart-page {
+        background-color: var(--white);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .cart-header {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .cart-header h1 {
+        font-size: 32px;
+      }
+
+      .cart-empty {
+        text-align: center;
+        padding: 60px 0;
+      }
+
+      .cart-empty i {
+        font-size: 60px;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+
+      .cart-empty h2 {
+        margin-bottom: 20px;
+      }
+
+      .cart-items {
+        margin-bottom: 30px;
+      }
+
+      .cart-item {
+        display: flex;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--light-gray);
+        align-items: center;
+      }
+
+      .cart-item-image {
+        width: 120px;
+        height: 120px;
+        margin-right: 20px;
+        flex-shrink: 0;
+      }
+
+      .cart-item-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .cart-item-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .cart-item-price {
+        color: var(--accent-color);
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .cart-item-quantity {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .quantity-btn {
+        width: 30px;
+        height: 30px;
+        background-color: var(--light-gray);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .quantity-input {
+        width: 50px;
+        text-align: center;
+        margin: 0 10px;
+        border: 1px solid var(--light-gray);
+        border-radius: 4px;
+        padding: 5px;
+      }
+
+      .cart-item-remove {
+        background: none;
+        border: none;
+        color: var(--gray);
+        cursor: pointer;
+        font-size: 14px;
+        transition: var(--transition);
+      }
+
+      .cart-item-remove:hover {
+        color: var(--accent-color);
+      }
+
+      .cart-summary {
+        background-color: var(--light-color);
+        padding: 30px;
+        border-radius: 8px;
+      }
+
+      .summary-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .summary-total {
+        font-weight: 600;
+        font-size: 18px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid var(--light-gray);
+      }
+
+      .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--white);
+        font-family: "Playfair Display", serif;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .footer-logo span {
+        color: var(--secondary-color);
+      }
+
+      .footer-about p {
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+      }
+
+      .footer-links h3 {
+        color: var(--white);
+        font-size: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-links h3::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .footer-links ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .footer-contact p {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray);
+        font-size: 14px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .cart-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .cart-item-image {
+          margin-bottom: 15px;
+        }
+
+        .cart-actions {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .cart-actions .btn {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .cart-page {
+          padding: 20px;
+        }
+
+        .cart-header h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header (same as main page) -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Nestivo<span>.</span></a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/cart/">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="container">
+        <div class="cart-page">
+          <div class="cart-header">
+            <h1>Your Shopping Cart</h1>
+          </div>
+
+          <div class="cart-items" id="cart-items-container">
+            <!-- Cart items will be loaded here via JavaScript -->
+            <div class="cart-empty">
+              <i class="fas fa-shopping-cart"></i>
+              <h2>Your cart is empty</h2>
+              <p>Looks like you haven't added anything to your cart yet</p>
+              <a href="/shop/" class="btn">Continue Shopping</a>
+            </div>
+          </div>
+
+          <div class="cart-summary" id="cart-summary" style="display: none">
+            <h3 class="summary-title">Order Summary</h3>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>$<span id="subtotal">0.00</span></span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span>Calculated at checkout</span>
+            </div>
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <span>$<span id="total">0.00</span></span>
+            </div>
+
+            <div class="cart-actions">
+              <a href="/shop/" class="btn btn-outline">Continue Shopping</a>
+              <a href="/checkout/" class="btn">Proceed to Checkout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer (same as main page) -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-about">
+            <a href="/" class="footer-logo">Nestivo<span>.</span></a>
+            <p>
+              Celebrating New Zealand's finest artisans and bringing their
+              handmade creations to your home since 2020.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+ 
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 22 Fellbridge Rise,
+              Wakefield 7025, New Zealand
+            </p>
+            <p><i class="fas fa-phone"></i> +64 272 851 651</p>
+            <p><i class="fas fa-envelope"></i> hello@nestivo.org</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Nestivo. All rights reserved. Proudly supporting New
+            Zealand artisans.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load cart from localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsContainer = document.getElementById(
+          "cart-items-container"
+        );
+        const cartSummary = document.getElementById("cart-summary");
+        const cartCount = document.querySelector(".cart-count");
+
+        // Update cart count
+        function updateCartCount() {
+          const totalItems = cart.reduce(
+            (total, item) => total + item.quantity,
+            0
+          );
+          cartCount.textContent = totalItems;
+        }
+
+        // Render cart items
+        function renderCart() {
+          if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `
+              <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Your cart is empty</h2>
+                <p>Looks like you haven't added anything to your cart yet</p>
+                <a href="/shop/" class="btn">Continue Shopping</a>
+              </div>
+            `;
+            cartSummary.style.display = "none";
+            return;
+          }
+
+          // Show summary if cart has items
+          cartSummary.style.display = "block";
+
+          let itemsHTML = "";
+          let subtotal = 0;
+
+          cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            itemsHTML += `
+              <div class="cart-item" data-index="${index}">
+                <div class="cart-item-image">
+                  <img src="${item.image}" alt="${item.name}">
+                </div>
+                <div class="cart-item-details">
+                  <h3 class="cart-item-title">${item.name}</h3>
+                  <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                  <div class="cart-item-quantity">
+                    <button class="quantity-btn decrease-btn">-</button>
+                    <input type="number" class="quantity-input" value="${
+                      item.quantity
+                    }" min="1">
+                    <button class="quantity-btn increase-btn">+</button>
+                  </div>
+                  <button class="cart-item-remove">Remove</button>
+                </div>
+              </div>
+            `;
+          });
+
+          cartItemsContainer.innerHTML = itemsHTML;
+          document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+          document.getElementById("total").textContent = subtotal.toFixed(2);
+
+          // Add event listeners to quantity buttons
+          document.querySelectorAll(".decrease-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+              const index = parseInt(this.closest(".cart-item").dataset.index);
+              if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+              } else {
+                cart.splice(index, 1);
+              }
+              saveCart();
+              renderCart();
+              updateCartCount();
+            });
+          });
+
+          document.querySelectorAll(".increase-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+              const index = parseInt(this.closest(".cart-item").dataset.index);
+              cart[index].quantity++;
+              saveCart();
+              renderCart();
+              updateCartCount();
+            });
+          });
+
+          document.querySelectorAll(".quantity-input").forEach((input) => {
+            input.addEventListener("change", function () {
+              const index = parseInt(this.closest(".cart-item").dataset.index);
+              const newQuantity = parseInt(this.value);
+              if (newQuantity >= 1) {
+                cart[index].quantity = newQuantity;
+                saveCart();
+                renderCart();
+                updateCartCount();
+              }
+            });
+          });
+
+          document.querySelectorAll(".cart-item-remove").forEach((btn) => {
+            btn.addEventListener("click", function () {
+              const index = parseInt(this.closest(".cart-item").dataset.index);
+              cart.splice(index, 1);
+              saveCart();
+              renderCart();
+              updateCartCount();
+            });
+          });
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        // Initialize
+        updateCartCount();
+        renderCart();
+      });
+    </script>
+  </body>
+</html>

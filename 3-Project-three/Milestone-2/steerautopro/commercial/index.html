@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Vehicle Services | Fleet Management | Steer Auto Pro</title>
+    <meta name="description" content="Professional commercial vehicle repair and fleet management services by Steer Auto Pro. Expert maintenance, accident repair, and cost-effective solutions for businesses across the UK with 24/7 support.">
+    <meta name="keywords" content="commercial vehicle repair, fleet management, business vehicle services, commercial bodyshop, fleet maintenance, truck repair, van servicing, commercial accident repair, fleet solutions, business vehicle insurance">
+    <link rel="canonical" href="https://steerautopro.com/commercial/">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a73e8',
+                        secondary: '#34d399',
+                        dark: '#0f172a',
+                        darker: '#020617'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        html,body{
+            overflow-x: hidden
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #1a73e8; }
+            to { box-shadow: 0 0 30px #1a73e8, 0 0 40px #1a73e8; }
+        }
+        
+        .hamburger {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .hamburger-box {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .hamburger-inner {
+            display: block;
+            top: 50%;
+            margin-top: -2px;
+        }
+        
+        .hamburger-inner,
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            width: 30px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            position: absolute;
+            transition-property: transform;
+            transition-duration: 0.15s;
+            transition-timing-function: ease;
+        }
+        
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            content: "";
+            display: block;
+        }
+        
+        .hamburger-inner::before {
+            top: -8px;
+        }
+        
+        .hamburger-inner::after {
+            bottom: -8px;
+        }
+        
+        .hamburger.is-active .hamburger-inner {
+            transform: rotate(45deg);
+        }
+        
+        .hamburger.is-active .hamburger-inner::before {
+            top: 0;
+            transform: rotate(-90deg);
+        }
+        
+        .hamburger.is-active .hamburger-inner::after {
+            bottom: 0;
+            transform: rotate(-90deg);
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .section-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cookie-popup {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+        }
+        
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #1a73e8;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white overflow-x-hidden">
+    <!-- Three.js Background -->
+    <canvas class="three-canvas" id="three-canvas"></canvas>
+    
+    <!-- Cookie Popup -->
+    <div id="cookie-popup" class="cookie-popup fixed bottom-0 left-0 right-0 bg-darker border-t border-gray-700 p-4 z-50">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between">
+            <p class="text-sm text-gray-300 mb-4 sm:mb-0">
+                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+            </p>
+            <div class="flex space-x-4">
+                <button id="accept-cookies" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    Accept All
+                </button>
+                <button id="decline-cookies" class="border border-gray-600 text-gray-300 px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-40">
+        <!-- Top Bar -->
+        <div class="bg-darker/80 backdrop-blur-md border-b border-gray-800" style="display: none;">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                    <div class="flex items-center space-x-6 mb-2 sm:mb-0">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-2"></i>
+                            <span class="text-gray-300">50 Oxford Street, Soho, London, W1D 1BS, UK</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary mr-2"></i>
+                            <span class="text-gray-300">+44 20 7636 7700</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="bg-dark/90 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center py-4">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-14">
+                       </a>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <a href="/" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+                        <a href="/locations/" class="text-gray-300 hover:text-primary transition-colors">Locations</a>
+                        <a href="/corporate/" class="text-gray-300 hover:text-primary transition-colors">Corporate</a>
+                        <a href="/commercial/" class="text-white font-medium">Commercial</a>
+                        <a href="/blog/" class="text-gray-300 hover:text-primary transition-colors">Blog</a>
+                        <a href="/contact/" class="text-gray-300 hover:text-primary transition-colors">Contact</a>
+                       
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button id="mobile-menu-btn" class="hamburger">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-full  bg-darker  border-l border-gray-800 lg:hidden z-50">
+                <div class="p-6 bg-dark">
+                    <div class="flex justify-between items-center mb-8">
+                       <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-12 sm:h-14">
+                       </a>
+                        <button id="mobile-menu-close" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    <nav class="space-y-6">
+                        <a href="/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Home</a>
+                        <a href="/locations/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Locations</a>
+                        <a href="/corporate/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Corporate</a>
+                        <a href="/commercial/" class="block text-white font-medium py-2 border-b border-gray-800">Commercial</a>
+                        <a href="/blog/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Blog</a>
+                        <a href="/contact/" class="block text-gray-300 hover:text-primary py-2 border-b border-gray-800 transition-colors">Contact</a>
+                         
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div id="particles-js" class="absolute inset-0"></div>
+        <div class="container mx-auto px-4 text-center z-10">
+            <div class="max-w-4xl mx-auto section-animate">
+                <div class="inline-flex items-center bg-primary/20 rounded-full px-6 py-3 mb-6">
+                    <i class="fas fa-truck text-primary mr-3"></i>
+                    <span class="text-primary font-semibold">Commercial Vehicle Services</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    FLEET EXCELLENCE
+                </h1>
+                <p class="text-2xl md:text-3xl text-gray-300 mb-8 font-light">
+                    Professional Commercial Vehicle Solutions
+                </p>
+                <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Comprehensive commercial vehicle repair and fleet management services designed to keep your 
+                    business moving. Expert maintenance, rapid turnaround, and cost-effective solutions.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                   
+                  <a href="/contact/">
+                      <button class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-dark transition-all transform hover:scale-105">
+                        24/7 Emergency Service
+                    </button>
+                  </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Fleet Statistics Section -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Trusted by Leading Businesses
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Our commercial vehicle services support businesses of all sizes across the UK with reliable, 
+                    efficient, and cost-effective fleet maintenance solutions.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="counter-number mb-4" data-target="500">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Fleet Vehicles</h3>
+                    <p class="text-gray-400">Serviced Monthly</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="counter-number mb-4" data-target="24">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Hour Service</h3>
+                    <p class="text-gray-400">Emergency Support</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="counter-number mb-4" data-target="95">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Customer Satisfaction</h3>
+                    <p class="text-gray-400">Rating Percentage</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="counter-number mb-4" data-target="48">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Average Turnaround</h3>
+                    <p class="text-gray-400">Hours for Repairs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commercial Services Section -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Commercial Vehicle Services
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Comprehensive repair and maintenance services tailored specifically for commercial vehicles, 
+                    from small vans to large trucks and specialized equipment.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-gradient-to-r from-primary to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-tools text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Fleet Maintenance</h3>
+                    <p class="text-gray-400">Scheduled maintenance programs to keep your fleet running efficiently and minimize downtime.</p>
+                </div>
+                
+                <div class="service-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-gradient-to-r from-secondary to-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-car-crash text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Accident Repairs</h3>
+                    <p class="text-gray-400">Rapid accident repair services with insurance liaison and vehicle recovery options.</p>
+                </div>
+                
+                <div class="service-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-truck text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Heavy Vehicle Repair</h3>
+                    <p class="text-gray-400">Specialized services for trucks, lorries, and heavy commercial vehicles of all sizes.</p>
+                </div>
+                
+                <div class="service-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-clipboard-list text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Fleet Management</h3>
+                    <p class="text-gray-400">Complete fleet management solutions including maintenance scheduling and cost tracking.</p>
+                </div>
+                
+                <div class="service-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-gradient-to-r from-teal-500 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-phone text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">24/7 Emergency</h3>
+                    <p class="text-gray-400">Round-the-clock emergency support and roadside assistance for your commercial fleet.</p>
+                </div>
+                
+                <div class="service-card glass-effect rounded-xl p-8 text-center section-animate">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Insurance Liaison</h3>
+                    <p class="text-gray-400">Direct insurance company communication and claims handling for seamless service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Solutions Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="section-animate">
+                    <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Tailored Fleet Solutions
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        Every business has unique fleet requirements. We provide customized maintenance and 
+                        repair solutions that align with your operational needs and budget constraints.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary rounded-full p-2 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Flexible Service Contracts</h4>
+                                <p class="text-gray-400">Customizable maintenance contracts to fit your business model and fleet size.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-secondary rounded-full p-2 mt-1">
+                                <i class="fas fa-clock text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Rapid Turnaround Times</h4>
+                                <p class="text-gray-400">Priority scheduling and express services to minimize vehicle downtime.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-purple-500 rounded-full p-2 mt-1">
+                                <i class="fas fa-chart-line text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Cost Management</h4>
+                                <p class="text-gray-400">Transparent pricing and detailed reporting to help manage fleet expenses.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-orange-500 rounded-full p-2 mt-1">
+                                <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Nationwide Coverage</h4>
+                                <p class="text-gray-400">Service locations across the UK for comprehensive fleet support.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="/contact/">
+                        <button class="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-all transform hover:scale-105 mt-8">
+                        Discuss Your Fleet Needs
+                    </button>
+                    </a>
+                </div>
+                <div class="section-animate">
+                    <div class="relative">
+                        <div class="glass-effect rounded-2xl p-8 animate-float">
+                            <img src="/assets/commercial-fleet-solutions.webp" alt="Commercial Fleet Management Solutions" class="w-full rounded-lg mb-6">
+                            <div class="text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">Fleet Excellence</h3>
+                                <p class="text-gray-400">Comprehensive commercial vehicle services for businesses of all sizes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries We Serve Section -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Industries We Serve
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Our commercial vehicle services support diverse industries with specialized 
+                    knowledge and tailored solutions for every sector.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-shipping-fast text-primary text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Logistics & Delivery</h3>
+                    <p class="text-gray-400 text-sm">Courier services, parcel delivery, and logistics companies</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-hard-hat text-secondary text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Construction</h3>
+                    <p class="text-gray-400 text-sm">Construction vehicles, equipment, and specialized machinery</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-store text-purple-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Retail & Distribution</h3>
+                    <p class="text-gray-400 text-sm">Retail chains, wholesale distributors, and supply chains</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-ambulance text-red-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Emergency Services</h3>
+                    <p class="text-gray-400 text-sm">Emergency vehicles, ambulances, and public service fleets</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-utensils text-orange-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Food Service</h3>
+                    <p class="text-gray-400 text-sm">Food delivery, catering, and restaurant supply vehicles</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-wrench text-teal-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Maintenance Services</h3>
+                    <p class="text-gray-400 text-sm">Utility companies, maintenance crews, and service providers</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-bus text-indigo-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Transportation</h3>
+                    <p class="text-gray-400 text-sm">Bus companies, taxi fleets, and passenger transport services</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-all section-animate">
+                    <i class="fas fa-industry text-gray-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Manufacturing</h3>
+                    <p class="text-gray-400 text-sm">Industrial vehicles, material handling, and factory transport</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Process Section -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Our Service Process
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    A streamlined process designed to minimize disruption to your business operations 
+                    while ensuring the highest quality repairs and maintenance.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center section-animate">
+                    <div class="bg-primary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fas fa-phone text-white text-2xl"></i>
+                        <div class="absolute -top-2 -right-2 bg-secondary w-8 h-8 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-bold">1</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Initial Contact</h3>
+                    <p class="text-gray-400">Contact us via phone, email, or online form to discuss your commercial vehicle needs and schedule service.</p>
+                </div>
+                
+                <div class="text-center section-animate">
+                    <div class="bg-secondary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fas fa-clipboard-list text-white text-2xl"></i>
+                        <div class="absolute -top-2 -right-2 bg-primary w-8 h-8 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-bold">2</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Assessment</h3>
+                    <p class="text-gray-400">Comprehensive vehicle assessment and detailed quote preparation with transparent pricing breakdown.</p>
+                </div>
+                
+                <div class="text-center section-animate">
+                    <div class="bg-purple-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fas fa-tools text-white text-2xl"></i>
+                        <div class="absolute -top-2 -right-2 bg-orange-500 w-8 h-8 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-bold">3</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Expert Repair</h3>
+                    <p class="text-gray-400">Professional repair work by certified technicians using genuine parts and advanced equipment.</p>
+                </div>
+                
+                <div class="text-center section-animate">
+                    <div class="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <i class="fas fa-check-circle text-white text-2xl"></i>
+                        <div class="absolute -top-2 -right-2 bg-green-500 w-8 h-8 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-bold">4</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Quality Check</h3>
+                    <p class="text-gray-400">Thorough quality inspection and testing before vehicle return, with detailed service documentation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 section-animate">
+                <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Why Choose Our Commercial Services
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Experience the advantages of partnering with the UK's leading commercial vehicle service provider.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-xl p-8 hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-primary to-blue-600 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-medal text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Certified Technicians</h3>
+                    <p class="text-gray-400">Highly qualified and certified commercial vehicle specialists with extensive training.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-secondary to-green-600 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-leaf text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Eco-Friendly</h3>
+                    <p class="text-gray-400">Carbon-neutral operations and environmentally responsible repair practices.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-600 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Warranty Protection</h3>
+                    <p class="text-gray-400">Comprehensive warranties on all commercial vehicle repairs and parts.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-600 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-pound-sign text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Competitive Pricing</h3>
+                    <p class="text-gray-400">Transparent and competitive pricing with no hidden costs or surprises.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-teal-500 to-blue-600 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-mobile-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Digital Updates</h3>
+                    <p class="text-gray-400">Real-time updates on repair progress via digital communication platforms.</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-8 hover:scale-105 transition-all section-animate">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-handshake text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Partnership Approach</h3>
+                    <p class="text-gray-400">Long-term partnership approach focused on your business success and growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="py-20 bg-gradient-to-r from-primary to-secondary">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto section-animate">
+                <h2 class="text-5xl font-bold mb-6 text-white">
+                    Ready to Transform Your Fleet Management?
+                </h2>
+                <p class="text-xl text-blue-100 mb-12 leading-relaxed">
+                    Join hundreds of satisfied corporate clients who trust Steer Auto Pro with their automotive needs. 
+                    Contact our corporate team today for a personalized consultation.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    
+                   <a href="/contact/">
+                     <button class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-primary transition-all transform hover:scale-105">
+                        Schedule Meeting
+                    </button>
+                   </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-800">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                        <img src="/assets/logo.png" alt="logo" class="h-14">
+                       </a>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
+                        The UK's leading automotive repair business, committed to excellence, 
+                        environmental responsibility, and exceptional customer service.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Quick Links</h4>
+                    <nav class="space-y-3">
+                        <a href="/" class="block text-gray-400 hover:text-primary transition-colors">Home</a>
+                        <a href="/locations/" class="block text-gray-400 hover:text-primary transition-colors">Locations</a>
+                        <a href="/corporate/" class="block text-gray-400 hover:text-primary transition-colors">Corporate</a>
+                        <a href="/blog/" class="block text-gray-400 hover:text-primary transition-colors">Blog</a>
+                        <a href="/contact/" class="block text-gray-400 hover:text-primary transition-colors">Contact</a>
+                    </nav>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Legal</h4>
+                    <nav class="space-y-3">
+                        <a href="/privacy/" class="block text-gray-400 hover:text-primary transition-colors">Privacy Policy</a>
+                        <a href="/terms/" class="block text-gray-400 hover:text-primary transition-colors">Terms of Service</a>
+                        <a href="/cookies/" class="block text-gray-400 hover:text-primary transition-colors">Cookies Policy</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Steer Auto Pro. All rights reserved. | Carbon Neutral in Accordance with PAS2060
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Three.js Background Animation
+        let scene, camera, renderer, particles;
+        
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Create particles
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            
+            for (let i = 0; i < 3000; i++) {
+                vertices.push(
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000
+                );
+            }
+            
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            const material = new THREE.PointsMaterial({ color: 0x1a73e8, size: 1.5 });
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+            
+            camera.position.z = 1000;
+            animate();
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.x += 0.0003;
+            particles.rotation.y += 0.0007;
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#1a73e8" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.4, "random": false },
+                "size": { "value": 2, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#1a73e8", "opacity": 0.3, "width": 1 },
+                "move": { "enable": true, "speed": 4, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 400 }, "bubble": { "distance": 400, "size": 40 }, "repulse": { "distance": 200 } }
+            },
+            "retina_detect": true
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+            mobileMenuBtn.classList.add('is-active');
+        });
+        
+        mobileMenuClose.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBtn.classList.remove('is-active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('is-active');
+            }
+        });
+        
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+        
+        // Scroll animations
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.section-animate');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+            
+            // Trigger counter animation when statistics section is visible
+            const statsSection = document.querySelector('.counter-number');
+            if (statsSection && statsSection.getBoundingClientRect().top < window.innerHeight - 150) {
+                animateCounters();
+            }
+        }
+        
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Cookie popup functionality
+        const cookiePopup = document.getElementById('cookie-popup');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const declineCookies = document.getElementById('decline-cookies');
+        
+        // Show cookie popup if no preference is stored
+        if (!localStorage.getItem('cookiePreference')) {
+            setTimeout(() => {
+                cookiePopup.classList.add('show');
+            }, 2000);
+        }
+        
+        acceptCookies.addEventListener('click', function() {
+            localStorage.setItem('cookiePreference', 'accepted');
+            cookiePopup.classList.remove('show');
+        });
+        
+        declineCookies.addEventListener('click', function() {
+            localStorage.setItem('cookiePreference', 'declined');
+            cookiePopup.classList.remove('show');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initThree();
+            revealOnScroll();
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+    </script>
+</body>
+</html>

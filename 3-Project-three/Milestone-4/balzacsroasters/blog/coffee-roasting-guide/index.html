@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explore the characteristics of different coffee roast levels from light to dark. Learn how roast profiles affect flavor, aroma, and body, and discover which roast best suits your taste preferences.">
+    <meta name="keywords"
+        content="coffee roasting, roast profiles, light roast, medium roast, dark roast, coffee flavors, roasting guide">
+    <link rel="canonical" href="https://balzacsroasters.com/blog/coffee-roasting-guide/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>From Light to Dark: Understanding Coffee Roast Profiles | Balzac's Coffee Roasters</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3d2817;
+            --secondary-color: #6b4423;
+            --accent-color: #c9a96e;
+            --dark-bg: #1a1410;
+            --light-cream: #f5f1e8;
+            --text-dark: #2c1810;
+            --text-light: #e8dfd2;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --content-width: 1200px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas - Full Page & Visible */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas - Full Page & Visible */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Glass Effect Utility */
+        .glass {
+            background: rgba(29, 20, 16, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(201, 169, 110, 0.15);
+        }
+
+        /* Header Styles */
+        .top-header {
+            background: rgba(29, 20, 16, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .top-header-content {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--accent-color);
+        }
+
+        .header-info i {
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--accent-color);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(29, 20, 16, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .main-header-content {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 22px;
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Hamburger Menu - Perfect Cross */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            position: absolute;
+            left: 0;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger span:nth-child(3) {
+            bottom: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: rgba(29, 20, 16, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 80px 30px 30px;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            border-left: 1px solid rgba(201, 169, 110, 0.3);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 28px;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(201, 169, 110, 0.1);
+        }
+
+        .mobile-close:hover {
+            transform: rotate(90deg);
+            background: rgba(201, 169, 110, 0.2);
+        }
+
+        .mobile-nav {
+            list-style: none;
+            margin-top: 40px;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 25px;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+            padding: 12px 0;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* Blog Header */
+        .blog-header {
+            padding: 120px 0 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .blog-breadcrumb {
+            margin-bottom: 30px;
+        }
+
+        .breadcrumb-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--text-light);
+        }
+
+        .blog-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 40px;
+            font-size: 16px;
+            color: var(--light-cream);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-item i {
+            color: var(--accent-color);
+        }
+
+        .featured-image-container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .featured-image {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 500px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: rgba(29, 20, 16, 0.3);
+        }
+
+        /* Blog Content */
+        .blog-content {
+            padding: 60px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-wrapper {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin: 30px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 18px;
+            color: var(--light-cream);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul,
+        .content-section ol {
+            margin: 25px 0;
+            padding-left: 30px;
+        }
+
+        .content-section li {
+            font-size: 18px;
+            color: var(--light-cream);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .content-section strong {
+            color: var(--accent-color);
+        }
+
+        .tip-box {
+            background: rgba(201, 169, 110, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid var(--accent-color);
+            margin: 30px 0;
+        }
+
+        .tip-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .tip-box p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        .roast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .roast-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            transition: var(--transition);
+        }
+
+        .roast-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .roast-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .roast-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        .roast-color.light {
+            background: linear-gradient(135deg, #d4a574, #b8864c);
+        }
+
+        .roast-color.medium {
+            background: linear-gradient(135deg, #a0522d, #8b4513);
+        }
+
+        .roast-color.medium-dark {
+            background: linear-gradient(135deg, #654321, #5d4037);
+        }
+
+        .roast-color.dark {
+            background: linear-gradient(135deg, #3e2723, #212121);
+        }
+
+        .roast-header h4 {
+            color: var(--text-light);
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .roast-characteristics {
+            margin-bottom: 20px;
+        }
+
+        .roast-characteristics h5 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .roast-characteristics ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .roast-characteristics li {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .roast-best-for {
+            background: rgba(201, 169, 110, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .roast-best-for h5 {
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .roast-best-for p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .step-grid {
+            display: grid;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark-bg);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .step-content p {
+            margin-bottom: 0;
+        }
+
+        /* Back to Blog Button */
+        .back-to-blog {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 50px;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 35px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(26, 20, 16, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 80px 0 30px;
+            border-top: 2px solid var(--accent-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 50px;
+            max-width: var(--content-width);
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 40px;
+        }
+
+        .footer-brand img {
+            height: 70px;
+            margin-bottom: 25px;
+        }
+
+        .footer-brand p {
+            font-size: 15px;
+            color: var(--light-cream);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(201, 169, 110, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: var(--transition);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--light-cream);
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--light-cream);
+            line-height: 1.7;
+        }
+
+        .footer-contact i {
+            color: var(--accent-color);
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+            max-width: var(--content-width);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: var(--light-cream);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .blog-title {
+                font-size: 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                display: none;
+            }
+
+            .main-header-content {
+                padding: 0 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .blog-header {
+                padding: 100px 0 40px;
+            }
+
+            .container,
+            .featured-image-container,
+            .content-wrapper {
+                padding: 0 20px;
+            }
+
+            .blog-title {
+                font-size: 32px;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .featured-image {
+                height: 300px;
+            }
+
+            .blog-content {
+                padding: 40px 0;
+            }
+
+            .content-section h2 {
+                font-size: 28px;
+            }
+
+            .content-section h3 {
+                font-size: 22px;
+            }
+
+            .step-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .roast-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px;
+            }
+
+            .footer-bottom {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 45px;
+            }
+
+            .blog-title {
+                font-size: 28px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .content-section h3 {
+                font-size: 20px;
+            }
+
+            .content-section p {
+                font-size: 16px;
+            }
+
+            .tip-box {
+                padding: 20px;
+            }
+
+            .roast-item {
+                padding: 20px;
+            }
+
+            .featured-image {
+                height: 250px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .featured-image {
+                height: 200px;
+            }
+            
+            .blog-title {
+                font-size: 24px;
+            }
+            
+            .content-section h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles.js Canvas -->
+    <div id="particles-js"></div>
+
+    <!-- Top Header (Hide on mobile) -->
+    <div class="top-header">
+        <div class="top-header-content">
+            <div class="header-left">
+                <div class="header-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>9 Don Valley Pkwy, Sunnyside, MB R5R 0E1, Canada</span>
+                </div>
+                <div class="header-info">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (204) 222-5294</span>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/balzacscoffee/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/balzacscoffee/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://ca.pinterest.com/balzacs/_created/" target="_blank"><i
+                        class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="main-header-content">
+            <a href="/" class="logo">
+                <img src="/assets/images/logo.png" alt="Balzac's Coffee Roasters Logo">
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop/">Shop</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+
+            <div class="header-icons">
+                <a href="/cart/" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <i class="fas fa-times mobile-close" id="mobile-close"></i>
+        <ul class="mobile-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/cart/">Cart</a></li>
+        </ul>
+    </div>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <div class="container">
+            <div class="blog-breadcrumb">
+                <a href="/blog/" class="breadcrumb-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Blog
+                </a>
+            </div>
+
+            <h1 class="blog-title">From Light to Dark: Understanding Coffee Roast Profiles</h1>
+
+            <div class="blog-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>Jacques Balzac</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>September 28, 2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>10 min read</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Featured Image with same width as content -->
+        <div class="featured-image-container">
+            <div class="featured-image">
+                <img src="/assets/images/coffee-roasting-guide.webp" alt="Coffee Roasting Guide from Light to Dark">
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="content-wrapper">
+            <div class="content-section">
+                <p>
+                    The journey from green coffee bean to aromatic roasted perfection is one of transformation and artistry. 
+                    Roasting unlocks the complex flavors hidden within each bean, creating the rich, nuanced profiles that 
+                    coffee lovers cherish. Understanding roast levels is essential to appreciating the full spectrum of 
+                    coffee experiences.
+                </p>
+
+                <p>
+                    In this comprehensive guide, we'll explore the characteristics of different roast profiles—from light 
+                    and bright to dark and bold—and help you discover which roast level best suits your taste preferences.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>The Roasting Process: A Brief Overview</h2>
+                <p>
+                    Coffee roasting is a thermal process that transforms green coffee beans through a series of chemical 
+                    reactions. As beans heat up, they undergo physical and chemical changes that develop their flavor, 
+                    aroma, and color.
+                </p>
+
+                <h3>Key Stages of Roasting</h3>
+                <p>
+                    The roasting process includes several critical stages that determine the final flavor profile:
+                </p>
+
+                <div class="step-grid">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Drying Phase</h4>
+                            <p>
+                                Green beans contain about 10-12% moisture. The initial stage removes this moisture, 
+                                preparing the beans for chemical changes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>First Crack</h4>
+                            <p>
+                                Around 385°F (196°C), beans expand and make a cracking sound. This marks the beginning 
+                                of light roast development.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Development Phase</h4>
+                            <p>
+                                Between first and second crack, sugars caramelize and oils develop. This phase determines 
+                                the final roast character.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Second Crack</h4>
+                            <p>
+                                Around 435°F (224°C), a second cracking occurs as bean structure breaks down further, 
+                                marking the start of dark roasts.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>Roasting Wisdom</h4>
+                    <p>
+                        The most flavorful coffees are typically roasted to highlight their inherent qualities rather 
+                        than imposing a strong roast character. This is why specialty coffee often favors light to 
+                        medium roasts.
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Understanding Roast Levels</h2>
+                <p>
+                    Roast levels are generally categorized from light to dark, with each level offering distinct 
+                    characteristics. Let's explore the four main roast profiles in detail.
+                </p>
+
+                <div class="roast-grid">
+                    <!-- Light Roast -->
+                    <div class="roast-item">
+                        <div class="roast-header">
+                            <div class="roast-color light"></div>
+                            <h4>Light Roast</h4>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Flavor Profile</h5>
+                            <ul>
+                                <li>Bright, acidic notes</li>
+                                <li>Fruity and floral aromas</li>
+                                <li>Light body, tea-like texture</li>
+                                <li>Complex, nuanced flavors</li>
+                            </ul>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Roasting Details</h5>
+                            <ul>
+                                <li>Temperature: 350-400°F (177-204°C)</li>
+                                <li>Stopped just after first crack</li>
+                                <li>Light brown color, no oil on surface</li>
+                            </ul>
+                        </div>
+                        <div class="roast-best-for">
+                            <h5>Best For</h5>
+                            <p>
+                                Pour over, drip coffee, and those who appreciate the bean's origin characteristics 
+                                and complex acidity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Medium Roast -->
+                    <div class="roast-item">
+                        <div class="roast-header">
+                            <div class="roast-color medium"></div>
+                            <h4>Medium Roast</h4>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Flavor Profile</h5>
+                            <ul>
+                                <li>Balanced acidity and body</li>
+                                <li>Caramel, nutty, chocolate notes</li>
+                                <li>Well-rounded sweetness</li>
+                                <li>Classic coffee flavor</li>
+                            </ul>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Roasting Details</h5>
+                            <ul>
+                                <li>Temperature: 400-430°F (204-221°C)</li>
+                                <li>Between first and second crack</li>
+                                <li>Medium brown color</li>
+                            </ul>
+                        </div>
+                        <div class="roast-best-for">
+                            <h5>Best For</h5>
+                            <p>
+                                Most brewing methods, especially drip coffee and espresso. A versatile crowd-pleaser.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Medium-Dark Roast -->
+                    <div class="roast-item">
+                        <div class="roast-header">
+                            <div class="roast-color medium-dark"></div>
+                            <h4>Medium-Dark Roast</h4>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Flavor Profile</h5>
+                            <ul>
+                                <li>Rich, bittersweet notes</li>
+                                <li>Dark chocolate, spice flavors</li>
+                                <li>Heavier body, less acidity</li>
+                                <li>Some oil on bean surface</li>
+                            </ul>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Roasting Details</h5>
+                            <ul>
+                                <li>Temperature: 430-450°F (221-232°C)</li>
+                                <li>At or just after second crack begins</li>
+                                <li>Rich dark brown color</li>
+                            </ul>
+                        </div>
+                        <div class="roast-best-for">
+                            <h5>Best For</h5>
+                            <p>
+                                Espresso, French press, and those who prefer bold flavors with less acidity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Dark Roast -->
+                    <div class="roast-item">
+                        <div class="roast-header">
+                            <div class="roast-color dark"></div>
+                            <h4>Dark Roast</h4>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Flavor Profile</h5>
+                            <ul>
+                                <li>Bold, smoky, sometimes bitter</li>
+                                <li>Roast-dominated flavors</li>
+                                <li>Low acidity, heavy body</li>
+                                <li>Oily bean surface</li>
+                            </ul>
+                        </div>
+                        <div class="roast-characteristics">
+                            <h5>Roasting Details</h5>
+                            <ul>
+                                <li>Temperature: 450-480°F (232-249°C)</li>
+                                <li>Well into second crack</li>
+                                <li>Dark brown to nearly black</li>
+                            </ul>
+                        </div>
+                        <div class="roast-best-for">
+                            <h5>Best For</h5>
+                            <p>
+                                Espresso, milk-based drinks, and those who enjoy intense, robust coffee flavors.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Choosing the Right Roast for You</h2>
+                <p>
+                    Selecting the perfect roast level depends on your personal taste preferences and brewing method. 
+                    Here's a guide to help you make the right choice.
+                </p>
+
+                <h3>If You Prefer Bright, Complex Flavors</h3>
+                <p>
+                    <strong>Choose Light Roast:</strong> Light roasts preserve the bean's origin characteristics, 
+                    offering nuanced flavors that reflect the growing region, altitude, and processing method. You'll 
+                    taste notes of fruit, flowers, and citrus with a bright acidity that coffee connoisseurs cherish.
+                </p>
+
+                <h3>If You Want Balance and Versatility</h3>
+                <p>
+                    <strong>Choose Medium Roast:</strong> Medium roasts strike a perfect balance between the bean's 
+                    inherent flavors and roast-developed characteristics. They offer pleasant sweetness, medium body, 
+                    and work well with almost any brewing method.
+                </p>
+
+                <h3>If You Enjoy Bold, Rich Coffee</h3>
+                <p>
+                    <strong>Choose Medium-Dark Roast:</strong> These roasts develop richer, deeper flavors with 
+                    chocolatey and spicy notes. They have less acidity than lighter roasts but maintain some of the 
+                    bean's original character.
+                </p>
+
+                <h3>If You Love Intense, Smoky Flavors</h3>
+                <p>
+                    <strong>Choose Dark Roast:</strong> Dark roasts feature prominent roast characteristics with 
+                    bold, sometimes smoky flavors. The bean's origin notes are largely overshadowed by the roasting 
+                    process, creating a consistent, robust cup.
+                </p>
+
+                <div class="tip-box">
+                    <h4>Brewing Method Matters</h4>
+                    <p>
+                        Your brewing method can influence which roast level works best. Light roasts shine in pour over 
+                        and drip methods, while dark roasts excel in espresso and French press brewing where their bold 
+                        flavors can stand up to milk or stand strong on their own.
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Identifying Quality Roast Markers</h2>
+                <p>
+                    Beyond roast level, there are important quality indicators to look for when selecting coffee beans.
+                </p>
+
+                <h3>Visual Cues</h3>
+                <ul>
+                    <li><strong>Consistent color:</strong> All beans should be evenly roasted with minimal variation</li>
+                    <li><strong>Appropriate surface:</strong> Light roasts should be matte, dark roasts can be oily but not excessively so</li>
+                    <li><strong>No scorching or tipping:</strong> Avoid beans with burnt tips or uneven coloring</li>
+                </ul>
+
+                <h3>Aroma Indicators</h3>
+                <ul>
+                    <li><strong>Freshness:</strong> Beans should smell aromatic and pleasant, not flat or stale</li>
+                    <li><strong>Appropriate notes:</strong> Light roasts smell fruity/floral, dark roasts smell roasty/chocolatey</li>
+                    <li><strong>No off-odors:</strong> Avoid beans with smoky, burnt, or musty aromas</li>
+                </ul>
+
+                <h3>Brewed Coffee Quality</h3>
+                <ul>
+                    <li><strong>Clean cup:</strong> No unpleasant bitterness or astringency</li>
+                    <li><strong>Balanced flavors:</strong> Acidity, sweetness, and body should harmonize</li>
+                    <li><strong>Appropriate development:</strong> The roast should complement, not overpower, the bean</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Storing Your Roasted Coffee</h2>
+                <p>
+                    Proper storage is essential to preserving the quality and freshness of your roasted coffee beans.
+                </p>
+
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Store in an airtight container away from light, heat, and moisture</li>
+                    <li>Keep at room temperature—avoid refrigeration or freezing</li>
+                    <li>Buy in quantities you'll use within 2-3 weeks of roasting</li>
+                    <li>Grind just before brewing for maximum freshness</li>
+                </ul>
+
+                <h3>What to Avoid</h3>
+                <ul>
+                    <li>Clear containers that expose beans to light</li>
+                    <li>Plastic bags that can impart flavors</li>
+                    <li>Warm locations like above the stove or in direct sunlight</li>
+                    <li>Moist environments like near the sink or dishwasher</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Final Thoughts</h2>
+                <p>
+                    Understanding coffee roast profiles opens up a world of flavor possibilities. Each roast level 
+                    offers a unique experience, from the bright complexity of light roasts to the bold intensity of 
+                    dark roasts. The "best" roast is ultimately a matter of personal preference.
+                </p>
+
+                <p>
+                    We encourage you to explore different roast levels and discover how they interact with various 
+                    brewing methods. Pay attention to the flavors you enjoy most, and don't be afraid to step outside 
+                    your comfort zone. The journey through the spectrum of coffee roasts is one of continuous discovery 
+                    and delight.
+                </p>
+
+                <p>
+                    At Balzac's Coffee Roasters, we carefully craft each roast profile to highlight the unique qualities 
+                    of our beans while ensuring consistency and quality in every batch. Whether you're new to specialty 
+                    coffee or a seasoned enthusiast, we hope this guide helps you find your perfect roast.
+                </p>
+            </div>
+
+            <!-- Back to Blog Button -->
+            <div class="back-to-blog">
+                <a href="/blog/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Blog
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="/">
+                    <img src="/assets/images/logo.png" alt="Balzac's Coffee Roasters">
+                </a>
+                <p>
+                    Crafting exceptional coffee experiences since day one. We source the finest beans and roast them
+                    to perfection, bringing you the taste of quality in every cup.
+                </p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/balzacscoffee/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/balzacscoffee/" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://ca.pinterest.com/balzacs/_created/" target="_blank"><i
+                            class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/shop/">Shop Coffee</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="/privacy/">Privacy Policy</a></li>
+                    <li><a href="/terms/">Terms of Service</a></li>
+                    <li><a href="/cookies/">Cookies Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-contact">
+                <h3>Contact Info</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>9 Don Valley Pkwy, Sunnyside, MB R5R 0E1, Canada</span>
+                </p>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (204) 222-5294</span>
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <span>info@balzacsroasters.com</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Balzac's Coffee Roasters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Initialize Cart from Local Storage
+        let cart = JSON.parse(localStorage.getItem('balzacsCart')) || [];
+        updateCartCount();
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Update Cart Count
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        // Three.js Scene - Enhanced Visibility
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('three-canvas'),
+            alpha: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create coffee bean-like particles with higher visibility
+        const geometry = new THREE.SphereGeometry(0.15, 8, 8);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xc9a96e,
+            transparent: true,
+            opacity: 0.7  // Increased opacity
+        });
+
+        const beans = [];
+        for (let i = 0; i < 100; i++) {  // Increased particle count
+            const bean = new THREE.Mesh(geometry, material);
+            bean.position.x = Math.random() * 50 - 25;
+            bean.position.y = Math.random() * 50 - 25;
+            bean.position.z = Math.random() * 50 - 25;
+            scene.add(bean);
+            beans.push(bean);
+        }
+
+        camera.position.z = 15;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            beans.forEach(bean => {
+                bean.rotation.x += 0.002;
+                bean.rotation.y += 0.002;
+                bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.002;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Particles.js Configuration - Enhanced Visibility
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 120,  // Increased particle count
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#c9a96e'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,  // Increased opacity
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.3,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 4,  // Increased size
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 2,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#c9a96e',  // Changed to accent color
+                    opacity: 0.4,  // Increased opacity
+                    width: 1.5  // Increased width
+                },
+                move: {
+                    enable: true,
+                    speed: 2,  // Increased speed
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 200,
+                        line_linked: {
+                            opacity: 0.8
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>

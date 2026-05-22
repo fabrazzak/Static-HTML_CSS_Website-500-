@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Gear Blog - MicroShopGear</title>
+    <meta
+      name="description"
+      content="Read the latest articles, tips and reviews about music gear, instruments and accessories from MicroShopGear."
+    />
+    <meta
+      name="keywords"
+      content="music gear blog, guitar tips, drum tuning, home studio setup, music equipment reviews"
+    />
+    <link rel="stylesheet" href="../css/cart.css" />
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background-color: #f72585;
+        color: white;
+        border: 2px solid #f72585;
+      }
+
+      .btn-primary:hover {
+        background-color: #b5179e;
+        border-color: #b5179e;
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: #f72585;
+        border: 2px solid #f72585;
+      }
+
+      .btn-outline:hover {
+        background-color: #f72585;
+        color: white;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #1a1a2e;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: #f72585;
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: #1a1a2e;
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #4cc9f0;
+      }
+
+      .logo span {
+        color: #f72585;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #4cc9f0;
+      }
+
+      .cart-icon {
+        font-size: 1.2rem;
+        margin-left: 2rem;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #f72585;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+      }
+
+      /* Mobile Navigation */
+      .mobile-menu-btn {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: white;
+      }
+
+      /* Blog Page Styles */
+      .blog-page {
+        padding: 5rem 0;
+      }
+
+      .blog-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .blog-search {
+        max-width: 600px;
+        margin: 2rem auto;
+        position: relative;
+      }
+
+      .blog-search input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        font-size: 1rem;
+        padding-right: 50px;
+      }
+
+      .blog-search button {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background-color: #f72585;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+      }
+
+      .blog-categories {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .category-btn {
+        padding: 0.5rem 1.5rem;
+        background-color: #f0f2f5;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .category-btn.active,
+      .category-btn:hover {
+        background-color: #f72585;
+        color: white;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .blog-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .blog-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .blog-card:hover .blog-img img {
+        transform: scale(1.1);
+      }
+
+      .blog-content {
+        padding: 1.5rem;
+      }
+
+      .blog-category {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        background-color: #f0f2f5;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+        color: #666;
+      }
+
+      .blog-date {
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+
+      .blog-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        color: #1a1a2e;
+      }
+
+      .blog-content p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+        gap: 0.5rem;
+      }
+
+      .page-btn {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        background-color: #f0f2f5;
+        border: none;
+        cursor: pointer;
+      }
+
+      .page-btn.active,
+      .page-btn:hover {
+        background-color: #f72585;
+        color: white;
+      }
+
+      /* Sidebar Layout for Larger Screens */
+      @media (min-width: 992px) {
+        .blog-container {
+          display: grid;
+          grid-template-columns: 1fr 300px;
+          gap: 2rem;
+        }
+
+        .blog-main {
+          grid-column: 1;
+        }
+
+        .blog-sidebar {
+          grid-column: 2;
+        }
+      }
+
+      /* Sidebar Widgets */
+      .sidebar-widget {
+        background-color: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .widget-title {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: #1a1a2e;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .widget-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 3px;
+        background-color: #f72585;
+      }
+
+      .popular-posts {
+        list-style: none;
+      }
+
+      .popular-post {
+        display: flex;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f2f5;
+      }
+
+      .popular-post:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .popular-post-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-right: 1rem;
+        flex-shrink: 0;
+      }
+
+      .popular-post-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .popular-post-content h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .popular-post-content .post-date {
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tag {
+        padding: 0.3rem 0.8rem;
+        background-color: #f0f2f5;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        transition: all 0.3s;
+      }
+
+      .tag:hover {
+        background-color: #f72585;
+        color: white;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #0d0d1a;
+        color: #ccc;
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        color: white;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-column ul li a:hover {
+        color: #4cc9f0;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .footer-social a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #1a1a2e;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+      }
+
+      .footer-social a:hover {
+        background-color: #f72585;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #1a1a2e;
+        font-size: 0.9rem;
+      }
+
+      /* Blog Popup */
+      .blog-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        background-color: white;
+        border-radius: 10px;
+        padding: 2rem;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        overflow-y: auto;
+      }
+
+      .blog-popup.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .blog-popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-popup-header h3 {
+        font-size: 1.5rem;
+        color: #1a1a2e;
+      }
+
+      .close-blog-popup {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .blog-popup-img {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-popup-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .blog-popup-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .blog-popup-content p {
+        margin-bottom: 1rem;
+        color: #333;
+        line-height: 1.8;
+      }
+
+      /* Overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .header-container {
+          position: relative;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+          z-index: 101;
+        }
+
+        nav {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 80%;
+          height: 100vh;
+          background-color: #1a1a2e;
+          padding: 5rem 1rem 2rem;
+          transition: left 0.3s ease;
+          z-index: 100;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          margin-top: 2rem;
+        }
+
+        nav ul li {
+          margin: 1rem 0;
+          text-align: center;
+        }
+
+        .cart-icon {
+          position: absolute;
+          top: 1rem;
+          right: 3rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .blog-categories {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">micro<span>shop</span>gear</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li class="cart-icon" id="cartIcon">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Blog Page Content -->
+    <main class="blog-page">
+      <div class="container">
+        <div class="blog-header">
+          <h1 class="section-title">Music Gear Blog</h1>
+          <p class="section-subtitle">
+            Tips, tutorials, and reviews to help you get the most from your
+            music equipment
+          </p>
+
+          <div class="blog-search">
+            <input type="text" placeholder="Search articles..." />
+            <button><i class="fas fa-search"></i></button>
+          </div>
+
+          <div class="blog-categories">
+            <button class="category-btn active">All</button>
+            <button class="category-btn">Guitars</button>
+            <button class="category-btn">Drums</button>
+            <button class="category-btn">Keyboards</button>
+            <button class="category-btn">Audio</button>
+            <button class="category-btn">Recording</button>
+            <button class="category-btn">Maintenance</button>
+          </div>
+        </div>
+
+        <div class="blog-container">
+          <div class="blog-main">
+            <div class="blog-grid">
+              <!-- Blog Post 1 -->
+              <div class="blog-card">
+                <div class="blog-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Guitar Maintenance"
+                  />
+                </div>
+                <div class="blog-content">
+                  <span class="blog-category">Maintenance</span>
+                  <div class="blog-date">Jan 15, 2025</div>
+                  <h3>Essential Guitar Maintenance Tips</h3>
+                  <p>
+                    Learn how to keep your guitar in perfect playing condition
+                    with these simple maintenance routines.
+                  </p>
+                  <a
+                    href="javascript.:void(0)"
+                    class="btn btn-outline read-more-btn"
+                    data-blog-id="1"
+                    >Read More</a
+                  >
+                </div>
+              </div>
+
+              <!-- Blog Post 2 -->
+              <div class="blog-card">
+                <div class="blog-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Home Studio Setup"
+                  />
+                </div>
+                <div class="blog-content">
+                  <span class="blog-category">Recording</span>
+                  <div class="blog-date">Feb 3, 2025</div>
+                  <h3>Building a Home Studio on a Budget</h3>
+                  <p>
+                    Discover how to create a professional-quality home recording
+                    setup without breaking the bank.
+                  </p>
+                  <a
+                    href="javascript.:void(0)"
+                    class="btn btn-outline read-more-btn"
+                    data-blog-id="2"
+                    >Read More</a
+                  >
+                </div>
+              </div>
+
+              <!-- Blog Post 3 -->
+              <div class="blog-card">
+                <div class="blog-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Drum Tuning"
+                  />
+                </div>
+                <div class="blog-content">
+                  <span class="blog-category">Drums</span>
+                  <div class="blog-date">Mar 10, 2025</div>
+                  <h3>The Ultimate Guide to Drum Tuning</h3>
+                  <p>
+                    Master the art of drum tuning to get the perfect sound from
+                    your drum kit in any musical style.
+                  </p>
+                  <a
+                    href="javascript.:void(0)"
+                    class="btn btn-outline read-more-btn"
+                    data-blog-id="3"
+                    >Read More</a
+                  >
+                </div>
+              </div>
+
+              <!-- Blog Post 4 -->
+              <div class="blog-card">
+                <div class="blog-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1558098329-a11cff621064?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Electric Guitar"
+                  />
+                </div>
+                <div class="blog-content">
+                  <span class="blog-category">Guitars</span>
+                  <div class="blog-date">Apr 5, 2025</div>
+                  <h3>Choosing Your First Electric Guitar</h3>
+                  <p>
+                    A comprehensive guide to selecting the perfect electric
+                    guitar for beginners and intermediate players.
+                  </p>
+                  <a
+                    href="javascript.:void(0)"
+                    class="btn btn-outline read-more-btn"
+                    data-blog-id="4"
+                    >Read More</a
+                  >
+                </div>
+              </div>
+
+              <!-- Blog Post 5 -->
+              <div class="blog-card">
+                <div class="blog-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Microphones"
+                  />
+                </div>
+                <div class="blog-content">
+                  <span class="blog-category">Audio</span>
+                  <div class="blog-date">May 12, 2025</div>
+                  <h3>Microphone Types and Their Uses</h3>
+                  <p>
+                    Learn about different microphone types and how to choose the
+                    right one for your recording needs.
+                  </p>
+                  <a
+                    href="javascript.:void(0)"
+                    class="btn btn-outline read-more-btn"
+                    data-blog-id="5"
+                    >Read More</a
+                  >
+                </div>
+              </div>
+
+              <!-- Blog Post 6 -->
+              <div class="blog-card">
+                <div class="blog-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="MIDI Controllers"
+                  />
+                </div>
+                <div class="blog-content">
+                  <span class="blog-category">Keyboards</span>
+                  <div class="blog-date">Jun 18, 2025</div>
+                  <h3>Getting Started with MIDI Controllers</h3>
+                  <p>
+                    Everything you need to know to begin using MIDI controllers
+                    in your music production workflow.
+                  </p>
+                  <a
+                    href="javascript.:void(0)"
+                    class="btn btn-outline read-more-btn"
+                    data-blog-id="6"
+                    >Read More</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="pagination">
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Blog Sidebar -->
+          <aside class="blog-sidebar">
+            <!-- About Widget -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">About the Blog</h3>
+              <p>
+                Our blog provides expert advice, tips and reviews to help
+                musicians get the most from their gear. Written by our team of
+                professional musicians and gear enthusiasts.
+              </p>
+            </div>
+
+            <!-- Popular Posts Widget -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Popular Posts</h3>
+              <ul class="popular-posts">
+                <li class="popular-post">
+                  <div class="popular-post-img">
+                    <img
+                      src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                      alt="Guitar Maintenance"
+                    />
+                  </div>
+                  <div class="popular-post-content">
+                    <h4>Essential Guitar Maintenance Tips</h4>
+                    <div class="post-date">Jan 15, 2025</div>
+                  </div>
+                </li>
+                <li class="popular-post">
+                  <div class="popular-post-img">
+                    <img
+                      src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                      alt="Home Studio"
+                    />
+                  </div>
+                  <div class="popular-post-content">
+                    <h4>Building a Home Studio on a Budget</h4>
+                    <div class="post-date">Feb 3, 2025</div>
+                  </div>
+                </li>
+                <li class="popular-post">
+                  <div class="popular-post-img">
+                    <img
+                      src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                      alt="Drum Tuning"
+                    />
+                  </div>
+                  <div class="popular-post-content">
+                    <h4>The Ultimate Guide to Drum Tuning</h4>
+                    <div class="post-date">Mar 10, 2025</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Categories</h3>
+              <ul>
+                <li><a href="/blog/">Guitars (12)</a></li>
+                <li><a href="/blog/">Drums (8)</a></li>
+                <li><a href="/blog/">Keyboards (6)</a></li>
+                <li><a href="/blog/">Audio Equipment (15)</a></li>
+                <li><a href="/blog/">Recording (9)</a></li>
+                <li><a href="/blog/">Maintenance (7)</a></li>
+              </ul>
+            </div>
+
+            <!-- Tags Widget -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Tags</h3>
+              <div class="tags-container">
+                <a href="/blog/" class="tag">guitar</a>
+                <a href="/blog/" class="tag">drums</a>
+                <a href="/blog/" class="tag">keyboard</a>
+                <a href="/blog/" class="tag">recording</a>
+                <a href="/blog/" class="tag">microphone</a>
+                <a href="/blog/" class="tag">tutorial</a>
+                <a href="/blog/" class="tag">review</a>
+                <a href="/blog/" class="tag">setup</a>
+                <a href="/blog/" class="tag">maintenance</a>
+                <a href="/blog/" class="tag">tips</a>
+              </div>
+            </div>
+
+            <!-- Newsletter Widget -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Newsletter</h3>
+              <p>
+                Subscribe to get the latest articles and gear reviews straight
+                to your inbox.
+              </p>
+              <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" />
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="width: 100%; margin-top: 0.5rem"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>microshopgear</h3>
+            <p>
+              Your one-stop shop for premium music gear and accessories. Quality
+              instruments for musicians at every level.
+            </p>
+            <div class="footer-social">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://youtube.com/"
+                target="_blank"
+                aria-label="YouTube"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="/shop/">All Products</a></li>
+              <li><a href="/shop/?category=guitars">Guitars</a></li>
+              <li><a href="/shop/?category=keyboards">Keyboards</a></li>
+              <li><a href="/shop/?category=drums">Drums</a></li>
+              <li><a href="/shop/?category=audio">Audio Equipment</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="/contact/">Contact Us</a></li>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>
+            &copy; 2025 MicroShopGear. All rights reserved. Schloßpl. 1, 08648
+            Bad Brambach, Germany | Phone: +491604697373
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Blog Popup -->
+    <div class="blog-popup" id="blogPopup">
+      <div class="blog-popup-header">
+        <h3 id="blogPopupTitle">Blog Title</h3>
+        <button class="close-blog-popup" id="closeBlogPopup">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="blog-popup-img">
+        <img id="blogPopupImage" src="" alt="Blog Image" />
+      </div>
+      <div class="blog-popup-meta">
+        <span id="blogPopupCategory">Category</span>
+        <span id="blogPopupDate">Jan 01, 2025</span>
+      </div>
+      <div class="blog-popup-content" id="blogPopupContent">
+        <p>Blog content will be loaded here...</p>
+      </div>
+    </div>
+
+    <!-- Shopping Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+      <div class="cart-header">
+        <h3>Your Cart (<span id="modalCartCount">0</span>)</h3>
+        <button class="close-cart" id="closeCart">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Your cart is empty</p>
+        </div>
+      </div>
+      <div class="cart-total" id="cartTotal" style="display: none">
+        <div class="cart-subtotal">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+      <div class="checkout-header">
+        <h3>Checkout</h3>
+        <p>Please fill in your details to complete your order</p>
+      </div>
+      <form class="checkout-form" id="checkoutForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Shipping Address</label>
+          <textarea id="address" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="payment">Payment Method</label>
+          <select id="payment" required>
+            <option value="">Select payment method</option>
+            <option value="credit">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank">Bank Transfer</option>
+          </select>
+        </div>
+        <div class="checkout-actions">
+          <button type="button" class="checkout-cancel" id="cancelCheckout">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+      <div class="confirmation-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Thank You!</h3>
+      <p class="confirmation-message">
+        Your order has been placed successfully.
+      </p>
+      <button class="btn btn-primary" id="closeConfirmation">
+        Continue Shopping
+      </button>
+    </div>
+
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+
+        // Change icon based on menu state
+        const icon = mobileMenuBtn.querySelector("i");
+        if (mainNav.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !mainNav.contains(e.target) &&
+          !mobileMenuBtn.contains(e.target) &&
+          mainNav.classList.contains("active")
+        ) {
+          mainNav.classList.remove("active");
+          const icon = mobileMenuBtn.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Newsletter Form
+      const newsletterForm = document.getElementById("newsletterForm");
+
+      if (newsletterForm) {
+        newsletterForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const emailInput = newsletterForm.querySelector(
+            'input[type="email"]'
+          );
+
+          // Simple validation
+          if (emailInput.value) {
+            alert("Thank you for subscribing to our newsletter!");
+            newsletterForm.reset();
+          }
+        });
+      }
+
+      // Blog Popup Functionality
+      const blogPopup = document.getElementById("blogPopup");
+      const closeBlogPopup = document.getElementById("closeBlogPopup");
+      const blogPopupTitle = document.getElementById("blogPopupTitle");
+      const blogPopupImage = document.getElementById("blogPopupImage");
+      const blogPopupDate = document.getElementById("blogPopupDate");
+      const blogPopupContent = document.getElementById("blogPopupContent");
+
+      // Sample blog data
+      const blogs = {
+        1: {
+          title: "Essential Guitar Maintenance Tips",
+          date: "Jan 15, 2025",
+          image:
+            "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Keeping your guitar in top condition is essential for maintaining its sound quality and playability. Here are some key maintenance tips every guitarist should know:</p>
+                <p><strong>1. Clean Your Guitar Regularly:</strong> Use a soft, dry cloth to wipe down your guitar after each use. For deeper cleaning, use a guitar-specific cleaner and polish.</p>
+                <p><strong>2. Change Strings Regularly:</strong> Old strings lose their tone and can be harder to play. Change them every 3-6 months, or more often if you play frequently.</p>
+                <p><strong>3. Maintain Proper Humidity:</strong> Guitars are sensitive to humidity changes. Keep your instrument in a case with a humidifier in dry climates.</p>
+                <p><strong>4. Check the Neck Relief:</strong> The neck should have a slight forward bow. If the strings are too high or buzzing, you may need a truss rod adjustment.</p>
+                <p><strong>5. Protect Your Guitar:</strong> Always store your guitar in a case when not in use to protect it from dust, temperature changes, and accidental damage.</p>
+                <p>By following these simple maintenance routines, you'll keep your guitar sounding great and playing smoothly for years to come.</p>`,
+        },
+        2: {
+          title: "Building a Home Studio on a Budget",
+          date: "Feb 3, 2025",
+          image:
+            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Creating a professional-quality home recording studio doesn't have to break the bank. Here's how to set up an effective home studio without spending a fortune:</p>
+                <p><strong>1. Choose the Right Space:</strong> Select a quiet room with minimal echo. Bedrooms often work well because they have soft furnishings that absorb sound.</p>
+                <p><strong>2. Essential Equipment:</strong> Start with these basics: a computer, digital audio workstation (DAW) software, an audio interface, a good microphone, and headphones.</p>
+                <p><strong>3. Acoustic Treatment:</strong> Use DIY solutions like heavy curtains, bookshelves filled with books, or foam panels to improve your room's acoustics.</p>
+                <p><strong>4. Budget-Friendly Gear:</strong> Look for affordable but quality equipment like the Audio-Technica AT2020 microphone or Focusrite Scarlett audio interfaces.</p>
+                <p><strong>5. Free Software Options:</strong> Many DAWs like Audacity (free) or Reaper (affordable) offer professional features without the high price tag.</p>
+                <p>With careful planning and smart purchases, you can create recordings that rival professional studios for a fraction of the cost.</p>`,
+        },
+        3: {
+          title: "The Ultimate Guide to Drum Tuning",
+          date: "Mar 10, 2025",
+          image:
+            "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+          content: `<p>Proper drum tuning is essential for getting the best sound from your kit. Follow these steps to tune your drums like a pro:</p>
+                <p><strong>1. Start with New Heads:</strong> Always begin with fresh drum heads when tuning. Old, worn heads won't hold tuning well.</p>
+                <p><strong>2. Finger Tighten First:</strong> Place the head on the drum and finger-tighten all tension rods before using a drum key.</p>
+                <p><strong>3. Use a Criss-Cross Pattern:</strong> When tightening, work in a star pattern (like changing a car tire) to ensure even tension across the head.</p>
+                <p><strong>4. Tune to the Drum's Natural Pitch:</strong> Tap near each tension rod and adjust until all points sound the same note. The drum will resonate best at its natural pitch.</p>
+                <p><strong>5. Relationship Between Heads:</strong> The resonant (bottom) head affects sustain while the batter (top) head affects attack. Experiment with different tunings between them.</p>
+                <p><strong>6. Snare Drum Tips:</strong> For snare drums, the resonant head should be tighter than the batter head for optimal snare response.</p>
+                <p>Remember that drum tuning is subjective - experiment to find the sound that works best for your musical style and personal preference.</p>`,
+        },
+      };
+
+      // Handle blog read more clicks
+      document.querySelectorAll(".read-more-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          const blogId = button.getAttribute("data-blog-id");
+          const blog = blogs[blogId];
+
+          if (blog) {
+            blogPopupTitle.textContent = blog.title;
+            blogPopupImage.src = blog.image;
+            blogPopupImage.alt = blog.title;
+            blogPopupDate.textContent = blog.date;
+            blogPopupContent.innerHTML = blog.content;
+
+            blogPopup.classList.add("active");
+            overlay.classList.add("active");
+          }
+        });
+      });
+
+      // Close blog popup
+      closeBlogPopup.addEventListener("click", () => {
+        blogPopup.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+    <script src="../js/cart.js"></script>
+  </body>
+</html>

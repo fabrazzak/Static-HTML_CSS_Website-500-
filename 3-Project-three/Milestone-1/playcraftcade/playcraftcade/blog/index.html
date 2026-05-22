@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - PlayCraftCade | Retro Gaming & Pizza News</title>
+    <meta name="description"
+        content="Stay updated with the latest from PlayCraftCade! Read about retro gaming history, pizza recipes, craft beer news, and arcade culture in Bismarck, North Dakota.">
+    <meta name="keywords"
+        content="arcade blog, retro gaming news, pizza recipes, craft beer updates, gaming history, arcade culture, Bismarck entertainment news">
+    <link rel="canonical" href="https://playcraftcade.com/blog/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced glow effects for better readability */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+
+            0%,
+            100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Blog-specific styles */
+        .blog-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #888;
+            font-size: 0.875rem;
+        }
+
+        .blog-excerpt {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                 <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="text-neon-blue hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block text-neon-blue transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Blog Hero Section -->
+        <section class="relative py-20 overflow-hidden">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl md:text-7xl font-bold text-neon-blue neon-glow-strong mb-6 pulse-neon">
+                    THE BLOG
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-bold text-neon-pink neon-glow-soft mb-8">
+                    Gaming Culture • Pizza Passion • Craft Beer Chronicles
+                </h2>
+                <p class="text-xl text-neon-green max-w-3xl mx-auto readable-text">
+                    Dive deep into the world of retro gaming, discover the secrets behind perfect pizza, and explore
+                    craft beer culture at PlayCraftCade!
+                </p>
+            </div>
+        </section>
+
+        <!-- Blog Posts Section -->
+        <section class="py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+
+                <!-- Featured Post -->
+                <div class="mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neon-yellow neon-glow-soft mb-8 text-center">⭐
+                        FEATURED POST</h2>
+                    <div
+                        class="bg-gradient-to-r from-retro-purple/30 to-black/70 rounded-lg border border-neon-pink/50 overflow-hidden blog-card neon-border-soft">
+                        <div class="grid md:grid-cols-2 gap-0">
+                            <div class="relative">
+                                <img src="/assets/images/arcade-history-hero.webp" alt="Golden Age of Arcade Gaming"
+                                    class="w-full h-80 md:h-full object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="category-tag bg-neon-pink text-black">Gaming History</span>
+                                </div>
+                            </div>
+                            <div class="p-8 flex flex-col justify-center">
+                                <div class="blog-meta mb-4">
+                                    <span>📅 December 28, 2024</span>
+                                    <span>👤 Mike "PixelMaster" Johnson</span>
+                                    <span>⏱️ 8 min read</span>
+                                </div>
+                                <h3 class="text-3xl font-bold text-neon-pink neon-glow-minimal mb-4">
+                                    The Golden Age of Arcade Gaming: A Journey Through Gaming History
+                                </h3>
+                                <p class="text-gray-300 mb-6 readable-text leading-relaxed">
+                                    Step into our time machine and explore the incredible journey of arcade gaming from
+                                    the late 1970s to the early 1990s. Discover how iconic games like Pac-Man, Donkey
+                                    Kong, and Street Fighter II shaped gaming culture forever and why these classics
+                                    still capture our hearts today at PlayCraftCade.
+                                </p>
+                                <a href="/blog/golden-age-arcade-gaming/"
+                                    class="bg-neon-pink text-black px-6 py-3 rounded-lg font-bold hover:bg-neon-yellow transition-colors w-fit neon-border-soft">
+                                    🕹️ Read Full Story
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Blog Posts Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-posts-grid">
+                    <!-- Posts will be populated by JavaScript -->
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Newsletter Signup -->
+        <section class="py-20 bg-gradient-to-r from-neon-blue/10 to-neon-pink/10 backdrop-blur-sm">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold text-neon-orange neon-glow-soft mb-6">📧 STAY IN THE LOOP</h2>
+                <p class="text-xl text-gray-300 mb-8 readable-text max-w-2xl mx-auto">
+                    Get the latest gaming news, pizza recipes, beer updates, and exclusive PlayCraftCade content
+                    delivered straight to your inbox!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+                    <input type="email" placeholder="Enter your email..."
+                        class="flex-1 px-6 py-4 rounded-lg bg-black/70 border border-neon-blue/30 text-white placeholder-gray-400 focus:border-neon-blue focus:outline-none">
+                    <button
+                        class="bg-neon-orange text-black px-8 py-4 rounded-lg font-bold hover:bg-neon-yellow transition-colors neon-border-soft">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                             <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style
+                            pizzeria,
+                            and
+                            craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            </li>
+                            <li><a href="/food-and-drink/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food &
+                                    Drink</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms &
+                                    Conditions</a></li>
+                            <li><a href="/cookies/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies
+                                    Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602"
+                                    class="hover:text-neon-pink hover-glow transition-colors">+1
+                                    (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                    class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Blog posts data
+        const blogPosts = [
+            {
+                id: 'perfect-ny-style-pizza',
+                title: 'The Secret to Perfect New York-Style Pizza: From Dough to Delicious',
+                excerpt: 'Discover the authentic techniques and ingredients that make our NY-style pizza truly exceptional. Learn about our hand-tossed dough, premium ingredients, and the perfect balance of sauce, cheese, and toppings that creates pizza perfection.',
+                author: 'Chef Marco "The Dough Master" Rodriguez',
+                date: 'December 25, 2024',
+                readTime: '6 min read',
+                category: 'Pizza Craft',
+                categoryColor: 'neon-orange',
+                image: '/assets/images/perfect-ny-pizza.webp',
+                featured: false
+            },
+            {
+                id: 'craft-beer-revolution',
+                title: 'The Craft Beer Revolution: How Self-Pour Technology is Changing the Game',
+                excerpt: 'Explore the fascinating world of craft beer and discover how our innovative self-pour beer wall is revolutionizing the drinking experience. From local North Dakota breweries to national favorites, learn about the 20 rotating taps that make PlayCraftCade unique.',
+                author: 'Sarah "Hopmaster" Peterson',
+                date: 'December 20, 2024',
+                readTime: '5 min read',
+                category: 'Craft Beer',
+                categoryColor: 'neon-blue',
+                image: '/assets/images/craft-beer-revolution.jpg',
+                featured: false
+            },
+            {
+                id: 'building-bismarck-arcade-scene',
+                title: 'Building Bismarck\'s Arcade Scene: The PlayCraftCade Story',
+                excerpt: 'Go behind the scenes and discover how PlayCraftCade came to life in Bismarck, North Dakota. From sourcing authentic vintage arcade machines to creating the perfect retro atmosphere, learn about our journey to bring gaming culture to the heart of the Midwest.',
+                author: 'The PlayCraftCade Team',
+                date: 'December 15, 2024',
+                readTime: '7 min read',
+                category: 'Events & News',
+                categoryColor: 'neon-green',
+                image: '/assets/images/building-arcade-scene.jpg',
+                featured: false
+            }
+        ];
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        // Populate blog posts
+        function populateBlogPosts() {
+            const grid = document.getElementById('blog-posts-grid');
+            if (!grid) return;
+
+            grid.innerHTML = blogPosts.map(post => `
+                <article class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-${post.categoryColor}/30 hover:border-${post.categoryColor} overflow-hidden">
+                    <div class="relative">
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4">
+                            <span class="category-tag bg-${post.categoryColor} text-black">${post.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="blog-meta mb-4">
+                            <span>📅 ${post.date}</span>
+                            <span>⏱️ ${post.readTime}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-${post.categoryColor} neon-glow-minimal mb-4 leading-tight">
+                            ${post.title}
+                        </h3>
+                        <p class="text-gray-300 mb-6 readable-text blog-excerpt">
+                            ${post.excerpt}
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm text-gray-400">👤 ${post.author}</p>
+                            <a href="/blog/${post.id}/" 
+                               class="bg-${post.categoryColor} text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-yellow transition-colors text-sm neon-border-soft">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Particles.js
+        function initParticles() {
+            try {
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js not loaded');
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 30, density: { enable: true, value_area: 800 } },
+                        color: {
+                            value: ['#ff10f0', '#00ffff', '#39ff14', '#ffff00', '#ff8c00']
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { width: 1, color: '#ffffff' }
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1
+                            }
+                        },
+                        size: {
+                            value: 2,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.5
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 120,
+                            color: '#00ffff',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 0.8,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: {
+                                distance: 80,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 2
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                populateBlogPosts();
+                initializeMobileMenu();
+                updateCartCount();
+
+                // Small delay to ensure libraries are loaded
+                setTimeout(() => {
+                    initParticles();
+                }, 100);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

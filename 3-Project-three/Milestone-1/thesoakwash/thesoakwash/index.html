@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Soak Wash - Gentle Laundry Soap for Clothes You Love</title>
+    <meta name="description"
+        content="Discover Soak's eco-friendly, no-rinse laundry soap perfect for hand-washing and machine-washing. Gentle on clothes, tough on dirt. Made in Canada with love.">
+    <meta name="keywords"
+        content="eco-friendly laundry soap, gentle detergent, no-rinse washing, hand washing soap, delicate fabric care, sustainable cleaning, Canadian made, organic laundry">
+    <link rel="canonical" href="https://thesoakwash.com/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0a0a0a 100%);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #threejs-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .card-dark {
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border: 1px solid #333;
+            backdrop-filter: blur(20px);
+        }
+
+        .card-glow:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-neon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border-color: #3b82f6;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            width: 28px;
+            height: 22px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .8s ease-in-out;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 10px;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 20px;
+            transform-origin: left center;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -2px;
+            left: 6px;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 24px;
+            left: 6px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(45, 45, 45, 0.98));
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-close:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-close i {
+            color: #3b82f6;
+            font-size: 18px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .cookies-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 25px;
+            z-index: 1001;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cookies-popup.show {
+            transform: translateY(0);
+        }
+
+        .section-dark {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-card {
+            background: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
+        }
+
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (max-width: 768px) {
+            .stats-counter {
+                font-size: 2rem;
+            }
+        }
+        html,body{
+            overflow-x:hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Background -->
+    <div id="threejs-container"></div>
+
+    <!-- Particles.js Background -->
+    <div id="particles-js"></div>
+
+    <!-- Cookie Popup -->
+    <div id="cookiesPopup" class="cookies-popup">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="text-white mb-4 md:mb-0 flex-1 mr-4">
+                <p class="text-sm">We use cookies to enhance your browsing experience and provide personalized content.
+                    By continuing, you consent to our use of cookies.</p>
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="acceptCookies()"
+                    class="btn-neon text-white px-6 py-2 rounded-full text-sm font-semibold transition-all">
+                    Accept All
+                </button>
+                <button onclick="declineCookies()"
+                    class="border border-gray-500 text-gray-300 px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-700 transition-all">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Header -->
+        <header class="relative">
+            <!-- Top Header -->
+            <div class="card-dark py-3 border-b border-gray-700 hidden lg:block">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-center items-center text-gray-300 text-sm">
+                        <div class="flex items-center space-x-6">
+                            <span class="gradient-text font-semibold">FREE SHIPPING ON ORDERS OVER $60</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Header -->
+            <nav class="card-dark py-4 border-b border-gray-700">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center justify-between">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                <img src="/assets/images/thesoakwash.png" alt="The Soak Wash" class="w-40">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Menu -->
+                        <ul class="hidden lg:flex items-center space-x-8 text-white font-medium">
+                            <li><a href="/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Home</a>
+                            </li>
+                            <li><a href="/shop/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Shop</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Contact</a>
+                            </li>
+                        </ul>
+
+                        <!-- Cart & Mobile Menu -->
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <button onclick="toggleCart()"
+                                    class="text-white hover:text-blue-400 transition-colors p-2">
+                                    <i class="fas fa-shopping-cart text-xl"></i>
+                                    <span id="cartCount" class="cart-badge">0</span>
+                                </button>
+                            </div>
+
+                            <!-- Mobile Hamburger -->
+                            <div class="lg:hidden">
+                                <div class="hamburger" onclick="toggleMobileMenu()">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu">
+                <!-- Close Button -->
+                <div class="mobile-menu-close" onclick="closeMobileMenu()">
+                    <i class="fas fa-times"></i>
+                </div>
+
+                <div class="flex flex-col items-center justify-center h-full space-y-8 text-white text-2xl font-light">
+                    <a href="/" class="hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Home</a>
+                    <a href="/shop/" class="hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Shop</a>
+                    <a href="/about/" class="hover:text-blue-400 transition-colors"
+                        onclick="closeMobileMenu()">About</a>
+                    <a href="/blog/" class="hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Blog</a>
+                    <a href="/contact/" class="hover:text-blue-400 transition-colors"
+                        onclick="closeMobileMenu()">Contact</a>
+                    <div class="flex space-x-6 pt-8">
+                        <a href="https://www.facebook.com/soakwash" class="text-2xl hover:text-blue-400">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/soakwash" class="text-2xl hover:text-blue-400">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/soakwash/" class="text-2xl hover:text-pink-400">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+       <section
+    class="min-h-[70vh] md:min-h-screen flex items-center justify-center relative overflow-hidden py-16 md:py-20 bg-center bg-cover bg-no-repeat"
+    style="background-image: url('/assets/images/home-bg.webp');">
+    
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <div class="floating-animation mb-8">
+                <h1 class="text-5xl md:text-7xl lg:text-9xl font-black text-white mb-6">
+                    <span class="gradient-text">Gentle</span> Laundry
+                </h1>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-light text-gray-300 mb-8">
+                    Soap Revolution
+                </h2>
+            </div>
+            <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed">
+                Experience the future of fabric care with our eco-friendly, no-rinse formulation. Perfect for
+                hand-washing and machine-washing delicate items.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button onclick="window.location.href='/shop/'"
+                    class="btn-neon text-white px-10 py-4 rounded-full text-lg font-semibold transition-all">
+                    Discover Products
+                </button>
+                <button onclick="scrollToSection('process')"
+                    class="border-2 border-blue-500 text-blue-400 px-10 py-4 rounded-full text-lg font-semibold hover:bg-blue-500 hover:text-white transition-all">
+                    Learn Process
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Stats Section -->
+        <section class="py-20 section-dark">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stats-counter" data-count="10">0</div>
+                        <p class="text-gray-400 text-lg">Years Experience</p>
+                    </div>
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stats-counter" data-count="50000">0</div>
+                        <p class="text-gray-400 text-lg">Happy Customers</p>
+                    </div>
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stats-counter" data-count="100">0</div>
+                        <p class="text-gray-400 text-lg">Eco-Friendly</p>
+                    </div>
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                        <div class="stats-counter" data-count="24">0</div>
+                        <p class="text-gray-400 text-lg">Hour Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="process" class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        <span class="gradient-text">Soak Always.</span> Rinse Never. <span class="gradient-text">Keep
+                            Forever.</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">The revolutionary three-step process that's
+                        changing how people care for their clothes</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="card-dark p-10 rounded-3xl card-glow" data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-center">
+                            <div
+                                class="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                                <i class="fas fa-hands-wash text-4xl text-white"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-white mb-6">Soak Always</h3>
+                            <p class="text-gray-400 text-lg leading-relaxed">Made from gentle, skincare-grade
+                                ingredients, a little bit of Soak goes a long way, and can be used for hand-washing,
+                                machine-washing or spot cleaning.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dark p-10 rounded-3xl card-glow" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-center">
+                            <div
+                                class="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                                <i class="fas fa-leaf text-4xl text-white"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-white mb-6">Rinse Never</h3>
+                            <p class="text-gray-400 text-lg leading-relaxed">Rinse-free means less work for you and less
+                                wear-and-tear on your items. But you can always rinse if you want to.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dark p-10 rounded-3xl card-glow" data-aos="fade-up" data-aos-delay="300">
+                        <div class="text-center">
+                            <div
+                                class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                                <i class="fas fa-heart text-4xl text-white"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-white mb-6">Keep Forever</h3>
+                            <p class="text-gray-400 text-lg leading-relaxed">The gentle, no-rinse formulation is easier
+                                on your clothes, so the items you love most will last longer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="py-20 section-dark">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        Shop Our <span class="gradient-text">Bestsellers</span>
+                    </h2>
+                    <p class="text-xl text-gray-400">Discover our most loved products that customers can't live without
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Product Card 1 -->
+                    <div class="product-card flex flex-col bg-black/30 rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-105"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="relative overflow-hidden">
+                            <img src="/assets/images/soak-laundry-soap.jpg" alt="Soak Laundry Soap Wild Mint"
+                                class="w-full h-64 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Soak Laundry Soap</h3>
+                            <p class="text-gray-400 mb-4">Wild Mint / Shop & Share</p>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-2xl font-bold gradient-text">$34.00</span>
+                                <button
+                                    onclick="addToCart('soak-wild-mint', 'Soak Laundry Soap - Wild Mint', 34.00, '/assets/images/soak-laundry-soap.jpg')"
+                                    class="btn-neon text-white px-6 py-2 rounded-full text-sm font-semibold transition-all hover:brightness-125">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card flex flex-col bg-black/30 rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-105"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="relative overflow-hidden">
+                            <img src="/assets/images/minisoak-travel-pack.jpg" alt="Minisoak Travel Pack"
+                                class="w-full h-64 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Minisoak Travel Pack</h3>
+                            <p class="text-gray-400 mb-4">Scentless</p>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-2xl font-bold gradient-text">$11.00</span>
+                                <button
+                                    onclick="addToCart('minisoak-travel', 'Minisoak Travel Pack', 11.00, '/assets/images/minisoak-travel-pack.jpg')"
+                                    class="btn-neon text-white px-6 py-2 rounded-full text-sm font-semibold transition-all hover:brightness-125">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="product-card flex flex-col bg-black/30 rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-105"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="relative overflow-hidden">
+                            <img src="/assets/images/flatter-ironing-spray.jpg" alt="Flatter Spray"
+                                class="w-full h-64 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Flatter Ironing Spray</h3>
+                            <p class="text-gray-400 mb-4">Wild Mint / Shop & Share</p>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-2xl font-bold gradient-text">$22.00</span>
+                                <button
+                                    onclick="addToCart('flatter-spray', 'Flatter Ironing Spray', 22.00, '/assets/images/flatter-ironing-spray.jpg')"
+                                    class="btn-neon text-white px-6 py-2 rounded-full text-sm font-semibold transition-all hover:brightness-125">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="product-card flex flex-col bg-black/30 rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-105"
+                        data-aos="fade-up" data-aos-delay="400">
+                        <div class="relative overflow-hidden">
+                            <img src="/assets/images/hand-washing.jpg" alt="Hand Washing Kit"
+                                class="w-full h-64 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Hand-Washing Starter Kit</h3>
+                            <p class="text-gray-400 mb-4">Pineapple Grove / Yellow</p>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-2xl font-bold gradient-text">$58.00</span>
+                                <button
+                                    onclick="addToCart('washing-kit', 'Hand-Washing Starter Kit', 58.00, '/assets/images/hand-washing.jpg')"
+                                    class="btn-neon text-white px-6 py-2 rounded-full text-sm font-semibold transition-all hover:brightness-125">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="text-center mt-16" data-aos="fade-up">
+                    <button onclick="window.location.href='/shop/'"
+                        class="btn-neon text-white px-12 py-4 rounded-full text-lg font-semibold transition-all">
+                        Explore Full Collection
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        Why Choose <span class="gradient-text">Soak</span>
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card-dark p-8 rounded-2xl card-glow" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-leaf text-4xl feature-icon mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Eco-Friendly</h3>
+                        <p class="text-gray-400">Made with biodegradable ingredients that are safe for you and the
+                            environment.</p>
+                    </div>
+
+                    <div class="card-dark p-8 rounded-2xl card-glow" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-clock text-4xl feature-icon mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Time-Saving</h3>
+                        <p class="text-gray-400">No-rinse formula saves you time while being gentle on your delicate
+                            fabrics.</p>
+                    </div>
+
+                    <div class="card-dark p-8 rounded-2xl card-glow" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-heart text-4xl feature-icon mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Fabric Care</h3>
+                        <p class="text-gray-400">Extends the life of your favorite clothes with gentle cleaning action.
+                        </p>
+                    </div>
+
+                    <div class="card-dark p-8 rounded-2xl card-glow" data-aos="fade-up" data-aos-delay="400">
+                        <i class="fas fa-spa text-4xl feature-icon mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Skin-Safe</h3>
+                        <p class="text-gray-400">Skincare-grade ingredients that are gentle on sensitive skin.</p>
+                    </div>
+
+                    <div class="card-dark p-8 rounded-2xl card-glow" data-aos="fade-up" data-aos-delay="500">
+                        <i class="fas fa-home text-4xl feature-icon mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Canadian Made</h3>
+                        <p class="text-gray-400">Proudly manufactured in Canada with the highest quality standards.</p>
+                    </div>
+
+                    <div class="card-dark p-8 rounded-2xl card-glow" data-aos="fade-up" data-aos-delay="600">
+                        <i class="fas fa-magic text-4xl feature-icon mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Versatile</h3>
+                        <p class="text-gray-400">Perfect for hand-washing, machine-washing, and spot cleaning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div data-aos="fade-right">
+                        <h2 class="text-4xl md:text-6xl font-bold text-white mb-8">
+                            Hi, We're <span class="gradient-text">Soak</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                            We understand how precious your cherished clothes and handcrafted creations are to you.
+                            They're incredibly important to us too.
+                        </p>
+                        <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                            That's why we've developed Soak—a revolutionary, gentle, no-rinse laundry soap that excels
+                            at cleaning, revitalizing and protecting your most treasured items. It's incredibly
+                            user-friendly, so whether you're hand-washing, spot cleaning or machine washing, you won't
+                            waste your life doing laundry.
+                        </p>
+                        <div class="space-y-4 mb-10">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                                <span class="text-white">Over 10 years of fabric care expertise</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                                <span class="text-white">Trusted by professionals worldwide</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                                <span class="text-white">Proudly Canadian made products</span>
+                            </div>
+                        </div>
+                        <button onclick="window.location.href='/about/'"
+                            class="btn-neon text-white px-10 py-4 rounded-full text-lg font-semibold transition-all">
+                            Discover Our Story
+                        </button>
+                    </div>
+                    <div data-aos="fade-left">
+                        <div class="relative">
+                            <img src="/assets/images/about-soak.png" alt="About Soak"
+                                class="w-full rounded-3xl shadow-2xl">
+                            <div
+                                class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/20 to-purple-500/20">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="p-10 md:py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        Customer <span class="gradient-text">Love Stories</span>
+                    </h2>
+                    <p class="text-xl text-gray-400">Real experiences from our amazing community</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="testimonial-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex mb-6">
+                            <i class="fas fa-star text-yellow-400 text-lg"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4">Life-Changing Product</h4>
+                        <p class="text-gray-300 mb-6 leading-relaxed">I've been using Soak for about 10 years. It's an
+                            incredible Canadian product that has revolutionized my life: I simply place my bras and
+                            other delicate items in the sink and let them Soak!</p>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">O</span>
+                            </div>
+                            <div>
+                                <p class="gradient-text font-semibold">Odelia</p>
+                                <p class="text-gray-500 text-sm">1 year ago</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex mb-6">
+                            <i class="fas fa-star text-yellow-400 text-lg"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4">My Favorite Laundry Soap</h4>
+                        <p class="text-gray-300 mb-6 leading-relaxed">I've been using Soak for over 10 years now. It's
+                            absolutely fantastic! A bottle lasts incredibly long, the scents are divine, and the
+                            cleaning power is remarkable. Highly recommend!</p>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">A</span>
+                            </div>
+                            <div>
+                                <p class="gradient-text font-semibold">AC</p>
+                                <p class="text-gray-500 text-sm">2 months ago</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex mb-6">
+                            <i class="fas fa-star text-yellow-400 text-lg"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                            <i class="fas fa-star text-yellow-400 text-lg ml-1"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4">Essential for Travel</h4>
+                        <p class="text-gray-300 mb-6 leading-relaxed">You should never travel without this magical
+                            product. Especially when you don't have access to a washer or you're on vacation. I swear
+                            it's pure magic! Outstanding product.</p>
+                        <div class="flex items-center">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">S</span>
+                            </div>
+                            <div>
+                                <p class="gradient-text font-semibold">Sarah</p>
+                                <p class="text-gray-500 text-sm">3 weeks ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="card-dark rounded-3xl p-16 text-center neon-glow" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                        Don't Miss <span class="gradient-text">Anything</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-10">Join our exclusive newsletter for insider tips, new product
+                        launches, and special offers</p>
+                    <div class="max-w-lg mx-auto">
+                        <div class="flex flex-col sm:flex-row">
+                            <input type="email" id="newsletterEmail" placeholder="Enter your email address"
+                                class="flex-1 px-6 py-4 rounded-l-full sm:rounded-r-none rounded-r-full bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:border-blue-400 mb-4 sm:mb-0">
+                            <button onclick="subscribeNewsletter()"
+                                class="btn-neon text-white px-8 py-4 rounded-r-full sm:rounded-l-none rounded-l-full font-semibold transition-all">
+                                Subscribe Now
+                            </button>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4">Join 50,000+ subscribers. No spam, unsubscribe anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="section-dark py-20">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-12 mb-16">
+                    <div>
+                        <img src="/assets/images/thesoakwash.png" alt="The Soak Wash" class="h-12 w-auto mb-6">
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            The gentle, no-rinse laundry soap that's revolutionizing fabric care worldwide.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="https://www.facebook.com/soakwash"
+                                class="text-gray-400 hover:text-blue-400 transition-colors text-xl">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://x.com/soakwash"
+                                class="text-gray-400 hover:text-blue-400 transition-colors text-xl">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://www.pinterest.com/soakwash/"
+                                class="text-gray-400 hover:text-red-400 transition-colors text-xl">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                            <a href="https://www.instagram.com/soakwash/"
+                                class="text-gray-400 hover:text-pink-400 transition-colors text-xl">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                            </li>
+                            <li><a href="/shop/" class="text-gray-400 hover:text-white transition-colors">Shop</a>
+                            </li>
+                            <li><a href="/about/" class="text-gray-400 hover:text-white transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/" class="text-gray-400 hover:text-white transition-colors">Contact
+                                </a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">Legal</h3>
+                        <ul class="space-y-4">
+                            <li><a href="/privacy/" class="text-gray-400 hover:text-white transition-colors">Privacy
+                                    Policy</a>
+                            </li>
+                            <li><a href="/terms/" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+                            </li>
+                            <li><a href="/cookies/" class="text-gray-400 hover:text-white transition-colors">Cookies</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">Contact Info</h3>
+                        <div class="space-y-4 text-gray-400">
+                            <p class="flex items-start">
+                                <i class="fas fa-map-marker-alt mr-3 mt-1 text-blue-400"></i>
+                                2762 King Edward St,<br>Winnipeg, MB R2R 2R2, Canada
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                                info@thesoakwash.com
+                            </p>
+                            <p class="text-sm text-gray-500 mt-6">#soakworthy @soakwash</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-700 pt-8 text-center">
+                    <p class="text-gray-400">Copyright © 2025 Soak Wash Inc. Proudly Made in Canada with ❤️</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
+        // Particles.js Configuration
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: ["#3b82f6", "#06b6d4", "#8b5cf6"] },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 4, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 200, line_linked: { opacity: 0.5 } },
+                    push: { particles_nb: 3 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('threejs-container').appendChild(renderer.domElement);
+
+        // Create multiple geometric shapes
+        const shapes = [];
+
+        // Icosahedron
+        const icoGeometry = new THREE.IcosahedronGeometry(8, 1);
+        const icoMaterial = new THREE.MeshBasicMaterial({
+            color: 0x3b82f6,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.2
+        });
+        const icosahedron = new THREE.Mesh(icoGeometry, icoMaterial);
+        icosahedron.position.set(-20, 10, -30);
+        scene.add(icosahedron);
+        shapes.push(icosahedron);
+
+        // Octahedron
+        const octaGeometry = new THREE.OctahedronGeometry(12);
+        const octaMaterial = new THREE.MeshBasicMaterial({
+            color: 0x06b6d4,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const octahedron = new THREE.Mesh(octaGeometry, octaMaterial);
+        octahedron.position.set(25, -15, -40);
+        scene.add(octahedron);
+        shapes.push(octahedron);
+
+        // Dodecahedron
+        const dodecaGeometry = new THREE.DodecahedronGeometry(6);
+        const dodecaMaterial = new THREE.MeshBasicMaterial({
+            color: 0x8b5cf6,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.18
+        });
+        const dodecahedron = new THREE.Mesh(dodecaGeometry, dodecaMaterial);
+        dodecahedron.position.set(0, 20, -50);
+        scene.add(dodecahedron);
+        shapes.push(dodecahedron);
+
+        camera.position.z = 50;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            shapes.forEach((shape, index) => {
+                shape.rotation.x += 0.005 * (index + 1);
+                shape.rotation.y += 0.003 * (index + 1);
+                shape.rotation.z += 0.002 * (index + 1);
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Stats counter animation
+        function animateStats() {
+            const counters = document.querySelectorAll('.stats-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target.toLocaleString() + (target === 100 ? '%' : target === 24 ? '/7' : '+');
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 16);
+            });
+        }
+
+        // Intersection Observer for stats
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats-counter');
+        if (statsSection) {
+            statsObserver.observe(statsSection.parentElement);
+        }
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('soakCart')) || [];
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function addToCart(id, name, price, image) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+            localStorage.setItem('soakCart', JSON.stringify(cart));
+            updateCartCount();
+
+            // Show success notification
+            showNotification('Product added to cart successfully!', 'success');
+        }
+
+        function toggleCart() {
+            window.location.href = '/cart/';
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value;
+            if (email && validateEmail(email)) {
+                showNotification('Thank you for subscribing to our newsletter!', 'success');
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                showNotification('Please enter a valid email address.', 'error');
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Notification system
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg text-white font-semibold transform transition-all duration-300 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'
+                }`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Cookie functionality
+        function showCookiesPopup() {
+            const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+            if (!cookiesAccepted) {
+                setTimeout(() => {
+                    document.getElementById('cookiesPopup').classList.add('show');
+                }, 3000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookiesPopup').classList.remove('show');
+            showNotification('Cookie preferences saved!', 'success');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookiesAccepted', 'false');
+            document.getElementById('cookiesPopup').classList.remove('show');
+            showNotification('Cookie preferences saved!', 'success');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartCount();
+            showCookiesPopup();
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (e) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const hamburger = document.querySelector('.hamburger');
+                const closeButton = document.querySelector('.mobile-menu-close');
+
+                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && !closeButton.contains(e.target) && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Prevent menu close when clicking inside menu content
+            document.getElementById('mobileMenu').addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Smooth scrolling for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

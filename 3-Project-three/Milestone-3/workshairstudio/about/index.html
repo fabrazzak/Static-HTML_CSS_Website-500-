@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Work Hair Studio - Calgary's award-winning hair salon. Meet our expert stylists, discover our story, and see why we're the top choice for luxury hair services.">
+    <meta name="keywords" content="about Work Hair Studio, Calgary hair salon, expert stylists Calgary, hair salon team, luxury salon Calgary, professional hairdressers">
+    <link rel="canonical" href="https://workshairstudio.com/about/">
+    <title>About Us - Work Hair Studio | Expert Hair Stylists in Calgary</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a1a;
+            --accent-color: #c9a961;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-overlay: rgba(26, 26, 26, 0.85);
+        }
+
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Canvas Background */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .top-header-left {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-header-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .top-header-item i {
+            color: var(--primary-color);
+        }
+
+        .top-header-item:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .main-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 2000;
+            position: relative;
+            width: 35px;
+            height: 30px;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--primary-color);
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(10px, -10px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1999;
+            padding: 80px 40px;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu-close:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu.active li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.active li:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.active li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.active li:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu.active li:nth-child(5) { transition-delay: 0.5s; }
+
+        .mobile-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Page Header */
+        .page-header {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 20px 100px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/assets/images/salon-interior.jpg') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .page-header-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: var(--primary-color);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .page-header h1 {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb span {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-subtitle {
+            color: var(--primary-color);
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .section-title h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Our Story Section */
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .story-image {
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+        }
+
+        .story-badge {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 25px 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .story-badge .badge-number {
+            font-size: 48px;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .story-badge .badge-text {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .story-text h3 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .story-text p {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .story-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s;
+        }
+
+        .highlight-item:hover {
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .highlight-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .highlight-text strong {
+            display: block;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .highlight-text span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Values Section */
+        .values-section {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(25, 25, 25, 0.95) 100%);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .value-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            transition: transform 0.6s;
+        }
+
+        .value-card:hover::before {
+            transform: rotate(180deg);
+        }
+
+        .value-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .value-icon {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .value-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .value-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 60px auto 0;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--primary-color), transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .timeline-year {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .timeline-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .timeline-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 4px solid rgba(10, 10, 10, 0.9);
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Awards Section */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .award-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s;
+        }
+
+        .award-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .award-icon {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .award-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .award-year {
+            color: var(--primary-color);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .award-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(201, 169, 97, 0.1) 100%);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 48px;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .cta-content p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 80px 20px 30px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 22px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-logo {
+            margin-bottom: 25px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .page-header h1 {
+                font-size: 48px;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 80px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                display: none;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 38px;
+            }
+
+            .section-title h2 {
+                font-size: 36px;
+            }
+
+            .story-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .values-grid,
+            .awards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="three-canvas"></canvas>
+    <div id="particles-js"></div>
+
+    <div class="content-wrapper">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="top-header-content">
+                <div class="top-header-left">
+                    <a href="tel:+14034718102" class="top-header-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (403) 471-8102</span>
+                    </a>
+                    <a href="mailto:info@workshairstudio.com" class="top-header-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@workshairstudio.com</span>
+                    </a>
+                    <span class="top-header-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>4038 16 St SW, Calgary, AB</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/">
+                        <img src="/assets/images/workshairstudio.png" alt="Work Hair Studio Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about/" class="active">About</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <button class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/" class="active">About</a></li>
+                <li><a href="/services/">Services</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="page-header-content">
+                <p class="page-subtitle">Discover Our Story</p>
+                <h1>About Work Hair Studio</h1>
+                <p>Where passion for hair artistry meets exceptional service. Learn about our journey, values, and the talented team behind Calgary's premier hair salon.</p>
+                <div class="breadcrumb">
+                    <a href="/">Home</a>
+                    <span>/</span>
+                    <span>About</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section id="story">
+            <div class="container">
+                <div class="story-content">
+                    <div class="story-image">
+                        <img src="/assets/images/salon-interior.webp" alt="Work Hair Studio Calgary">
+                        <div class="story-badge">
+                            <span class="badge-number">10+</span>
+                            <span class="badge-text">Years Excellence</span>
+                        </div>
+                    </div>
+                    <div class="story-text">
+                        <p class="section-subtitle">Our Journey</p>
+                        <h3>The Work Hair Studio Story</h3>
+                        <p>Founded in 2015, Work Hair Studio was born from a passion for transforming lives through the art of hair. What started as a dream to create Calgary's most welcoming and professional hair salon has grown into a beloved community destination where style, skill, and genuine care come together.</p>
+                        <p>Our founder envisioned a space where clients wouldn't just receive a haircut or color service, but would experience a transformation that boosted their confidence and made them feel truly special. Today, that vision continues to guide everything we do.</p>
+                        <p>Located in the heart of Calgary, we've built our reputation on technical excellence, ongoing education, and an unwavering commitment to client satisfaction. Every member of our team shares a dedication to staying ahead of trends while honoring the timeless techniques that form the foundation of great hair artistry.</p>
+                        <div class="story-highlights">
+                            <div class="highlight-item">
+                                <div class="highlight-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <div class="highlight-text">
+                                    <strong>Award-Winning</strong>
+                                    <span>Recognized excellence</span>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <div class="highlight-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="highlight-text">
+                                    <strong>Client-Focused</strong>
+                                    <span>Your satisfaction first</span>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <div class="highlight-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="highlight-text">
+                                    <strong>Continuous Learning</strong>
+                                    <span>Always evolving</span>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <div class="highlight-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div class="highlight-text">
+                                    <strong>Eco-Conscious</strong>
+                                    <span>Sustainable practices</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values-section">
+            <div class="container">
+                <div class="section-title">
+                    <p class="section-subtitle">What Drives Us</p>
+                    <h2>Our Core Values</h2>
+                    <p class="section-description">The principles that guide our work and define who we are as a salon and as a team.</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Excellence</h3>
+                        <p>We pursue excellence in every service, every technique, and every client interaction. Our commitment to quality is unwavering.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>We believe in building lasting relationships with our clients and contributing positively to the Calgary community we serve.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>We stay at the forefront of hair trends and techniques, constantly learning and evolving to serve you better.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Integrity</h3>
+                        <p>Honesty, transparency, and ethical practices form the foundation of every interaction and recommendation we make.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="container">
+                <div class="section-title">
+                    <p class="section-subtitle">Our Journey</p>
+                    <h2>Studio Timeline</h2>
+                    <p class="section-description">Follow our journey from a small startup to Calgary's most trusted hair salon.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2015</div>
+                            <h3>The Beginning</h3>
+                            <p>Work Hair Studio opened its doors with a vision to provide exceptional hair services in a welcoming environment. Our first location featured 4 styling stations and a passionate team of 5 stylists.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2017</div>
+                            <h3>Expansion & Growth</h3>
+                            <p>Due to overwhelming client demand, we expanded to 8 stations and doubled our team. We also introduced our signature balayage and color correction services.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2019</div>
+                            <h3>Award Recognition</h3>
+                            <p>Received "Best Hair Salon in Calgary" award and launched our advanced training program for stylists, cementing our reputation for excellence.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2021</div>
+                            <h3>Premium Services</h3>
+                            <p>Introduced luxury treatment services and partnered with premium hair care brands to offer the best products to our clients.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <h3>Community Impact</h3>
+                            <p>Launched community outreach programs and sustainable salon practices, reinforcing our commitment to giving back and environmental responsibility.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2025</div>
+                            <h3>Continued Excellence</h3>
+                            <p>Today, we serve hundreds of clients monthly, maintain our award-winning status, and continue to set the standard for hair excellence in Calgary.</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards">
+            <div class="container">
+                <div class="section-title">
+                    <p class="section-subtitle">Recognition</p>
+                    <h2>Awards & Achievements</h2>
+                    <p class="section-description">Our commitment to excellence has been recognized by industry leaders and satisfied clients alike.</p>
+                </div>
+                <div class="awards-grid">
+                    <div class="award-card">
+                        <div class="award-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Best Hair Salon</h3>
+                        <p class="award-year">Calgary Choice Awards 2024</p>
+                        <p>Voted #1 hair salon by Calgary residents for exceptional service and stunning results.</p>
+                    </div>
+                    <div class="award-card">
+                        <div class="award-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Excellence in Color</h3>
+                        <p class="award-year">Alberta Beauty Awards 2023</p>
+                        <p>Recognized for outstanding color services and innovative balayage techniques.</p>
+                    </div>
+                    <div class="award-card">
+                        <div class="award-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3>Top Rated Salon</h3>
+                        <p class="award-year">Google Reviews 2024</p>
+                        <p>Maintained a 4.9-star rating based on over 400 authentic client reviews.</p>
+                    </div>
+                    <div class="award-card">
+                        <div class="award-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Stylist of the Year</h3>
+                        <p class="award-year">Canadian Hair Federation 2022</p>
+                        <p>Our creative director received this prestigious national recognition.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Experience the Work Hair Studio Difference</h2>
+                    <p>Join our community of satisfied clients and discover why we're Calgary's most trusted hair salon. Book your appointment today and let our expert team create your perfect look.</p>
+                    <a href="/contact/" class="cta-button">Book Your Appointment</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="/">
+                            <img src="/assets/images/workshairstudio.png" alt="Work Hair Studio Logo">
+                        </a>
+                    </div>
+                    <p>Calgary's premier destination for luxury hair services. Experience the art of hair transformation with our expert stylists.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="/">Home</a>
+                    <a href="/about/">About Us</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <a href="/services/">Haircuts & Styling</a>
+                    <a href="/services/">Hair Coloring</a>
+                    <a href="/services/">Balayage</a>
+                    <a href="/services/">Hair Treatments</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/cookies/">Cookies Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Work Hair Studio. All Rights Reserved. | Designed with Excellence</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Three.js Background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('three-canvas'),
+            alpha: true,
+            antialias: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        camera.position.z = 5;
+
+        // Create particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 3000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.015,
+            color: 0xd4af37,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // Animation
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+
+            particlesMesh.rotation.y += mouseX * 0.00005;
+            particlesMesh.rotation.x += mouseY * 0.00005;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#d4af37' },
+                shape: { type: 'circle' },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#c9a961',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== 'javascript:void(0)') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.value-card, .team-member, .timeline-item, .award-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

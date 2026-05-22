@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Edition: I Love Paris Coffee Artist Collaboration with Mehdi Qotbi - Bacha Coffee Craft</title>
+    <meta name="description" content="Discover the exclusive collaboration between Bacha Coffee and renowned artist Mehdi Qotbi at our Champs-Élysées boutique. Art meets coffee in this unique Parisian experience.">
+    <meta name="keywords" content="bacha coffee paris, mehdi qotbi collaboration, coffee art, champs elysees boutique, paris coffee, artist collaboration, premium coffee art, coffee culture paris">
+    <link rel="canonical" href="https://bachacoffeecraft.com/">
+     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gold: #D4AF37;
+            --deep-brown: #2C1810;
+            --dark-coffee: #1A0E08;
+            --medium-brown: #3D2817;
+            --light-gold: #F4E4BC;
+            --warm-gray: #8B7355;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-coffee);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--deep-brown);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* Utility Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass Morphism */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: linear-gradient(to right, #92400e, #b45309);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .cookie-popup.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .cookie-text {
+            font-size: 14px;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .cookie-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .cookie-accept {
+            background-color: #ca8a04;
+        }
+        
+        .cookie-accept:hover {
+            background-color: #a16207;
+        }
+        
+        .cookie-decline {
+            background-color: #6b7280;
+        }
+        
+        .cookie-decline:hover {
+            background-color: #4b5563;
+        }
+        
+        /* Header Styles */
+        header {
+            position: relative;
+            z-index: 50;
+        }
+        
+        .top-header {
+            background: linear-gradient(to right, #92400e, #b45309);
+            padding: 8px 0;
+        }
+        
+        .top-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-link {
+            color: inherit;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: #fde047;
+        }
+        
+        .main-header {
+            padding: 16px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, #ca8a04, #92400e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+        
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            font-weight: 500;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fbbf24;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .cart-btn:hover {
+            color: #fbbf24;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ca8a04;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--primary-gold);
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 13px;
+            transform-origin: left center;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 26px;
+            transform-origin: left center;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -3px;
+            left: 8px;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 39px;
+            left: 8px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-brown), var(--dark-coffee));
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-nav.open {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+        
+        .mobile-nav-title {
+            font-size: 24px;
+        }
+        
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-mobile-nav:hover {
+            color: #fbbf24;
+        }
+        
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: inherit;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: #fbbf24;
+        }
+        
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-gold), #B8941F);
+            color: var(--dark-coffee);
+            border: none;
+            padding: 12px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .page-header {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .page-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+            font-size: 14px;
+            color: #9ca3af;
+            flex-wrap: wrap;
+        }
+        
+        .page-meta i {
+            color: var(--primary-gold);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .breadcrumb a {
+            color: #fbbf24;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #f59e0b;
+        }
+        
+        /* Floating Coffee Beans */
+        .floating-elements {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-bean {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .floating-bean:nth-child(1) {
+            top: 80px;
+            left: 40px;
+            width: 16px;
+            height: 16px;
+            background: #ca8a04;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-bean:nth-child(2) {
+            top: 160px;
+            right: 80px;
+            width: 24px;
+            height: 24px;
+            background: #d97706;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+        
+        .floating-bean:nth-child(3) {
+            bottom: 160px;
+            left: 25%;
+            width: 12px;
+            height: 12px;
+            background: #a16207;
+            opacity: 0.25;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+        
+        .floating-bean:nth-child(4) {
+            bottom: 80px;
+            right: 33.333333%;
+            width: 20px;
+            height: 20px;
+            background: #d97706;
+            opacity: 0.35;
+            animation: float 6s ease-in-out infinite 0.5s;
+        }
+        
+        /* Article Content */
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(to bottom right, #92400e, #b45309);
+            border-radius: 16px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            background: var(--primary-gold);
+            color: var(--dark-coffee);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .article-body {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #e5e7eb;
+        }
+        
+        .article-body h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: var(--primary-gold);
+        }
+        
+        .article-body h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 32px 0 16px;
+            color: var(--primary-gold);
+        }
+        
+        .article-body p {
+            margin-bottom: 24px;
+        }
+        
+        .article-body strong {
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+        
+        .article-body em {
+            color: #d1d5db;
+        }
+        
+        .article-body blockquote {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--primary-gold);
+            padding: 24px 32px;
+            margin: 32px 0;
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 20px;
+            color: #d1d5db;
+        }
+        
+        .article-body ul, .article-body ol {
+            margin: 24px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(146, 64, 14, 0.3), rgba(180, 83, 9, 0.3));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+        
+        .highlight-box h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, rgba(146, 64, 14, 0.3), #000);
+            padding: 64px 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        
+        .footer-description {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .footer-social a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: #ca8a04;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .footer-credits {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .footer-credits .heart {
+            color: #ef4444;
+        }
+        
+        /* Background Sections */
+        .bg-gradient-1 {
+            background: linear-gradient(to bottom, transparent, rgba(146, 64, 14, 0.1));
+        }
+        
+        .bg-gradient-2 {
+            background: linear-gradient(to right, rgba(146, 64, 14, 0.2), rgba(180, 83, 9, 0.2));
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .article-content {
+                max-width: 700px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 32px;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+            
+            .article-body {
+                font-size: 16px;
+            }
+            
+            .article-body h2 {
+                font-size: 24px;
+            }
+            
+            .article-body h3 {
+                font-size: 20px;
+            }
+            
+            .page-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .top-header-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .top-header {
+                display: none;
+            }
+            
+            .top-header-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .highlight-box {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="cookie-content">
+            <p class="cookie-text">We use cookies to enhance your browsing experience. By continuing, you agree to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="cookie-btn cookie-accept">Accept</button>
+                <button id="decline-cookies" class="cookie-btn cookie-decline">Decline</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-content">
+                    <div class="top-header-left">
+                        <span><i class="fas fa-map-marker-alt"></i> Av. Valencia, 36, El Verger, Spain</span>
+                        <span><i class="fas fa-phone"></i> +34 965 750 227</span>
+                    </div>
+                    <div class="top-header-right">
+                        <a href="https://www.instagram.com/BachaCoffee/" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@bachacoffee" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://x.com/BachaCoffee" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Header -->
+        <nav class="main-header glass-morphism">
+            <div class="container">
+                <div class="nav-container">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    
+                    <!-- Desktop Navigation -->
+                    <ul class="desktop-nav">
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/shop/" class="nav-link">Shop</a></li>
+                        <li><a href="/about/" class="nav-link">About</a></li>
+                        <li><a href="/blog/" class="nav-link active">Blog</a></li>
+                        <li><a href="/contact/" class="nav-link">Contact</a></li>
+                    </ul>
+                    
+                    <!-- Cart & Mobile Menu -->
+                    <div class="header-actions">
+                        <button id="cart-btn" class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </button>
+                        
+                        <!-- Hamburger Menu -->
+                        <div class="hamburger" id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <h2 class="font-display mobile-nav-title gradient-text">Menu</h2>
+                <button id="close-mobile-nav" class="close-mobile-nav">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/" class="mobile-nav-link">Home</a></li>
+                <li><a href="/shop/" class="mobile-nav-link">Shop</a></li>
+                <li><a href="/about/" class="mobile-nav-link">About</a></li>
+                <li><a href="/blog/" class="mobile-nav-link active">Blog</a></li>
+                <li><a href="/contact/" class="mobile-nav-link">Contact</a></li>
+                <li><a href="/cart/" class="mobile-nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header bg-gradient-1">
+            <div class="container">
+                <div class="animate-fade-in-up">
+                    <h1 class="page-title font-display gradient-text">
+                        Special Edition: I Love Paris Coffee Artist Collaboration with Mehdi Qotbi
+                    </h1>
+                    
+                    <div class="page-meta">
+                        <div><i class="fas fa-calendar"></i>September 07, 2025</div>
+                        <div><i class="fas fa-clock"></i> 5 min read</div>
+                        <div><i class="fas fa-tag"></i> Collaboration</div>
+                        <div><i class="fas fa-user"></i> Sophie Martinez</div>
+                    </div>
+                    
+                    <div class="breadcrumb">
+                        <a href="/">Home</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <a href="/blog/">Blog</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span>Paris Artist Collaboration</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating Coffee Beans -->
+            <div class="floating-elements">
+                <div class="floating-bean"></div>
+                <div class="floating-bean"></div>
+                <div class="floating-bean"></div>
+                <div class="floating-bean"></div>
+            </div>
+        </section>
+        
+        <!-- Article Content -->
+        <section class="section">
+            <div class="container">
+                <div class="article-content animate-fade-in-up">
+                    <!-- Featured Image -->
+                    <div class="featured-image">
+                        <img src="/images/blog/paris-artist-collaboration.jpg" alt="Mehdi Qotbi Art Installation at Bacha Coffee Champs-Élysées">
+                        <div class="featured-badge">Exclusive</div>
+                    </div>
+                    
+                    <!-- Article Body -->
+                    <div class="article-body">
+                        <p>
+                            In the heart of Paris, where art and culture intertwine like the perfect blend of coffee beans, Bacha Coffee presents an extraordinary collaboration that celebrates both creativity and craftsmanship. Our **exclusive partnership with renowned artist Mehdi Qotbi** brings together two worlds of artistry – the visual and the sensorial – creating an immersive experience that transforms the simple act of enjoying coffee into a journey through contemporary art.
+                        </p>
+                        
+                        <p>
+                            Located exclusively at our flagship Champs-Élysées boutique, this collaboration represents more than just a meeting of minds; it's a fusion of philosophies that honor tradition while embracing innovation. **Mehdi Qotbi**, whose work has graced galleries from New York to Dubai, brings his distinctive artistic vision to the world of premium coffee, creating an environment where every cup tells a story and every sip is accompanied by visual poetry.
+                        </p>
+                        
+                        <h2 class="font-display">The Artist Behind the Vision</h2>
+                        
+                        <p>
+                            Mehdi Qotbi's artistic journey spans continents and cultures, much like the coffee beans we source from around the world. His ability to blend **traditional Moroccan influences with contemporary European aesthetics** mirrors our own approach to coffee – respecting heritage while innovating for the modern palate. The artist's work, characterized by vibrant colors and fluid forms, creates a perfect harmony with the rich, complex flavors of our premium Arabica blends.
+                        </p>
+                        
+                        <p>
+                            This collaboration emerged from a shared passion for excellence and a mutual understanding that **art and coffee both possess the power to bring people together**. Qotbi's installations throughout our boutique create intimate spaces where customers can pause, reflect, and truly savor their coffee experience in ways that transcend the ordinary café visit.
+                        </p>
+                        
+                        <blockquote>
+                            "Coffee and art share the same essence – they both awaken the senses and invite contemplation. In this collaboration, we've created spaces where time slows down, allowing people to truly connect with both the artwork and their coffee." - Mehdi Qotbi
+                        </blockquote>
+                        
+                        <h2 class="font-display">A Sensorial Journey Through Paris</h2>
+                        
+                        <p>
+                            Walking into our Champs-Élysées boutique during this special collaboration is like stepping into a living gallery where **every element has been carefully curated to enhance the coffee experience**. Qotbi's installations don't merely decorate the space; they transform it into an environment where the aroma of freshly roasted beans mingles with visual storytelling, creating a multisensory narrative that celebrates Paris as the eternal city of art and culture.
+                        </p>
+                        
+                        <p>
+                            The collaboration features several key elements that make this experience truly unique. **Hand-painted murals** inspired by coffee's journey from bean to cup adorn the walls, while specially designed **sculptural coffee displays** showcase our premium blends as works of art themselves. Interactive installations invite visitors to engage with both the artwork and their understanding of coffee culture, creating educational moments that deepen appreciation for both crafts.
+                        </p>
+                        
+                        <h3 class="font-display">The I Love Paris Collection</h3>
+                        
+                        <p>
+                            Central to this collaboration is the limited-edition **"I Love Paris" coffee collection**, featuring specially curated blends that capture the essence of different Parisian neighborhoods. Each blend in this collection is presented in packaging designed by Qotbi himself, transforming each coffee bag into a collectible piece of art. The collection includes three distinctive blends:
+                        </p>
+                        
+                        <p>
+                            <strong>Montmartre Morning</strong> captures the bohemian spirit of the historic artists' quarter with a medium roast that balances bright acidity with smooth chocolate undertones. <strong>Saint-Germain Sophistication</strong> offers a dark roast with complex notes of caramel and spice, reflecting the intellectual energy of the literary district. Finally, <strong>Champs-Élysées Elegance</strong> presents a perfectly balanced blend with floral notes and a golden finish, embodying the grandeur of Paris's most famous avenue.
+                        </p>
+                        
+                        <div class="highlight-box">
+                            <h3 class="font-display gradient-text">Experience Art and Coffee Like Never Before</h3>
+                            <p>Visit our Champs-Élysées boutique to experience this unique collaboration firsthand. Each visit offers new discoveries as the installations evolve throughout the exhibition period.</p>
+                        </div>
+                        
+                        <h2 class="font-display">The Philosophy of Collaboration</h2>
+                        
+                        <p>
+                            What makes this collaboration particularly meaningful is the shared philosophy between Bacha Coffee and Mehdi Qotbi regarding **the importance of craftsmanship and attention to detail**. Just as we meticulously source our beans from the world's finest coffee-growing regions, Qotbi approaches each piece with the same dedication to quality and authenticity. This mutual respect for the creative process has resulted in an environment where art and coffee enhance each other rather than compete for attention.
+                        </p>
+                        
+                        <p>
+                            The collaboration also reflects our commitment to supporting contemporary art and culture. By providing a platform for Qotbi's work within our boutique, we're contributing to the vibrant artistic landscape of Paris while offering our customers an experience that goes beyond exceptional coffee. **This partnership demonstrates our belief that luxury lies not just in premium products, but in the richness of experiences we create around them**.
+                        </p>
+                        
+                        <h3 class="font-display">Cultural Impact and Community Engagement</h3>
+                        
+                        <p>
+                            Beyond the immediate visual impact, this collaboration has fostered meaningful connections within Paris's artistic community. Regular **art talks and coffee tastings** bring together artists, coffee enthusiasts, and cultural connoisseurs, creating dialogues that explore the intersection of different creative disciplines. These events have become gathering points for those who appreciate the finer things in life and seek to understand the stories behind both art and coffee.
+                        </p>
+                        
+                        <p>
+                            The collaboration has also inspired local art students and emerging artists, providing them with insights into how different creative mediums can complement and enhance each other. **Educational workshops** demonstrate both Qotbi's artistic techniques and our coffee preparation methods, showing how mastery in any field requires patience, practice, and passion.
+                        </p>
+                        
+                        <h2 class="font-display">Looking Forward: Art Meets Innovation</h2>
+                        
+                        <p>
+                            As this collaboration continues to evolve, we're exploring new ways to integrate digital technology with traditional artistic methods. **Interactive digital displays** allow visitors to learn about the artistic process behind each installation while also discovering the origins and characteristics of different coffee blends. This fusion of old and new reflects Paris's own character – a city that honors its artistic heritage while embracing contemporary innovation.
+                        </p>
+                        
+                        <p>
+                            The success of this collaboration has opened doors to future partnerships with other artists and cultural institutions. We envision our boutiques not just as places to purchase premium coffee, but as **cultural destinations** where art, literature, music, and coffee culture converge to create experiences that nourish both body and soul.
+                        </p>
+                        
+                        <p>
+                            The "I Love Paris Coffee Artist Collaboration with Mehdi Qotbi" represents more than a temporary exhibition; it embodies our vision of coffee as a catalyst for cultural exchange and artistic appreciation. In a world that often rushes past the beautiful details of daily life, this collaboration invites us to pause, observe, and savor the artistry that surrounds us – whether it's in the stroke of a brush or the perfect extraction of a premium espresso.
+                        </p>
+                        
+                        <p>
+                            Visit our Champs-Élysées boutique to experience this unique fusion of art and coffee culture. Allow yourself to be transported into a world where creativity knows no bounds and where every cup of coffee becomes part of a larger artistic narrative that celebrates the beauty of human expression in all its forms.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div>
+                    <div class="logo" style="margin-bottom: 16px;">
+                         <a href="/">
+                            <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                        </a>
+                    </div>
+                    <p class="footer-description">
+                        Premium Arabica coffee experiences from the heart of Spain, bringing you the finest flavors from around the world.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/BachaCoffee/">
+                            <i class="fab fa-instagram" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://web.facebook.com/BachaCoffeeOfficial/">
+                            <i class="fab fa-facebook" style="font-size: 14px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bacha-coffee">
+                            <i class="fab fa-linkedin" style="font-size: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Products -->
+                <div class="footer-section">
+                    <h4>Products</h4>
+                     <ul class="footer-links">
+                        <li><a href="/shop/">Coffee Bags</a></li>
+                        <li><a href="/shop/">Gift Boxes</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                        <li><a href="/shop/">Limited Editions</a></li>
+                        <li><a href="/shop/">Merchandise</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookie Policy</a></li>
+                        <li><a href="/cart/">Shopping Cart</a></li>
+                        <li><a href="/checkout/">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Bacha Coffee Craft. All rights reserved.
+                </p>
+                <div class="footer-credits">
+                    <span>Made with <i class="fas fa-heart heart"></i> in Spain</span>
+                    <span>•</span>
+                    <span>Premium Coffee Since 2021</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('bachaCoffeeCart') || '[]');
+        
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = cart.reduce((total, item) => total + parseInt(item.quantity || 0), 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Cart button click
+        document.getElementById('cart-btn').addEventListener('click', function() {
+            window.location.href = '/cart/';
+        });
+        
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+        
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
+        
+        closeMobileNav.addEventListener('click', function() {
+            hamburger.classList.remove('open');
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile nav when clicking on links
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Cookie consent
+        function showCookiePopup() {
+            const cookieConsent = localStorage.getItem('bachaCoffeeCookieConsent');
+            if (!cookieConsent) {
+                const popup = document.getElementById('cookie-popup');
+                setTimeout(() => {
+                    popup.classList.add('show');
+                }, 1000);
+            }
+        }
+        
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'accepted');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+        
+        document.getElementById('decline-cookies').addEventListener('click', function() {
+            localStorage.setItem('bachaCoffeeCookieConsent', 'declined');
+            const popup = document.getElementById('cookie-popup');
+            popup.classList.remove('show');
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            showCookiePopup();
+            initParticles();
+            initThreeJS();
+        });
+        
+        // Particles.js initialization
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 50,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: '#D4AF37'
+                    },
+                    shape: {
+                        type: 'circle'
+                    },
+                    opacity: {
+                        value: 0.1,
+                        random: true
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: false
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'repulse'
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push'
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+        
+        // Three.js background
+        function initThreeJS() {
+            const canvas = document.getElementById('three-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            // Create coffee bean geometry
+            const geometry = new THREE.SphereGeometry(0.1, 8, 6);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.3
+            });
+            
+            const beans = [];
+            for (let i = 0; i < 100; i++) {
+                const bean = new THREE.Mesh(geometry, material);
+                bean.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                );
+                bean.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                scene.add(bean);
+                beans.push(bean);
+            }
+            
+            camera.position.z = 5;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                beans.forEach(bean => {
+                    bean.rotation.x += 0.001;
+                    bean.rotation.y += 0.001;
+                    bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.0005;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle resize
+            window.addEventListener('resize', function() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe animated elements
+        document.querySelectorAll('[class*="animate-"]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+        
+        // Parallax effect for floating beans
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-bean');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.3 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Reading progress bar
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--primary-gold);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        `;
+        document.body.appendChild(progressBar);
+        
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intevero - Wellness & Self-Care Blog</title>
+    <link rel="stylesheet" href="../css/cart.css" />
+    <meta
+      name="description"
+      content="Discover articles and tips about wellness, self-care, and mindfulness from Intevero's experts."
+    />
+    <meta
+      name="keywords"
+      content="wellness blog, self-care tips, mindfulness articles, relaxation techniques, mental health advice"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #8b5fbf;
+        --secondary-color: #d4a5ff;
+        --accent-color: #ff85a2;
+        --dark-color: #333333;
+        --light-color: #f9f5ff;
+        --white: #ffffff;
+        --gray: #e5e5e5;
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--white);
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--transition);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .btn:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        background-color: var(--accent-color);
+        margin: 15px auto 0;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 15px 0;
+        transition: var(--transition);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 600;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--accent-color);
+        color: var(--white);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      /* Blog Page Styles */
+      .blog-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80")
+            no-repeat center center/cover;
+        height: 60vh;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        padding-top: 80px;
+        margin-bottom: 60px;
+      }
+
+      .blog-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .blog-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: var(--white);
+      }
+
+      .blog-hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Blog Grid */
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+
+      .blog-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .blog-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .blog-card:hover .blog-img img {
+        transform: scale(1.05);
+      }
+
+      .blog-info {
+        padding: 20px;
+      }
+
+      .blog-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        color: #777;
+      }
+
+      .blog-meta span {
+        display: flex;
+        align-items: center;
+      }
+
+      .blog-meta i {
+        margin-right: 5px;
+      }
+
+      /* Categories */
+      .blog-categories {
+        margin-bottom: 40px;
+      }
+
+      .categories-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .category-btn {
+        padding: 8px 20px;
+        background-color: var(--light-color);
+        border-radius: 30px;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .category-btn:hover,
+      .category-btn.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Newsletter */
+      .newsletter {
+        background-color: var(--light-color);
+        padding: 60px 0;
+        text-align: center;
+        margin: 60px 0;
+        border-radius: 10px;
+      }
+
+      .newsletter h2 {
+        margin-bottom: 20px;
+      }
+
+      .newsletter p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+      }
+
+      .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid var(--gray);
+        border-radius: 30px 0 0 30px;
+        font-family: inherit;
+      }
+
+      .newsletter-form input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .newsletter-form button {
+        border-radius: 0 30px 30px 0;
+        padding: 12px 25px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-col h3 {
+        color: var(--white);
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-col ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-5px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+      }
+
+      /* Popup Styles */
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .popup.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .popup-content {
+        background-color: var(--white);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 10px;
+        padding: 30px;
+        position: relative;
+        transform: translateY(-50px);
+        transition: var(--transition);
+      }
+
+      .popup.active .popup-content {
+        transform: translateY(0);
+      }
+
+      .close-popup {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--dark-color);
+        transition: var(--transition);
+      }
+
+      .close-popup:hover {
+        color: var(--accent-color);
+      }
+
+      /* Blog Popup */
+      .blog-popup-content {
+        padding: 20px;
+      }
+
+      .blog-popup-img {
+        height: 300px;
+        overflow: hidden;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+
+      .blog-popup-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .blog-popup-meta {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        color: #777;
+      }
+
+      .blog-popup-meta span {
+        display: flex;
+        align-items: center;
+      }
+
+      .blog-popup-meta i {
+        margin-right: 5px;
+      }
+
+      .blog-popup-text h4 {
+        margin-top: 20px;
+      }
+
+      .blog-popup-text ul {
+        margin-left: 20px;
+        margin-bottom: 20px;
+      }
+
+      .blog-popup-text li {
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .blog-popup-text li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 8px;
+        height: 8px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .blog-hero h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section {
+          padding: 60px 0;
+        }
+
+        .blog-hero {
+          height: 50vh;
+          min-height: 350px;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 80%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          transition: var(--transition);
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          padding: 30px;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .newsletter-form input {
+          border-radius: 30px;
+          margin-bottom: 10px;
+        }
+
+        .newsletter-form button {
+          border-radius: 30px;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .section {
+          padding: 50px 0;
+        }
+
+        .blog-hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          margin-bottom: 30px;
+        }
+
+        .popup-content {
+          padding: 20px;
+        }
+
+        .blog-popup-img {
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo"> <i class="fas fa-spa"></i> Intevero </a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li>
+              <div class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+      <div class="container">
+        <div class="blog-hero-content">
+          <h1>Wellness Wisdom</h1>
+          <p>
+            Discover articles, tips, and inspiration for your self-care journey
+            from our wellness experts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section class="blog-categories">
+      <div class="container">
+        <div class="categories-list">
+          <a href="/blog/" class="category-btn active">All Topics</a>
+          <a href="/blog/" class="category-btn">Mindfulness</a>
+          <a href="/blog/" class="category-btn">Self-Care</a>
+          <a href="/blog/" class="category-btn">Mental Health</a>
+          <a href="/blog/" class="category-btn">Healthy Living</a>
+          <a href="/blog/" class="category-btn">Product Guides</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog section">
+      <div class="container">
+        <div class="blog-grid">
+          <!-- Blog Post 1 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="5 Morning Rituals"
+              />
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> Jan 15, 2025</span>
+                <span><i class="far fa-clock"></i> 5 min read</span>
+              </div>
+              <h3>5 Morning Rituals to Start Your Day Right</h3>
+              <p>
+                Discover simple yet powerful morning practices that can
+                transform your entire day and boost your wellbeing.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="1">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- Blog Post 2 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Digital Detox"
+              />
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> Feb 02, 2025</span>
+                <span><i class="far fa-clock"></i> 7 min read</span>
+              </div>
+              <h3>The Benefits of a Digital Detox</h3>
+              <p>
+                Learn how unplugging from technology can reduce stress and
+                improve your mental health and relationships.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="2">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- Blog Post 3 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Self-Care"
+              />
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> Mar 10, 2025</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+              </div>
+              <h3>Self-Care Isn't Selfish: Why It's Essential</h3>
+              <p>
+                Exploring the importance of prioritizing your own needs and how
+                it actually makes you better for others.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="3">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- Blog Post 4 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1593810450967-f9c42742e326?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                alt="Meditation"
+              />
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> Apr 05, 2025</span>
+                <span><i class="far fa-clock"></i> 8 min read</span>
+              </div>
+              <h3>Meditation for Beginners: A Simple Guide</h3>
+              <p>
+                Learn the basics of meditation and how to incorporate this
+                powerful practice into your daily routine.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="4">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- Blog Post 5 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80"
+                alt="Sleep"
+              />
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> March 12, 2025</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+              </div>
+              <h3>10 Tips for Better Sleep Hygiene</h3>
+              <p>
+                Improve your sleep quality with these science-backed strategies
+                for creating the perfect bedtime routine.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="5">
+                Read More
+              </button>
+            </div>
+          </div>
+
+          <!-- Blog Post 6 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80"
+                alt="Journaling"
+              />
+            </div>
+            <div class="blog-info">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> Jun 18, 2025</span>
+                <span><i class="far fa-clock"></i> 5 min read</span>
+              </div>
+              <h3>The Healing Power of Journaling</h3>
+              <p>
+                Discover how putting pen to paper can help process emotions,
+                reduce stress, and foster personal growth.
+              </p>
+              <button class="btn btn-outline read-more" data-blog-id="6">
+                Read More
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div style="text-align: center; margin-top: 40px">
+          <a href="/blog/" class="btn btn-outline" style="margin-right: 10px"
+            ><i class="fas fa-arrow-left"></i> Previous</a
+          >
+          <a href="/blog/" class="btn"
+            >Next <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <div class="container">
+        <h2>Join Our Wellness Community</h2>
+        <p>
+          Subscribe to our newsletter for exclusive content, self-care tips, and
+          special offers delivered straight to your inbox.
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-col">
+            <h3>Intevero</h3>
+            <p>
+              Your trusted source for premium wellness and self-care products,
+              helping you create moments of peace in your busy life.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact Us</h3>
+            <ul>
+              <li>
+                <i class="fas fa-map-marker-alt"></i> 15 Arthur St, Darkan WA
+                6392, Australia
+              </li>
+              <li><i class="fas fa-phone"></i> +61418445879</li>
+              <li><i class="fas fa-envelope"></i> hello@intevero.org</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Intevero. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Blog Popup -->
+    <div class="popup blog-popup">
+      <div class="popup-content">
+        <span class="close-popup"><i class="fas fa-times"></i></span>
+        <div class="blog-popup-content">
+          <!-- Blog content will be added here dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Popup -->
+    <div class="popup cart-popup">
+      <div class="popup-content cart-popup-content">
+        <span class="close-popup"><i class="fas fa-times"></i></span>
+        <h2>Your Shopping Cart</h2>
+        <div class="cart-items">
+          <!-- Cart items will be added here dynamically -->
+          <p class="empty-cart-message">Your cart is empty</p>
+        </div>
+        <div class="cart-total">
+          <span>Total:</span>
+          <span class="cart-total-amount">$0.00</span>
+        </div>
+        <button class="btn proceed-checkout">Proceed to Checkout</button>
+
+        <!-- Checkout Form (initially hidden) -->
+        <div class="checkout-form">
+          <h3>Shipping Information</h3>
+          <form id="checkoutForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required />
+            </div>
+            <div class="form-group">
+              <label for="address">Shipping Address</label>
+              <textarea
+                id="address"
+                name="address"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <p style="margin-bottom: 20px; font-style: italic">
+              Payment will be made upon delivery.
+            </p>
+            <button type="submit" class="btn">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thank You Popup -->
+    <div class="popup thank-you-popup">
+      <div class="popup-content">
+        <span class="close-popup"><i class="fas fa-times"></i></span>
+        <i class="fas fa-check-circle"></i>
+        <h2>Thank You for Your Order!</h2>
+        <p>
+          Your order has been successfully placed. We'll contact you shortly
+          with confirmation.
+        </p>
+        <button class="btn close-thank-you">Continue Shopping</button>
+      </div>
+    </div>
+
+    <script src="../js/cart.js"></script>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const nav = document.querySelector("nav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        nav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = nav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Close mobile menu when clicking on a link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("active");
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+      });
+
+      // Cart Functionality
+      let cart = [];
+      const cartIcon = document.querySelector(".cart-icon");
+      const cartCount = document.querySelector(".cart-count");
+
+      // Update Cart Count
+      function updateCartCount() {
+        const totalItems = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+        cartCount.textContent = totalItems;
+      }
+
+      // Blog Popup
+      const blogPopup = document.querySelector(".blog-popup");
+      const blogPopupContent = document.querySelector(".blog-popup-content");
+      const closePopup = document.querySelector(".close-popup");
+      const readMoreButtons = document.querySelectorAll(".read-more");
+
+      // Sample blog data
+      const blogs = {
+        1: {
+          title: "5 Morning Rituals to Start Your Day Right",
+          date: "Jan 15, 2025",
+          readTime: "5 min read",
+          image:
+            "https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          content: `
+                    <p>Starting your day with intention can make all the difference in your productivity and mood. Here are five simple morning rituals that can help you begin your day on the right note:</p>
+                    
+                    <h4>1. Hydrate First Thing</h4>
+                    <p>Before reaching for coffee, drink a glass of water. After 6-8 hours of sleep, your body is dehydrated. Adding lemon can help with digestion and provide vitamin C.</p>
+                    
+                    <h4>2. Practice Gratitude</h4>
+                    <p>Take 2-3 minutes to write down or mentally note three things you're grateful for. This simple practice can shift your mindset positively for the entire day.</p>
+                    
+                    <h4>3. Move Your Body</h4>
+                    <p>Even just 5-10 minutes of stretching, yoga, or a quick walk can get your blood flowing and boost your energy levels.</p>
+                    
+                    <h4>4. Mindful Breathing</h4>
+                    <p>Practice deep breathing for a few minutes. Inhale for 4 counts, hold for 4, exhale for 6. This activates your parasympathetic nervous system, reducing stress.</p>
+                    
+                    <h4>5. Plan Your Top 3</h4>
+                    <p>Identify the three most important tasks for your day. Focusing on these first ensures you accomplish what matters most.</p>
+                    
+                    <p>Remember, it's not about doing all these perfectly every day. Start with one or two that resonate with you, and build from there. Small, consistent practices create lasting change.</p>
+                `,
+        },
+        2: {
+          title: "The Benefits of a Digital Detox",
+          date: "Feb 02, 2025",
+          readTime: "7 min read",
+          image:
+            "https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          content: `
+                    <p>In our hyper-connected world, taking time away from screens and digital devices - a "digital detox" - has become essential for mental health and wellbeing. Here's why you should consider unplugging regularly:</p>
+                    
+                    <h4>Reduced Stress and Anxiety</h4>
+                    <p>Constant notifications and information overload keep our nervous systems in a state of high alert. Stepping away allows your brain to relax and reset.</p>
+                    
+                    <h4>Improved Sleep Quality</h4>
+                    <p>The blue light from screens suppresses melatonin production. A digital detox, especially before bed, can lead to deeper, more restorative sleep.</p>
+                    
+                    <h4>Enhanced Focus and Productivity</h4>
+                    <p>Without constant distractions, you'll find you can concentrate better and accomplish tasks more efficiently.</p>
+                    
+                    <h4>Deeper Personal Connections</h4>
+                    <p>When you're not distracted by devices, you can be fully present with loved ones, leading to more meaningful interactions.</p>
+                    
+                    <h4>Increased Self-Awareness</h4>
+                    <p>Time away from digital noise creates space for self-reflection and reconnecting with your own thoughts and feelings.</p>
+                    
+                    <h4>How to Start</h4>
+                    <p>Begin small with a few hours each day or one day each week. Designate tech-free zones in your home (like the bedroom) and tech-free times (like during meals). Use apps to track and limit your screen time if needed.</p>
+                    
+                    <p>Remember, the goal isn't to eliminate technology completely, but to create a healthier relationship with it where you're in control, not your devices.</p>
+                `,
+        },
+        3: {
+          title: "Self-Care Isn't Selfish: Why It's Essential",
+          date: "Mar 10, 2025",
+          readTime: "6 min read",
+          image:
+            "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          content: `
+                    <p>Many people struggle with guilt when taking time for self-care, viewing it as indulgent or selfish. However, self-care is actually a fundamental requirement for sustainable wellbeing and effectiveness in all areas of life.</p>
+                    
+                    <h4>The Oxygen Mask Principle</h4>
+                    <p>Like the airplane safety instruction to put on your own oxygen mask before assisting others, you can't effectively care for others if you're running on empty. Self-care ensures you have the physical, emotional, and mental resources to be there for those who depend on you.</p>
+                    
+                    <h4>Prevention Over Crisis Management</h4>
+                    <p>Regular self-care prevents burnout, illness, and breakdowns. It's much easier to maintain your wellbeing than to recover from complete exhaustion.</p>
+                    
+                    <h4>Modeling Healthy Behavior</h4>
+                    <p>When you prioritize self-care, you give others permission to do the same. This is especially important if you're a parent, leader, or caregiver.</p>
+                    
+                    <h4>Types of Self-Care</h4>
+                    <p>Self-care isn't just bubble baths and spa days (though those can be part of it). True self-care includes:</p>
+                    <ul>
+                        <li>Physical: Proper nutrition, exercise, sleep, medical care</li>
+                        <li>Emotional: Processing feelings, setting boundaries, saying no</li>
+                        <li>Mental: Learning, creativity, mindfulness practices</li>
+                        <li>Social: Nurturing supportive relationships</li>
+                        <li>Spiritual: Connecting with purpose and meaning</li>
+                    </ul>
+                    
+                    <h4>Making It Practical</h4>
+                    <p>Start by identifying what truly replenishes you (it's different for everyone). Schedule self-care like any other important appointment. Remember that small, consistent practices are more sustainable than occasional grand gestures.</p>
+                    
+                    <p>Self-care isn't selfish - it's self-preservation and the foundation for showing up as your best self in all areas of life.</p>
+                `,
+        },
+        4: {
+          title: "Meditation for Beginners: A Simple Guide",
+          date: "Apr 05, 2025",
+          readTime: "8 min read",
+          image:
+            "https://images.unsplash.com/photo-1593810450967-f9c42742e326?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+          content: `
+                    <p>Meditation is a powerful tool for reducing stress, improving focus, and cultivating inner peace. If you're new to meditation, this beginner's guide will help you get started.</p>
+                    
+                    <h4>What is Meditation?</h4>
+                    <p>Meditation is the practice of training your attention and awareness to achieve a mentally clear and emotionally calm state. It's not about emptying your mind, but rather observing your thoughts without judgment.</p>
+                    
+                    <h4>Benefits of Meditation</h4>
+                    <ul>
+                        <li>Reduces stress and anxiety</li>
+                        <li>Improves focus and concentration</li>
+                        <li>Enhances self-awareness</li>
+                        <li>Promotes emotional health</li>
+                        <li>May reduce age-related memory loss</li>
+                        <li>Can help with sleep issues</li>
+                    </ul>
+                    
+                    <h4>Simple Meditation Techniques for Beginners</h4>
+                    
+                    <h5>1. Breath Awareness</h5>
+                    <p>Focus on your natural breathing pattern. When your mind wanders (and it will), gently bring your attention back to your breath.</p>
+                    
+                    <h5>2. Body Scan</h5>
+                    <p>Slowly bring attention to each part of your body, noticing any sensations without judgment.</p>
+                    
+                    <h5>3. Loving-Kindness</h5>
+                    <p>Silently repeat phrases of goodwill toward yourself and others (e.g., "May I be happy, may I be healthy").</p>
+                    
+                    <h4>Tips for Success</h4>
+                    <p><strong>Start small:</strong> Even 2-5 minutes daily is beneficial. Gradually increase as you become comfortable.</p>
+                    <p><strong>Be consistent:</strong> Try to meditate at the same time each day to build the habit.</p>
+                    <p><strong>Don't judge:</strong> There's no "right" way to meditate. If your mind wanders, that's normal - just gently refocus.</p>
+                    <p><strong>Find a comfortable position:</strong> You don't have to sit cross-legged. A chair or even lying down works.</p>
+                    
+                    <p>Remember, meditation is a practice. Some days will feel easier than others, but every session benefits your mind and body.</p>
+                `,
+        },
+        5: {
+          title: "10 Tips for Better Sleep Hygiene",
+          date: "March 12, 2025",
+          readTime: "6 min read",
+          image:
+            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80",
+          content: `
+                    <p>Quality sleep is essential for physical health, mental clarity, and emotional wellbeing. These 10 sleep hygiene tips can help you get the restorative rest your body needs.</p>
+                    
+                    <h4>1. Maintain a Consistent Schedule</h4>
+                    <p>Go to bed and wake up at the same time every day, even on weekends. This regulates your body's internal clock.</p>
+                    
+                    <h4>2. Create a Relaxing Bedtime Routine</h4>
+                    <p>Wind down with calming activities like reading, gentle stretching, or meditation for 30-60 minutes before bed.</p>
+                    
+                    <h4>3. Optimize Your Sleep Environment</h4>
+                    <p>Keep your bedroom cool (60-67°F), dark, and quiet. Consider blackout curtains, earplugs, or a white noise machine.</p>
+                    
+                    <h4>4. Limit Screen Time Before Bed</h4>
+                    <p>The blue light from devices suppresses melatonin. Avoid screens at least 1 hour before bedtime.</p>
+                    
+                    <h4>5. Watch What You Consume</h4>
+                    <p>Avoid caffeine after 2pm, limit alcohol (which disrupts sleep cycles), and avoid heavy meals close to bedtime.</p>
+                    
+                    <h4>6. Get Regular Exercise</h4>
+                    <p>Daily physical activity promotes better sleep, but avoid vigorous exercise too close to bedtime.</p>
+                    
+                    <h4>7. Manage Stress</h4>
+                    <p>Practice relaxation techniques like deep breathing, journaling, or progressive muscle relaxation.</p>
+                    
+                    <h4>8. Limit Naps</h4>
+                    <p>If you must nap, keep it to 20-30 minutes in the early afternoon.</p>
+                    
+                    <h4>9. Reserve Your Bed for Sleep</h4>
+                    <p>Strengthen the mental association between bed and sleep by avoiding work, TV, or phone use in bed.</p>
+                    
+                    <h4>10. Get Sunlight Exposure</h4>
+                    <p>Natural light during the day helps regulate your sleep-wake cycle. Aim for at least 30 minutes of sunlight daily.</p>
+                    
+                    <p>Implementing even a few of these strategies can significantly improve your sleep quality. Be patient - it may take time to see results as your body adjusts to new routines.</p>
+                `,
+        },
+        6: {
+          title: "The Healing Power of Journaling",
+          date: "Jun 18, 2025",
+          readTime: "5 min read",
+          image:
+            "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80",
+          content: `
+                    <p>Journaling is more than just keeping a diary - it's a powerful tool for self-discovery, emotional processing, and personal growth. Here's how putting pen to paper can benefit your mental and emotional wellbeing.</p>
+                    
+                    <h4>Therapeutic Benefits of Journaling</h4>
+                    <ul>
+                        <li><strong>Reduces stress:</strong> Writing about worries helps get them out of your head and puts them in perspective.</li>
+                        <li><strong>Improves mood:</strong> Focusing on positive experiences cultivates gratitude and optimism.</li>
+                        <li><strong>Enhances self-awareness:</strong> Regular writing helps identify patterns in thoughts and behaviors.</li>
+                        <li><strong>Supports problem-solving:</strong> Seeing challenges on paper often reveals solutions.</li>
+                        <li><strong>Boosts memory:</strong> The act of writing helps consolidate and process experiences.</li>
+                    </ul>
+                    
+                    <h4>Journaling Techniques to Try</h4>
+                    
+                    <h5>1. Stream of Consciousness</h5>
+                    <p>Write whatever comes to mind without filtering or editing. This helps access subconscious thoughts.</p>
+                    
+                    <h5>2. Gratitude Journaling</h5>
+                    <p>List 3-5 things you're grateful for each day. This trains your brain to focus on the positive.</p>
+                    
+                    <h5>3. Prompt-Based Journaling</h5>
+                    <p>Use questions like "What am I feeling right now?" or "What challenged me today?" to guide your writing.</p>
+                    
+                    <h5>4. Bullet Journaling</h5>
+                    <p>Combine planning, tracking, and reflection in an organized system using bullet points.</p>
+                    
+                    <h5>5. Art Journaling</h5>
+                    <p>Combine writing with drawing, collage, or other creative expression.</p>
+                    
+                    <h4>Tips for Effective Journaling</h4>
+                    <p><strong>Make it a habit:</strong> Even 5-10 minutes daily can be beneficial.</p>
+                    <p><strong>Write freely:</strong> Don't worry about grammar, spelling, or making sense.</p>
+                    <p><strong>Be honest:</strong> Your journal is for your eyes only - no need to censor.</p>
+                    <p><strong>Experiment:</strong> Try different styles to find what works best for you.</p>
+                    <p><strong>Don't force it:</strong> Some days you'll write pages, others just a sentence - both are okay.</p>
+                    
+                    <p>Remember, there's no right or wrong way to journal. The most important thing is to make it a regular practice that serves your needs.</p>
+                `,
+        },
+      };
+
+      // Show Blog Popup
+      readMoreButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const blogId = button.getAttribute("data-blog-id");
+          const blog = blogs[blogId];
+
+          blogPopupContent.innerHTML = `
+                    <div class="blog-popup-img">
+                        <img src="${blog.image}" alt="${blog.title}">
+                    </div>
+                    <div class="blog-popup-info">
+                        <div class="blog-popup-meta">
+                            <span><i class="far fa-calendar"></i> ${blog.date}</span>
+                            <span><i class="far fa-clock"></i> ${blog.readTime}</span>
+                        </div>
+                        <h3>${blog.title}</h3>
+                        <div class="blog-popup-text">
+                            ${blog.content}
+                        </div>
+                    </div>
+                `;
+
+          blogPopup.classList.add("active");
+        });
+      });
+
+      // Close popups when clicking outside content
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("popup")) {
+          blogPopup.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>

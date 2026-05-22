@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our curated walking tours across Australia's most vibrant cities with Smart City Walks.">
+    <meta name="keywords" content="city walking tours, Australia urban exploration, Melbourne walks, Sydney tours, Brisbane city guides, Adelaide walking tours, Perth sightseeing, Canberra guided walks">
+    <meta name="geo.region" content="AU">
+    <meta name="geo.placename" content="Australia">
+    <title>Our Walking Tours | Smart City Walks</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #3498db;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #2980b9;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #2c3e50;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #2c3e50;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            color: white;
+        }
+        
+        .breadcrumb {
+            padding: 20px 0;
+            background-color: #f1f5f9;
+        }
+        
+        .breadcrumb ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb ul li {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb ul li:after {
+            content: '/';
+            margin-left: 10px;
+            color: #7f8c8d;
+        }
+        
+        .breadcrumb ul li:last-child:after {
+            content: '';
+        }
+        
+        .breadcrumb ul li a {
+            color: #3498db;
+        }
+        
+        /* Services Section */
+        .services-main {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: #3498db;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .service-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .service-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .service-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Cities Section */
+        .cities-section {
+            padding: 80px 0;
+            background-color: #f1f5f9;
+        }
+        
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .city-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 30px 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .city-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .city-icon {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .city-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .city-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 80px;
+            color: #3498db;
+            opacity: 0.1;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: serif;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1193&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-logo span {
+            color: #3498db;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background-color: #3498db;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bdc3c7;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #bdc3c7;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .service-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+ <header>
+    <div class="container header-container">
+        <a href="/" class="logo">Smart<span>City</span>Walks</a>
+        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/services/" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="/about/" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/blog/" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="/contact/" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Walking Tours</h1>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li>Services</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Services Main Section -->
+    <section class="services-main">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Walking Tours</h2>
+                <p>Explore Australia's cities with our expert-led walking experiences</p>
+            </div>
+            <div class="services-grid">
+                <!-- Tour 1 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Melbourne_Rankins_Lane.jpg" alt="Melbourne Laneways Tour">
+                    </div>
+                    <div class="service-content">
+                        <h3>Melbourne Laneways & Arcades</h3>
+                        <div class="service-meta">
+                            <span><i class="far fa-clock"></i> 3 hours</span>
+                            <span><i class="fas fa-user-friends"></i> Max 12 people</span>
+                        </div>
+                        <p>Discover Melbourne's famous laneway culture, street art, and hidden cafes on this immersive walking tour through the city's most vibrant alleys and historic arcades.</p>
+                        <div class="service-price">$65 AUD per person</div>
+                        <div class="service-actions">
+                           
+                            <a href="/services/" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tour 2 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1523428096881-5bd79d043006?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sydney Harbour Tour">
+                    </div>
+                    <div class="service-content">
+                        <h3>Sydney Harbour Highlights</h3>
+                        <div class="service-meta">
+                            <span><i class="far fa-clock"></i> 3.5 hours</span>
+                            <span><i class="fas fa-user-friends"></i> Max 15 people</span>
+                        </div>
+                        <p>Explore Sydney's iconic waterfront, from the Opera House to The Rocks, while learning about the city's maritime history and modern development from our knowledgeable guides.</p>
+                        <div class="service-price">$75 AUD per person</div>
+                        <div class="service-actions">
+                           
+                            <a href="/services/" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tour 3 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Brisbane Street Art Tour">
+                    </div>
+                    <div class="service-content">
+                        <h3>Brisbane Street Art & Culture</h3>
+                        <div class="service-meta">
+                            <span><i class="far fa-clock"></i> 2.5 hours</span>
+                            <span><i class="fas fa-user-friends"></i> Max 10 people</span>
+                        </div>
+                        <p>Discover Brisbane's emerging street art scene and cultural hotspots in the vibrant Fortitude Valley and West End neighborhoods with local artists as your guides.</p>
+                        <div class="service-price">$55 AUD per person</div>
+                        <div class="service-actions">
+                          
+                            <a href="/services/" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tour 4 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1524230659092-07f99a75c013?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Adelaide Heritage Tour">
+                    </div>
+                    <div class="service-content">
+                        <h3>Adelaide Heritage Walk</h3>
+                        <div class="service-meta">
+                            <span><i class="far fa-clock"></i> 2 hours</span>
+                            <span><i class="fas fa-user-friends"></i> Max 12 people</span>
+                        </div>
+                        <p>Step back in time as you explore Adelaide's colonial architecture, historic pubs, and the stories behind the city's founding and development.</p>
+                        <div class="service-price">$50 AUD per person</div>
+                        <div class="service-actions">
+                            
+                            <a href="/services/" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tour 5 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80" alt="Perth Cultural Tour">
+                    </div>
+                    <div class="service-content">
+                        <h3>Perth Cultural Precinct</h3>
+                        <div class="service-meta">
+                            <span><i class="far fa-clock"></i> 3 hours</span>
+                            <span><i class="fas fa-user-friends"></i> Max 12 people</span>
+                        </div>
+                        <p>Experience Perth's arts and culture scene with visits to the Art Gallery of WA, State Library, and other cultural institutions, plus hidden local gems.</p>
+                        <div class="service-price">$60 AUD per person</div>
+                        <div class="service-actions">
+                            
+                            <a href="/services/" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tour 6 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1133&q=80" alt="Canberra Political Walk">
+                    </div>
+                    <div class="service-content">
+                        <h3>Canberra Political Walk</h3>
+                        <div class="service-meta">
+                            <span><i class="far fa-clock"></i> 4 hours</span>
+                            <span><i class="fas fa-user-friends"></i> Max 15 people</span>
+                        </div>
+                        <p>Explore Australia's political heart with visits to Parliament House, the High Court, and other key institutions, with insights into how government works.</p>
+                        <div class="service-price">$70 AUD per person</div>
+                        <div class="service-actions">
+                           
+                            <a href="/services/" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cities Section -->
+    <section class="cities-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Our Cities</h2>
+                <p>We offer walking tours in these amazing Australian cities</p>
+            </div>
+            <div class="cities-grid">
+                <div class="city-card">
+                    <div class="city-icon">
+                        <i class="fas fa-chess-rook"></i>
+                    </div>
+                    <h3>Melbourne</h3>
+                    <p>Laneways, coffee culture & street art</p>
+                    <a href="/services/" class="btn" style="margin-top: 15px; padding: 8px 15px; font-size: 12px;">View Tours</a>
+                </div>
+                <div class="city-card">
+                    <div class="city-icon">
+                        <i class="fas fa-sailboat"></i>
+                    </div>
+                    <h3>Sydney</h3>
+                    <p>Harbour views & historic sites</p>
+                    <a href="/services/" class="btn" style="margin-top: 15px; padding: 8px 15px; font-size: 12px;">View Tours</a>
+                </div>
+                <div class="city-card">
+                    <div class="city-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3>Brisbane</h3>
+                    <p>River walks & urban culture</p>
+                    <a href="/services/" class="btn" style="margin-top: 15px; padding: 8px 15px; font-size: 12px;">View Tours</a>
+                </div>
+                <div class="city-card">
+                    <div class="city-icon">
+                        <i class="fas fa-wine-glass"></i>
+                    </div>
+                    <h3>Adelaide</h3>
+                    <p>Heritage & wine culture</p>
+                    <a href="/services/" class="btn" style="margin-top: 15px; padding: 8px 15px; font-size: 12px;">View Tours</a>
+                </div>
+                <div class="city-card">
+                    <div class="city-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h3>Perth</h3>
+                    <p>Coastal walks & urban art</p>
+                    <a href="/services/" class="btn" style="margin-top: 15px; padding: 8px 15px; font-size: 12px;">View Tours</a>
+                </div>
+                <div class="city-card">
+                    <div class="city-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>Canberra</h3>
+                    <p>Political institutions & museums</p>
+                    <a href="/services/" class="btn" style="margin-top: 15px; padding: 8px 15px; font-size: 12px;">View Tours</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tour Experiences</h2>
+                <p>What our guests say about our walking tours</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>The Melbourne laneways tour was the highlight of our trip! Our guide knew every hidden gem and had fascinating stories about the street art and local culture.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah J.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Melbourne Laneways Tour</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>We learned so much about Sydney's history on the Harbour tour. The small group size made it feel personal, and our guide was incredibly knowledgeable.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael T.</h4>
+                            <p>Sydney Harbour Tour</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>The Brisbane street art tour opened my eyes to a whole new side of the city. Our guide was an actual local artist who could explain the techniques and meanings behind the murals.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Emma L.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Emma L.</h4>
+                            <p>Brisbane Street Art Tour</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Explore Australia's Cities?</h2>
+            <p>Book your walking tour today and experience Australian cities like a local with our expert guides.</p>
+            <a href="/contact/" class="btn">Contact Us</a>
+            <a href="/services/" class="btn btn-secondary">View All Tours</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Smart<span>City</span>Walks</div>
+                    <p>Helping people discover Australia's urban landscapes through curated walking tours and city guides since 2018.</p>
+                    <div class="social-links">
+                                             <a target="_blank" href="https://facebook.com/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a target="_blank" href="https://instagram.com/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a target="_blank" href="https://twitter.com/" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a target="_blank" href="https://linkedin.com/company/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Tours & Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog & Guides</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Popular Tours</h3>
+                    <ul>
+                        <li><a href="/services/">Melbourne Laneways</a></li>
+                        <li><a href="/services/">Sydney Harbour</a></li>
+                        <li><a href="/services/">Brisbane Riverwalk</a></li>
+                        <li><a href="/services/">Adelaide Heritage</a></li>
+                        <li><a href="/services/">Perth Cultural</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                   <h3 style="color: white;">Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Level 10/50 Pitt St, Sydney NSW 2000, Australia</p>
+                    <p><i class="fas fa-phone"></i> +61 2 80807900</p>
+                    <p><i class="fas fa-envelope"></i> hello@smartcitywalks.org</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9am-5pm | Sat: 10am-4pm</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Smart City Walks. All Rights Reserved. | <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>

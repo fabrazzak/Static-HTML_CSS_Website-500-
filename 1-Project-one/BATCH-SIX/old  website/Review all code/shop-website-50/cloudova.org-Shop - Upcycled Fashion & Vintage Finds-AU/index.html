@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloudova - Upcycled Fashion & Vintage Finds</title>
+    <meta
+      name="description"
+      content="Discover unique upcycled fashion pieces and vintage finds at Cloudova. Sustainable style with a story."
+    />
+    <meta
+      name="keywords"
+      content="upcycled fashion, vintage clothing, sustainable fashion, recycled style, eco-friendly clothing, secondhand fashion, unique vintage finds"
+    />
+    <link rel="stylesheet" href="./css/cart.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #5e493a;
+        --secondary-color: #d4a373;
+        --accent-color: #fefae0;
+        --text-color: #333;
+        --light-text: #777;
+        --bg-light: #f8f9fa;
+        --white: #fff;
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        background-color: var(--bg-light);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--transition);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .btn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+        font-size: 2.2rem;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color);
+        margin: 15px auto 0;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      nav ul {
+        display: flex;
+        gap: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        font-size: 1.2rem;
+      }
+
+      .nav-icons .cart-icon {
+        position: relative;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80")
+            no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        margin-top: 80px;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      /* About Section */
+      .about {
+        background-color: var(--white);
+      }
+
+      .about-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+      }
+
+      .about-img {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      /* Featured Products */
+      .featured-products .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .product-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-img {
+        height: 300px;
+        overflow: hidden;
+      }
+
+      .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-img img {
+        transform: scale(1.05);
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .product-price {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+
+      /* Why Choose Us */
+      .why-choose-us {
+        background-color: var(--accent-color);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+      }
+
+      .feature-item {
+        text-align: center;
+        padding: 30px 20px;
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+
+      .feature-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+
+      /* Testimonials */
+      .testimonials .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .testimonial-card {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .testimonial-card::before {
+        content: "\201C";
+        font-family: Georgia, serif;
+        font-size: 4rem;
+        color: var(--secondary-color);
+        opacity: 0.2;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+      .testimonial-text {
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+      }
+
+      .author-info h4 {
+        margin-bottom: 5px;
+        font-size: 1rem;
+      }
+
+      .author-info p {
+        font-size: 0.9rem;
+        color: var(--light-text);
+        margin-bottom: 0;
+      }
+
+      /* Blog Highlights */
+      .blog-highlights .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .blog-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .blog-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .blog-content {
+        padding: 20px;
+      }
+
+      .blog-date {
+        font-size: 0.9rem;
+        color: var(--light-text);
+        margin-bottom: 10px;
+      }
+
+      .blog-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .blog-excerpt {
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .newsletter h2 {
+        margin-bottom: 20px;
+      }
+
+      .newsletter p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+      }
+
+      .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        font-family: inherit;
+      }
+
+      .newsletter-form .btn {
+        border-radius: 0 4px 4px 0;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-col h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--secondary-color);
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+      }
+
+      /* Popup Styles */
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .popup.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .popup-content {
+        background-color: var(--white);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 40px;
+        border-radius: 8px;
+        position: relative;
+      }
+
+      .popup-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      .popup-img {
+        width: 100%;
+        height: 300px;
+        margin-bottom: 20px;
+        overflow: hidden;
+      }
+
+      .popup-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .hero h1 {
+          font-size: 3rem;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+
+        .about-img,
+        .about-text {
+          flex: none;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          transition: var(--transition);
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+          padding: 30px 0;
+          height: 100%;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .newsletter-form input {
+          border-radius: 4px;
+          margin-bottom: 10px;
+        }
+
+        .newsletter-form .btn {
+          border-radius: 4px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .btn {
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Cloudova<span>.</span></a>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-icons">
+          <a href="/shop/" aria-label="Search"><i class="fas fa-search"></i></a>
+          <a href="/shop/" aria-label="User Account"
+            ><i class="fas fa-user"></i
+          ></a>
+          <a
+            href="javascript.:void(0)"
+            class="cart-icon"
+            id="cartIcon"
+            aria-label="Shopping Cart"
+          >
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <h1>Rediscover Timeless Style with Upcycled Fashion</h1>
+        <p>
+          Each piece in our collection tells a story of sustainability and
+          unique craftsmanship.
+        </p>
+        <a href="/shop/" class="btn">Shop Now</a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about">
+      <div class="container">
+        <div class="about-content">
+          <div class="about-img">
+            <img
+              src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              alt="About Cloudova"
+            />
+          </div>
+          <div class="about-text">
+            <h2>Our Story</h2>
+            <p>
+              Founded in 2022, Cloudova began as a small passion project with a
+              big vision: to redefine fashion by giving pre-loved and vintage
+              items a new life through creative upcycling.
+            </p>
+            <p>
+              We believe that sustainable fashion shouldn't compromise on style.
+              Our team of designers carefully selects each vintage piece and
+              transforms it into something truly special, blending the charm of
+              the past with contemporary aesthetics.
+            </p>
+            <p>
+              Every item in our collection is unique, just like you. By choosing
+              Cloudova, you're not just wearing fashion - you're wearing a story
+              and making a positive impact on our planet.
+            </p>
+            <a href="/about/" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="section featured-products">
+      <div class="container">
+        <h2 class="section-title">Featured Collections</h2>
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                alt="Upcycled Denim Jacket"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Reconstructed Denim Jacket</h3>
+              <p class="product-price">$89.99</p>
+              <a href="/shop/" class="btn">View Details</a>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                alt="Vintage Floral Dress"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Vintage Floral Maxi Dress</h3>
+              <p class="product-price">$75.50</p>
+              <a href="/shop/" class="btn">View Details</a>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80"
+                alt="Patchwork Skirt"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Patchwork Midi Skirt</h3>
+              <p class="product-price">$65.00</p>
+              <a href="/shop/" class="btn">View Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center" style="margin-top: 40px">
+          <a href="/shop/" class="btn">View All Products</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section why-choose-us">
+      <div class="container">
+        <h2 class="section-title">Why Choose Cloudova</h2>
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3>Sustainable Fashion</h3>
+            <p>
+              Each piece is carefully upcycled or sourced vintage, reducing
+              textile waste and environmental impact.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>Unique Pieces</h3>
+            <p>
+              Our collection features one-of-a-kind items you won't find
+              anywhere else. Stand out from the crowd.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Ethical Production</h3>
+            <p>
+              We partner with local artisans and pay fair wages for all
+              upcycling and restoration work.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3>Carbon Neutral Shipping</h3>
+            <p>
+              We offset all shipping emissions to minimize our environmental
+              footprint.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+      <div class="container">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "I absolutely adore my upcycled denim jacket from Cloudova. The
+              quality is amazing and I love that it's sustainable. I get
+              compliments every time I wear it!"
+            </p>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  alt="Sarah J."
+                />
+              </div>
+              <div class="author-info">
+                <h4>Sarah J.</h4>
+                <p>Melbourne, Australia</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "The vintage dress I purchased was even more beautiful in person.
+              Cloudova's attention to detail in restoring these pieces is
+              remarkable. Will definitely shop again!"
+            </p>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                  alt="Michael T."
+                />
+              </div>
+              <div class="author-info">
+                <h4>Michael T.</h4>
+                <p>Sydney, Australia</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "I love that I can find unique fashion pieces while supporting
+              sustainable practices. Cloudova makes it easy to shop ethically
+              without sacrificing style."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80"
+                  alt="Emma L."
+                />
+              </div>
+              <div class="author-info">
+                <h4>Emma L.</h4>
+                <p>Brisbane, Australia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Highlights Section -->
+    <section class="section blog-highlights">
+      <div class="container">
+        <h2 class="section-title">From Our Journal</h2>
+        <div class="blog-grid">
+          <!-- Blog 1 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Sustainable Fashion"
+              />
+            </div>
+            <div class="blog-content">
+              <p class="blog-date">April 15, 2025</p>
+              <h3>The Art of Upcycling: Transforming Vintage Finds</h3>
+              <p class="blog-excerpt">
+                Discover how our designers breathe new life into vintage
+                clothing through creative upcycling techniques...
+              </p>
+              <a
+                href="javascript.:void(0)"
+                class="btn btn-outline read-more-btn"
+                data-blog-id="1"
+                >Read More</a
+              >
+            </div>
+          </div>
+
+          <!-- Blog 2 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Vintage Shopping"
+              />
+            </div>
+            <div class="blog-content">
+              <p class="blog-date">March 28, 2025</p>
+              <h3>How to Build a Sustainable Wardrobe</h3>
+              <p class="blog-excerpt">
+                Learn practical tips for transitioning to a more sustainable
+                wardrobe without compromising your personal style...
+              </p>
+              <a
+                href="javascript.:void(0)"
+                class="btn btn-outline read-more-btn"
+                data-blog-id="2"
+                >Read More</a
+              >
+            </div>
+          </div>
+
+          <!-- Blog 3 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Fashion Trends"
+              />
+            </div>
+            <div class="blog-content">
+              <p class="blog-date">March 10, 2025</p>
+              <h3>Vintage Trends Making a Comeback in 2025</h3>
+              <p class="blog-excerpt">
+                Explore the vintage fashion trends from past decades that are
+                returning to the spotlight this year...
+              </p>
+              <a
+                href="javascript.:void(0)"
+                class="btn btn-outline read-more-btn"
+                data-blog-id="3"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="text-center" style="margin-top: 40px">
+          <a href="/blog/" class="btn">View All Articles</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter">
+      <div class="container">
+        <h2>Join Our Sustainable Style Community</h2>
+        <p>
+          Subscribe to our newsletter for exclusive offers, styling tips, and
+          early access to new collections.
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <!-- Column 1 -->
+          <div class="footer-col">
+            <h3>Cloudova</h3>
+            <p>
+              Rediscover timeless style with our curated collection of upcycled
+              fashion and vintage finds. Sustainable fashion with a story.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="footer-col">
+            <h3>Customer Service</h3>
+            <ul class="footer-links">
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+              <li><a href="/contact/">Returns & Exchanges</a></li>
+              <li><a href="/contact/">FAQs</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="footer-col">
+            <h3>Contact Us</h3>
+            <address>
+              15 Arthur St<br />
+              Darkan WA 6392<br />
+              Australia<br /><br />
+              Phone: +61418445879<br />
+              Email: info@cloudova.org
+            </address>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Cloudova. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Blog Popup -->
+    <div class="popup" id="blogPopup">
+      <div class="popup-content">
+        <span class="popup-close" id="popupClose">&times;</span>
+        <div class="popup-img">
+          <img id="popupBlogImg" src="" alt="Blog Image" />
+        </div>
+        <h2 id="popupBlogTitle"></h2>
+        <p class="blog-date" id="popupBlogDate"></p>
+        <div id="popupBlogContent">
+          <!-- Content will be inserted here by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <span class="cart-close" id="cartClose">&times;</span>
+      </div>
+
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be added here by JavaScript -->
+        <div class="empty-cart">
+          <i class="fas fa-shopping-bag"></i>
+          <p>Your cart is empty</p>
+          <a href="/shop/" class="btn">Continue Shopping</a>
+        </div>
+      </div>
+
+      <div class="cart-total" id="cartTotal" style="display: none">
+        <div class="cart-total-row">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <div class="cart-total-row">
+          <span>Shipping</span>
+          <span>Calculated at checkout</span>
+        </div>
+        <div class="cart-total-row total">
+          <span>Total</span>
+          <span id="cartTotalAmount">$0.00</span>
+        </div>
+        <button class="btn checkout-btn" id="checkoutBtn">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+      <div class="checkout-content">
+        <span class="checkout-close" id="checkoutClose">&times;</span>
+        <h2>Checkout</h2>
+        <form class="checkout-form" id="checkoutForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required />
+          </div>
+          <div class="form-group">
+            <label for="address">Shipping Address</label>
+            <textarea id="address" required></textarea>
+          </div>
+          <p class="payment-note">Payment will be made upon delivery.</p>
+          <button type="submit" class="btn">Place Order</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Order Confirmation -->
+    <div class="order-confirmation" id="orderConfirmation">
+      <div class="confirmation-content">
+        <div class="confirmation-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Thank You!</h2>
+        <p>
+          Your order has been successfully placed. We'll contact you soon with
+          delivery details.
+        </p>
+        <a href="/shop/" class="btn">Continue Shopping</a>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="./js/cart.js"></script>
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = mainNav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Close mobile menu when clicking on a link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mainNav.classList.contains("active")) {
+            mainNav.classList.remove("active");
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      });
+
+      // Blog Popup Functionality
+      const readMoreBtns = document.querySelectorAll(".read-more-btn");
+      const blogPopup = document.getElementById("blogPopup");
+      const popupClose = document.getElementById("popupClose");
+      const popupBlogImg = document.getElementById("popupBlogImg");
+      const popupBlogTitle = document.getElementById("popupBlogTitle");
+      const popupBlogDate = document.getElementById("popupBlogDate");
+      const popupBlogContent = document.getElementById("popupBlogContent");
+
+      // Blog data
+      const blogs = {
+        1: {
+          img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          title: "The Art of Upcycling: Transforming Vintage Finds",
+          date: "April 15, 2025",
+          content: `
+                    <p>At Cloudova, we believe that every piece of clothing has a story to tell and potential for new life. Our upcycling process begins with carefully selecting high-quality vintage garments that have stood the test of time but might need a little refresh to suit contemporary tastes.</p>
+                    
+                    <p>Our design team, led by creative director Maria Chen, examines each piece for its unique qualities - the fabric, the cut, the original craftsmanship. "We look for garments with good bones," Maria explains. "The best candidates are those made from quality materials with interesting details that we can highlight or reinterpret."</p>
+                    
+                    <p>The transformation process varies with each item. Sometimes it's as simple as replacing buttons or repairing seams. Other times, we might combine elements from multiple garments to create something entirely new. One of our most popular items, the Reconstructed Denim Jacket, is made by combining vintage denim from three different sources to create a truly unique piece.</p>
+                    
+                    <p>We also pay special attention to sustainability throughout our process. All fabric scraps are saved and either repurposed into smaller accessories or recycled through textile recycling programs. Our dyes are low-impact and water-based, and we use natural materials whenever possible.</p>
+                    
+                    <p>The result? One-of-a-kind fashion pieces that blend vintage charm with modern style, all while reducing textile waste and supporting sustainable practices in the fashion industry.</p>
+                `,
+        },
+        2: {
+          img: "https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          title: "How to Build a Sustainable Wardrobe",
+          date: "March 28, 2025",
+          content: `
+                    <p>Transitioning to a sustainable wardrobe doesn't mean you have to sacrifice style or completely overhaul your closet overnight. Here are our top tips for building a wardrobe that's both fashionable and eco-friendly:</p>
+                    
+                    <h4>1. Start with What You Have</h4>
+                    <p>Before buying anything new, take inventory of what you already own. Many of us wear only 20% of our clothes 80% of the time. Rediscover forgotten pieces and consider how they might be restyled or altered to better suit your current taste.</p>
+                    
+                    <h4>2. Embrace Secondhand First</h4>
+                    <p>When you do need to add to your wardrobe, make vintage and secondhand your first stop. Not only does this reduce demand for new clothing production, but you'll often find higher quality items at a fraction of the price.</p>
+                    
+                    <h4>3. Look for Quality Over Quantity</h4>
+                    <p>Invest in well-made pieces that will last. Check seams, fabric quality, and construction details. A slightly more expensive item that lasts for years is more sustainable than cheap fast fashion that falls apart after a few wears.</p>
+                    
+                    <h4>4. Care for Your Clothes Properly</h4>
+                    <p>Extend the life of your garments by washing them less frequently, using cold water, and air drying when possible. Learn basic mending skills to repair small issues before they become big problems.</p>
+                    
+                    <h4>5. Develop a Personal Style</h4>
+                    <p>Instead of chasing every trend, focus on building a wardrobe that reflects your personal aesthetic. You'll be less tempted by impulse purchases and more satisfied with what you own.</p>
+                    
+                    <p>Remember, sustainability is a journey, not a destination. Every small choice makes a difference!</p>
+                `,
+        },
+        3: {
+          img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          title: "Vintage Trends Making a Comeback in 2025",
+          date: "March 10, 2025",
+          content: `
+                    <p>Fashion is cyclical, and 2025 is seeing some exciting vintage trends return to the spotlight. Here are the retro styles we're loving this year:</p>
+                    
+                    <h4>1. 70s Bohemian</h4>
+                    <p>The free-spirited styles of the 1970s are back with a modern twist. Look for flowy maxi dresses, crochet details, and earthy color palettes. Our upcycled versions use vintage fabrics with contemporary silhouettes for the perfect balance.</p>
+                    
+                    <h4>2. 90s Minimalism</h4>
+                    <p>Clean lines, neutral tones, and simple shapes reminiscent of 90s fashion are having a moment. We're seeing particular demand for vintage slip dresses and tailored separates that work for both office and evening wear.</p>
+                    
+                    <h4>3. 50s Feminine Details</h4>
+                    <p>Sweetheart necklines, full skirts, and delicate florals from the 1950s are making a comeback. We love updating these pieces with modern accessories and styling for a fresh take on classic femininity.</p>
+                    
+                    <h4>4. 80s Power Shoulders</h4>
+                    <p>The bold silhouettes of the 1980s are returning, but in a more wearable way. Look for structured blazers and dresses with subtle shoulder padding that adds confidence without going full Dynasty.</p>
+                    
+                    <h4>5. 60s Mod</h4>
+                    <p>Graphic patterns, shift dresses, and bold color blocking from the swinging 60s are appearing in contemporary collections. Our upcycled versions often combine vintage mod fabrics with updated cuts.</p>
+                    
+                    <p>The best part about these vintage trends? When you shop them secondhand or upcycled, you're not just following fashion - you're making a sustainable choice that honors fashion history while reducing waste.</p>
+                `,
+        },
+      };
+
+      // Open popup with blog content
+      readMoreBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const blogId = btn.getAttribute("data-blog-id");
+          const blog = blogs[blogId];
+
+          popupBlogImg.src = blog.img;
+          popupBlogImg.alt = blog.title;
+          popupBlogTitle.textContent = blog.title;
+          popupBlogDate.textContent = blog.date;
+          popupBlogContent.innerHTML = blog.content;
+
+          blogPopup.classList.add("active");
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      // Close popup
+      popupClose.addEventListener("click", () => {
+        blogPopup.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+
+      // Close popup when clicking outside content
+      blogPopup.addEventListener("click", (e) => {
+        if (e.target === blogPopup) {
+          blogPopup.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      });
+
+      // Simple cart count functionality (will be expanded in shop pages)
+      const cartCount = document.querySelector(".cart-count");
+      let count = 0;
+
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("add-to-cart")) {
+          e.preventDefault();
+          count++;
+          cartCount.textContent = count;
+
+          // Show temporary notification
+          const notification = document.createElement("div");
+          notification.style.position = "fixed";
+          notification.style.bottom = "20px";
+          notification.style.right = "20px";
+          notification.style.backgroundColor = "var(--secondary-color)";
+          notification.style.color = "white";
+          notification.style.padding = "10px 20px";
+          notification.style.borderRadius = "4px";
+          notification.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+          notification.style.zIndex = "1000";
+          notification.textContent = "Item added to cart!";
+
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            notification.style.opacity = "0";
+            notification.style.transition = "opacity 0.5s ease";
+            setTimeout(() => {
+              document.body.removeChild(notification);
+            }, 500);
+          }, 2000);
+        }
+      });
+    </script>
+  </body>
+</html>

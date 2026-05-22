@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournaments - ServeWatch Tennis News</title>
+    <meta name="description" content="Comprehensive coverage of all major tennis tournaments including Grand Slams, ATP, and WTA events.">
+    <meta name="keywords" content="tennis tournaments, Grand Slam, ATP tour, WTA tour, tennis schedule, tournament results">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 700;
+            color: #1a3e72;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6b00;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #e05d00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #ff6b00;
+            color: #ff6b00;
+        }
+        
+        .btn-outline:hover {
+            background-color: #ff6b00;
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a3e72;
+        }
+        
+        .logo span {
+            color: #ff6b00;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff6b00;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a3e72;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://sportskhabri.com/wp-content/uploads/2025/04/Mirra-Andreeva-op-ed-piece.webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Tournaments Section */
+        .tournaments {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+        
+        .tournament-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: #f5f7fa;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .tab-btn.active {
+            background-color: #ff6b00;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tournament-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .tournament-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .tournament-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tournament-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .tournament-content {
+            padding: 20px;
+        }
+        
+        .tournament-date {
+            display: flex;
+            align-items: center;
+            color: #ff6b00;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .tournament-date i {
+            margin-right: 8px;
+        }
+        
+        .tournament-content h3 {
+            margin-bottom: 15px;
+        }
+        
+        .tournament-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .tournament-details span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .tournament-details i {
+            margin-right: 5px;
+            color: #666;
+        }
+        
+        /* Current Tournaments */
+        .current-tournaments {
+            padding: 60px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .current-tournament {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .current-tournament-img {
+            width: 300px;
+            object-fit: cover;
+        }
+        
+        .current-tournament-content {
+            padding: 30px;
+            flex: 1;
+        }
+        
+        .current-tournament-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .tournament-status {
+            background-color: #ff6b00;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .current-tournament-schedule {
+            margin-bottom: 20px;
+        }
+        
+        .schedule-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .schedule-day {
+            font-weight: 500;
+            width: 100px;
+        }
+        
+        /* Tournament Stats */
+        .tournament-stats {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6b00;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a3e72;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: #ff6b00;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #ff6b00;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #ff6b00;
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-contact i {
+            color: #ff6b00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .tournament-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .current-tournament {
+                flex-direction: column;
+            }
+            
+            .current-tournament-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .tournament-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Serve<span>Watch</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/tournaments/">Tournaments</a></li>
+                    <li><a href="/players/">Players</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Tennis Tournaments</h1>
+            <p>Comprehensive coverage of all major ATP, WTA, and Grand Slam tournaments around the world.</p>
+        </div>
+    </section>
+
+    <!-- Tournaments Section -->
+    <section class="tournaments">
+        <div class="container">
+            <h2 class="section-title">Upcoming Tournaments</h2>
+            
+            <div class="tournament-tabs">
+                <button class="tab-btn active" data-tab="grand-slams">Grand Slams</button>
+                <button class="tab-btn" data-tab="atp-tour">ATP Tour</button>
+                <button class="tab-btn" data-tab="wta-tour">WTA Tour</button>
+                <button class="tab-btn" data-tab="challengers">Challengers</button>
+            </div>
+            
+            <div class="tab-content active" id="grand-slams">
+                <div class="tournament-grid">
+                    <div class="tournament-card">
+                        <img src="https://www.atptour.com/-/media/2024-images/news/2023/01/30/13/01/australian-open-2023-tournament-image.jpg" alt="Australian Open" class="tournament-img">
+                        <div class="tournament-content">
+                            <div class="tournament-date">
+                               
+                            </div>
+                            <h3>Australian Open</h3>
+                            <p>The first Grand Slam of the year held in Melbourne, known for its hard courts and extreme summer heat.</p>
+                            <div class="tournament-details">
+                                <span><i class="fas fa-map-marker-alt"></i> Melbourne, Australia</span>
+                                <span><i class="fas fa-trophy"></i> $50M Prize Money</span>
+                            </div>
+                            <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-card">
+                        <img src="https://images.prismic.io/fft-rg-commun-news/31ab21668b9052092b731128b908e37403da7d08_roland-garros-2018-rafael-nadal-news.jpg?auto=compress,format" alt="Roland Garros" class="tournament-img">
+                        <div class="tournament-content">
+                            <div class="tournament-date">
+                                
+                            </div>
+                            <h3>Roland Garros</h3>
+                            <p>The French Open is the premier clay court championship held at Stade Roland Garros in Paris.</p>
+                            <div class="tournament-details">
+                                <span><i class="fas fa-map-marker-alt"></i> Paris, France</span>
+                                <span><i class="fas fa-trophy"></i> $48M Prize Money</span>
+                            </div>
+                            <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Wimbledon_2019_Nadal_v_Sousa.jpg/1200px-Wimbledon_2019_Nadal_v_Sousa.jpg" alt="Wimbledon" class="tournament-img">
+                        <div class="tournament-content">
+                            <div class="tournament-date">
+                               
+                            </div>
+                            <h3>Wimbledon</h3>
+                            <p>The oldest tennis tournament in the world and the only Grand Slam still played on grass courts.</p>
+                            <div class="tournament-details">
+                                <span><i class="fas fa-map-marker-alt"></i> London, UK</span>
+                                <span><i class="fas fa-trophy"></i> $52M Prize Money</span>
+                            </div>
+                            <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="atp-tour">
+                <div class="tournament-grid">
+                    <div class="tournament-card">
+                        <img src="https://www.atptour.com/-/media/2024-images/atp-tournaments/tournament-images/rotterdam_tournimage_2022.jpg" alt="ATP Rotterdam" class="tournament-img">
+                        <div class="tournament-content">
+                            <div class="tournament-date">
+                               
+                            </div>
+                            <h3>ABN AMRO World Tennis Tournament</h3>
+                            <p>ATP 500 event held in Rotterdam, Netherlands featuring top players on indoor hard courts.</p>
+                            <div class="tournament-details">
+                                <span><i class="fas fa-map-marker-alt"></i> Rotterdam, Netherlands</span>
+                                <span><i class="fas fa-trophy"></i> €2.1M Prize Money</span>
+                            </div>
+                            <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        </div>
+                    </div>
+                    
+                    <div class="tournament-card">
+                        <img src="https://bnpparibasopen.com/images/bnp-paribas-open-social.jpg" alt="Indian Wells" class="tournament-img">
+                        <div class="tournament-content">
+                            <div class="tournament-date">
+                                <i class="far fa-calendar-alt"></i> Mar 6 - 16, 2025
+                            </div>
+                            <h3>BNP Paribas Open</h3>
+                            <p>Often called the "Fifth Grand Slam," this ATP Masters 1000 event is held in Indian Wells, California.</p>
+                            <div class="tournament-details">
+                                <span><i class="fas fa-map-marker-alt"></i> Indian Wells, USA</span>
+                                <span><i class="fas fa-trophy"></i> $9.5M Prize Money</span>
+                            </div>
+                            <a href="/tournaments/" class="btn btn-outline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Tournaments -->
+    <section class="current-tournaments">
+        <div class="container">
+            <h2 class="section-title">Currently Running Tournaments</h2>
+            
+            <div class="current-tournament">
+                <img src="https://www.atptour.com/-/media/2024-images/atp-tournaments/tournament-images/doha_tournimage19.jpg" alt="Qatar Open" class="current-tournament-img">
+                <div class="current-tournament-content">
+                    <div class="current-tournament-header">
+                        <h3>Qatar ExxonMobil Open</h3>
+                        <span class="tournament-status">Live Now</span>
+                    </div>
+                   
+                    <p>The Qatar Open is an ATP 250 tournament held in Doha featuring some of the world's top players as they prepare for the Australian Open.</p>
+                    
+                    <div class="current-tournament-schedule">
+                        <div class="schedule-item">
+                            <div class="schedule-day">Today:</div>
+                            <div>Semifinals - Center Court starts at 16:00 local time</div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-day">Tomorrow:</div>
+                            <div>Finals - Center Court starts at 18:00 local time</div>
+                        </div>
+                    </div>
+                    
+                    <a href="/tournaments/" class="btn">Follow Live Scores</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournament Stats -->
+    <section class="tournament-stats">
+        <div class="container">
+            <h2 class="section-title">Tournament Statistics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <h3>Grand Slam Tournaments</h3>
+                    <p>The most prestigious events in tennis held annually in Australia, France, UK, and USA</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <h3>ATP Masters 1000</h3>
+                    <p>Top-tier ATP tournaments second only to the Grand Slams in ranking points</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">175+</div>
+                    <h3>Total Tournaments</h3>
+                    <p>ATP, WTA, and Challenger events held worldwide each season</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Serve<span>Watch</span></div>
+                    <p>Your premier source for comprehensive tennis news, scores, and analysis from around the globe.</p>
+                    <div class="social-links">
+                    <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+               
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">Latest News</a></li>
+                        <li><a href="/tournaments/">Tournaments</a></li>
+                        <li><a href="/players/">Player Rankings</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                       <li><a href="/contact/">FAQ</a></li>
+                        <li><a href="/contact/">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@servewatch.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ServeWatch. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Tournament Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

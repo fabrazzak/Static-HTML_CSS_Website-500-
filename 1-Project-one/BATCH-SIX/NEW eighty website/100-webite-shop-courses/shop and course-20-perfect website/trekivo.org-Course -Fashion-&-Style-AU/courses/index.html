@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse all fashion and style courses offered by Trekivo. Learn personal styling, fashion trends, wardrobe essentials and more from industry experts.">
+    <meta name="keywords" content="fashion courses, style courses, personal styling, fashion trends, wardrobe essentials, online fashion education, Australia fashion courses">
+    <title>Fashion & Style Courses | Trekivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .btn-outline:hover {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: #ff6b6b;
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+        
+        .logo span {
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ff6b6b;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Course Categories */
+        .course-categories {
+            background-color: white;
+            padding: 30px 0;
+            margin-top: 80px;
+        }
+        
+        .categories-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        /* Courses Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .course-card:hover .course-img img {
+            transform: scale(1.1);
+        }
+        
+        .course-info {
+            padding: 20px;
+        }
+        
+        .course-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .course-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        /* Course Details */
+        .course-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .course-price {
+            font-weight: 700;
+            color: #ff6b6b;
+            font-size: 1.2rem;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .pagination a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a:hover, .pagination a.active {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #ff6b6b;
+        }
+        
+        .modal-course-img {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .modal-course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-course-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .modal-course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* What You'll Learn */
+        .learn-list {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        
+        .learn-list li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .learn-list li::before {
+            content: '✓';
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: #ff6b6b;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #ff6b6b;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #ff6b6b;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Animations */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            section {
+                padding: 40px 0;
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Trekivo<span>Fashion</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/courses/">Courses</a></li>
+                    <li><a href="/pricing/">Pricing</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/faq/">Faq</a></li>
+   <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Course Categories -->
+    <section class="course-categories">
+        <div class="container">
+            <div class="categories-container">
+                <button class="category-btn active">All Courses</button>
+                <button class="category-btn">Personal Styling</button>
+                <button class="category-btn">Fashion Trends</button>
+                <button class="category-btn">Wardrobe Essentials</button>
+                <button class="category-btn">Sustainable Fashion</button>
+                <button class="category-btn">Beginner Friendly</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>All Fashion & Style Courses</h2>
+                <p>Browse our comprehensive selection of fashion courses designed to elevate your style knowledge and skills.</p>
+            </div>
+            <div class="course-grid">
+                <!-- Course 1 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Personal Styling Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Personal Styling Fundamentals</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 6 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                        </div>
+                        <p>Develop your unique style identity and learn to dress for any occasion with confidence in this comprehensive course.</p>
+                        <div class="course-details">
+                            <span class="course-price">$149</span>
+                            <button class="btn course-detail-btn" data-course="1">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fashion Trends Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Understanding Fashion Trends</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 4 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+                        </div>
+                        <p>Learn to identify, interpret, and incorporate current fashion trends into your personal style effectively.</p>
+                        <div class="course-details">
+                            <span class="course-price">$129</span>
+                            <button class="btn course-detail-btn" data-course="2">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wardrobe Essentials Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Wardrobe Essentials Masterclass</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 5 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                        </div>
+                        <p>Build a timeless wardrobe with key pieces that work for your body type, lifestyle, and personal aesthetic.</p>
+                        <div class="course-details">
+                            <span class="course-price">$139</span>
+                            <button class="btn course-detail-btn" data-course="3">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 4 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sustainable Fashion Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Sustainable Fashion: Style Consciously</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 4 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> All Levels</span>
+                        </div>
+                        <p>Discover how to build an eco-friendly wardrobe without sacrificing style or quality.</p>
+                        <div class="course-details">
+                            <span class="course-price">$119</span>
+                            <button class="btn course-detail-btn" data-course="4">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 5 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Color Theory Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Color Theory for Fashion</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 3 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                        </div>
+                        <p>Master color combinations and learn how to create harmonious outfits using color theory principles.</p>
+                        <div class="course-details">
+                            <span class="course-price">$99</span>
+                            <button class="btn course-detail-btn" data-course="5">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 6 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Business Attire Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Professional Style & Business Attire</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 4 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+                        </div>
+                        <p>Elevate your professional image with appropriate business attire that reflects your personal brand.</p>
+                        <div class="course-details">
+                            <span class="course-price">$129</span>
+                            <button class="btn course-detail-btn" data-course="6">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 7 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Seasonal Transition Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>Seasonal Wardrobe Transitions</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 3 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                        </div>
+                        <p>Learn how to smoothly transition your wardrobe between seasons while maximizing your existing pieces.</p>
+                        <div class="course-details">
+                            <span class="course-price">$99</span>
+                            <button class="btn course-detail-btn" data-course="7">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 8 -->
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Accessorizing Course">
+                    </div>
+                    <div class="course-info">
+                        <h3>The Art of Accessorizing</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 2 weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> All Levels</span>
+                        </div>
+                        <p>Discover how to elevate any outfit with the perfect accessories to complete your look.</p>
+                        <div class="course-details">
+                            <span class="course-price">$79</span>
+                            <button class="btn course-detail-btn" data-course="8">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Trekivo Fashion</h3>
+                    <p>Australia's premier online platform for fashion education, helping you develop your personal style and fashion expertise.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://pinterest.com/" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/courses/">Courses</a></li>
+                        <li><a href="/pricing/">Pricing</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/faq/">Faq</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Courses</h3>
+                    <ul>
+                        <li><a href="/courses/">Personal Styling</a></li>
+                        <li><a href="/courses/">Fashion Trends</a></li>
+                        <li><a href="/courses/">Wardrobe Essentials</a></li>
+                        <li><a href="/courses/">Sustainable Fashion</a></li>
+                        <li><a href="/courses/">All Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 1 Beach St, Fremantle WA 6160, Australia</li>
+                        <li><i class="fas fa-phone"></i> +61862565662</li>
+                        <li><i class="fas fa-envelope"></i> info@trekivo.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Trekivo Fashion. All rights reserved. | <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Course Detail Modal -->
+    <div class="modal" id="courseModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-course-img">
+                <img id="modalCourseImage" src="" alt="Course Image">
+            </div>
+            <h2 id="modalCourseTitle"></h2>
+            <div class="modal-course-meta">
+                <span><i class="far fa-clock"></i> <span id="modalCourseDuration"></span></span>
+                <span><i class="fas fa-user-graduate"></i> <span id="modalCourseLevel"></span></span>
+                <span><i class="fas fa-dollar-sign"></i> <span id="modalCoursePrice"></span></span>
+            </div>
+            <div id="modalCourseDetails"></div>
+            <div class="form-group" style="margin-top: 30px;">
+                <a href="/contact/" class="btn">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        
+        // Course Modal
+        const courseModal = document.getElementById('courseModal');
+        const courseDetailBtns = document.querySelectorAll('.course-detail-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const modalCourseTitle = document.getElementById('modalCourseTitle');
+        const modalCourseImage = document.getElementById('modalCourseImage');
+        const modalCourseDetails = document.getElementById('modalCourseDetails');
+        const modalCourseDuration = document.getElementById('modalCourseDuration');
+        const modalCourseLevel = document.getElementById('modalCourseLevel');
+        const modalCoursePrice = document.getElementById('modalCoursePrice');
+        
+        // Course data
+        const courses = {
+            1: {
+                title: "Personal Styling Fundamentals",
+                image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "6 weeks",
+                level: "Beginner",
+                price: "$149",
+                description: `
+                    <p>This comprehensive course will teach you how to develop your unique style identity, build a versatile wardrobe that works for your lifestyle, and dress for any occasion with confidence.</p>
+                    
+                    <h3>What You'll Learn:</h3>
+                    <ul class="learn-list">
+                        <li>How to identify and refine your personal style</li>
+                        <li>Wardrobe assessment and organization techniques</li>
+                        <li>Body type analysis and flattering silhouettes</li>
+                        <li>Color theory and how to build a cohesive color palette</li>
+                        <li>Accessorizing to elevate your outfits</li>
+                        <li>Dressing for different occasions and settings</li>
+                    </ul>
+                    
+                    <h3>Course Structure:</h3>
+                    <p>This 6-week course includes:</p>
+                    <ul class="learn-list">
+                        <li>12 video lessons (2 per week)</li>
+                        <li>6 practical assignments with instructor feedback</li>
+                        <li>Downloadable style guides and worksheets</li>
+                        <li>Access to our private student community</li>
+                        <li>Weekly live Q&A sessions</li>
+                    </ul>
+                    
+                    <h3>Who This Course Is For:</h3>
+                    <p>This course is perfect for anyone who wants to:</p>
+                    <ul class="learn-list">
+                        <li>Develop a stronger sense of personal style</li>
+                        <li>Feel more confident in their clothing choices</li>
+                        <li>Build a wardrobe that truly reflects their personality</li>
+                        <li>Learn how to dress for their body type</li>
+                        <li>Save time and money by making smarter fashion choices</li>
+                    </ul>
+                `
+            },
+            2: {
+                title: "Understanding Fashion Trends",
+                image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "4 weeks",
+                level: "Intermediate",
+                price: "$129",
+                description: `
+                    <p>Learn how to identify, interpret, and incorporate current fashion trends into your personal style effectively without being a slave to fast fashion.</p>
+                    
+                    <h3>What You'll Learn:</h3>
+                    <ul class="learn-list">
+                        <li>How to spot emerging trends from runway to street style</li>
+                        <li>Distinguishing between fleeting fads and lasting trends</li>
+                        <li>Adapting trends to suit your personal style</li>
+                        <li>Shopping trends sustainably and ethically</li>
+                        <li>Forecasting future trends based on cultural shifts</li>
+                        <li>Building a trend-conscious wardrobe</li>
+                    </ul>
+                    
+                    <h3>Course Benefits:</h3>
+                    <ul class="learn-list">
+                        <li>Develop a more discerning eye for fashion trends</li>
+                        <li>Learn to incorporate trends in a way that feels authentic to you</li>
+                        <li>Understand the lifecycle of fashion trends</li>
+                        <li>Discover how to be trend-aware without overspending</li>
+                        <li>Gain confidence in your trend interpretation skills</li>
+                    </ul>
+                `
+            },
+            3: {
+                title: "Wardrobe Essentials Masterclass",
+                image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "5 weeks",
+                level: "Beginner",
+                price: "$139",
+                description: `
+                    <p>Build a timeless wardrobe with key pieces that work for your body type, lifestyle, and personal aesthetic while maximizing versatility and minimizing clutter.</p>
+                    
+                    <h3>Course Modules:</h3>
+                    <ul class="learn-list">
+                        <li><strong>Week 1:</strong> Assessing Your Current Wardrobe</li>
+                        <li><strong>Week 2:</strong> Identifying Your Essential Pieces</li>
+                        <li><strong>Week 3:</strong> Quality Over Quantity - Investing Wisely</li>
+                        <li><strong>Week 4:</strong> Creating Multiple Outfits From Few Items</li>
+                        <li><strong>Week 5:</strong> Maintaining and Refreshing Your Wardrobe</li>
+                    </ul>
+                    
+                    <h3>Key Takeaways:</h3>
+                    <ul class="learn-list">
+                        <li>A personalized list of wardrobe essentials for your lifestyle</li>
+                        <li>Strategies for creating 30+ outfits from just 10 key pieces</li>
+                        <li>How to identify quality garments that will last</li>
+                        <li>Seasonal wardrobe transition techniques</li>
+                        <li>Capsule wardrobe creation for different needs</li>
+                    </ul>
+                `
+            },
+            4: {
+                title: "Sustainable Fashion: Style Consciously",
+                image: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "4 weeks",
+                level: "All Levels",
+                price: "$119",
+                description: `
+                    <p>Discover how to build an eco-friendly wardrobe without sacrificing style or quality. Learn the principles of sustainable fashion and how to apply them to your personal style.</p>
+                    
+                    <h3>Course Highlights:</h3>
+                    <ul class="learn-list">
+                        <li>Understanding the environmental impact of fashion</li>
+                        <li>How to build a sustainable wardrobe from scratch</li>
+                        <li>Identifying eco-friendly fabrics and materials</li>
+                        <li>Secondhand and vintage shopping strategies</li>
+                        <li>Care and repair techniques to extend garment life</li>
+                        <li>Ethical brand research and evaluation</li>
+                    </ul>
+                    
+                    <h3>Practical Components:</h3>
+                    <ul class="learn-list">
+                        <li>Sustainable wardrobe audit worksheet</li>
+                        <li>DIY clothing repair tutorials</li>
+                        <li>Guide to Australian sustainable brands</li>
+                        <li>Secondhand shopping directory</li>
+                        <li>Fabric care cheat sheet</li>
+                    </ul>
+                `
+            },
+            5: {
+                title: "Color Theory for Fashion",
+                image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "3 weeks",
+                level: "Beginner",
+                price: "$99",
+                description: `
+                    <p>Master color combinations and learn how to create harmonious outfits using color theory principles tailored specifically for fashion applications.</p>
+                    
+                    <h3>What You'll Learn:</h3>
+                    <ul class="learn-list">
+                        <li>The color wheel and how to use it for outfit creation</li>
+                        <li>How to determine your personal color palette</li>
+                        <li>Color psychology in fashion</li>
+                        <li>Seasonal color analysis</li>
+                        <li>Mixing patterns and colors confidently</li>
+                        <li>Creating visual interest with color blocking</li>
+                    </ul>
+                    
+                    <h3>Course Features:</h3>
+                    <ul class="learn-list">
+                        <li>Personal color analysis quiz</li>
+                        <li>Color mixing challenge exercises</li>
+                        <li>Seasonal color guide downloads</li>
+                        <li>Virtual color matching tool</li>
+                        <li>Access to our color theory community</li>
+                    </ul>
+                `
+            },
+            6: {
+                title: "Professional Style & Business Attire",
+                image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "4 weeks",
+                level: "Intermediate",
+                price: "$129",
+                description: `
+                    <p>Elevate your professional image with appropriate business attire that reflects your personal brand while adhering to workplace dress codes and expectations.</p>
+                    
+                    <h3>Course Modules:</h3>
+                    <ul class="learn-list">
+                        <li><strong>Week 1:</strong> Understanding Workplace Dress Codes</li>
+                        <li><strong>Week 2:</strong> Building a Professional Capsule Wardrobe</li>
+                        <li><strong>Week 3:</strong> Industry-Specific Style Guidelines</li>
+                        <li><strong>Week 4:</strong> Personal Branding Through Professional Attire</li>
+                    </ul>
+                    
+                    <h3>Key Benefits:</h3>
+                    <ul class="learn-list">
+                        <li>Confidently navigate any professional dress code</li>
+                        <li>Create a work wardrobe that transitions from desk to dinner</li>
+                        <li>Understand how to dress for promotions and leadership roles</li>
+                        <li>Learn industry-specific style norms (corporate, creative, tech, etc.)</li>
+                        <li>Develop a professional image that aligns with your career goals</li>
+                    </ul>
+                `
+            },
+            7: {
+                title: "Seasonal Wardrobe Transitions",
+                image: "https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "3 weeks",
+                level: "Beginner",
+                price: "$99",
+                description: `
+                    <p>Learn how to smoothly transition your wardrobe between seasons while maximizing your existing pieces and making strategic additions.</p>
+                    
+                    <h3>What You'll Learn:</h3>
+                    <ul class="learn-list">
+                        <li>How to store off-season clothing properly</li>
+                        <li>Layering techniques for transitional weather</li>
+                        <li>Identifying multi-seasonal pieces</li>
+                        <li>Seasonal color palette transitions</li>
+                        <li>Budget-friendly ways to update your seasonal wardrobe</li>
+                        <li>Creating seasonal capsule wardrobes</li>
+                    </ul>
+                    
+                    <h3>Practical Resources:</h3>
+                    <ul class="learn-list">
+                        <li>Seasonal transition checklist</li>
+                        <li>Layering guide for Australian climates</li>
+                        <li>Storage solutions for small spaces</li>
+                        <li>Seasonal shopping list template</li>
+                        <li>Year-round wardrobe planning calendar</li>
+                    </ul>
+                `
+            },
+            8: {
+                title: "The Art of Accessorizing",
+                image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                duration: "2 weeks",
+                level: "All Levels",
+                price: "$79",
+                description: `
+                    <p>Discover how to elevate any outfit with the perfect accessories to complete your look and express your personal style.</p>
+                    
+                    <h3>Course Highlights:</h3>
+                    <ul class="learn-list">
+                        <li>Choosing the right accessories for your outfit and body type</li>
+                        <li>Building a versatile accessory collection</li>
+                        <li>Mixing metals, textures, and styles</li>
+                        <li>Statement pieces vs. everyday accessories</li>
+                        <li>Seasonal accessory trends</li>
+                        <li>Accessory care and organization</li>
+                    </ul>
+                    
+                    <h3>Practical Components:</h3>
+                    <ul class="learn-list">
+                        <li>Accessory pairing exercises</li>
+                        <li>DIY accessory customization tutorials</li>
+                        <li>Accessory storage solutions</li>
+                        <li>Budget-friendly accessory shopping guide</li>
+                        <li>Accessory outfit challenge</li>
+                    </ul>
+                `
+            }
+        };
+        
+        // Open modal when course detail button is clicked
+        courseDetailBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const courseId = btn.getAttribute('data-course');
+                const course = courses[courseId];
+                
+                modalCourseTitle.textContent = course.title;
+                modalCourseImage.src = course.image;
+                modalCourseImage.alt = course.title;
+                modalCourseDuration.textContent = course.duration;
+                modalCourseLevel.textContent = course.level;
+                modalCoursePrice.textContent = course.price;
+                modalCourseDetails.innerHTML = course.description;
+                
+                courseModal.style.display = "block";
+                document.body.style.overflow = "hidden";
+            });
+        });
+        
+        // Close modal when X is clicked
+        closeModal.addEventListener('click', () => {
+            courseModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+        
+        // Close modal when clicking outside content
+        window.addEventListener('click', (e) => {
+            if (e.target === courseModal) {
+                courseModal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+        
+        // Category filter functionality
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In a real implementation, this would filter the courses
+                // For this demo, we're just showing the active state
+            });
+        });
+    </script>
+</body>
+</html>

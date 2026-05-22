@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voynest - Upcycled Fashion & Vintage Finds Blog</title>
+    <meta name="description" content="Discover sustainable fashion tips, vintage styling guides, and upcycling inspiration at Voynest. Shop unique upcycled fashion pieces and vintage finds.">
+    <meta name="keywords" content="upcycled fashion, vintage clothing, sustainable fashion, thrifted style, eco-friendly clothing, recycled fashion, secondhand style">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #6b4f3d;
+            --secondary: #d4b483;
+            --dark: #3a2e26;
+            --light: #f8f5f2;
+            --text: #333333;
+            --white: #ffffff;
+            --gray: #eeeeee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Helvetica', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--dark);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .announcement-bar {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+        }
+        
+        .nav-icons a {
+            margin-left: 20px;
+            font-size: 20px;
+            color: var(--dark);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        .breadcrumb li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            position: absolute;
+            right: -15px;
+            color: var(--primary);
+        }
+        
+        .breadcrumb li:last-child:after {
+            display: none;
+        }
+        
+        /* Blog Content */
+        .blog-container {
+            display: flex;
+            gap: 50px;
+            padding: 80px 0;
+        }
+        
+        .blog-posts {
+            flex: 2;
+        }
+        
+        .blog-sidebar {
+            flex: 1;
+        }
+        
+        /* Blog Posts */
+        .blog-post {
+            margin-bottom: 60px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .post-image {
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .post-image img {
+            transform: scale(1.03);
+        }
+        
+        .post-content {
+            padding: 30px;
+        }
+        
+        .post-meta {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .post-meta span {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .post-content h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .read-more {
+            display: inline-block;
+            font-weight: 500;
+            color: var(--primary);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .read-more::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -2px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .read-more:hover::after {
+            width: 100%;
+        }
+        
+        /* Blog Sidebar */
+        .sidebar-widget {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-widget h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-widget h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        /* Search Widget */
+        .search-form {
+            display: flex;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        
+        .search-form button {
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        /* Categories Widget */
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text);
+        }
+        
+        .category-list a:hover {
+            color: var(--primary);
+        }
+        
+        /* Recent Posts Widget */
+        .recent-post {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .recent-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-post-content h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-date {
+            font-size: 13px;
+            color: #777;
+        }
+        
+        /* Tags Widget */
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag-cloud a {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light);
+            color: var(--text);
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .tag-cloud a:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Newsletter Widget */
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .pagination a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a.active,
+        .pagination a:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Blog Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .blog-popup {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .popup-overlay.active .blog-popup {
+            transform: translateY(0);
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .close-popup:hover {
+            background-color: var(--dark);
+            transform: rotate(90deg);
+        }
+        
+        .popup-image {
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .popup-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .popup-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .popup-meta {
+            display: flex;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #777;
+        }
+        
+        .popup-meta span {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .popup-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .popup-content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .blog-container {
+                flex-direction: column;
+            }
+            
+            .popup-content h2 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin: 20px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 10px 15px;
+            }
+            
+            .post-image {
+                height: 250px;
+            }
+            
+            .popup-image {
+                height: 250px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .popup-content h2 {
+                font-size: 24px;
+            }
+            
+            .popup-meta {
+                flex-direction: column;
+            }
+            
+            .popup-meta span {
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 60px 0;
+            }
+            
+            .blog-popup {
+                padding: 30px 20px;
+            }
+            
+            .popup-content h2 {
+                font-size: 22px;
+            }
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container">
+            Free shipping on orders over $50 | Use code VINTAGE20 for 20% off
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <span class="logo-icon">V</span>
+                    <span class="logo-text">Voynest</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <a href="javascript.:void(0)" class="cart-icon" aria-label="Shopping Cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Voynest Journal</h1>
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <div class="blog-container">
+        <div class="container">
+            <div class="blog-posts">
+                <!-- Blog Post 1 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Upcycled Denim Fashion">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> Jan 15, 2025</span>
+                            <span><i class="far fa-user"></i> By Sophia Chen</span>
+                            <span><i class="far fa-comment"></i> 5 Comments</span>
+                        </div>
+                        <h2><a class="read-more" data-id="1">5 Creative Ways to Upcycle Your Old Denim</a></h2>
+                        <p class="post-excerpt">
+                            Discover innovative ways to transform your worn-out jeans into stylish new pieces. From patchwork jackets to denim tote bags, we'll show you how to give your old denim new life.
+                        </p>
+                        <a class="read-more" data-id="1">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 2 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Vintage Shopping Guide">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> March 28, 2025</span>
+                            <span><i class="far fa-user"></i> By Ethan Johnson</span>
+                            <span><i class="far fa-comment"></i> 12 Comments</span>
+                        </div>
+                        <h2><a class="read-more" data-id="2">The Ultimate Guide to Vintage Shopping in Europe</a></h2>
+                        <p class="post-excerpt">
+                            Our curated list of the best vintage stores across Europe, from hidden Berlin gems to Parisian treasure troves. Learn how to spot quality pieces and build a timeless wardrobe.
+                        </p>
+                        <a class="read-more" data-id="2">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 3 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sustainable Fashion">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
+                            <span><i class="far fa-user"></i> By Aisha Williams</span>
+                            <span><i class="far fa-comment"></i> 8 Comments</span>
+                        </div>
+                        <h2><a class="read-more" data-id="3">Why Upcycled Fashion is the Future of Sustainability</a></h2>
+                        <p class="post-excerpt">
+                            The fashion industry is one of the world's biggest polluters. Discover how upcycling offers a creative solution to textile waste while producing unique, high-quality garments.
+                        </p>
+                        <a class="read-more" data-id="3">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 4 -->
+                <article class="blog-post">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="DIY Fashion">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> March 22, 2025</span>
+                            <span><i class="far fa-user"></i> By David Kim</span>
+                            <span><i class="far fa-comment"></i> 3 Comments</span>
+                        </div>
+                        <h2><a class="read-more" data-id="4">DIY: Transform a Vintage Scarf into a Statement Top</a></h2>
+                        <p class="post-excerpt">
+                            Step-by-step guide to creating a beautiful, one-of-a-kind blouse from a vintage scarf. No sewing machine required - just basic hand stitching skills and creativity!
+                        </p>
+                        <a class="read-more" data-id="4">Read More</a>
+                    </div>
+                </article>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="/blog/">&laquo;</a>
+                    <a href="/blog/" class="active">1</a>
+                    <a href="/blog/">2</a>
+                    <a href="/blog">3</a>
+                    <a href="/blog/">&raquo;</a>
+                </div>
+            </div>
+            
+            <!-- Blog Sidebar -->
+            <aside class="blog-sidebar">
+                <!-- Search Widget -->
+                <div class="sidebar-widget">
+                    <h3>Search</h3>
+                    <form class="search-form">
+                        <input type="text" placeholder="Search articles...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3>Categories</h3>
+                    <ul class="category-list">
+                        <li><a href="/blog/">Upcycling Guides <span>(12)</span></a></li>
+                        <li><a href="/blog/">Vintage Finds <span>(8)</span></a></li>
+                        <li><a href="/blog">Sustainability <span>(7)</span></a></li>
+                        <li><a href="/blog/">DIY Projects <span>(4)</span></a></li>
+                        <li><a href="/blog/">Style Tips <span>(6)</span></a></li>
+                        <li><a href="/blog/">Designer Spotlight <span>(3)</span></a></li>
+                    </ul>
+                </div>
+                
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3>Recent Posts</h3>
+                    <div class="recent-post">
+                        <div class="recent-post-img">
+                            <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Recent Post">
+                        </div>
+                        <div class="recent-post-content">
+                            <h4><a href="/blog/">5 Creative Ways to Upcycle Your Old Denim</a></h4>
+                            <div class="recent-post-date">Jan 15, 2025</div>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <div class="recent-post-img">
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Recent Post">
+                        </div>
+                        <div class="recent-post-content">
+                            <h4><a href="/blog/">The Ultimate Guide to Vintage Shopping in Europe</a></h4>
+                            <div class="recent-post-date">March 28, 2025</div>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <div class="recent-post-img">
+                            <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Recent Post">
+                        </div>
+                        <div class="recent-post-content">
+                            <h4><a href="/blog/">Why Upcycled Fashion is the Future of Sustainability</a></h4>
+                            <div class="recent-post-date">April 10, 2025</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3>Tags</h3>
+                    <div class="tag-cloud">
+                        <a href="/blog/">Upcycling</a>
+                        <a href="/blog/">Vintage</a>
+                        <a href="/blog/">Sustainable</a>
+                        <a href="/blog/">DIY</a>
+                        <a href="/blog/">Denim</a>
+                        <a href="/blog/">Eco-Friendly</a>
+                        <a href="/blog/">Style</a>
+                        <a href="/blog/">Trends</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget">
+                    <h3>Newsletter</h3>
+                    <p>Get the latest on sustainable fashion and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Blog Popups -->
+    <!-- Popup 1 -->
+    <div class="popup-overlay" id="popup-1">
+        <div class="blog-popup">
+            <div class="close-popup"><i class="fas fa-times"></i></div>
+            <div class="popup-image">
+                <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Upcycled Denim Fashion">
+            </div>
+            <div class="popup-content">
+                <h2>5 Creative Ways to Upcycle Your Old Denim</h2>
+                <div class="popup-meta">
+                    <span><i class="far fa-calendar-alt"></i> Jan 15, 2025</span>
+                    <span><i class="far fa-user"></i> By Sophia Chen</span>
+                    <span><i class="far fa-comment"></i> 5 Comments</span>
+                </div>
+                <p>Denim is one of the most versatile fabrics, and with a little creativity, you can transform your old jeans into stunning new pieces. Here are five innovative ways to upcycle your denim:</p>
+                
+                <h3>1. Denim Patchwork Jacket</h3>
+                <p>Cut your old jeans into interesting shapes and sizes, then stitch them together to create a unique patchwork design. Add some embroidery or fabric paint for extra personality. This project works best with denim of similar weights but different washes for contrast.</p>
+                
+                <h3>2. Denim Tote Bag</h3>
+                <p>Use the legs of old jeans to create a sturdy tote bag. Simply cut the legs to your desired length, sew the bottom closed, and add handles made from the waistband or additional fabric strips. The pockets make perfect spots for storing small items like keys or phones.</p>
+                
+                <h3>3. Denim Coasters</h3>
+                <p>For a quick and easy project, cut squares from your old jeans, layer several pieces together, and stitch around the edges. These make great gifts and help reduce waste from disposable coasters.</p>
+                
+                <h3>4. Denim Plant Hangers</h3>
+                <p>Cut denim into strips and braid them together to create rustic plant hangers. The sturdy material holds up well outdoors and develops a beautiful patina over time.</p>
+                
+                <h3>5. Denim Throw Pillow</h3>
+                <p>Use the back pockets of jeans to create charming throw pillows. Simply sew the pockets onto a square of denim or complementary fabric, then stuff and close. The pockets can hold remote controls or magazines.</p>
+                
+                <p>Remember to wash your denim before starting any project to ensure cleanliness and prevent shrinkage. These projects not only give new life to old clothes but also help reduce textile waste. Happy upcycling!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup 2 -->
+    <div class="popup-overlay" id="popup-2">
+        <div class="blog-popup">
+            <div class="close-popup"><i class="fas fa-times"></i></div>
+            <div class="popup-image">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Vintage Shopping Guide">
+            </div>
+            <div class="popup-content">
+                <h2>The Ultimate Guide to Vintage Shopping in Europe</h2>
+                <div class="popup-meta">
+                    <span><i class="far fa-calendar-alt"></i> March 28, 2025</span>
+                    <span><i class="far fa-user"></i> By Ethan Johnson</span>
+                    <span><i class="far fa-comment"></i> 12 Comments</span>
+                </div>
+                <p>Europe is a treasure trove for vintage fashion enthusiasts, with each country offering its own unique finds and shopping experiences. Here's our comprehensive guide to navigating the best vintage stores across the continent.</p>
+                
+                <h3>Berlin, Germany</h3>
+                <p>Start your journey in Berlin's Kreuzberg district, home to numerous vintage boutiques. <strong>Vintage Revivals</strong> specializes in 70s and 80s pieces, while <strong>Garage</strong> offers a mix of designer and everyday vintage at reasonable prices. Don't miss the weekly flea markets at Mauerpark for unique finds.</p>
+                
+                <h3>Paris, France</h3>
+                <p>Parisian vintage is all about quality. <strong>Thanx God I'm a VIP</strong> in the Marais district curates high-end designer pieces from Chanel to Yves Saint Laurent. For more affordable options, check out <strong>Kilo Shop</strong> where you pay by weight.</p>
+                
+                <h3>London, UK</h3>
+                <p>Portobello Road Market is legendary, but for curated selections, visit <strong>Rokit</strong> with multiple locations across the city. <strong>Beyond Retro</strong> offers an extensive collection organized by decade, making it easy to find specific eras.</p>
+                
+                <h3>Amsterdam, Netherlands</h3>
+                <p>The Nine Streets area is packed with vintage stores. <strong>Episode</strong> is a must-visit for its well-organized selection, while <strong>Zipper</strong> focuses on high-quality denim and leather jackets.</p>
+                
+                <h3>Tips for Vintage Shopping Success</h3>
+                <ul>
+                    <li>Check seams and zippers carefully for signs of wear</li>
+                    <li>Look for natural fabrics that have stood the test of time</li>
+                    <li>Don't be afraid to negotiate prices, especially at markets</li>
+                    <li>Visit stores early in the week for the best selection</li>
+                    <li>Bring cash as some smaller shops don't accept cards</li>
+                </ul>
+                
+                <p>Remember that vintage sizing differs from modern sizing, so always try items on. With these tips and our store recommendations, you're ready to build a timeless European vintage wardrobe!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup 3 -->
+    <div class="popup-overlay" id="popup-3">
+        <div class="blog-popup">
+            <div class="close-popup"><i class="fas fa-times"></i></div>
+            <div class="popup-image">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sustainable Fashion">
+            </div>
+            <div class="popup-content">
+                <h2>Why Upcycled Fashion is the Future of Sustainability</h2>
+                <div class="popup-meta">
+                    <span><i class="far fa-calendar-alt"></i> April 10, 2025</span>
+                    <span><i class="far fa-user"></i> By Aisha Williams</span>
+                    <span><i class="far fa-comment"></i> 8 Comments</span>
+                </div>
+                <p>The fashion industry is responsible for 10% of annual global carbon emissions and nearly 20% of wastewater. With increasing awareness of these environmental impacts, upcycled fashion has emerged as a creative and effective solution.</p>
+                
+                <h3>What is Upcycled Fashion?</h3>
+                <p>Unlike recycling which breaks down materials, upcycling transforms existing garments or materials into higher-quality products. Designers take discarded clothing, fabric scraps, or other materials and creatively repurpose them into new fashion pieces.</p>
+                
+                <h3>Environmental Benefits</h3>
+                <p>Upcycling addresses several key environmental issues:</p>
+                <ul>
+                    <li><strong>Reduces textile waste:</strong> 85% of all textiles end up in landfills each year. Upcycling gives these materials new life.</li>
+                    <li><strong>Conserves resources:</strong> Creating new fabric requires significant water, energy, and chemicals. Upcycling eliminates this need.</li>
+                    <li><strong>Lowers carbon footprint:</strong> The production of new clothing generates substantial greenhouse gases that upcycling avoids.</li>
+                </ul>
+                
+                <h3>Economic and Social Advantages</h3>
+                <p>Beyond environmental benefits, upcycled fashion offers:</p>
+                <ul>
+                    <li><strong>Unique designs:</strong> Each upcycled piece is one-of-a-kind, offering exclusivity mass production can't match.</li>
+                    <li><strong>Support for artisans:</strong> Many upcycling initiatives provide fair wages and preserve traditional craftsmanship.</li>
+                    <li><strong>Educational value:</strong> Upcycling teaches consumers about sustainable practices and creative reuse.</li>
+                </ul>
+                
+                <h3>How to Support Upcycled Fashion</h3>
+                <p>You can contribute to this movement by:</p>
+                <ol>
+                    <li>Shopping from upcycling designers and brands</li>
+                    <li>Learning basic sewing skills to upcycle your own clothes</li>
+                    <li>Hosting clothing swap events with friends</li>
+                    <li>Donating unwanted clothes to upcycling initiatives</li>
+                    <li>Educating others about the benefits of upcycled fashion</li>
+                </ol>
+                
+                <p>As consumers become more environmentally conscious, upcycled fashion represents a viable path forward that combines creativity, sustainability, and style. By choosing upcycled pieces, we can all help reduce the fashion industry's environmental impact while expressing our individuality.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup 4 -->
+    <div class="popup-overlay" id="popup-4">
+        <div class="blog-popup">
+            <div class="close-popup"><i class="fas fa-times"></i></div>
+            <div class="popup-image">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="DIY Fashion">
+            </div>
+            <div class="popup-content">
+                <h2>DIY: Transform a Vintage Scarf into a Statement Top</h2>
+                <div class="popup-meta">
+                    <span><i class="far fa-calendar-alt"></i> March 22, 2025</span>
+                    <span><i class="far fa-user"></i> By David Kim</span>
+                    <span><i class="far fa-comment"></i> 3 Comments</span>
+                </div>
+                <p>Vintage scarves often feature beautiful prints too nice to keep hidden in a drawer. With this simple DIY project, you can transform a square scarf into a stylish statement top that's perfect for summer. No sewing machine required!</p>
+                
+                <h3>Materials Needed</h3>
+                <ul>
+                    <li>Large square scarf (at least 90cm x 90cm)</li>
+                    <li>Needle and thread (matching color)</li>
+                    <li>Scissors</li>
+                    <li>Measuring tape</li>
+                    <li>Safety pins (optional)</li>
+                </ul>
+                
+                <h3>Step-by-Step Instructions</h3>
+                
+                <h4>Step 1: Prepare the Scarf</h4>
+                <p>Lay your scarf flat on a clean surface with the right side (pretty side) facing down. If your scarf has a distinct pattern direction, make sure it's oriented correctly for when it becomes a top.</p>
+                
+                <h4>Step 2: Create the Neckline</h4>
+                <p>Fold the scarf in half diagonally to form a triangle. The folded edge will become the top of your garment. Measure about 15-20cm from the point of the triangle along the folded edge and mark this spot - this will be the center front of your neckline.</p>
+                
+                <h4>Step 3: Form the Armholes</h4>
+                <p>Bring the two side corners of the triangle up to meet at the center front mark you just made. The distance from these corners to the center point will determine how loose or fitted the top is. Pin or hold in place to test the fit before sewing.</p>
+                
+                <h4>Step 4: Sew the Shoulder Seams</h4>
+                <p>Once you're happy with the fit, sew along the edges where the scarf overlaps at the shoulders. Use a simple running stitch or backstitch for strength. Reinforce these seams as they'll bear the weight of the top.</p>
+                
+                <h4>Step 5: Finish the Edges</h4>
+                <p>Fold under any raw edges around the neckline and armholes and sew them down with a hem stitch. This prevents fraying and gives a professional finish.</p>
+                
+                <h4>Step 6: Add Ties (Optional)</h4>
+                <p>For a more fitted look, you can add ties to the sides. Cut two strips from scrap fabric or use ribbon, attaching them at the waistline so you can tie the top at the back.</p>
+                
+                <h3>Styling Your Scarf Top</h3>
+                <p>Pair your new top with high-waisted jeans or a skirt for a retro vibe. Layer with a jacket or cardigan for cooler evenings. The beauty of this project is that each scarf creates a completely unique top - experiment with different folding techniques and embellishments to make it your own!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon">V</span>
+                        <span class="footer-logo-text">Voynest</span>
+                    </div>
+                    <p>Curated upcycled fashion and vintage finds for the conscious consumer. Each piece tells a story of sustainability and style.</p>
+                    <div class="social-links">
+                        <a href="https://instagram.com/voynest" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/voynest" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://pinterest.com/voynest" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="/shop/">All Products</a></li>
+                        <li><a href="/shop/">Upcycled Collection</a></li>
+                        <li><a href="/shop/">Vintage Finds</a></li>
+                        <li><a href="/shop/">Accessories</a></li>
+                        <li><a href="/shop/">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="/contact/">Contact Us</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Voynest Upcycled Fashion & Vintage Finds. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Blog Popup Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all read more buttons
+            const readMoreButtons = document.querySelectorAll('.read-more');
+            
+            // Add click event to each button
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const postId = this.getAttribute('data-id');
+                    const popup = document.getElementById(`popup-${postId}`);
+                    
+                    // Show the corresponding popup
+                    popup.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close popup when clicking close button
+            const closeButtons = document.querySelectorAll('.close-popup');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.popup-overlay').classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            // Close popup when clicking outside content
+            const popups = document.querySelectorAll('.popup-overlay');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+            
+            // Search Form Submission
+            const searchForm = document.querySelector('.search-form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = this.querySelector('input').value;
+                    alert('Search functionality would show results for: ' + searchTerm);
+                    this.reset();
+                });
+            }
+            
+            // Newsletter Form Submission
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input').value;
+                    alert('Thank you for subscribing to our newsletter!');
+                    this.reset();
+                });
+            }
+            
+            // Mobile Menu Toggle (would be expanded for smaller screens)
+            // This is a placeholder for mobile menu functionality
+        });
+    </script>
+</body>
+</html>

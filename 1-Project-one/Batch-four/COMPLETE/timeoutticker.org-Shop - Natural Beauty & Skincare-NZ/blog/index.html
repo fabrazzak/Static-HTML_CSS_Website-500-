@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natural Beauty Blog | Timeout Ticker</title>
+    <meta
+      name="keywords"
+      content="natural skincare blog, organic beauty tips, New Zealand skincare advice, clean beauty articles, eco-friendly skincare tips"
+    />
+    <meta
+      name="description"
+      content="Discover expert skincare advice and beauty tips on the Timeout Ticker blog. Learn about natural ingredients, skincare routines, and sustainable beauty practices."
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Internal CSS - Reusing most styles from homepage with additions for blog */
+      :root {
+        --primary-color: #4a6f6a;
+        --secondary-color: #d4b483;
+        --accent-color: #7a9e7e;
+        --light-color: #f8f8f8;
+        --dark-color: #333;
+        --white: #fff;
+        --gray: #777;
+        --light-gray: #f5f5f5;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-color);
+        line-height: 1.6;
+        background-color: var(--light-color);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent-color);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background-color: var(--accent-color);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 600;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        bottom: -5px;
+        left: 0;
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Blog Hero */
+      .blog-hero {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.4)
+          ),
+          url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80");
+        background-size: cover;
+        background-position: center;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        margin-top: 70px;
+      }
+
+      .blog-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .blog-hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: var(--white);
+      }
+
+      /* Blog Main Content */
+      .blog-main {
+        padding: 80px 0;
+        background-color: var(--white);
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 3px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Blog Grid */
+      .blog-articles {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 40px;
+      }
+
+      .blog-article {
+        background-color: var(--light-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .blog-article:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .blog-article-image {
+        height: 250px;
+        overflow: hidden;
+      }
+
+      .blog-article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .blog-article:hover .blog-article-image img {
+        transform: scale(1.05);
+      }
+
+      .blog-article-content {
+        padding: 30px;
+      }
+
+      .blog-article-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        color: var(--gray);
+        font-size: 14px;
+      }
+
+      .blog-article-category {
+        color: var(--accent-color);
+        font-weight: 600;
+      }
+
+      .blog-article-title {
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+
+      .blog-article-excerpt {
+        margin-bottom: 20px;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
+      .pagination a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+        border-radius: 4px;
+        background-color: var(--light-color);
+        color: var(--dark-color);
+        transition: var(--transition);
+      }
+
+      .pagination a:hover,
+      .pagination a.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Categories Sidebar */
+      .blog-container {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 40px;
+      }
+
+      .blog-sidebar {
+        padding: 30px;
+        background-color: var(--light-color);
+        border-radius: 8px;
+        height: fit-content;
+      }
+
+      .sidebar-widget {
+        margin-bottom: 40px;
+      }
+
+      .sidebar-widget h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-color);
+      }
+
+      .categories-list {
+        list-style: none;
+      }
+
+      .categories-list li {
+        margin-bottom: 10px;
+      }
+
+      .categories-list a {
+        display: block;
+        padding: 8px 0;
+        color: var(--dark-color);
+        transition: var(--transition);
+      }
+
+      .categories-list a:hover {
+        color: var(--accent-color);
+        padding-left: 10px;
+      }
+
+      .categories-list a::before {
+        content: "→";
+        margin-right: 10px;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .categories-list a:hover::before {
+        opacity: 1;
+      }
+
+      .popular-posts {
+        list-style: none;
+      }
+
+      .popular-post {
+        display: flex;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .popular-post:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .popular-post-image {
+        width: 80px;
+        height: 80px;
+        margin-right: 15px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .popular-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .popular-post-title {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      .popular-post-date {
+        font-size: 14px;
+        color: var(--gray);
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 5px 15px;
+        background-color: var(--white);
+        color: var(--dark-color);
+        border-radius: 20px;
+        font-size: 14px;
+        transition: var(--transition);
+      }
+
+      .tag:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Newsletter in Sidebar */
+      .sidebar-newsletter {
+        background-color: var(--primary-color);
+        padding: 30px;
+        border-radius: 8px;
+        color: var(--white);
+      }
+
+      .sidebar-newsletter h3 {
+        color: var(--white);
+        margin-bottom: 15px;
+      }
+
+      .sidebar-newsletter p {
+        margin-bottom: 20px;
+      }
+
+      .sidebar-newsletter-form input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 4px;
+      }
+
+      .sidebar-newsletter-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .sidebar-newsletter-form button:hover {
+        background-color: var(--white);
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .blog-container {
+          grid-template-columns: 1fr;
+        }
+
+        .blog-sidebar {
+          order: -1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          transition: var(--transition);
+          padding: 30px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .cart-icon {
+          margin-left: auto;
+          margin-right: 20px;
+        }
+
+        .blog-hero h1 {
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .section-title h2 {
+          font-size: 30px;
+        }
+
+        .blog-hero {
+          height: 40vh;
+        }
+
+        .blog-hero h1 {
+          font-size: 28px;
+        }
+
+        .blog-articles {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--white);
+        font-family: "Playfair Display", serif;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .footer-logo span {
+        color: var(--secondary-color);
+      }
+
+      .footer-about p {
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+      }
+
+      .footer-links h3 {
+        color: var(--white);
+        font-size: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-links h3::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .footer-links ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .footer-contact p {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray);
+        font-size: 14px;
+      }
+
+       /* Blog Modal Styles */
+  .blog-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .blog-modal.active {
+    display: block;
+    opacity: 1;
+  }
+  
+  .modal-content {
+    background-color: var(--white);
+    margin: 50px auto;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+  }
+  
+  .blog-modal.active .modal-content {
+    transform: translateY(0);
+  }
+  
+  .modal-header {
+    height: 400px;
+    overflow: hidden;
+  }
+  
+  .modal-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .modal-header:hover img {
+    transform: scale(1.05);
+  }
+  
+  .modal-body {
+    padding: 40px;
+  }
+  
+  .blog-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: var(--gray);
+    font-size: 16px;
+  }
+  
+  .blog-category {
+    color: var(--accent-color);
+    font-weight: 600;
+  }
+  
+  #modalBlogTitle {
+    font-size: 32px;
+    margin-bottom: 30px;
+    line-height: 1.3;
+  }
+  
+  #modalBlogContent {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  
+  #modalBlogContent p {
+    margin-bottom: 20px;
+  }
+  
+  #modalBlogContent h3 {
+    font-size: 24px;
+    margin: 30px 0 15px;
+    color: var(--primary-color);
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: var(--white);
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: var(--transition);
+  }
+  
+  .close-modal:hover {
+    background-color: var(--accent-color);
+  }
+  
+  @media (max-width: 768px) {
+    .modal-header {
+      height: 300px;
+    }
+    
+    .modal-body {
+      padding: 30px;
+    }
+    
+    #modalBlogTitle {
+      font-size: 28px;
+    }
+    
+    #modalBlogContent {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .modal-header {
+      height: 200px;
+    }
+    
+    .modal-body {
+      padding: 20px;
+    }
+    
+    #modalBlogTitle {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .blog-meta {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Timeout Ticker<span>.</span></a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/" class="active">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/cart/">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+      <div class="container">
+        <div class="blog-hero-content">
+          <h1>Natural Beauty Journal</h1>
+          <p>Discover expert skincare advice and beauty tips from our team</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Main Content -->
+    <main class="blog-main">
+      <div class="container blog-container">
+        <div class="blog-content">
+          <div class="section-title">
+            <h2>Latest Articles</h2>
+          </div>
+
+          <div class="blog-articles">
+            <!-- Blog Article 1 -->
+            <article class="blog-article">
+              <div class="blog-article-image">
+                <img
+                  src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  alt="Natural Skincare Routine"
+                />
+              </div>
+              <div class="blog-article-content">
+                <div class="blog-article-meta">
+                  <span class="blog-article-category">Skincare Routine</span>
+                  <span class="blog-article-date">Jan 15, 2025</span>
+                </div>
+                <h3 class="blog-article-title">
+                  5 Steps to a Natural Skincare Routine
+                </h3>
+                <p class="blog-article-excerpt">
+                  Discover how to simplify your skincare routine using only
+                  natural products that actually work for your skin type.
+                </p>
+                <a href="/blog/natural-skincare-routine/" class="btn btn-outline"
+                  >Read More</a
+                >
+              </div>
+            </article>
+
+            <!-- Blog Article 2 -->
+            <article class="blog-article">
+              <div class="blog-article-image">
+                <img
+                  src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80"
+                  alt="New Zealand Ingredients"
+                />
+              </div>
+              <div class="blog-article-content">
+                <div class="blog-article-meta">
+                  <span class="blog-article-category">Ingredients</span>
+                  <span class="blog-article-date">Feb 02, 2025</span>
+                </div>
+                <h3 class="blog-article-title">
+                  The Power of New Zealand's Native Ingredients
+                </h3>
+                <p class="blog-article-excerpt">
+                  Explore the unique benefits of Manuka honey, Kawakawa, and
+                  other native plants in skincare formulations.
+                </p>
+                <a
+                  href="/blog/nz-native-ingredients/"
+                  class="btn btn-outline"
+                  >Read More</a
+                >
+              </div>
+            </article>
+
+            <!-- Blog Article 3 -->
+            <article class="blog-article">
+              <div class="blog-article-image">
+                <img
+                  src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                  alt="Seasonal Skincare"
+                />
+              </div>
+              <div class="blog-article-content">
+                <div class="blog-article-meta">
+                  <span class="blog-article-category">Seasonal Care</span>
+                  <span class="blog-article-date">Mar 10, 2025</span>
+                </div>
+                <h3 class="blog-article-title">
+                  Adjusting Your Skincare for Seasonal Changes
+                </h3>
+                <p class="blog-article-excerpt">
+                  Learn how to modify your skincare routine as the seasons change
+                  to keep your skin healthy year-round.
+                </p>
+                <a
+                  href="/blog/seasonal-skincare/"
+                  class="btn btn-outline"
+                  >Read More</a
+                >
+              </div>
+            </article>
+
+           
+
+            <!-- Blog Article 5 -->
+          
+
+            <!-- Blog Article 6 -->
+            
+          </div>
+
+        
+        </div>
+
+        <!-- Blog Sidebar -->
+        <aside class="blog-sidebar">
+          <div class="sidebar-widget">
+            <h3>Search</h3>
+            <form class="search-form">
+              <input
+                type="text"
+                placeholder="Search articles..."
+                class="search-input"
+              />
+              <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3>Categories</h3>
+            <ul class="categories-list">
+              <li><a href="/blog/">Skincare Routine (12)</a></li>
+              <li><a href="/blog/">Natural Ingredients (8)</a></li>
+              <li><a href="/blog/">Product Guides (6)</a></li>
+              <li><a href="/blog/">Sustainability (5)</a></li>
+              <li><a href="/blog/">Seasonal Care (4)</a></li>
+              <li><a href="/blog/">Wellness (3)</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3>Popular Posts</h3>
+            <ul class="popular-posts">
+              <li class="popular-post">
+                <div class="popular-post-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    alt="Natural Skincare Routine"
+                  />
+                </div>
+                <div class="popular-post-content">
+                  <h4 class="popular-post-title">
+                    5 Steps to a Natural Skincare Routine
+                  </h4>
+                  <span class="popular-post-date">Jan 15, 2025</span>
+                </div>
+              </li>
+              <li class="popular-post">
+                <div class="popular-post-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80"
+                    alt="New Zealand Ingredients"
+                  />
+                </div>
+                <div class="popular-post-content">
+                  <h4 class="popular-post-title">
+                    The Power of New Zealand's Native Ingredients
+                  </h4>
+                  <span class="popular-post-date">Feb 02, 2025</span>
+                </div>
+              </li>
+              <li class="popular-post">
+                <div class="popular-post-image">
+                  <img
+                    src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                    alt="Natural Serums"
+                  />
+                </div>
+                <div class="popular-post-content">
+                  <h4 class="popular-post-title">
+                    How to Choose the Right Serum for Your Skin Type
+                  </h4>
+                  <span class="popular-post-date">Apr 05, 2025</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3>Tags</h3>
+            <div class="tags">
+              <a href="/blog/" class="tag">Skincare</a>
+              <a href="/blog/" class="tag">Natural</a>
+              <a href="/blog/" class="tag">Routine</a>
+              <a href="/blog/" class="tag">Ingredients</a>
+              <a href="/blog/" class="tag">Eco-friendly</a>
+              <a href="/blog/" class="tag">Wellness</a>
+              <a href="/blog/" class="tag">DIY</a>
+              <a href="/blog/" class="tag">Tips</a>
+            </div>
+          </div>
+
+          <div class="sidebar-newsletter">
+            <h3>Newsletter</h3>
+            <p>
+              Subscribe to get skincare tips and exclusive offers straight to your
+              inbox.
+            </p>
+            <form class="sidebar-newsletter-form">
+              <input type="text" placeholder="Your Name" />
+              <input type="email" placeholder="Your Email" required />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-about">
+            <a href="/" class="footer-logo">Timeout Ticker<span>.</span></a>
+            <p>
+              Bringing you the purest natural skincare products from New
+              Zealand's pristine environment since 2020.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+              <a href="https://twitter.com/" target="_blank" aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 22 Fellbridge Rise,
+              Wakefield 7025, New Zealand
+            </p>
+            <p><i class="fas fa-phone"></i> +64 272 851 651</p>
+            <p><i class="fas fa-envelope"></i> hello@timeoutticker.org</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Timeout Ticker. All rights reserved. Proudly made in New
+            Zealand.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div class="blog-modal" id="blogModal">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <div class="modal-header">
+            <img id="modalBlogImage" src="" alt="Blog Image">
+          </div>
+          <div class="modal-body">
+            <div class="blog-meta">
+              <span id="modalBlogCategory" class="blog-category"></span>
+              <span id="modalBlogDate" class="blog-date"></span>
+            </div>
+            <h2 id="modalBlogTitle"></h2>
+            <div id="modalBlogContent">
+              <!-- Blog content will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script>
+      // Cart functionality (similar to homepage)
+      document.addEventListener("DOMContentLoaded", function () {
+        // DOM Elements
+        const cartIcon = document.querySelector(".cart-icon");
+        const cartCount = document.querySelector(".cart-count");
+        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+        const nav = document.querySelector("nav");
+
+        // Cart data
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Update cart count in header
+        function updateCartCount() {
+          const totalItems = cart.reduce(
+            (total, item) => total + item.quantity,
+            0
+          );
+          cartCount.textContent = totalItems;
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+          nav.classList.toggle("active");
+        }
+
+        // Event listeners
+        mobileMenuBtn.addEventListener("click", toggleMobileMenu);
+
+        // Initialize cart
+        updateCartCount();
+      });
+
+
+
+
+
+
+
+      // Blog Modal Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('blogModal');
+    const closeModal = document.querySelector('.close-modal');
+    const readMoreButtons = document.querySelectorAll('.btn-outline');
+    
+    // Sample blog content (in a real app, this would come from a database or API)
+    const blogContent = {
+      'natural-skincare-routine': {
+        title: '5 Steps to a Natural Skincare Routine',
+        category: 'Skincare Routine',
+        date: 'Jan 15, 2025',
+        image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+        content: `
+          <p>Creating a natural skincare routine doesn't have to be complicated. In fact, simplicity is often key when working with natural ingredients. Here's our recommended 5-step routine that works for most skin types:</p>
+          
+          <h3>1. Gentle Cleansing</h3>
+          <p>Start with a natural, pH-balanced cleanser that removes impurities without stripping your skin of its natural oils. Look for ingredients like honey, aloe vera, or coconut oil-based cleansers.</p>
+          
+          <h3>2. Toning</h3>
+          <p>A good natural toner helps balance your skin's pH and prepares it for better absorption of subsequent products. Witch hazel or rose water make excellent natural toners.</p>
+          
+          <h3>3. Treatment Serums</h3>
+          <p>This is where you target specific concerns. Vitamin C serums (from natural sources like kakadu plum) work well for brightening, while hyaluronic acid (from plant sources) provides deep hydration.</p>
+          
+          <h3>4. Moisturizing</h3>
+          <p>Choose a moisturizer based on your skin type. For dry skin, look for shea butter or jojoba oil. For oily skin, lighter options like squalane (derived from olives) work well.</p>
+          
+          <h3>5. Sun Protection</h3>
+          <p>Never skip sunscreen during the day. Mineral sunscreens with zinc oxide are effective natural options that provide broad-spectrum protection.</p>
+          
+          <p>Remember, consistency is key with any skincare routine. Give products at least 4-6 weeks to show results, and always patch test new products before full application.</p>
+        `
+      },
+      'nz-native-ingredients': {
+        title: 'The Power of New Zealand\'s Native Ingredients',
+        category: 'Ingredients',
+        date: 'Feb 02, 2025',
+        image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80',
+        content: `
+          <p>New Zealand's unique flora has developed remarkable properties to survive in the country's diverse climates, and these properties translate into exceptional skincare benefits. Here are some of our most powerful native ingredients:</p>
+          
+          <h3>Manuka Honey</h3>
+          <p>Renowned for its antibacterial and healing properties, Manuka honey with a high UMF rating is exceptional for treating acne, reducing inflammation, and promoting wound healing. It's also a humectant, helping skin retain moisture.</p>
+          
+          <h3>Kawakawa</h3>
+          <p>This traditional Māori medicinal plant has natural anti-inflammatory and antimicrobial properties. In skincare, it helps soothe irritated skin, reduce redness, and can be beneficial for conditions like eczema and psoriasis.</p>
+          
+          <h3>Harakeke (New Zealand Flax)</h3>
+          <p>The gel from harakeke leaves is similar to aloe vera but with higher concentrations of antioxidants. It provides intense hydration and helps strengthen the skin's natural barrier function.</p>
+          
+          <h3>Pohutukawa</h3>
+          <p>The extract from this iconic New Zealand Christmas tree has potent antioxidant properties that help protect skin from environmental stressors and premature aging.</p>
+          
+          <h3>Kanuka Oil</h3>
+          <p>Similar to tea tree oil but gentler on the skin, kanuka oil has powerful antimicrobial properties that make it effective against acne while also promoting skin healing.</p>
+          
+          <p>At Timeout Ticker, we're committed to sustainably sourcing these native ingredients to create effective skincare products that harness New Zealand's natural bounty.</p>
+        `
+      },
+      // Add content for other blog posts following the same structure
+      'seasonal-skincare': {
+        title: 'Adjusting Your Skincare for Seasonal Changes',
+        category: 'Seasonal Care',
+        date: 'Mar 10, 2025',
+        image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80',
+        content: `
+          <p>Your skin's needs change with the seasons, and adjusting your routine accordingly can help maintain healthy, glowing skin year-round. Here's how to adapt your skincare as the weather changes:</p>
+          
+          <h3>Spring Transition</h3>
+          <p>As temperatures warm up and humidity increases:</p>
+          <ul>
+            <li>Switch to a lighter moisturizer</li>
+            <li>Introduce gentle exfoliation to remove winter dryness</li>
+            <li>Start increasing SPF as UV levels rise</li>
+          </ul>
+          
+          <h3>Summer Care</h3>
+          <p>For hot, humid conditions:</p>
+          <ul>
+            <li>Use oil-free or gel-based products</li>
+            <li>Apply antioxidant serums to protect against environmental damage</li>
+            <li>Don't skip moisturizer - opt for lightweight hydrators</li>
+            <li>Reapply sunscreen every 2 hours when outdoors</li>
+          </ul>
+          
+          <h3>Autumn Preparation</h3>
+          <p>As the air becomes cooler and drier:</p>
+          <ul>
+            <li>Begin incorporating richer moisturizers</li>
+            <li>Repair summer damage with hydrating masks</li>
+            <li>Consider adding a facial oil to your routine</li>
+          </ul>
+          
+          <h3>Winter Protection</h3>
+          <p>For cold, harsh conditions:</p>
+          <ul>
+            <li>Use cream-based cleansers instead of foaming ones</li>
+            <li>Apply hydrating serums under your moisturizer</li>
+            <li>Protect exposed skin with balms containing natural oils</li>
+            <li>Don't forget sunscreen - winter UV can still damage skin</li>
+          </ul>
+          
+          <p>Remember to listen to your skin and adjust products as needed. The transition between seasons is gradual, so phase products in and out accordingly.</p>
+        `
+      }
+    };
+    
+    // Open modal with blog content
+    function openModal(blogId) {
+      const blog = blogContent[blogId];
+      if (!blog) return;
+      
+      document.getElementById('modalBlogImage').src = blog.image;
+      document.getElementById('modalBlogImage').alt = blog.title;
+      document.getElementById('modalBlogCategory').textContent = blog.category;
+      document.getElementById('modalBlogDate').textContent = blog.date;
+      document.getElementById('modalBlogTitle').textContent = blog.title;
+      document.getElementById('modalBlogContent').innerHTML = blog.content;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Close modal
+    function closeModalFunc() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Event listeners
+    readMoreButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const blogId = this.getAttribute('href').split('/')[2];
+        openModal(blogId);
+      });
+    });
+    
+    closeModal.addEventListener('click', closeModalFunc);
+    
+    // Close when clicking outside modal content
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModalFunc();
+      }
+    });
+    
+    // Close with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModalFunc();
+      }
+    });
+  });
+    </script>
+  </body>
+</html>

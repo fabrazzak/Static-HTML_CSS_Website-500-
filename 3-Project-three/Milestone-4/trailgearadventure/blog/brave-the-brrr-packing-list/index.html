@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Brave The BRRR suggested packing list for winter camping. Essential gear needed to stay warm, safe, and comfortable during extreme cold weather camping adventures in the Canadian Rockies.">
+    <meta name="keywords"
+        content="winter camping, cold weather gear, packing list, Canadian Rockies, extreme weather, camping essentials">
+    <link rel="canonical" href="https://trailgearadventure.com/blog/brave-the-brrr-packing-list/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>Brave The BRRR - Winter Camping Packing List | TrailGear Adventure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2a5a88;
+            --secondary-color: #4a90c8;
+            --accent-color: #f39c12;
+            --dark-bg: #0a0e27;
+            --light-text: #e8f0f7;
+            --overlay-dark: rgba(10, 14, 39, 0.75);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+        }
+
+        /* Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            transition: right 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+        }
+
+        .toast.show {
+            right: 30px;
+        }
+
+        .toast i {
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+
+        /* Top Header */
+        .top-header {
+            background: rgba(42, 90, 136, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(74, 144, 200, 0.15);
+        }
+
+        .top-header .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-header-left {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .top-header-left p {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-header-left i {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--light-text);
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Header */
+        header {
+            background: rgba(10, 14, 39, 0.4);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(74, 144, 200, 0.15);
+        }
+
+        .main-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--light-text);
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Animate to X */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(12px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-12px);
+        }
+
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 14, 39, 0.5);
+            backdrop-filter: blur(25px);
+            transition: right 0.4s ease;
+            z-index: 999;
+            padding: 100px 30px 30px;
+            border-left: 1px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+         .mobile-menu ul {
+            margin-top: 40px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .mobile-menu a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 30px;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        /* Blog Detail Hero Section */
+        .blog-detail-hero {
+            position: relative;
+            padding: 80px 20px 60px;
+        }
+
+        .blog-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: rgba(240, 244, 248, 0.8);
+            font-size: 1rem;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-detail-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: var(--light-text);
+            line-height: 1.2;
+        }
+
+        .blog-featured-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Blog Content */
+        .blog-detail-content {
+            padding: 0 20px 80px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-article {
+            background: rgba(74, 144, 200, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(74, 144, 200, 0.15);
+        }
+
+        .blog-article h2 {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            color: var(--light-text);
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .blog-article h2:first-child {
+            margin-top: 0;
+        }
+
+        .blog-article p {
+            color: rgba(240, 244, 248, 0.8);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .blog-article ul, .blog-article ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .blog-article li {
+            color: rgba(240, 244, 248, 0.8);
+            line-height: 1.8;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .blog-article strong {
+            color: var(--accent-color);
+        }
+
+        .gear-category {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .gear-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .back-to-blog {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--light-text);
+            border: 2px solid var(--light-text);
+        }
+
+        .btn-outline:hover {
+            background: var(--light-text);
+            color: var(--dark-bg);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.5);
+            backdrop-filter: blur(25px);
+            padding: 80px 20px 30px;
+            border-top: 2px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--light-text);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .footer-section p {
+            color: rgba(240, 244, 248, 0.7);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(74, 144, 200, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(240, 244, 248, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: rgba(240, 244, 248, 0.7);
+        }
+
+        .footer-contact i {
+            color: var(--accent-color);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(74, 144, 200, 0.15);
+            text-align: center;
+            color: rgba(232, 240, 247, 0.6);
+        }
+
+        /* Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(25px);
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            max-width: 600px;
+            width: 90%;
+            transition: bottom 0.5s ease;
+            border: 1px solid rgba(74, 144, 200, 0.2);
+        }
+
+        .cookie-popup.show {
+            bottom: 30px;
+        }
+
+        .cookie-popup p {
+            margin-bottom: 20px;
+            color: rgba(232, 240, 247, 0.9);
+            line-height: 1.6;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cookie-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .accept-cookies {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .accept-cookies:hover {
+            background: #e55a2b;
+        }
+
+        .decline-cookies {
+            background: rgba(74, 144, 200, 0.2);
+            color: var(--light-text);
+        }
+
+        .decline-cookies:hover {
+            background: rgba(74, 144, 200, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .top-header {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-detail-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-featured-image {
+                height: 300px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .blog-article {
+                padding: 30px 20px;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="content-wrapper">
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Item added to cart!</span>
+        </div>
+
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-left">
+                    <p><i class="fas fa-map-marker-alt"></i> 234 St Albert Rd, St. Albert, AB T8N 5H6</p>
+                    <p><i class="fas fa-phone"></i> +1 780-459-6716</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/AdventureTrailGear" target="_blank"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/adventure_trail_gear/" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCwYKPb31Ol1-wyjB-lXI39g" target="_blank"><i
+                            class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header>
+            <div class="main-header">
+                <div class="logo">
+                    <a href="/"><img src="/assets/images/logo.png" alt="TrailGear Adventure Logo"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon" onclick="window.location.href='/cart/'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <i class="fas fa-times mobile-close" id="mobile-close"></i>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop/">Shop</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Blog Detail Hero Section -->
+        <section class="blog-detail-hero">
+            <div class="blog-detail-container">
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar"></i> October 1, 2025</span>
+                    <span><i class="far fa-clock"></i> 6 min read</span>
+                    <span><i class="far fa-eye"></i> 153 views</span>
+                </div>
+                <h1>Brave The BRRR – Suggested Packing List</h1>
+                <img src="/assets/images/featured-blog.png" alt="Winter camping in the Canadian Rockies with snow-covered tents and gear" class="blog-featured-image">
+            </div>
+        </section>
+
+        <!-- Blog Detail Content -->
+        <section class="blog-detail-content">
+            <div class="container">
+                <article class="blog-article">
+                    <p>To set the stage, Brave The BRRR was conceptualized as an opportunity to test our stuff (both material and mettle). In natural winter conditions, we explore the essential gear needed to stay warm, safe, and comfortable during extreme cold weather camping adventures in the Canadian Rockies.</p>
+
+                    <h2>Understanding Winter Conditions</h2>
+                    <p>Winter camping in the Canadian Rockies presents unique challenges that demand specialized gear and preparation. Temperatures can plummet to -30°C (-22°F) or lower, with wind chill making conditions even more extreme. Proper gear isn't just about comfort—it's about survival.</p>
+
+                    <p>The key to successful winter camping lies in understanding the principles of layering, moisture management, and having reliable equipment that won't fail when you need it most.</p>
+
+                    <h2>Essential Gear Categories</h2>
+
+                    <div class="gear-category">
+                        <h3>Shelter & Sleep System</h3>
+                        <p>Your shelter and sleep system are arguably the most critical components for winter camping success:</p>
+                        <ul>
+                            <li><strong>4-Season Tent</strong> - Designed to withstand heavy snow loads and high winds</li>
+                            <li><strong>Winter Sleeping Bag</strong> - Rated to at least -20°C (-4°F) or lower</li>
+                            <li><strong>Insulated Sleeping Pad</strong> - With high R-value (5.0 or higher) for ground insulation</li>
+                            <li><strong>Sleeping Bag Liner</strong> - Adds extra warmth and keeps your bag clean</li>
+                            <li><strong>Emergency Bivvy</strong> - For unexpected situations or extra warmth</li>
+                        </ul>
+                    </div>
+
+                    <div class="gear-category">
+                        <h3>Clothing & Layering System</h3>
+                        <p>The right clothing system uses layers to manage moisture and trap warmth effectively:</p>
+                        <ul>
+                            <li><strong>Base Layers</strong> - Merino wool or synthetic moisture-wicking materials</li>
+                            <li><strong>Mid Layers</strong> - Fleece or insulated jacket for warmth retention</li>
+                            <li><strong>Outer Layers</strong> - Waterproof and windproof shell jacket and pants</li>
+                            <li><strong>Insulated Jacket</strong> - Down or synthetic for camp wear and extreme cold</li>
+                            <li><strong>Winter Boots</strong> - Insulated, waterproof with removable liners</li>
+                            <li><strong>Accessories</strong> - Balaclava, neck gaiter, insulated gloves, and mittens</li>
+                        </ul>
+                    </div>
+
+                    <div class="gear-category">
+                        <h3>Cooking & Hydration</h3>
+                        <p>Staying fed and hydrated is crucial for maintaining body heat in cold conditions:</p>
+                        <ul>
+                            <li><strong>Winter Stove</strong> - Liquid fuel or canister stove with winter capability</li>
+                            <li><strong>Fuel</strong> - Extra fuel (consumption increases in cold weather)</li>
+                            <li><strong>Insulated Bottles</strong> - Prevents water from freezing during the day</li>
+                            <li><strong>Thermos</strong> - For hot drinks that stay warm for hours</li>
+                            <li><strong>High-Energy Foods</strong> - Calorie-dense, easy-to-prepare meals and snacks</li>
+                            <li><strong>Water Filter</strong> - With winter operation capability</li>
+                        </ul>
+                    </div>
+
+                    <div class="gear-category">
+                        <h3>Safety & Navigation</h3>
+                        <p>Winter conditions require enhanced safety measures and reliable navigation tools:</p>
+                        <ul>
+                            <li><strong>Avalanche Safety Gear</strong> - Beacon, probe, and shovel if in avalanche terrain</li>
+                            <li><strong>GPS Device</strong> - With extra batteries or power bank</li>
+                            <li><strong>Topographic Map & Compass</strong> - Essential backup navigation</li>
+                            <li><strong>Headlamp</strong> - With extra batteries (cold drains them faster)</li>
+                            <li><strong>First Aid Kit</strong> - Winter-specific additions like chemical heat packs</li>
+                            <li><strong>Emergency Communication</strong> - Satellite messenger or personal locator beacon</li>
+                        </ul>
+                    </div>
+
+                    <h2>Specialized Winter Equipment</h2>
+                    <p>Beyond the basics, certain specialized equipment can make your winter camping experience safer and more enjoyable:</p>
+
+                    <ul>
+                        <li><strong>Snowshoes or Skis</strong> - For efficient travel in deep snow</li>
+                        <li><strong>Traction Devices</strong> - Microspikes or crampons for icy conditions</li>
+                        <li><strong>Ice Axe</strong> - For steep terrain and self-arrest</li>
+                        <li><strong>Snow Saw & Shovel</strong> - For building snow shelters or quinzees</li>
+                        <li><strong>Vapor Barrier Liners</strong> - Prevent moisture buildup in sleeping bags</li>
+                        <li><strong>Boot Warmers</strong> - Battery-powered for overnight boot drying</li>
+                    </ul>
+
+                    <h2>Final Preparation Tips</h2>
+                    <p>Before heading out into winter conditions, take these additional precautions:</p>
+
+                    <ol>
+                        <li><strong>Test Your Gear</strong> - Set up your tent in the backyard and sleep in your bag to identify any issues</li>
+                        <li><strong>Check Weather Forecasts</strong> - Monitor conditions and be prepared to cancel if necessary</li>
+                        <li><strong>File a Trip Plan</strong> - Leave detailed itinerary with trusted contacts</li>
+                        <li><strong>Practice Skills</strong> - Build snow shelters and practice with navigation in safe conditions</li>
+                        <li><strong>Pack Extra Everything</strong> - Batteries, fuel, food, and warm layers</li>
+                        <li><strong>Know Your Limits</strong> - Winter camping demands experience and honest self-assessment</li>
+                    </ol>
+
+                    <p>Remember that winter camping requires not just the right gear, but also the knowledge and experience to use it effectively. Start with shorter trips in milder conditions and gradually build your skills and confidence. The rewards of winter camping—pristine landscapes, solitude, and incredible starry nights—are well worth the preparation.</p>
+
+                    <div class="back-to-blog">
+                        <a href="/blog/" class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/images/logo.png" alt="TrailGear Adventure">
+                    </div>
+                    <p>Premium handcrafted outdoor gear designed for explorers. Built tough in Canada for adventurers
+                        worldwide.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/AdventureTrailGear" target="_blank"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/adventure_trail_gear/" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UCwYKPb31Ol1-wyjB-lXI39g" target="_blank"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 234 St Albert Rd, St. Albert, AB T8N 5H6, Canada</p>
+                    <p><i class="fas fa-phone"></i> +1 780-459-6716</p>
+                    <p><i class="fas fa-envelope"></i> info@trailgearadventure.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TrailGear Adventure. All rights reserved. Handcrafted with passion in Canada.</p>
+            </div>
+        </footer>
+
+        <!-- Cookie Popup -->
+        <div class="cookie-popup" id="cookie-popup">
+            <p>We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use our
+                website, you consent to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button class="accept-cookies" onclick="acceptCookies()">Accept</button>
+                <button class="decline-cookies" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Three.js Subtle Background Effect
+        const threeCanvas = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create subtle geometric shapes
+        const geometries = [
+            new THREE.IcosahedronGeometry(0.8, 0),
+            new THREE.OctahedronGeometry(0.7, 0),
+            new THREE.TetrahedronGeometry(0.9, 0)
+        ];
+
+        const shapes = [];
+        const shapeCount = 8;
+
+        for (let i = 0; i < shapeCount; i++) {
+            const geometry = geometries[i % geometries.length];
+            const material = new THREE.MeshPhongMaterial({
+                color: i % 2 === 0 ? 0x4a90c8 : 0x2a5a88,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+
+            mesh.position.x = (Math.random() - 0.5) * 25;
+            mesh.position.y = (Math.random() - 0.5) * 20;
+            mesh.position.z = (Math.random() - 0.5) * 15 - 8;
+
+            mesh.userData.rotationSpeed = {
+                x: (Math.random() - 0.5) * 0.01,
+                y: (Math.random() - 0.5) * 0.01
+            };
+
+            mesh.userData.floatSpeed = Math.random() * 0.01 + 0.005;
+            mesh.userData.floatOffset = Math.random() * Math.PI * 2;
+
+            scene.add(mesh);
+            shapes.push(mesh);
+        }
+
+        // Create ambient glow particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const particleCount = 80;
+        const positions = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 50;
+            positions[i + 1] = (Math.random() - 0.5) * 40;
+            positions[i + 2] = (Math.random() - 0.5) * 20;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0xf39c12,
+            size: 0.15,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Soft lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0x4a90c8, 0.8, 40);
+        pointLight.position.set(0, 10, 10);
+        scene.add(pointLight);
+
+        camera.position.z = 12;
+        camera.position.y = 3;
+
+        let time = 0;
+
+        // Animation loop
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+
+            time += 0.008;
+
+            // Gentle shape rotation and floating
+            shapes.forEach((shape, index) => {
+                shape.rotation.x += shape.userData.rotationSpeed.x;
+                shape.rotation.y += shape.userData.rotationSpeed.y;
+
+                shape.position.y += Math.sin(time + shape.userData.floatOffset) * 0.01;
+            });
+
+            // Gentle particle drift
+            particles.rotation.y += 0.0005;
+
+            // Soft light movement
+            pointLight.position.x = Math.sin(time * 0.3) * 8;
+            pointLight.position.z = Math.cos(time * 0.3) * 8;
+
+            renderer.render(scene, camera);
+        }
+
+        animateThree();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Initialize Particles.js
+        particlesJS('particle-canvas', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 1000 } },
+                color: { value: '#4f8a6d' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.4, random: true },
+                size: { value: 4, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4f8a6d',
+                    opacity: 0.3,
+                    width: 1.5
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 200, line_linked: { opacity: 0.5 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Cart Functions
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Cookie Popup
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookie_consent');
+            if (!consent) {
+                setTimeout(() => {
+                    document.getElementById('cookie-popup').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie_consent', 'accepted');
+            document.getElementById('cookie-popup').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookie_consent', 'declined');
+            document.getElementById('cookie-popup').classList.remove('show');
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            updateCartCount();
+            checkCookieConsent();
+        });
+    </script>
+</body>
+
+</html>

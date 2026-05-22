@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Handmade Products | yluria</title>
+    <meta
+      name="description"
+      content="Browse our collection of beautiful handmade products. Each piece is crafted with care by skilled artisans."
+    />
+    <meta
+      name="keywords"
+      content="handmade products, artisan crafts, handmade jewelry, home decor, handmade gifts, unique crafts"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reuse all CSS from homepage */
+      :root {
+        --primary-color: #8b5a2b;
+        --secondary-color: #d4a76a;
+        --accent-color: #5c3a21;
+        --light-color: #f8f1e7;
+        --dark-color: #333;
+        --white: #fff;
+        --gray: #eee;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--light-color);
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--accent-color);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent-color);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 14px;
+      }
+
+      .btn:hover {
+        background-color: var(--accent-color);
+        color: var(--white);
+        transform: translateY(-3px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      /* Header */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 600;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        bottom: -5px;
+        left: 0;
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Shop Page Specific Styles */
+      .shop-hero {
+        height: 400px;
+        background: url("https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80")
+          no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        margin-top: 70px;
+        position: relative;
+      }
+
+      .shop-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .shop-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .shop-hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: var(--white);
+      }
+
+      .shop-hero p {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+
+      .shop-content {
+        padding: 80px 0;
+      }
+
+      .shop-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      .shop-title h2 {
+        font-size: 36px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+      }
+
+      .shop-title h2::after {
+        content: "";
+        position: absolute;
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .shop-filter {
+        display: flex;
+        gap: 15px;
+      }
+
+      .shop-filter select {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .product-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-img {
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-img img {
+        transform: scale(1.1);
+      }
+
+      .quick-view-btn {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        color: var(--primary-color);
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .quick-view-btn {
+        opacity: 1;
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-info h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .product-price {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .product-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .product-actions .btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      /* Product Popup */
+      .product-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .product-popup.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .popup-content {
+        background-color: var(--white);
+        width: 90%;
+        max-width: 900px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 8px;
+        display: flex;
+        position: relative;
+      }
+
+      .close-popup {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1;
+      }
+
+      .popup-img {
+        flex: 1;
+        min-height: 400px;
+        background-color: var(--light-color);
+      }
+
+      .popup-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .popup-details {
+        flex: 1;
+        padding: 40px;
+      }
+
+      .popup-details h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+
+      .popup-price {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
+      .popup-description {
+        margin-bottom: 25px;
+      }
+
+      .popup-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .quantity-selector {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .quantity-selector button {
+        width: 30px;
+        height: 30px;
+        background-color: var(--light-color);
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .quantity-selector input {
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        border: 1px solid #ddd;
+        margin: 0 5px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--accent-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .footer-logo span {
+        color: var(--secondary-color);
+      }
+
+      .footer-about p {
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-links h3 {
+        color: var(--white);
+        font-size: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-links h3::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 2px;
+        background-color: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .footer-links ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .footer-contact p {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .popup-content {
+          flex-direction: column;
+        }
+
+        .popup-img {
+          min-height: 300px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 80%;
+          height: calc(100vh - 80px);
+          background-color: var(--white);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transition: var(--transition);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .shop-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+        }
+
+        .shop-filter {
+          width: 100%;
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .shop-hero h1 {
+          font-size: 32px;
+        }
+
+        .shop-hero p {
+          font-size: 16px;
+        }
+
+        .product-actions {
+          flex-direction: column;
+        }
+
+        .popup-details {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">yluria<span>.</span></a>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/shop/">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Shop Hero -->
+    <section class="shop-hero">
+      <div class="shop-hero-content">
+        <h1>Handmade Treasures</h1>
+        <p>Discover unique, artisanal products crafted with care and passion</p>
+      </div>
+    </section>
+
+    <!-- Shop Content -->
+    <section class="shop-content">
+      <div class="container">
+        <div class="shop-header">
+          <div class="shop-title">
+            <h2>Our Collection</h2>
+          </div>
+          <div class="shop-filter">
+            <select id="category-filter">
+              <option value="all">All Categories</option>
+              <option value="jewelry">Jewelry</option>
+              <option value="home-decor">Home Decor</option>
+              <option value="textiles">Textiles</option>
+              <option value="pottery">Pottery</option>
+            </select>
+            <select id="sort-by">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card" data-category="pottery">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Handmade Ceramic Mug"
+              />
+              <button class="quick-view-btn" data-product="1">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Artisan Ceramic Mug</h3>
+              <div class="product-price">$32.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="1">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card" data-category="textiles">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Handwoven Scarf"
+              />
+              <button class="quick-view-btn" data-product="2">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Handwoven Wool Scarf</h3>
+              <div class="product-price">$45.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="2">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card" data-category="home-decor">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Wooden Cutting Board"
+              />
+              <button class="quick-view-btn" data-product="3">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Walnut Cutting Board</h3>
+              <div class="product-price">$58.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="3">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="product-card" data-category="jewelry">
+            <div class="product-img">
+              <img
+                src="https://www.ubuy.com.bd/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFXdXNvZkM1SUwuX1NMMTUwMF8uanBn.jpg"
+                alt="Handmade Necklace"
+              />
+              <button class="quick-view-btn" data-product="4">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Handcrafted Silver Necklace</h3>
+              <div class="product-price">$68.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="4">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div class="product-card" data-category="home-decor">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                alt="Handmade Candle"
+              />
+              <button class="quick-view-btn" data-product="5">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Scented Soy Candle</h3>
+              <div class="product-price">$28.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="5">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 6 -->
+          <div class="product-card" data-category="pottery">
+            <div class="product-img">
+              <img
+                src="https://kariceramics.com/cdn/shop/products/Kari_ceramics_handmade_pottery_turquoise_ceramic_nesting_set_salad_bowl.jpg?v=1589552704"
+                alt="Ceramic Bowl"
+              />
+              <button class="quick-view-btn" data-product="6">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Handmade Ceramic Bowl</h3>
+              <div class="product-price">$42.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="6">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 7 -->
+          <div class="product-card" data-category="textiles">
+            <div class="product-img">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQD738zdvYyYDjKbGzV6Z1bSFCXA_OsNLxLw&s"
+                alt="Handwoven Blanket"
+              />
+              <button class="quick-view-btn" data-product="7">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Handwoven Cotton Blanket</h3>
+              <div class="product-price">$75.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="7">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 8 -->
+          <div class="product-card" data-category="jewelry">
+            <div class="product-img">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8o6HotBzNkTr8vekAHEIKvgIoRqh9HJKHEg&s"
+                alt="Handmade Earrings"
+              />
+              <button class="quick-view-btn" data-product="8">
+                Quick View
+              </button>
+            </div>
+            <div class="product-info">
+              <h3>Artisan Silver Earrings</h3>
+              <div class="product-price">$52.00</div>
+              <div class="product-actions">
+                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn btn-outline view-details" data-product="8">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Popup -->
+    <div class="product-popup" id="productPopup">
+      <div class="popup-content">
+        <button class="close-popup">&times;</button>
+        <div class="popup-img">
+          <img src="" alt="" id="popupProductImg" />
+        </div>
+        <div class="popup-details">
+          <h2 id="popupProductTitle">Product Title</h2>
+          <div class="popup-price" id="popupProductPrice">$0.00</div>
+          <div class="popup-description" id="popupProductDescription">
+            Product description goes here...
+          </div>
+          <div class="quantity-selector">
+            <button class="decrease-qty">-</button>
+            <input type="number" value="1" min="1" id="productQty" />
+            <button class="increase-qty">+</button>
+          </div>
+          <div class="popup-actions">
+            <button class="btn add-to-cart-popup">Add to Cart</button>
+            <button class="btn btn-outline">Wishlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-about">
+            <a href="/" class="footer-logo">yluria<span>.</span></a>
+            <p>
+              Bringing you beautifully crafted handmade products that tell a
+              story and connect you to the artisans who make them.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+              <li><a href="/">Shipping Policy</a></li>
+              <li><a href="/">Returns & Exchanges</a></li>
+              <li><a href="/">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Schloßpl. 1, 08648 Bad
+              Brambach, Germany
+            </p>
+            <p><i class="fas fa-phone"></i> +49 160 4697373</p>
+            <p><i class="fas fa-envelope"></i> hello@yluria.org</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 yluria. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const nav = document.querySelector("nav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        nav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = nav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Close mobile menu when clicking a link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("active");
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+      });
+
+      // Product data
+      const products = {
+        1: {
+          title: "Artisan Ceramic Mug",
+          price: "$32.00",
+          image:
+            "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Each mug is hand-thrown on a pottery wheel and glazed with non-toxic, food-safe materials. The unique variations in shape and glaze make each piece one-of-a-kind. Holds 12oz of your favorite beverage. Microwave and dishwasher safe.",
+        },
+        2: {
+          title: "Handwoven Wool Scarf",
+          price: "$45.00",
+          image:
+            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Woven from 100% natural wool using traditional techniques. The soft, warm fabric features subtle variations in color that showcase the natural beauty of the material. Measures 70 inches long by 12 inches wide. Perfect for chilly days.",
+        },
+        3: {
+          title: "Walnut Cutting Board",
+          price: "$58.00",
+          image:
+            "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Handcrafted from sustainably sourced walnut wood. The natural grain patterns make each board unique. Finished with food-safe mineral oil. Measures 12x18 inches with a juice groove around the perimeter. Perfect for serving cheeses or as a durable cutting surface.",
+        },
+        4: {
+          title: "Handcrafted Silver Necklace",
+          price: "$68.00",
+          image:
+            "https://images.unsplash.com/photo-1603974372036-a5b2a0b1093e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Made from sterling silver with a delicate hammered texture. The pendant measures 1 inch in diameter on an 18-inch chain with a lobster clasp closure. Each piece is hand-finished for a unique look. Comes in a gift box.",
+        },
+        5: {
+          title: "Scented Soy Candle",
+          price: "$28.00",
+          image:
+            "https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+          description:
+            "Hand-poured with 100% natural soy wax and premium fragrance oils. Each 8oz candle provides 40+ hours of burn time. Choose from scents like lavender vanilla, sandalwood amber, or fresh linen. Comes in a reusable ceramic vessel.",
+        },
+        6: {
+          title: "Handmade Ceramic Bowl",
+          price: "$42.00",
+          image:
+            "https://images.unsplash.com/photo-1605000895659-5d4bb9a396a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Wheel-thrown stoneware bowl with a beautiful matte glaze. The organic shape and textured surface highlight the handmade nature of the piece. Measures 8 inches in diameter and 3 inches deep. Perfect for salads, soups, or as a decorative piece.",
+        },
+        7: {
+          title: "Handwoven Cotton Blanket",
+          price: "$75.00",
+          image:
+            "https://images.unsplash.com/photo-1605000925100-928bd47b5d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Woven from 100% organic cotton on a traditional loom. The lightweight yet warm fabric features a subtle herringbone pattern. Measures 50x70 inches. Perfect as a throw blanket or lightweight bed covering. Gets softer with each wash.",
+        },
+        8: {
+          title: "Artisan Silver Earrings",
+          price: "$52.00",
+          image:
+            "https://images.unsplash.com/photo-1603974379129-0d5b4f1b0b4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          description:
+            "Handcrafted sterling silver earrings with a minimalist design. Each pair features a delicate hammered texture that catches the light beautifully. Posts are nickel-free and suitable for sensitive ears. Measures 0.5 inches in diameter.",
+        },
+      };
+
+      // Cart functionality
+      const addToCartButtons = document.querySelectorAll(
+        ".add-to-cart, .add-to-cart-popup"
+      );
+      const cartCount = document.querySelector(".cart-count");
+      let cartItems = 0;
+
+      addToCartButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          cartItems++;
+          cartCount.textContent = cartItems;
+
+          // Show added to cart notification
+          const notification = document.createElement("div");
+          notification.style.position = "fixed";
+          notification.style.bottom = "20px";
+          notification.style.right = "20px";
+          notification.style.backgroundColor = "var(--primary-color)";
+          notification.style.color = "white";
+          notification.style.padding = "15px 25px";
+          notification.style.borderRadius = "4px";
+          notification.style.boxShadow = "0 3px 10px rgba(0,0,0,0.2)";
+          notification.style.zIndex = "1000";
+          notification.style.animation = "fadeIn 0.3s ease";
+          notification.textContent = "Item added to cart!";
+
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            notification.style.animation = "fadeOut 0.3s ease";
+            setTimeout(() => {
+              document.body.removeChild(notification);
+            }, 300);
+          }, 3000);
+        });
+      });
+
+      // Product popup functionality
+      const productPopup = document.getElementById("productPopup");
+      const closePopup = document.querySelector(".close-popup");
+      const quickViewButtons = document.querySelectorAll(
+        ".quick-view-btn, .view-details"
+      );
+      const popupProductImg = document.getElementById("popupProductImg");
+      const popupProductTitle = document.getElementById("popupProductTitle");
+      const popupProductPrice = document.getElementById("popupProductPrice");
+      const popupProductDescription = document.getElementById(
+        "popupProductDescription"
+      );
+      const productQty = document.getElementById("productQty");
+      const decreaseQty = document.querySelector(".decrease-qty");
+      const increaseQty = document.querySelector(".increase-qty");
+
+      // Open popup
+      quickViewButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const productId = button.getAttribute("data-product");
+          const product = products[productId];
+
+          popupProductImg.src = product.image;
+          popupProductImg.alt = product.title;
+          popupProductTitle.textContent = product.title;
+          popupProductPrice.textContent = product.price;
+          popupProductDescription.textContent = product.description;
+          productQty.value = 1;
+
+          productPopup.classList.add("active");
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      // Close popup
+      closePopup.addEventListener("click", () => {
+        productPopup.classList.remove("active");
+        document.body.style.overflow = "auto";
+      });
+
+      // Close popup when clicking outside
+      productPopup.addEventListener("click", (e) => {
+        if (e.target === productPopup) {
+          productPopup.classList.remove("active");
+          document.body.style.overflow = "auto";
+        }
+      });
+
+      // Quantity controls
+      decreaseQty.addEventListener("click", () => {
+        if (productQty.value > 1) {
+          productQty.value--;
+        }
+      });
+
+      increaseQty.addEventListener("click", () => {
+        productQty.value++;
+      });
+
+      // Add keyframes for notification animation
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(20px); }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

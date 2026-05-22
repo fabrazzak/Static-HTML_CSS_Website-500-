@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food & Drink - PlayCraftCade | NY-Style Pizza & Craft Beer in Bismarck</title>
+    <meta name="description"
+        content="Explore PlayCraftCade's delicious NY-style pizza, fresh salads, appetizers & 20 craft beer taps. Order online for pickup or dine-in at Bismarck's premier arcade restaurant.">
+    <meta name="keywords"
+        content="NY-style pizza Bismarck, craft beer North Dakota, pizza menu, arcade restaurant, food delivery Bismarck, craft beer taps, pizza catering">
+    <link rel="canonical" href="https://playcraftcade.com/food-and-drink/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced glow effects for better readability */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+
+            0%,
+            100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Tron-style grid overlay */
+        .tron-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(255, 16, 240, 0.1) 100%);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.3;
+        }
+
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 255, 0.03) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 4;
+            animation: scanline-move 0.1s linear infinite;
+        }
+
+        @keyframes scanline-move {
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(4px);
+            }
+        }
+
+        /* Filter drawer styles */
+        .filter-drawer {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .filter-drawer.open {
+            transform: translateX(0);
+        }
+
+        .filter-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .filter-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Product card animations */
+        .product-card {
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        /* Filter animation */
+        .filter-fade {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .filter-fade.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+        <canvas id="three-canvas"></canvas>
+        <div class="tron-overlay"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                 <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="text-neon-blue hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/"
+                            class="block text-neon-blue hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block hover:text-neon-pink transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative py-20 overflow-hidden">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-neon-orange neon-glow-strong mb-6 pulse-neon">
+                    🍕 FOOD & DRINKS
+                </h1>
+                <p class="text-xl md:text-2xl mb-12 text-neon-blue max-w-3xl mx-auto readable-text">
+                    Authentic NY-Style Pizza • Fresh Ingredients • 20 Craft Beer Taps • Self-Pour Technology
+                </p>
+
+                <!-- Mobile Filter Toggle -->
+                <div class="md:hidden mb-8">
+                    <button id="mobile-filter-toggle"
+                        class="bg-neon-pink text-black px-6 py-3 rounded-lg font-bold hover:bg-neon-yellow transition-colors neon-border-soft">
+                        🔍 Filter Menu
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <section class="py-8 bg-black/80 backdrop-blur-sm min-h-screen">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row gap-8">
+
+                    <!-- Desktop Sidebar Filter -->
+                    <div class="hidden md:block w-80 flex-shrink-0">
+                        <div
+                            class="bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-blue/30 backdrop-blur-sm sticky top-24">
+                            <h3 class="text-2xl font-bold text-neon-blue mb-6 neon-glow-minimal">🔍 Filter Menu</h3>
+
+                            <!-- Category Filter -->
+                            <div class="mb-6">
+                                <h4 class="text-lg font-bold text-neon-pink mb-3">Category</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="category" value="all" class="hidden category-filter"
+                                            checked>
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">All Items</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="category" value="pizza"
+                                            class="hidden category-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">🍕 Pizza</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="category" value="appetizers"
+                                            class="hidden category-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">🥨 Appetizers</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="category" value="salads"
+                                            class="hidden category-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">🥗 Salads</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="category" value="sandwiches"
+                                            class="hidden category-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">🥪 Sandwiches</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="category" value="beverages"
+                                            class="hidden category-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">🍺 Beverages</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Price Filter -->
+                            <div class="mb-6">
+                                <h4 class="text-lg font-bold text-neon-green mb-3">Price Range</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="price" value="all" class="hidden price-filter"
+                                            checked>
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">All Prices</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="price" value="0-10" class="hidden price-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">Under $10</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="price" value="10-15" class="hidden price-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">$10 - $15</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="price" value="15-20" class="hidden price-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">$15 - $20</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="price" value="20-plus" class="hidden price-filter">
+                                        <div
+                                            class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                        </div>
+                                        <span class="readable-text">$20+</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Clear Filters -->
+                            <button id="clear-filters"
+                                class="w-full bg-neon-orange text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-yellow transition-colors">
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Filter Drawer -->
+                    <div class="md:hidden">
+                        <!-- Overlay -->
+                        <div id="filter-overlay" class="fixed inset-0 z-40 filter-overlay"></div>
+
+                        <!-- Drawer -->
+                        <div id="filter-drawer" class="fixed left-0 top-0 h-full w-80 max-w-[80vw] z-50 filter-drawer">
+                            <div
+                                class="bg-gradient-to-b from-retro-purple/90 to-black/90 h-full p-6 backdrop-blur-sm border-r border-neon-blue/30 overflow-y-auto">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="text-2xl font-bold text-neon-blue neon-glow-minimal">🔍 Filter Menu</h3>
+                                    <button id="close-filter-drawer"
+                                        class="text-neon-pink hover:text-neon-yellow text-2xl">✕</button>
+                                </div>
+
+                                <!-- Category Filter Mobile -->
+                                <div class="mb-6">
+                                    <h4 class="text-lg font-bold text-neon-pink mb-3">Category</h4>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-category" value="all"
+                                                class="hidden mobile-category-filter" checked>
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">All Items</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-category" value="pizza"
+                                                class="hidden mobile-category-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">🍕 Pizza</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-category" value="appetizers"
+                                                class="hidden mobile-category-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">🥨 Appetizers</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-category" value="salads"
+                                                class="hidden mobile-category-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">🥗 Salads</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-category" value="sandwiches"
+                                                class="hidden mobile-category-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">🥪 Sandwiches</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-category" value="beverages"
+                                                class="hidden mobile-category-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-blue rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-blue rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">🍺 Beverages</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Price Filter Mobile -->
+                                <div class="mb-6">
+                                    <h4 class="text-lg font-bold text-neon-green mb-3">Price Range</h4>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-price" value="all"
+                                                class="hidden mobile-price-filter" checked>
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">All Prices</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-price" value="0-10"
+                                                class="hidden mobile-price-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">Under $10</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-price" value="10-15"
+                                                class="hidden mobile-price-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">$10 - $15</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-price" value="15-20"
+                                                class="hidden mobile-price-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">$15 - $20</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="mobile-price" value="20-plus"
+                                                class="hidden mobile-price-filter">
+                                            <div
+                                                class="w-4 h-4 border-2 border-neon-green rounded mr-3 flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-neon-green rounded opacity-0"></div>
+                                            </div>
+                                            <span class="readable-text">$20+</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Clear Filters Mobile -->
+                                <button id="mobile-clear-filters"
+                                    class="w-full bg-neon-orange text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-yellow transition-colors mb-4">
+                                    Clear Filters
+                                </button>
+
+                                <!-- Apply Filters (Mobile) -->
+                                <button id="apply-filters-mobile"
+                                    class="w-full bg-neon-pink text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-blue transition-colors">
+                                    Apply Filters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="flex-1">
+                        <div class="mb-6">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div>
+                                    <h2 class="text-2xl font-bold text-neon-yellow neon-glow-minimal">
+                                        Our Delicious Menu
+                                    </h2>
+                                    <p class="text-gray-300 readable-text" id="results-count">Showing 15 items</p>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <label class="text-sm text-gray-300 readable-text">Sort by:</label>
+                                    <select id="sort-select"
+                                        class="bg-black/70 border border-neon-blue/30 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-neon-blue">
+                                        <option value="name">Name A-Z</option>
+                                        <option value="name-desc">Name Z-A</option>
+                                        <option value="price-asc">Price Low to High</option>
+                                        <option value="price-desc">Price High to Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
+                            <!-- Products will be populated by JavaScript -->
+                        </div>
+
+                        <!-- No Results Message -->
+                        <div id="no-results" class="text-center py-12 hidden">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-2xl font-bold text-neon-yellow mb-2">No items found</h3>
+                            <p class="text-gray-300 readable-text">Try adjusting your filters or search criteria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                             <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style
+                            pizzeria,
+                            and craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            </li>
+                            <li><a href="/food-and-drink/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food &
+                                    Drink</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms &
+                                    Conditions</a></li>
+                            <li><a href="/cookies/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies
+                                    Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602"
+                                    class="hover:text-neon-pink hover-glow transition-colors">+1
+                                    (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                    class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Food and drink products data (15 items)
+        const allProducts = [
+            // Pizza
+            { id: 1, name: "Margherita Pizza", price: 14.99, category: "pizza", image: "/assets/images/margherita-pizza.jpg", description: "Fresh mozzarella, basil, and tomato sauce on our signature NY-style crust" },
+            { id: 2, name: "Pepperoni Pizza", price: 16.99, category: "pizza", image: "/assets/images/pepperoni-pizza.jpg", description: "Classic pepperoni with mozzarella cheese on crispy thin crust" },
+            { id: 3, name: "Supreme Pizza", price: 19.99, category: "pizza", image: "/assets/images/supreme-pizza.jpg", description: "Pepperoni, sausage, peppers, onions, mushrooms, and olives" },
+            { id: 4, name: "Buffalo Chicken Pizza", price: 18.99, category: "pizza", image: "/assets/images/buffalo-chicken-pizza.jpg", description: "Spicy buffalo chicken, blue cheese, and celery on white sauce base" },
+
+            // Appetizers
+            { id: 5, name: "Loaded Nachos", price: 13.99, category: "appetizers", image: "/assets/images/loaded-nachos.jpg", description: "Tortilla chips with cheese, jalapeños, sour cream, and salsa" },
+            { id: 6, name: "Buffalo Wings", price: 12.99, category: "appetizers", image: "/assets/images/buffalo-wings.jpg", description: "10 crispy wings tossed in our signature buffalo sauce" },
+            { id: 7, name: "Mozzarella Sticks", price: 9.99, category: "appetizers", image: "/assets/images/mozzarella-sticks.jpg", description: "Golden fried mozzarella sticks served with marinara sauce" },
+
+            // Salads
+            { id: 8, name: "Caesar Salad", price: 10.99, category: "salads", image: "/assets/images/caesar-salad.jpg", description: "Crisp romaine, parmesan, croutons, and Caesar dressing" },
+            { id: 9, name: "Greek Salad", price: 12.99, category: "salads", image: "/assets/images/greek-salad.jpg", description: "Mixed greens, feta, olives, tomatoes, and Greek dressing" },
+            { id: 10, name: "Garden Salad", price: 8.99, category: "salads", image: "/assets/images/garden-salad.jpeg", description: "Fresh mixed greens, tomatoes, cucumbers, and carrots" },
+
+            // Sandwiches
+            { id: 11, name: "Buffalo Chicken Wrap", price: 12.99, category: "sandwiches", image: "/assets/images/buffalo-chicken-wrap.jpg", description: "Spicy buffalo chicken with lettuce, tomato, and ranch dressing" },
+            { id: 12, name: "Italian Sub", price: 11.99, category: "sandwiches", image: "/assets/images/italian-sub.jpg", description: "Ham, salami, provolone, lettuce, tomato, and Italian dressing" },
+            { id: 13, name: "BBQ Pulled Pork", price: 13.99, category: "sandwiches", image: "/assets/images/bbq-pulled-pork.jpg", description: "Slow-cooked pulled pork with BBQ sauce and coleslaw" },
+
+            // Beverages
+            { id: 14, name: "Craft Beer Flight", price: 12.00, category: "beverages", image: "/assets/images/beer-flight.jpeg", description: "Sample four 4oz pours of our rotating craft beer taps" },
+            { id: 15, name: "Arcade Punch", price: 6.99, category: "beverages", image: "/assets/images/arcade-punch.jpeg", description: "Our signature non-alcoholic tropical punch with neon colors" }
+        ];
+
+        let filteredProducts = [...allProducts];
+        let currentFilters = { category: 'all', price: 'all' };
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function addToCart(item) {
+            cart.push(item);
+            localStorage.setItem('playcraftcade-cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`${item.name} added to cart!`, 'success');
+        }
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg text-white font-bold transition-all transform translate-x-full ${type === 'success' ? 'bg-neon-green text-black' : 'bg-red-500'}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Filter products
+        function filterProducts() {
+            filteredProducts = allProducts.filter(product => {
+                const categoryMatch = currentFilters.category === 'all' || product.category === currentFilters.category;
+
+                let priceMatch = true;
+                if (currentFilters.price !== 'all') {
+                    const price = product.price;
+                    switch (currentFilters.price) {
+                        case '0-10':
+                            priceMatch = price < 10;
+                            break;
+                        case '10-15':
+                            priceMatch = price >= 10 && price < 15;
+                            break;
+                        case '15-20':
+                            priceMatch = price >= 15 && price < 20;
+                            break;
+                        case '20-plus':
+                            priceMatch = price >= 20;
+                            break;
+                    }
+                }
+
+                return categoryMatch && priceMatch;
+            });
+
+            renderProducts();
+            updateResultsCount();
+        }
+
+        // Sort products
+        function sortProducts(sortBy) {
+            switch (sortBy) {
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'price-asc':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-desc':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+            }
+            renderProducts();
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const noResults = document.getElementById('no-results');
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card bg-gradient-to-b from-retro-purple/30 to-black/70 p-6 rounded-lg border border-neon-orange/30 hover:border-neon-orange backdrop-blur-sm filter-fade flex flex-col">
+    <div class="relative mb-4">
+        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg">
+        <div class="absolute top-2 right-2 bg-neon-yellow text-black px-2 py-1 rounded-lg font-bold text-sm">
+            ${getCategoryEmoji(product.category)}
+        </div>
+    </div>
+    <h3 class="text-xl font-bold text-neon-orange mb-2 neon-glow-minimal">${product.name}</h3>
+    <p class="text-gray-300 mb-4 readable-text text-sm flex-grow">
+        ${product.description}
+    </p>
+    <div class="mt-auto flex justify-between items-center">
+        <span class="text-neon-yellow font-bold text-xl">$${product.price.toFixed(2)}</span>
+        <button onclick="addToCart({id: ${product.id}, name: '${product.name}', price: ${product.price}, image: '${product.image}', type: 'food'})" 
+            class="bg-neon-orange text-black px-4 py-2 rounded-lg font-bold hover:bg-neon-yellow transition-all transform hover:scale-105 neon-border-soft">
+            Add to Cart
+        </button>
+    </div>
+</div>
+
+            `).join('');
+        }
+
+        function getCategoryEmoji(category) {
+            const emojis = {
+                pizza: '🍕',
+                appetizers: '🥨',
+                salads: '🥗',
+                sandwiches: '🥪',
+                beverages: '🍺'
+            };
+            return emojis[category] || '🍽️';
+        }
+
+        function updateResultsCount() {
+            const countEl = document.getElementById('results-count');
+            const count = filteredProducts.length;
+            countEl.textContent = `Showing ${count} item${count !== 1 ? 's' : ''}`;
+        }
+
+        // Custom radio button functionality
+        function setupCustomRadios() {
+            // Desktop filters
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const priceFilters = document.querySelectorAll('.price-filter');
+
+            // Mobile filters
+            const mobileCategoryFilters = document.querySelectorAll('.mobile-category-filter');
+            const mobilePriceFilters = document.querySelectorAll('.mobile-price-filter');
+
+            // Function to update radio visual state
+            function updateRadioVisual(input) {
+                const group = input.name;
+                document.querySelectorAll(`input[name="${group}"]`).forEach(radio => {
+                    const visual = radio.parentElement.querySelector('div > div');
+                    visual.style.opacity = radio.checked ? '1' : '0';
+                });
+            }
+
+            // Setup desktop category filters
+            categoryFilters.forEach(filter => {
+                filter.parentElement.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    filter.checked = true;
+                    updateRadioVisual(filter);
+                    currentFilters.category = filter.value;
+
+                    // Sync mobile filter
+                    const mobileFilter = document.querySelector(`input[name="mobile-category"][value="${filter.value}"]`);
+                    if (mobileFilter) {
+                        mobileFilter.checked = true;
+                        updateRadioVisual(mobileFilter);
+                    }
+
+                    filterProducts();
+                });
+            });
+
+            // Setup desktop price filters
+            priceFilters.forEach(filter => {
+                filter.parentElement.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    filter.checked = true;
+                    updateRadioVisual(filter);
+                    currentFilters.price = filter.value;
+
+                    // Sync mobile filter
+                    const mobileFilter = document.querySelector(`input[name="mobile-price"][value="${filter.value}"]`);
+                    if (mobileFilter) {
+                        mobileFilter.checked = true;
+                        updateRadioVisual(mobileFilter);
+                    }
+
+                    filterProducts();
+                });
+            });
+
+            // Setup mobile category filters
+            mobileCategoryFilters.forEach(filter => {
+                filter.parentElement.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    filter.checked = true;
+                    updateRadioVisual(filter);
+                    currentFilters.category = filter.value;
+
+                    // Sync desktop filter
+                    const desktopFilter = document.querySelector(`input[name="category"][value="${filter.value}"]`);
+                    if (desktopFilter) {
+                        desktopFilter.checked = true;
+                        updateRadioVisual(desktopFilter);
+                    }
+                });
+            });
+
+            // Setup mobile price filters
+            mobilePriceFilters.forEach(filter => {
+                filter.parentElement.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    filter.checked = true;
+                    updateRadioVisual(filter);
+                    currentFilters.price = filter.value;
+
+                    // Sync desktop filter
+                    const desktopFilter = document.querySelector(`input[name="price"][value="${filter.value}"]`);
+                    if (desktopFilter) {
+                        desktopFilter.checked = true;
+                        updateRadioVisual(desktopFilter);
+                    }
+                });
+            });
+
+            // Initialize visual state
+            document.querySelectorAll('input[type="radio"]').forEach(updateRadioVisual);
+        }
+
+        // Mobile filter drawer functionality
+        function setupMobileFilterDrawer() {
+            const mobileToggle = document.getElementById('mobile-filter-toggle');
+            const drawer = document.getElementById('filter-drawer');
+            const overlay = document.getElementById('filter-overlay');
+            const closeBtn = document.getElementById('close-filter-drawer');
+            const applyBtn = document.getElementById('apply-filters-mobile');
+
+            function openDrawer() {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', openDrawer);
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeDrawer);
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', closeDrawer);
+            }
+
+            if (applyBtn) {
+                applyBtn.addEventListener('click', () => {
+                    filterProducts();
+                    closeDrawer();
+                });
+            }
+        }
+
+        // Clear filters functionality
+        function setupClearFilters() {
+            const clearBtns = ['clear-filters', 'mobile-clear-filters'];
+
+            clearBtns.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        // Reset filters
+                        currentFilters = { category: 'all', price: 'all' };
+
+                        // Reset all radio buttons
+                        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                            radio.checked = radio.value === 'all';
+                            const visual = radio.parentElement.querySelector('div > div');
+                            visual.style.opacity = radio.checked ? '1' : '0';
+                        });
+
+                        // Reset sort
+                        const sortSelect = document.getElementById('sort-select');
+                        if (sortSelect) sortSelect.value = 'name';
+
+                        filterProducts();
+                    });
+                }
+            });
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Sort functionality
+        function setupSort() {
+            const sortSelect = document.getElementById('sort-select');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', (e) => {
+                    sortProducts(e.target.value);
+                });
+            }
+        }
+
+        // Initialize Three.js scene (same as home page)
+        function initThreeJS() {
+            try {
+                const canvas = document.getElementById('three-canvas');
+                if (!canvas || !window.THREE) {
+                    console.log('Three.js not loaded or canvas not found');
+                    return;
+                }
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+
+                // Create food-themed floating elements
+                const foodElements = [];
+
+                // Pizza slice shapes
+                const pizzaGeometry = new THREE.ConeGeometry(0.4, 0.1, 6);
+                const pizzaMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff8c00,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                for (let i = 0; i < 20; i++) {
+                    const pizza = new THREE.Mesh(pizzaGeometry, pizzaMaterial);
+                    pizza.position.set(
+                        (Math.random() - 0.5) * 100,
+                        (Math.random() - 0.5) * 60,
+                        (Math.random() - 0.5) * 50
+                    );
+                    pizza.userData = {
+                        type: 'pizza',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.02,
+                            y: (Math.random() - 0.5) * 0.02,
+                            z: (Math.random() - 0.5) * 0.02
+                        }
+                    };
+                    scene.add(pizza);
+                    foodElements.push(pizza);
+                }
+
+                // Beer mug shapes (cylinders)
+                const beerGeometry = new THREE.CylinderGeometry(0.3, 0.3, 0.6, 8);
+                const beerMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xffff00,
+                    transparent: true,
+                    opacity: 0.7
+                });
+
+                for (let i = 0; i < 15; i++) {
+                    const beer = new THREE.Mesh(beerGeometry, beerMaterial);
+                    beer.position.set(
+                        (Math.random() - 0.5) * 90,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    beer.userData = {
+                        type: 'beer',
+                        floatSpeed: Math.random() * 0.005 + 0.002,
+                        originalY: beer.position.y
+                    };
+                    scene.add(beer);
+                    foodElements.push(beer);
+                }
+
+                camera.position.z = 30;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const time = Date.now() * 0.001;
+
+                    foodElements.forEach((element, index) => {
+                        if (element.userData.type === 'pizza') {
+                            // Spinning pizza
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                        } else if (element.userData.type === 'beer') {
+                            // Floating beer mugs
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.floatSpeed + index) * 3;
+                        }
+
+                        // General drift
+                        element.position.x += Math.sin(time * 0.0001 + index) * 0.02;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+            } catch (error) {
+                console.error('Three.js initialization error:', error);
+            }
+        }
+
+        // Initialize Particles.js (same as home page)
+        function initParticles() {
+            try {
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js not loaded');
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 40, density: { enable: true, value_area: 800 } },
+                        color: {
+                            value: ['#ff10f0', '#00ffff', '#39ff14', '#ffff00', '#ff8c00']
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { width: 1, color: '#ffffff' }
+                        },
+                        opacity: {
+                            value: 0.4,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.5
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#ff8c00',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1.5,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: {
+                                distance: 80,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 3
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                renderProducts();
+                updateCartCount();
+                updateResultsCount();
+
+                setupCustomRadios();
+                setupMobileFilterDrawer();
+                setupClearFilters();
+                setupSort();
+                initializeMobileMenu();
+
+                // Small delay to ensure libraries are loaded
+                setTimeout(() => {
+                    initThreeJS();
+                    initParticles();
+                }, 100);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

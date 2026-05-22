@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Craft Beer Revolution: How Self-Pour Technology is Changing the Game - PlayCraftCade Blog</title>
+    <meta name="description"
+        content="Explore the fascinating world of craft beer and discover how PlayCraftCade's innovative self-pour beer wall is revolutionizing the drinking experience with 20 rotating taps.">
+    <meta name="keywords"
+        content="craft beer, self-pour beer, beer wall technology, North Dakota breweries, craft beer revolution, beer tasting, PlayCraftCade beer, innovative beer experience">
+    <link rel="canonical" href="https://playcraftcade.com/blog/craft-beer-revolution/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="The Craft Beer Revolution: How Self-Pour Technology is Changing the Game">
+    <meta property="og:description" content="Discover how our innovative self-pour beer wall is revolutionizing the drinking experience with 20 rotating taps.">
+    <meta property="og:image" content="https://playcraftcade.com/assets/images/craft-beer-revolution.jpg">
+    <meta property="og:url" content="https://playcraftcade.com/blog/craft-beer-revolution/">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Consistent glow effects like blog page */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+            0%, 100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Blog content styles */
+        .blog-content {
+            line-height: 1.8;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 2rem 0 1rem 0;
+            color: #00ffff;
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0 1rem 0;
+            color: #39ff14;
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: #e5e5e5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            color: #e5e5e5;
+            list-style-type: disc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #00ffff;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .beer-showcase {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(57, 255, 20, 0.1));
+            border: 2px solid #00ffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 8px #00ffff, inset 0 0 8px rgba(0, 255, 255, 0.05);
+        }
+
+        .beer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .beer-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .beer-card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .tech-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(57, 255, 20, 0.05);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+        }
+
+        .tech-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 3rem;
+            height: 3rem;
+            background: #00ffff;
+            color: black;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px #00ffff;
+            font-size: 1.5rem;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .blog-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .brewery-spotlight {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.15), rgba(0, 255, 255, 0.1));
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .abv-meter {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .abv-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #39ff14, #00ffff);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                 <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food & Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="text-neon-blue hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden" id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block text-neon-blue transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Breadcrumb -->
+        <nav class="bg-black/50 backdrop-blur-sm py-4">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center space-x-2 text-sm">
+                    <a href="/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">Home</a>
+                    <span class="text-gray-400">></span>
+                    <a href="/blog/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                    <span class="text-gray-400">></span>
+                    <span class="text-gray-400">The Craft Beer Revolution</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Article Header -->
+        <section class="py-12 bg-gradient-to-b from-retro-dark/80 to-black/80">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <span class="category-tag bg-neon-blue text-black neon-border-soft">
+                            🍺 Craft Beer
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-neon-blue neon-glow-soft mb-6 leading-tight">
+                        The Craft Beer Revolution: How Self-Pour Technology is Changing the Game
+                    </h1>
+                    <div class="flex flex-wrap justify-center items-center gap-6 text-gray-300 mb-8 readable-text">
+                        <div class="flex items-center gap-2">
+                            <span>👤</span>
+                            <span>Sarah "Hopmaster" Peterson</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span>📅</span>
+                            <span>December 20, 2024</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span>⏱️</span>
+                            <span>5 min read</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span>👁️</span>
+                            <span>1,893 views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <article class="py-12 bg-gradient-to-b from-black/80 to-retro-dark/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-black/70 rounded-lg border border-neon-blue/30 p-8 neon-border-soft">
+                        <!-- Hero Image -->
+                        <div class="mb-8">
+                            <img src="/assets/images/craft-beer-revolution.jpg" 
+                                 alt="Craft Beer Revolution at PlayCraftCade" 
+                                 class="w-full h-96 object-cover rounded-lg border-2 border-neon-blue/50">
+                        </div>
+
+                        <div class="blog-content">
+                            <p class="text-xl text-neon-blue mb-6 font-bold neon-glow-minimal">
+                                Welcome to the future of craft beer! At PlayCraftCade, we're not just serving great beer – we're revolutionizing how you discover, taste, and enjoy craft brews with our innovative self-pour beer wall technology.
+                            </p>
+
+                            <h2>🍺 The Self-Pour Revolution</h2>
+                            <p>
+                                Gone are the days of waiting in line for a single beer or committing to a full pint of something you've never tried. Our self-pour beer wall puts you in complete control of your craft beer journey, allowing you to sample, savor, and explore like never before.
+                            </p>
+
+                            <p>
+                                Picture this: a sleek, futuristic wall lined with 20 rotating taps, each dispensing perfectly chilled craft beer. You control the pour, you control the price, and you control your adventure. It's like having your own personal craft beer laboratory!
+                            </p>
+
+                            <h2>🎮 How Our Beer Wall Technology Works</h2>
+                            <p>
+                                Our state-of-the-art self-pour system combines cutting-edge technology with user-friendly design to create an experience that's both high-tech and surprisingly intuitive.
+                            </p>
+
+                            <div class="beer-showcase">
+                                <h3 class="text-2xl font-bold text-neon-blue mb-6 neon-glow-soft">⚡ The Technology Behind the Magic</h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="tech-feature">
+                                        <div class="tech-icon">🔑</div>
+                                        <div>
+                                            <h4 class="text-lg font-bold text-neon-green mb-2">RFID Card System</h4>
+                                            <p>Each customer receives a unique RFID card that tracks their pours and ensures responsible service. Simply tap your card and pour!</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-feature">
+                                        <div class="tech-icon">🌡️</div>
+                                        <div>
+                                            <h4 class="text-lg font-bold text-neon-green mb-2">Perfect Temperature Control</h4>
+                                            <p>Advanced glycol cooling systems maintain each beer at its optimal serving temperature, ensuring every sip tastes exactly as the brewer intended.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-feature">
+                                        <div class="tech-icon">📊</div>
+                                        <div>
+                                            <h4 class="text-lg font-bold text-neon-green mb-2">Real-Time Monitoring</h4>
+                                            <p>Digital displays show real-time information about each beer including ABV, IBU, style, brewery, and tasting notes – plus how much is left!</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-feature">
+                                        <div class="tech-icon">💰</div>
+                                        <div>
+                                            <h4 class="text-lg font-bold text-neon-green mb-2">Pay-Per-Ounce Pricing</h4>
+                                            <p>Want a 2-ounce taste? A half pint? A full pour? You pay only for what you pour, encouraging exploration and responsible consumption.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-feature">
+                                        <div class="tech-icon">🔄</div>
+                                        <div>
+                                            <h4 class="text-lg font-bold text-neon-green mb-2">Fresh Beer Guarantee</h4>
+                                            <p>Automated line cleaning systems and keg rotation ensure that every beer is fresh, clean, and served at peak quality.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2>🌟 Featured: Our Current Tap Lineup</h2>
+                            <p>
+                                Our 20 rotating taps showcase the best of craft brewing, from local North Dakota gems to nationally acclaimed favorites. Here's a taste of what you might find flowing from our beer wall:
+                            </p>
+
+                            <div class="beer-grid mt-6">
+                                <div class="beer-card">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h4 class="text-lg font-bold text-neon-yellow">Fargo Brewing Sodbuster</h4>
+                                        <span class="text-sm text-neon-blue">5.2% ABV</span>
+                                    </div>
+                                    <div class="abv-meter">
+                                        <div class="abv-fill" style="width: 52%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2"><strong>Style:</strong> American Wheat Ale</p>
+                                    <p class="text-xs text-gray-400">A refreshing wheat beer with subtle citrus notes, perfect for gaming sessions. Brewed right here in North Dakota!</p>
+                                </div>
+                                
+                                <div class="beer-card">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h4 class="text-lg font-bold text-neon-yellow">Bell's Two Hearted</h4>
+                                        <span class="text-sm text-neon-blue">7.0% ABV</span>
+                                    </div>
+                                    <div class="abv-meter">
+                                        <div class="abv-fill" style="width: 70%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2"><strong>Style:</strong> American IPA</p>
+                                    <p class="text-xs text-gray-400">A hop-forward classic with floral and citrus aromas balanced by caramel malt sweetness. A Michigan masterpiece!</p>
+                                </div>
+                                
+                                <div class="beer-card">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h4 class="text-lg font-bold text-neon-yellow">Deschutes Fresh Squeezed</h4>
+                                        <span class="text-sm text-neon-blue">6.4% ABV</span>
+                                    </div>
+                                    <div class="abv-meter">
+                                        <div class="abv-fill" style="width: 64%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2"><strong>Style:</strong> Juicy IPA</p>
+                                    <p class="text-xs text-gray-400">Bursting with grapefruit and orange flavors, this Oregon beauty delivers maximum hop flavor with smooth drinkability.</p>
+                                </div>
+                                
+                                <div class="beer-card">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h4 class="text-lg font-bold text-neon-yellow">Prairie Artisan Ales Bomb!</h4>
+                                        <span class="text-sm text-neon-blue">13.2% ABV</span>
+                                    </div>
+                                    <div class="abv-meter">
+                                        <div class="abv-fill" style="width: 92%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2"><strong>Style:</strong> Imperial Stout</p>
+                                    <p class="text-xs text-gray-400">An explosive combination of coffee, chocolate, vanilla, and chili peppers. Sip slowly and savor every complex layer!</p>
+                                </div>
+                                
+                                <div class="beer-card">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h4 class="text-lg font-bold text-neon-yellow">Laughing Sun Brewing Citrus Wheat</h4>
+                                        <span class="text-sm text-neon-blue">4.8% ABV</span>
+                                    </div>
+                                    <div class="abv-meter">
+                                        <div class="abv-fill" style="width: 48%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2"><strong>Style:</strong> Wheat Beer</p>
+                                    <p class="text-xs text-gray-400">Local Bismarck brewery's signature wheat beer with bright citrus character. The perfect complement to our NY-style pizza!</p>
+                                </div>
+                                
+                                <div class="beer-card">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h4 class="text-lg font-bold text-neon-yellow">Founders All Day IPA</h4>
+                                        <span class="text-sm text-neon-blue">4.7% ABV</span>
+                                    </div>
+                                    <div class="abv-meter">
+                                        <div class="abv-fill" style="width: 47%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mb-2"><strong>Style:</strong> Session IPA</p>
+                                    <p class="text-xs text-gray-400">All the hoppy goodness you crave in a lower-ABV package. Perfect for extended gaming sessions without the heavy buzz!</p>
+                                </div>
+                            </div>
+
+                            <h2>🏭 Spotlight: North Dakota Craft Beer Scene</h2>
+                            <p>
+                                While we love showcasing beers from across the nation, we take special pride in highlighting the incredible craft breweries right here in North Dakota. Our state's brewing scene has exploded in recent years, and we're proud to be part of that story.
+                            </p>
+
+                            <div class="brewery-spotlight">
+                                <h3 class="text-xl font-bold text-neon-green mb-3 neon-glow-minimal">🌾 Local Brewery Spotlight: Laughing Sun Brewing</h3>
+                                <p class="text-gray-300 mb-3">
+                                    Located right here in Bismarck, Laughing Sun Brewing represents the best of North Dakota's craft beer renaissance. Founded by passionate brewers with a commitment to quality and community, they've become a cornerstone of our local beer scene.
+                                </p>
+                                <p class="text-gray-300">
+                                    Their beers regularly rotate through our self-pour system, giving you the chance to taste hyperlocal craft beer at its freshest. From crisp wheat beers perfect for summer gaming sessions to robust stouts that warm you through Dakota winters, Laughing Sun delivers consistent quality and innovative flavors.
+                                </p>
+                            </div>
+
+                            <h3>Other North Dakota Favorites on Rotation:</h3>
+                            <ul>
+                                <li><strong>Fargo Brewing Company</strong> - Pioneers of the ND craft scene with classics like Sodbuster and Wood Chipper</li>
+                                <li><strong>Drekker Brewing</strong> - Fargo's innovative brewery known for bold flavors and creative collaborations</li>
+                                <li><strong>Bent Paddle Brewing</strong> - While technically Minnesota, they're close enough to be honorary Dakotans!</li>
+                                <li><strong>Williston Brewing Company</strong> - Western North Dakota's contribution to our growing beer culture</li>
+                            </ul>
+
+                            <h2>🎯 The Art of Beer and Gaming Pairing</h2>
+                            <p>
+                                At PlayCraftCade, we've discovered that certain beers enhance certain gaming experiences. Our self-pour system makes it easy to experiment and find your perfect gaming beer!
+                            </p>
+
+                            <blockquote>
+                                "The beauty of self-pour isn't just convenience – it's discovery. I've watched customers find their new favorite beer by taking small tastes of styles they never would have ordered a full pint of." - Sarah "Hopmaster" Peterson
+                            </blockquote>
+
+                            <h3>Gaming & Beer Pairing Recommendations:</h3>
+                            <ul>
+                                <li><strong>Puzzle Games (Tetris, Dr. Mario):</strong> Light, crisp lagers or wheat beers that won't cloud your concentration</li>
+                                <li><strong>Fighting Games (Street Fighter, Mortal Kombat):</strong> Bold IPAs that match the intensity of competition</li>
+                                <li><strong>Classic Arcade (Pac-Man, Galaga):</strong> Session beers that let you play for hours without overdoing it</li>
+                                <li><strong>Pinball:</strong> Complex stouts or porters - games and beers that reward attention to detail</li>
+                                <li><strong>Co-op Games:</strong> Crowd-pleasing wheat beers or pale ales that everyone can enjoy</li>
+                            </ul>
+
+                            <h2>🌱 Sustainability and the Future</h2>
+                            <p>
+                                Our self-pour system isn't just about convenience and variety – it's about sustainability too. By eliminating waste from unfinished beers and reducing the need for disposable sampling cups, we're helping create a more environmentally conscious way to enjoy craft beer.
+                            </p>
+
+                            <p>
+                                The technology also allows us to gather data on customer preferences, helping us curate our tap list more effectively and supporting breweries by providing valuable feedback on which styles and flavors resonate with our community.
+                            </p>
+
+                            <h2>🎉 Events and Beer Education</h2>
+                            <p>
+                                Our self-pour system opens up incredible possibilities for events and education. We regularly host brewery takeovers where all 20 taps feature beers from a single brewery, beer and food pairing nights, and educational sessions about beer styles and brewing processes.
+                            </p>
+
+                            <h3>Upcoming Beer Events:</h3>
+                            <ul>
+                                <li><strong>North Dakota Brewery Month:</strong> January features only ND breweries on all taps</li>
+                                <li><strong>IPA vs. Lager Showdown:</strong> Side-by-side tastings to explore the spectrum</li>
+                                <li><strong>Stout Season:</strong> February's celebration of dark, rich beers</li>
+                                <li><strong>Spring Cleaning:</strong> March features fresh, bright beers to welcome warmer weather</li>
+                            </ul>
+
+                            <h2>🚀 The Technology Keeps Evolving</h2>
+                            <p>
+                                We're constantly upgrading and improving our self-pour experience. Recent additions include mobile app integration that lets you see what's on tap before you arrive, digital beer passports to track what you've tried, and even social features that let you share recommendations with friends.
+                            </p>
+
+                            <p>
+                                The future holds even more exciting possibilities: augmented reality beer information, personalized recommendations based on your taste history, and integration with brewery loyalty programs.
+                            </p>
+
+                            <h2>🍺 Join the Revolution</h2>
+                            <p>
+                                The craft beer revolution isn't just about better beer – it's about better experiences, more choice, and deeper connections with the beverages we enjoy. At PlayCraftCade, our self-pour beer wall represents the future of craft beer service: customer-controlled, endlessly exploratory, and perfectly paired with the joy of classic gaming.
+                            </p>
+
+                            <p>
+                                Whether you're a craft beer veteran looking to explore new styles or a newcomer curious about what all the fuss is about, our self-pour system makes it easy, affordable, and fun to expand your beer horizons. Come experience the revolution for yourself – your taste buds (and your high scores) will thank you!
+                            </p>
+
+                            <p>
+                                Visit PlayCraftCade in Bismarck and discover why self-pour technology is changing the craft beer game, one ounce at a time. With 20 rotating taps, authentic arcade gaming, and the best NY-style pizza in North Dakota, we're not just serving craft beer – we're crafting experiences that bring people together over great beer and timeless games.
+                            </p>
+                        </div>
+
+                        <!-- Author Bio -->
+                        <div class="mt-12 p-6 bg-gradient-to-r from-neon-blue/10 to-neon-green/10 rounded-lg border border-neon-blue/30 neon-border-soft">
+                            <div class="flex items-start gap-4">
+                               
+                                <div>
+                                    <h3 class="text-xl font-bold text-neon-blue mb-2 neon-glow-minimal">Sarah "Hopmaster" Peterson</h3>
+                                    <p class="text-gray-300 readable-text">
+                                        A certified Cicerone and craft beer enthusiast with over 12 years in the industry. Sarah manages PlayCraftCade's beer program and has a passion for educating customers about beer styles, brewing processes, and the perfect beer-gaming pairings. She's sampled over 3,000 different craft beers and counting!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="mt-8">
+                            <h3 class="text-lg font-bold text-neon-blue mb-4 neon-glow-minimal">Tags:</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#CraftBeer</span>
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#SelfPourBeer</span>
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#BeerWall</span>
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#NorthDakotaBeer</span>
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#BeerTechnology</span>
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#PlayCraftCade</span>
+                                <span class="category-tag bg-neon-blue text-black neon-border-soft">#BeerAndGaming</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Posts -->
+        <section class="py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-bold text-neon-yellow neon-glow-soft mb-12 text-center pulse-neon">🔥 More from PlayCraftCade</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Related Post 1 -->
+                    <article class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-neon-orange/30 hover:border-neon-orange overflow-hidden neon-border-soft">
+                        <img src="/assets/images/perfect-ny-pizza.webp" alt="Perfect NY Pizza" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="category-tag bg-neon-orange text-black mb-3">Pizza Craft</span>
+                            <h3 class="text-xl font-bold text-neon-orange mb-3 neon-glow-minimal">Perfect New York-Style Pizza</h3>
+                            <p class="text-gray-300 text-sm mb-4 readable-text">Discover the authentic techniques and ingredients that make our pizza exceptional...</p>
+                            <a href="/blog/perfect-ny-style-pizza/" class="text-neon-orange hover:text-neon-yellow transition-colors font-bold hover-glow">Read More →</a>
+                        </div>
+                    </article>
+
+                    <!-- Related Post 2 -->
+                    <article class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-neon-pink/30 hover:border-neon-pink overflow-hidden neon-border-soft">
+                        <img src="/assets/images/arcade-history-hero.webp" alt="Golden Age Arcade" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="category-tag bg-neon-pink text-black mb-3">Gaming History</span>
+                            <h3 class="text-xl font-bold text-neon-pink mb-3 neon-glow-minimal">Golden Age of Arcade Gaming</h3>
+                            <p class="text-gray-300 text-sm mb-4 readable-text">Journey through gaming history from the late 1970s to early 1990s...</p>
+                            <a href="/blog/golden-age-arcade-gaming/" class="text-neon-pink hover:text-neon-yellow transition-colors font-bold hover-glow">Read More →</a>
+                        </div>
+                    </article>
+
+                    <!-- Related Post 3 -->
+                    <article class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-neon-green/30 hover:border-neon-green overflow-hidden neon-border-soft">
+                        <img src="/assets/images/building-arcade-scene.jpg" alt="Building Arcade Scene" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="category-tag bg-neon-green text-black mb-3">Behind the Scenes</span>
+                            <h3 class="text-xl font-bold text-neon-green mb-3 neon-glow-minimal">Building Bismarck's Arcade Scene</h3>
+                            <p class="text-gray-300 text-sm mb-4 readable-text">The story behind creating PlayCraftCade and Bismarck's gaming culture...</p>
+                            <a href="/blog/building-bismarck-arcade-scene/" class="text-neon-green hover:text-neon-yellow transition-colors font-bold hover-glow">Read More →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                             <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style pizzeria, and craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a></li>
+                            <li><a href="/food-and-drink/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food & Drink</a></li>
+                            <li><a href="/about/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a></li>
+                            <li><a href="/blog/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a></li>
+                            <li><a href="/contact/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy Policy</a></li>
+                            <li><a href="/terms/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms & Conditions</a></li>
+                            <li><a href="/cookies/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602" class="hover:text-neon-pink hover-glow transition-colors">+1 (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com" class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Particles.js - Fixed version
+        function initParticles() {
+            try {
+                // Check if particles.js is loaded
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js library not loaded. Retrying...');
+                    setTimeout(initParticles, 500); // Retry after 500ms
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { 
+                            value: 30, 
+                            density: { 
+                                enable: true, 
+                                value_area: 800 
+                            } 
+                        },
+                        color: {
+                            value: ['#ff10f0', '#00ffff', '#39ff14', '#ffff00', '#ff8c00']
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { 
+                                width: 1, 
+                                color: '#ffffff' 
+                            }
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1
+                            }
+                        },
+                        size: {
+                            value: 2,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.5
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 120,
+                            color: '#00ffff',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 0.8,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: {
+                                distance: 80,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 2
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+                console.log('Particles.js initialized successfully');
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                initializeMobileMenu();
+                updateCartCount();
+
+                // Initialize particles after a small delay to ensure library is loaded
+                setTimeout(() => {
+                    initParticles();
+                }, 100);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+
+        // Fallback: Try to initialize particles when the library loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                if (typeof particlesJS !== 'undefined') {
+                    initParticles();
+                }
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

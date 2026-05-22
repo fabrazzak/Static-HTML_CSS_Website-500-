@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bourget Grocery Privacy Policy - Learn how we protect and handle your personal information">
+    <meta name="keywords" content="privacy policy, Bourget Grocery data protection, personal information, data privacy, grocery store privacy">
+    <link rel="canonical" href="http://bourgetgrocery.com/privacy/">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <title>Privacy Policy - Bourget Grocery | Mississauga</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a472a;
+            --secondary-color: #2d5a3d;
+            --accent-color: #4CAF50;
+            --dark-bg: #0a0e0d;
+            --darker-bg: #050707;
+            --text-light: #e8f5e9;
+            --text-muted: #a5d6a7;
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            --gradient-2: linear-gradient(45deg, #0a0e0d 0%, #1a472a 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Three.js Canvas Background */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Particles.js Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Advanced Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 13, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(10, 14, 13, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Unique Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 12rem 5% 6rem;
+            text-align: center;
+            background: var(--gradient-2);
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Privacy Content */
+        .privacy-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+        }
+
+        .privacy-section {
+            margin-bottom: 4rem;
+            background: rgba(26, 71, 42, 0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .privacy-section h2 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .privacy-section h2 i {
+            font-size: 1.5rem;
+        }
+
+        .privacy-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .privacy-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-section li {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .highlight-box {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 13, 0.98);
+            padding: 1.5rem 5%;
+            z-index: 1001;
+            border-top: 2px solid var(--accent-color);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-content p {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(10, 14, 13, 0.98);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-header p {
+                font-size: 1.1rem;
+            }
+
+            .privacy-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles.js -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                
+                <li><a href="/career/">Career</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-content">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy is important to us. Learn how we protect and handle your personal information.</p>
+        </div>
+    </section>
+
+    <!-- Privacy Content -->
+    <section class="privacy-content">
+        <div class="privacy-section">
+            <h2><i class="fas fa-user-shield"></i> Introduction</h2>
+            <p>Bourget Grocery ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website http://bourgetgrocery.com/ or use our services.</p>
+            <p>Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site or use our services.</p>
+            <div class="highlight-box">
+                <p><strong>Important:</strong> We reserve the right to make changes to this Privacy Policy at any time and for any reason. We will alert you about any changes by updating the "Last Updated" date of this Privacy Policy.</p>
+            </div>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-database"></i> Information We Collect</h2>
+            <p>We may collect information about you in a variety of ways. The information we may collect on the Site includes:</p>
+            
+            <h3>Personal Data</h3>
+            <p>Personally identifiable information, such as your name, shipping address, email address, and telephone number, that you voluntarily give to us when you register with the Site or when you choose to participate in various activities related to the Site, such as online ordering.</p>
+            
+            <h3>Derivative Data</h3>
+            <p>Information our servers automatically collect when you access the Site, such as your IP address, your browser type, your operating system, your access times, and the pages you have viewed directly before and after accessing the Site.</p>
+            
+            <h3>Financial Data</h3>
+            <p>Financial information, such as data related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you purchase, order, return, exchange, or request information about our services from the Site.</p>
+            
+            <h3>Mobile Device Data</h3>
+            <p>Device information, such as your mobile device ID, model, and manufacturer, and information about the location of your device, if you access the Site from a mobile device.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-cookie-bite"></i> Use of Cookies</h2>
+            <p>We use cookies, web beacons, tracking pixels, and other tracking technologies on the Site to help customize the Site and improve your experience.</p>
+            <p>Cookies are small text files placed on your hard drive by a web page server. Cookies cannot be used to run programs or deliver viruses to your computer. Cookies are uniquely assigned to you, and can only be read by a web server in the domain that issued the cookie to you.</p>
+            <p>We use the following types of cookies:</p>
+            <ul>
+                <li><strong>Essential Cookies:</strong> Necessary for the website to function properly</li>
+                <li><strong>Performance Cookies:</strong> Collect information about how you use our website</li>
+                <li><strong>Functionality Cookies:</strong> Allow the website to remember choices you make</li>
+                <li><strong>Targeting Cookies:</strong> Used to deliver ads relevant to you</li>
+            </ul>
+            <p>You can choose to disable cookies through your individual browser options. For more detailed information about cookie management with specific web browsers, consult your browser's documentation.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-user-check"></i> How We Use Your Information</h2>
+            <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
+            <ul>
+                <li>Create and manage your account</li>
+                <li>Process your transactions and deliver your orders</li>
+                <li>Email you regarding your account or order</li>
+                <li>Fulfill and manage purchases, orders, payments, and other transactions related to the Site</li>
+                <li>Generate a personal profile about you to make future visits to the Site more personalized</li>
+                <li>Increase the efficiency and operation of the Site</li>
+                <li>Monitor and analyze usage and trends to improve your experience with the Site</li>
+                <li>Notify you of updates to the Site</li>
+                <li>Offer new products, services, and/or recommendations to you</li>
+                <li>Prevent fraudulent transactions, monitor against theft, and protect against criminal activity</li>
+                <li>Request feedback and contact you about your use of the Site</li>
+                <li>Resolve disputes and troubleshoot problems</li>
+                <li>Respond to product and customer service requests</li>
+                <li>Send you a newsletter or other marketing communications</li>
+                <li>Solicit support for the Site</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-share-alt"></i> Disclosure of Your Information</h2>
+            <p>We may share information we have collected about you in certain situations. Your information may be disclosed as follows:</p>
+            
+            <h3>By Law or to Protect Rights</h3>
+            <p>If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation.</p>
+            
+            <h3>Third-Party Service Providers</h3>
+            <p>We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance.</p>
+            
+            <h3>Marketing Communications</h3>
+            <p>With your consent, or with an opportunity for you to withdraw consent, we may share your information with third parties for marketing purposes, as permitted by law.</p>
+            
+            <h3>Business Transfers</h3>
+            <p>We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</p>
+            
+            <div class="highlight-box">
+                <p><strong>Important:</strong> We do not sell, rent, or lease your personal information to third parties. Your trust is valuable, and we are committed to maintaining the confidentiality of your information.</p>
+            </div>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-shield-alt"></i> Security of Your Information</h2>
+            <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
+            <p>Any information disclosed online is vulnerable to interception and misuse by unauthorized parties. Therefore, we cannot guarantee complete security if you provide personal information.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-external-link-alt"></i> Third-Party Websites</h2>
+            <p>The Site may contain links to third-party websites and applications of interest, including advertisements and external services, that are not affiliated with us. Once you have used these links to leave the Site, any information you provide to these third parties is not covered by this Privacy Policy, and we cannot guarantee the safety and privacy of your information.</p>
+            <p>Before visiting and providing any information to any third-party websites, you should inform yourself of the privacy policies and practices (if any) of the third party responsible for that website, and should take those steps necessary to, in your discretion, protect the privacy of your information. We are not responsible for the content or privacy and security practices and policies of any third parties, including other sites, services or applications that may be linked to or from the Site.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-user-cog"></i> Your Rights and Choices</h2>
+            <p>You have certain rights regarding the personal information we collect and maintain about you. We offer you choices regarding the collection, use, and sharing of your personal information.</p>
+            
+            <h3>Opting Out of Email Communications</h3>
+            <p>You may unsubscribe from our marketing email communications at any time by clicking on the "unsubscribe" link in our emails. You may still receive transactional emails regarding your orders or account.</p>
+            
+            <h3>Accessing and Updating Your Information</h3>
+            <p>If you would at any time like to review or change the information in your account or terminate your account, you can contact us using the contact information provided below.</p>
+            
+            <h3>Data Retention</h3>
+            <p>We will retain your information for as long as your account is active or as needed to provide you services. We will retain and use your information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-child"></i> Policy for Children</h2>
+            <p>We do not knowingly solicit information from or market to children under the age of 13. If you become aware of any data we have collected from children under age 13, please contact us using the contact information provided below.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-globe-americas"></i> International Data Transfers</h2>
+            <p>Your information, including personal data, may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction.</p>
+            <p>If you are located outside Canada and choose to provide information to us, please note that we transfer the data, including personal data, to Canada and process it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+            <p>If you have questions or comments about this Privacy Policy, please contact us at:</p>
+            <p>Bourget Grocery<br>
+               5875 Airport Rd, Mississauga, ON L4V 1N1, Canada<br>
+               Phone: +1 (905) 677-9900<br>
+               Email: info@bourgetgrocery.com</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><i class="fas fa-calendar-alt"></i> Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal or regulatory reasons. The updated version will be indicated by an updated "Last Revised" date and the updated version will be effective as soon as it is accessible.</p>
+            <p>We encourage you to review this Privacy Policy frequently to be informed of how we are protecting your information.</p>
+            <p><strong>Last Updated:</strong> January 1, 2025</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                <p>Nourishing a community through passion and family authenticity since 1996.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                     <li><a href="/careers/">Careers</a></li>
+                     <li><a href="/contact/">Contact</a></li>
+            
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/privacy/">Privacy Policy</a></li>
+                    <li><a href="/terms/">Terms of Service</a></li>
+                    <li><a href="/cookies/">Cookies Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bourget Grocery. All rights reserved. | 5875 Airport Rd, Mississauga, ON L4V 1N1</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent">
+        <div class="cookie-content">
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By continuing to use our site, you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-color);">Learn more</a></p>
+            <div class="cookie-buttons">
+                <button class="btn btn-primary" id="acceptCookies">Accept</button>
+                <button class="btn btn-secondary" id="declineCookies">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('three-canvas'),
+            alpha: true 
+        });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 5;
+
+        // Create geometric shapes
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x2d5a3d, 
+            wireframe: true 
+        });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.001;
+            torus.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollTop = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('active');
+            } else {
+                scrollTop.classList.remove('active');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Cookie Consent
+        const cookieConsent = document.querySelector('.cookie-consent');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.privacy-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

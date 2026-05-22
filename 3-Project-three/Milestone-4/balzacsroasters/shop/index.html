@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Shop premium coffee blends at Balzac's Roasters. Discover our finest single-origin and specialty coffee beans, delivered fresh across Canada.">
+    <meta name="keywords"
+        content="coffee shop, buy coffee online, coffee beans, specialty coffee, single origin coffee, coffee blends, dark roast, medium roast, organic coffee, fairtrade coffee">
+    <link rel="canonical" href="https://balzacsroasters.com/shop/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <title>Shop Premium Coffee | Balzac's Roasters</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3d2817;
+            --secondary-color: #6b4423;
+            --accent-color: #c9a96e;
+            --dark-bg: #1a1410;
+            --light-cream: #f5f1e8;
+            --text-dark: #2c1810;
+            --text-light: #e8dfd2;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Three.js Canvas - Full Page & Visible */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Particles Canvas - Full Page & Visible */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Glass Effect Utility */
+        .glass {
+            background: rgba(29, 20, 16, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(201, 169, 110, 0.15);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: -150px;
+            right: 20px;
+            background: rgba(61, 40, 23, 0.95);
+            backdrop-filter: blur(20px);
+            color: var(--text-light);
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 300px;
+            transition: var(--transition);
+            border: 1px solid var(--accent-color);
+        }
+
+        .toast.show {
+            top: 100px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .toast i {
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+
+        .toast-content h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .toast-content p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -100px;
+                opacity: 0;
+            }
+
+            to {
+                top: 100px;
+                opacity: 1;
+            }
+        }
+
+        /* Header Styles */
+        .top-header {
+            background: rgba(29, 20, 16, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--accent-color);
+        }
+
+        .header-info i {
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--accent-color);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(29, 20, 16, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .main-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 22px;
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Hamburger Menu - Perfect Cross */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            position: absolute;
+            left: 0;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger span:nth-child(3) {
+            bottom: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: rgba(29, 20, 16, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 80px 30px 30px;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            border-left: 1px solid rgba(201, 169, 110, 0.3);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 28px;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(201, 169, 110, 0.1);
+        }
+
+        .mobile-close:hover {
+            transform: rotate(90deg);
+            background: rgba(201, 169, 110, 0.2);
+        }
+
+        .mobile-nav {
+            list-style: none;
+            margin-top: 40px;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 25px;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+            padding: 12px 0;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* Hero Section */
+        .shop-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(29, 20, 16, 0.7), rgba(107, 68, 35, 0.5));
+            z-index: 2;
+        }
+
+        .shop-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .shop-hero-text {
+            max-width: 700px;
+        }
+
+        .shop-hero-subtitle {
+            color: var(--accent-color);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .shop-hero-title {
+            font-size: 60px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            animation: fadeInUp 1s ease 0.2s backwards;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .shop-hero-description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--light-cream);
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            color: var(--accent-color);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--light-cream);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Shop Filters */
+        .shop-filters {
+            background: rgba(26, 20, 16, 0.3);
+            padding: 40px 0;
+            position: sticky;
+            top: 120px;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .filter-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            color: var(--text-light);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .filter-select:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-select option {
+            background: var(--dark-bg);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50px;
+            color: var(--text-light);
+            font-size: 14px;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-color);
+        }
+
+        /* Products Grid */
+        .shop-products {
+            background: rgba(26, 20, 16, 0.2);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 169, 110, 0.2);
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-info {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .product-roast {
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: var(--light-cream);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: var(--dark-bg);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(201, 169, 110, 0.4);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: rgba(26, 20, 16, 0.4);
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 40px auto 0;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 18px 25px;
+            border: 2px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            font-size: 16px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--light-cream);
+            opacity: 0.6;
+        }
+
+        .newsletter-btn {
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            color: var(--dark-bg);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(26, 20, 16, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 80px 0 30px;
+            border-top: 2px solid var(--accent-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand img {
+            height: 70px;
+            margin-bottom: 25px;
+        }
+
+        .footer-brand p {
+            font-size: 15px;
+            color: var(--light-cream);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(201, 169, 110, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: var(--transition);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--light-cream);
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--light-cream);
+            line-height: 1.7;
+        }
+
+        .footer-contact i {
+            color: var(--accent-color);
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: var(--light-cream);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .shop-hero-title {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                display: none;
+            }
+
+            .main-header-content {
+                padding: 0 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .shop-filters{
+                display: none;
+            }
+            .shop-hero-title {
+                font-size: 36px;
+            }
+
+            .shop-hero-description {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 45px;
+            }
+
+            .shop-hero-title {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .filter-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <div class="toast-content">
+            <h4 id="toast-title">Success!</h4>
+            <p id="toast-message">Item added to cart</p>
+        </div>
+    </div>
+
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Particles.js Canvas -->
+    <div id="particles-js"></div>
+
+    <!-- Top Header (Hide on mobile) -->
+    <div class="top-header">
+        <div class="top-header-content">
+            <div class="header-left">
+                <div class="header-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>9 Don Valley Pkwy, Sunnyside, MB R5R 0E1, Canada</span>
+                </div>
+                <div class="header-info">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (204) 222-5294</span>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/balzacscoffee/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/balzacscoffee/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://ca.pinterest.com/balzacs/_created/" target="_blank"><i
+                        class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="main-header-content">
+            <a href="/" class="logo">
+                <img src="/assets/images/logo.png" alt="Balzac's Coffee Roasters Logo">
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop/" class="active">Shop</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+
+            <div class="header-icons">
+                <a href="/cart/" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <i class="fas fa-times mobile-close" id="mobile-close"></i>
+        <ul class="mobile-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/cart/">Cart</a></li>
+        </ul>
+    </div>
+
+    <!-- Shop Hero Section -->
+    <section class="shop-hero">
+        <div class="shop-hero-overlay"></div>
+        <div class="shop-hero-content">
+            <div class="shop-hero-text">
+                <p class="shop-hero-subtitle">Premium Coffee Collection</p>
+                <h1 class="shop-hero-title">Discover Our Finest Blends</h1>
+                <p class="shop-hero-description">
+                    Explore our curated selection of premium coffee beans, carefully roasted to perfection. From single-origin treasures to signature blends, find your perfect cup.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Filters -->
+    <section class="shop-filters" style="display:  none;">
+        <div class="container">
+            <div class="filter-content">
+                <div class="filter-group">
+                    <select class="filter-select" id="roast-filter">
+                        <option value="all">All Roasts</option>
+                        <option value="medium">Medium Roast</option>
+                    </select>
+                    <select class="filter-select" id="type-filter" style="display: none;">
+                        <option value="all">All Types</option>
+                        <option value="single">Single Origin</option>
+                        <option value="blend">Blends</option>
+                        <option value="decaf">Decaf</option>
+                    </select>
+                    <select class="filter-select" id="sort-filter">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="search-input" placeholder="Search coffee...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Products Section -->
+    <section class="section shop-products">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Our Collection</p>
+                <h2 class="section-title">Premium Coffee Selection</h2>
+                <p class="section-description">
+                    Browse our complete collection of specialty coffees, each with its own unique flavor profile and story.
+                </p>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-roast="medium" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/balzacs-blend.webp" alt="Balzac's Blend Coffee">
+                        <div class="product-badge">Bestseller</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Balzac's Blend</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            Our signature blend with notes of chocolate and caramel, perfectly balanced for any time of day.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$16.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Balzac\'s Blend', 16.00, '/assets/images/balzacs-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-roast="medium" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/espresso-blend.webp" alt="Espresso Blend Coffee">
+                        <div class="product-badge">Popular</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Espresso Blend</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            Rich and bold espresso blend with a smooth finish, perfect for lattes and cappuccinos.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Espresso Blend', 17.00, '/assets/images/espresso-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-roast="dark" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/dark-affair.webp" alt="A Dark Affair Coffee">
+                        <div class="product-badge">New</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">A Dark Affair</h3>
+                        <p class="product-roast">Dark Roast</p>
+                        <p class="product-description">
+                            Deep, intense flavors with smoky undertones for those who prefer a stronger cup.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$16.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('A Dark Affair', 16.00, '/assets/images/dark-affair.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-roast="medium" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/farmers-blend.webp" alt="Farmers' Blend Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Farmers' Blend</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            A celebration of our farming partners with bright, fruity notes and a clean finish.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Farmers\' Blend', 17.00, '/assets/images/farmers-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-roast="medium" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/canada-cup.webp" alt="Canada's Cup Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Canada's Cup</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            A tribute to our Canadian heritage with maple sweetness and smooth body.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Canada\'s Cup', 17.00, '/assets/images/canada-cup.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-roast="dark" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/bards-blend.webp" alt="Bards Blend Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Bards Blend</h3>
+                        <p class="product-roast">Dark Roast</p>
+                        <p class="product-description">
+                            A poetic blend with deep, complex flavors that inspire creativity and conversation.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Bards Blend', 17.00, '/assets/images/bards-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card" data-roast="dark" data-type="decaf">
+                    <div class="product-image">
+                        <img src="/assets/images/decaf-blend.webp" alt="Swiss Water Decaf Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Swiss Water Decaf</h3>
+                        <p class="product-roast">Dark Roast</p>
+                        <p class="product-description">
+                            All the flavor without the caffeine. Our decaf maintains full-bodied taste and aroma.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Swiss Water Decaf', 17.00, '/assets/images/decaf-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card" data-roast="medium" data-type="single">
+                    <div class="product-image">
+                        <img src="/assets/images/las-rosas.webp" alt="Las Rosas Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Las Rosas</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            Single-origin from Colombia with floral notes and a bright, clean finish.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$18.50</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Las Rosas', 18.50, '/assets/images/las-rosas.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="product-card" data-roast="medium" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/atwood-blend.webp" alt="Atwood Blend Coffee">
+                        <div class="product-badge">Limited</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Atwood Blend</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            A literary-inspired blend with notes of dried fruit and a hint of spice.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.50</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Atwood Blend', 17.50, '/assets/images/atwood-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="product-card" data-roast="medium" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/anniversary-blend.webp" alt="Anniversary Blend Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Anniversary Blend</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            A special blend created to celebrate our years of coffee roasting excellence.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$16.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Anniversary Blend', 16.00, '/assets/images/anniversary-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 11 -->
+                <div class="product-card" data-roast="light" data-type="single">
+                    <div class="product-image">
+                        <img src="/assets/images/ethiopian-light.webp" alt="Ethiopian Yirgacheffe Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ethiopian Yirgacheffe</h3>
+                        <p class="product-roast">Light Roast</p>
+                        <p class="product-description">
+                            Bright and floral with notes of bergamot and lemon, a true coffee connoisseur's choice.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$19.00</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Ethiopian Yirgacheffe', 19.00, '/assets/images/ethiopian-light.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 12 -->
+                <div class="product-card" data-roast="dark" data-type="single">
+                    <div class="product-image">
+                        <img src="/assets/images/sumatra-dark.webp" alt="Sumatra Mandheling Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Sumatra Mandheling</h3>
+                        <p class="product-roast">Dark Roast</p>
+                        <p class="product-description">
+                            Earthy and full-bodied with low acidity and notes of dark chocolate and cedar.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$18.50</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Sumatra Mandheling', 18.50, '/assets/images/sumatra-dark.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 13 -->
+                <div class="product-card" data-roast="medium" data-type="single">
+                    <div class="product-image">
+                        <img src="/assets/images/guatemala-medium.png" alt="Guatemala Antigua Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Guatemala Antigua</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            Well-balanced with chocolate notes, mild acidity, and a smooth, velvety body.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$17.50</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Guatemala Antigua', 17.50, '/assets/images/guatemala-medium.png')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 14 -->
+                <div class="product-card" data-roast="dark" data-type="blend">
+                    <div class="product-image">
+                        <img src="/assets/images/winter-blend.webp" alt="Winter Blend Coffee">
+                        <div class="product-badge">Seasonal</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Winter Blend</h3>
+                        <p class="product-roast">Dark Roast</p>
+                        <p class="product-description">
+                            A warming seasonal blend with notes of spice and nuts, perfect for cold weather.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$16.50</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Winter Blend', 16.50, '/assets/images/winter-blend.webp')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 15 -->
+                <div class="product-card" data-roast="medium" data-type="single">
+                    <div class="product-image">
+                        <img src="/assets/images/kenya-aa.png" alt="Kenya AA Coffee">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Kenya AA</h3>
+                        <p class="product-roast">Medium Roast</p>
+                        <p class="product-description">
+                            Bright and winey with blackcurrant notes and a crisp, clean finish.
+                        </p>
+                        <div class="product-footer">
+                            <span class="product-price">$19.50</span>
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('Kenya AA', 19.50, '/assets/images/kenya-aa.png')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <p class="section-subtitle">Stay Updated</p>
+                <h2 class="section-title">Join Our Coffee Community</h2>
+                <p class="section-description">
+                    Subscribe to our newsletter for exclusive offers, new blend announcements, and coffee brewing tips
+                    delivered to your inbox.
+                </p>
+
+                <form class="newsletter-form" id="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required
+                        id="newsletter-email">
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/">
+                        <img src="/assets/images/logo.png" alt="Balzac's Coffee Roasters">
+                    </a>
+                    <p>
+                        Crafting exceptional coffee experiences since day one. We source the finest beans and roast them
+                        to perfection, bringing you the taste of quality in every cup.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/balzacscoffee/" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/balzacscoffee/" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://ca.pinterest.com/balzacs/_created/" target="_blank"><i
+                                class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/shop/">Shop Coffee</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section footer-contact">
+                    <h3>Contact Info</h3>
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>9 Don Valley Pkwy, Sunnyside, MB R5R 0E1, Canada</span>
+                    </p>
+                    <p>
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (204) 222-5294</span>
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@balzacsroasters.com</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Balzac's Coffee Roasters. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Initialize Cart from Local Storage
+        let cart = JSON.parse(localStorage.getItem('balzacsCart')) || [];
+        updateCartCount();
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Add to Cart Function
+        function addToCart(name, price, image) {
+            const product = {
+                id: Date.now(),
+                name: name,
+                price: price,
+                image: image,
+                quantity: 1
+            };
+
+            cart.push(product);
+            localStorage.setItem('balzacsCart', JSON.stringify(cart));
+            updateCartCount();
+            showToast('Added to Cart!', `${name} has been added to your cart`);
+        }
+
+        // Update Cart Count
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        // Newsletter Subscribe
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            showToast('Success!', 'Thank you for subscribing to our newsletter');
+            document.getElementById('newsletter-form').reset();
+        }
+
+        // Toast Notification
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMessage = document.getElementById('toast-message');
+
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Filter and Search Functionality
+        const roastFilter = document.getElementById('roast-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const sortFilter = document.getElementById('sort-filter');
+        const searchInput = document.getElementById('search-input');
+        const productCards = document.querySelectorAll('.product-card');
+
+        function filterProducts() {
+            const roastValue = roastFilter.value;
+            const typeValue = typeFilter.value;
+            const sortValue = sortFilter.value;
+            const searchValue = searchInput.value.toLowerCase();
+
+            productCards.forEach(card => {
+                const roast = card.getAttribute('data-roast');
+                const type = card.getAttribute('data-type');
+                const name = card.querySelector('.product-name').textContent.toLowerCase();
+                const description = card.querySelector('.product-description').textContent.toLowerCase();
+
+                const roastMatch = roastValue === 'all' || roast === roastValue;
+                const typeMatch = typeValue === 'all' || type === typeValue;
+                const searchMatch = searchValue === '' || 
+                    name.includes(searchValue) || 
+                    description.includes(searchValue);
+
+                if (roastMatch && typeMatch && searchMatch) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Sort products
+            const visibleProducts = Array.from(productCards).filter(card => card.style.display !== 'none');
+            const productsGrid = document.getElementById('products-grid');
+            
+            // Remove all products from grid
+            productCards.forEach(card => productsGrid.removeChild(card));
+            
+            // Sort and re-add visible products
+            visibleProducts.sort((a, b) => {
+                const aPrice = parseFloat(a.querySelector('.product-price').textContent.replace('$', ''));
+                const bPrice = parseFloat(b.querySelector('.product-price').textContent.replace('$', ''));
+                const aName = a.querySelector('.product-name').textContent;
+                const bName = b.querySelector('.product-name').textContent;
+                
+                switch(sortValue) {
+                    case 'price-low':
+                        return aPrice - bPrice;
+                    case 'price-high':
+                        return bPrice - aPrice;
+                    case 'name':
+                        return aName.localeCompare(bName);
+                    default: // featured
+                        return 0; // Keep original order
+                }
+            });
+            
+            // Re-add sorted products to grid
+            visibleProducts.forEach(card => productsGrid.appendChild(card));
+        }
+
+        // Add event listeners for filters
+        roastFilter.addEventListener('change', filterProducts);
+        typeFilter.addEventListener('change', filterProducts);
+        sortFilter.addEventListener('change', filterProducts);
+        searchInput.addEventListener('input', filterProducts);
+
+        // Three.js Scene - Enhanced Visibility
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('three-canvas'),
+            alpha: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create coffee bean-like particles with higher visibility
+        const geometry = new THREE.SphereGeometry(0.15, 8, 8);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xc9a96e,
+            transparent: true,
+            opacity: 0.7  // Increased opacity
+        });
+
+        const beans = [];
+        for (let i = 0; i < 100; i++) {  // Increased particle count
+            const bean = new THREE.Mesh(geometry, material);
+            bean.position.x = Math.random() * 50 - 25;
+            bean.position.y = Math.random() * 50 - 25;
+            bean.position.z = Math.random() * 50 - 25;
+            scene.add(bean);
+            beans.push(bean);
+        }
+
+        camera.position.z = 15;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            beans.forEach(bean => {
+                bean.rotation.x += 0.002;
+                bean.rotation.y += 0.002;
+                bean.position.y += Math.sin(Date.now() * 0.001 + bean.position.x) * 0.002;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Particles.js Configuration - Enhanced Visibility
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 120,  // Increased particle count
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#c9a96e'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,  // Increased opacity
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.3,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 4,  // Increased size
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 2,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#c9a96e',  // Changed to accent color
+                    opacity: 0.4,  // Increased opacity
+                    width: 1.5  // Increased width
+                },
+                move: {
+                    enable: true,
+                    speed: 2,  // Increased speed
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 200,
+                        line_linked: {
+                            opacity: 0.8
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

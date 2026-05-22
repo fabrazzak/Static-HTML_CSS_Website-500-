@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="beverage industry blog, cocktail trends, mixology tips, bar management, drink recipes, syrup industry insights, bartender tips, beverage innovation">
+    <meta name="description" content="Stay updated with the latest trends, tips, and insights from the beverage industry. Expert advice on mixology, bar management, and innovative drink creation with Teisseire Syrups.">
+    <link rel="canonical" href="https://teisseiresyrups.com/blog/">
+    <title>Industry Blog - Beverage Trends & Mixology Tips | Teisseire Syrups</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            .toast {
+                right: 1rem;
+                max-width: 90%;
+            }
+        }
+
+        :root {
+            --primary-green: #2d5a3d;
+            --light-green: #4a8a5f;
+            --accent-green: #7bc96f;
+            --dark-bg: #1a1a1a;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(125, 201, 111, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+            display: block;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--accent-green);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .close-menu {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 60vh;
+                padding: 6rem 2rem 3rem;
+            }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Featured Blog Section */
+        .featured-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .featured-blog {
+            background: rgba(45, 90, 61, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(125, 201, 111, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        .featured-blog:hover {
+            box-shadow: 0 15px 40px rgba(125, 201, 111, 0.3);
+            border-color: var(--accent-green);
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 400px;
+        }
+
+        .featured-image {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-blog:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-text {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .featured-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-author {
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .featured-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-green);
+            line-height: 1.2;
+        }
+
+        .featured-excerpt {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .featured-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Regular Blog Section */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent-green);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(45, 90, 61, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(125, 201, 111, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(125, 201, 111, 0.3);
+            border-color: var(--accent-green);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent-green);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .blog-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-author {
+            color: var(--accent-green);
+        }
+
+        .blog-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(125, 201, 111, 0.2);
+            color: var(--accent-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(125, 201, 111, 0.3);
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(125, 201, 111, 0.4);
+        }
+
+        .btn-featured {
+            padding: 1rem 3rem;
+            font-size: 1rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: rgba(45, 90, 61, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            margin: 4rem 2rem;
+            border: 1px solid rgba(125, 201, 111, 0.3);
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2.5rem;
+            background: var(--dark-bg);
+            color: var(--accent-green);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+            background: #000;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(125, 201, 111, 0.2);
+            color: var(--text-gray);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: rgba(45, 90, 61, 0.98);
+            color: var(--text-light);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--accent-green);
+            z-index: 2000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 20px rgba(125, 201, 111, 0.3);
+            display: none;
+            max-width: 350px;
+            width: auto;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            display: block;
+        }
+
+        .toast i {
+            color: var(--accent-green);
+            margin-right: 0.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation delays for staggered effect */
+        .blog-card:nth-child(1) { animation-delay: 0.3s; }
+        .blog-card:nth-child(2) { animation-delay: 0.4s; }
+        .blog-card:nth-child(3) { animation-delay: 0.5s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                transition: right 0.3s ease;
+                align-items: flex-start;
+                border-left: 1px solid var(--accent-green);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .close-menu {
+                display: none !important;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .featured-image {
+                height: 300px;
+            }
+
+            .featured-text {
+                padding: 2rem;
+            }
+
+            .featured-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .newsletter {
+                margin: 2rem 1rem;
+                padding: 3rem 1.5rem;
+            }
+
+            .newsletter h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Background -->
+    <div id="three-container"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="/" class="logo">
+                <img src="/assets/images/teisseiresyrups.png" alt="Teisseire Logo">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+                <li><a href="/">Home</a></li>
+                <li><a href="/recipes/">Recipes</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Industry Insights</h1>
+            <p>Stay ahead with the latest trends, tips, and innovations in the beverage industry</p>
+        </div>
+    </section>
+
+    <!-- Featured Blog Section -->
+    <section class="featured-section">
+        <div class="featured-badge">
+            <i class="fas fa-star"></i> Featured Article
+        </div>
+        <article class="featured-blog">
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="/assets/images/flavor-trends-2025-featured.jpg" alt="Flavor Innovation Trends 2025">
+                </div>
+                <div class="featured-text">
+                    <div class="featured-meta">
+                        <div class="featured-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            September 25, 2024
+                        </div>
+                        <div class="featured-author">Sarah Martinez</div>
+                    </div>
+                    <h2>Flavor Innovation Trends 2025</h2>
+                    <p class="featured-excerpt">
+                        The beverage industry is experiencing a revolutionary shift as we approach 2025. From botanical infusions and sustainable ingredient sourcing to innovative flavor combinations that challenge traditional boundaries, discover how consumer preferences are driving unprecedented innovation in premium syrups and craft cocktails. Our comprehensive analysis reveals the top emerging trends that will define the next era of beverage creation.
+                    </p>
+                    <div class="featured-tags">
+                        <span class="tag">Trends</span>
+                        <span class="tag">Innovation</span>
+                        <span class="tag">Sustainability</span>
+                        <span class="tag">Premium</span>
+                    </div>
+                    <a href="/blog/flavor-trends-2025/" class="btn btn-primary btn-featured">Read Full Article</a>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Regular Blog Posts -->
+    <section class="section">
+        <h2 class="section-title">More Industry Insights</h2>
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/assets/images/mocktail-mastery.jpg" alt="Mastering Mocktail Creation">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            September 25, 2024
+                        </div>
+                        <div class="blog-author">Thomas Becker</div>
+                    </div>
+                    <h2>Mastering Mocktail Creation</h2>
+                    <p class="blog-excerpt">
+                        Elevate your non-alcoholic offerings with expert techniques for crafting sophisticated, flavor-forward mocktails. Learn professional tips for balancing flavors, creating visual appeal, and developing signature drinks that rival their alcoholic counterparts.
+                    </p>
+                    <div class="blog-tags">
+                        <span class="tag">Mocktails</span>
+                        <span class="tag">Techniques</span>
+                        <span class="tag">Mixology</span>
+                    </div>
+                    <a href="/blog/mocktail-mastery/" class="btn btn-primary">Read More</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/assets/images/bar-profitability.jpg" alt="Boosting Bar Profitability">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            September 25, 2024
+                        </div>
+                        <div class="blog-author">Lisa Chen</div>
+                    </div>
+                    <h2>Boosting Bar Profitability</h2>
+                    <p class="blog-excerpt">
+                        Learn proven strategies to increase your beverage program's profitability through smart menu design and premium ingredients. Discover cost-effective ways to create high-margin drinks and build customer loyalty.
+                    </p>
+                    <div class="blog-tags">
+                        <span class="tag">Business</span>
+                        <span class="tag">Profitability</span>
+                        <span class="tag">Management</span>
+                    </div>
+                    <a href="/blog/bar-profitability/" class="btn btn-primary">Read More</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/assets/images/seasonal-menu-design.jpg" alt="Seasonal Menu Design">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            September 25, 2024
+                        </div>
+                        <div class="blog-author">Marcus Weber</div>
+                    </div>
+                    <h2>Seasonal Menu Design</h2>
+                    <p class="blog-excerpt">
+                        Master the art of creating seasonal beverage menus that captivate customers and drive sales year-round. Explore how to incorporate seasonal flavors and create limited-time offerings that perfectly capture each season.
+                    </p>
+                    <div class="blog-tags">
+                        <span class="tag">Menu Design</span>
+                        <span class="tag">Seasonal</span>
+                        <span class="tag">Strategy</span>
+                    </div>
+                    <a href="/blog/seasonal-menu-design/" class="btn btn-primary">Read More</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+        <h2>Stay Inspired</h2>
+        <p>Subscribe to discover the latest drink trends, recipes, and flavor innovations</p>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Thank you for subscribing!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="/assets/images/teisseiresyrups.png" alt="Teisseire Logo" style="height: 50px; margin-bottom: 1rem;">
+                <p>Crafting exceptional flavors since 1720. Premium syrups for beverage creators worldwide.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/mathieu_teisseire/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/mathieu-teisseire" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/recipes/">Recipes</a>
+                <a href="/blog/">Blog</a>
+                <a href="/about/">About Us</a>
+                <a href="/contact/">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <a href="/privacy/">Privacy Policy</a>
+                <a href="/terms/">Terms of Service</a>
+                <a href="/cookies/">Cookies Policy</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Bahnhofweg 7, 8940 Liezen, Austria</p>
+                <p><i class="fas fa-phone"></i> +43 3612 30010</p>
+                <p><i class="fas fa-envelope"></i> info@teisseiresyrups.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Teisseire Syrups. All rights reserved. Crafting memorable drinks since 1720.</p>
+        </div>
+    </footer>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Three.js Background - Same as homepage
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        const bubbles = [];
+        const bubbleCount = 25;
+
+        for (let i = 0; i < bubbleCount; i++) {
+            const geometry = new THREE.SphereGeometry(Math.random() * 0.5 + 0.3, 32, 32);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: i % 2 === 0 ? 0x7bc96f : 0x4a8a5f,
+                transparent: true,
+                opacity: 0.3,
+                shininess: 100
+            });
+            const bubble = new THREE.Mesh(geometry, material);
+            
+            bubble.position.x = (Math.random() - 0.5) * 50;
+            bubble.position.y = (Math.random() - 0.5) * 50;
+            bubble.position.z = (Math.random() - 0.5) * 50;
+            
+            bubble.velocity = {
+                x: (Math.random() - 0.5) * 0.02,
+                y: Math.random() * 0.03 + 0.02,
+                z: (Math.random() - 0.5) * 0.02
+            };
+            
+            scene.add(bubble);
+            bubbles.push(bubble);
+        }
+
+        const light1 = new THREE.DirectionalLight(0x7bc96f, 1);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const light2 = new THREE.DirectionalLight(0x4a8a5f, 0.8);
+        light2.position.set(-5, -5, -5);
+        scene.add(light2);
+
+        const ambientLight = new THREE.AmbientLight(0x4a8a5f, 0.4);
+        scene.add(ambientLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            bubbles.forEach(bubble => {
+                bubble.position.x += bubble.velocity.x;
+                bubble.position.y += bubble.velocity.y;
+                bubble.position.z += bubble.velocity.z;
+                
+                if (bubble.position.y > 30) {
+                    bubble.position.y = -30;
+                }
+                if (Math.abs(bubble.position.x) > 30) {
+                    bubble.velocity.x *= -1;
+                }
+                if (Math.abs(bubble.position.z) > 30) {
+                    bubble.velocity.z *= -1;
+                }
+                
+                bubble.rotation.x += 0.01;
+                bubble.rotation.y += 0.01;
+            });
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Newsletter Form with Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Successfully subscribed!');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

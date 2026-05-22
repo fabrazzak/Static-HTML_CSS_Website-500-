@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Bourget Grocery - Visit us, call, or order online. Located at 5875 Airport Rd, Mississauga">
+    <meta name="keywords" content="contact Bourget Grocery, Mississauga grocery store, grocery delivery, phone order, visit store, location, hours, customer service, grocery ordering, fresh produce contact">
+    <link rel="canonical" href="http://bourgetgrocery.com/contact/">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <title>Contact Us - Get in Touch | Bourget Grocery Mississauga</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a472a;
+            --secondary-color: #2d5a3d;
+            --accent-color: #4CAF50;
+            --dark-bg: #0a0e0d;
+            --darker-bg: #050707;
+            --text-light: #e8f5e9;
+            --text-muted: #a5d6a7;
+            --gradient-1: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            --gradient-2: linear-gradient(45deg, #0a0e0d 0%, #1a472a 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Three.js Canvas Background */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Particles.js Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 13, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(10, 14, 13, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 12rem 5% 6rem;
+            text-align: center;
+            background: var(--gradient-2);
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-color), #81c784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Contact Methods */
+        .contact-methods {
+            padding: 6rem 5%;
+            background: var(--dark-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--accent-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: rgba(26, 71, 42, 0.2);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.2);
+        }
+
+        .contact-card i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 6rem 5%;
+            background: var(--gradient-2);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(26, 71, 42, 0.3);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 10px;
+            background: rgba(10, 14, 13, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Store Hours */
+        .store-hours {
+            padding: 6rem 5%;
+            background: var(--darker-bg);
+        }
+
+        .hours-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+        }
+
+        .hours-card {
+            background: rgba(26, 71, 42, 0.2);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .hours-card h3 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+            color: var(--text-muted);
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .day {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .time {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 6rem 5%;
+            background: var(--dark-bg);
+        }
+
+        .map-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(26, 71, 42, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .map-header {
+            padding: 3rem;
+            text-align: center;
+            background: var(--gradient-1);
+        }
+
+        .map-header h3 {
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .map-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .map-embed {
+            width: 100%;
+            height: 400px;
+            border: none;
+            filter: grayscale(20%) contrast(1.2);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 5%;
+            background: var(--gradient-2);
+        }
+
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(26, 71, 42, 0.2);
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(26, 71, 42, 0.4);
+        }
+
+        .faq-question h4 {
+            font-size: 1.3rem;
+            color: var(--text-light);
+        }
+
+        .faq-question i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer-content {
+            padding: 0 2rem 2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Emergency Contact */
+        .emergency-contact {
+            padding: 4rem 5%;
+            background: var(--accent-color);
+            text-align: center;
+        }
+
+        .emergency-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .emergency-content h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-content p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .emergency-phone {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-phone:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 13, 0.98);
+            padding: 1.5rem 5%;
+            z-index: 1001;
+            border-top: 2px solid var(--accent-color);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-content p {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--gradient-1);
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            border: 2px solid var(--accent-color);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .success-message i {
+            color: var(--accent-color);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: var(--text-muted);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(10, 14, 13, 0.98);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .hours-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .emergency-phone {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Particles.js -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                
+                <li><a href="/career/">Career</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Get In Touch</h1>
+        <p>We're here to serve you! Reach out to us for orders, questions, or just to say hello. Your satisfaction is our priority, and we're always ready to help.</p>
+    </section>
+
+    <!-- Contact Methods -->
+    <section class="contact-methods">
+        <h2 class="section-title">How to Reach Us</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Call Us</h3>
+                <p>Speak directly with our friendly team for orders, questions, or assistance.</p>
+                <div class="contact-info">+1 (905) 677-9900</div>
+                <a href="tel:+19056779900" class="contact-btn">Call Now</a>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Us</h3>
+                <p>Send us your questions, feedback, or special requests anytime.</p>
+                <div class="contact-info">info@bourgetgrocery.com</div>
+                <a href="mailto:info@bourgetgrocery.com" class="contact-btn">Send Email</a>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Our Store</h3>
+                <p>Come see us in person for the full Bourget Grocery experience.</p>
+                <div class="contact-info">5875 Airport Rd<br>Mississauga, ON L4V 1N1</div>
+                <a href="https://maps.google.com/?q=5875+Airport+Rd+Mississauga+ON" target="_blank" class="contact-btn">Get Directions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section">
+        <h2 class="section-title">Send Us a Message</h2>
+        <div class="form-container">
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="order">Place an Order</option>
+                        <option value="inquiry">General Inquiry</option>
+                        <option value="feedback">Feedback</option>
+                        <option value="delivery">Delivery Question</option>
+                        <option value="products">Product Information</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Store Hours -->
+    <section class="store-hours">
+        <h2 class="section-title">Store Hours & Information</h2>
+        <div class="hours-container">
+            <div class="hours-card">
+                <h3><i class="fas fa-clock"></i> Store Hours</h3>
+                <ul class="hours-list">
+                    <li>
+                        <span class="day">Monday</span>
+                        <span class="time">8:00 AM - 9:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Tuesday</span>
+                        <span class="time">8:00 AM - 9:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Wednesday</span>
+                        <span class="time">8:00 AM - 9:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Thursday</span>
+                        <span class="time">8:00 AM - 9:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Friday</span>
+                        <span class="time">8:00 AM - 9:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Saturday</span>
+                        <span class="time">8:00 AM - 8:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Sunday</span>
+                        <span class="time">9:00 AM - 7:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="hours-card">
+                <h3><i class="fas fa-truck"></i> Delivery Hours</h3>
+                <ul class="hours-list">
+                    <li>
+                        <span class="day">Monday - Friday</span>
+                        <span class="time">10:00 AM - 7:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Saturday</span>
+                        <span class="time">10:00 AM - 6:00 PM</span>
+                    </li>
+                    <li>
+                        <span class="day">Sunday</span>
+                        <span class="time">11:00 AM - 5:00 PM</span>
+                    </li>
+                </ul>
+                <p style="color: var(--text-muted); margin-top: 2rem; font-style: italic;">
+                    *Free delivery on orders $25+<br>
+                    *Same-day preparation for quick delivery
+                </p>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>How do I place an order for delivery?</h4>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Visit our grocery order page, fill out the form with your desired items (including brand and format), and include your phone number. We'll prepare your order the same day for quick delivery.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What is the minimum order for delivery?</h4>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We offer free delivery on orders of $25 or more. Tobacco purchases are excluded from this minimum requirement. Delivery fees vary by address - please refer to our delivery pricing guide.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What payment methods do you accept?</h4>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We accept credit card payments over the phone for delivery orders. Cash and checks are not accepted for delivery services, but are welcome for in-store purchases.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Do you have fresh donuts available daily?</h4>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! Our homemade donuts are made fresh daily in our Saint-Ambroise bakery using only fresh ingredients with no preservatives. Each donut is carefully prepared by hand with love.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Can I order custom cakes for special events?</h4>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutely! We create beautiful custom cakes for special occasions. Please contact us in advance to discuss your requirements, design preferences, and pickup/delivery arrangements.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Is my personal information kept confidential?</h4>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, absolutely. We take your privacy seriously. No personal information will be stored for promotional purposes or shared with other parties. Confidentiality is paramount to us.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Contact -->
+    <section class="emergency-contact">
+        <div class="emergency-content">
+            <h3>Need Immediate Assistance?</h3>
+            <p>For urgent orders or time-sensitive inquiries, call us directly during business hours</p>
+            <a href="tel:+19056779900" class="emergency-phone pulse">+1 (905) 677-9900</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+               <img src="/assets/logo.png" alt="logo" style="height: 56px;">
+                <p>Nourishing a community through passion and family authenticity since 1996.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/career/">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/privacy/">Privacy Policy</a></li>
+                    <li><a href="/terms/">Terms of Service</a></li>
+                    <li><a href="/cookies/">Cookies Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bourget Grocery. All rights reserved. | 5875 Airport Rd, Mississauga, ON L4V 1N1</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <div style="text-align: center;">
+            <i class="fas fa-check-circle"></i>
+            <h3>Message Sent Successfully!</h3>
+            <p>Thank you for contacting us. We'll get back to you soon.</p>
+        </div>
+    </div>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent">
+        <div class="cookie-content">
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By continuing to use our site, you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-color);">Learn more</a></p>
+            <div class="cookie-buttons">
+                <button class="btn btn-primary" id="acceptCookies">Accept</button>
+                <button class="btn btn-secondary" id="declineCookies">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Particles.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('three-canvas'),
+            alpha: true 
+        });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 5;
+
+        // Create geometric shapes
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x2d5a3d, 
+            wireframe: true 
+        });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.001;
+            torus.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 50, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollTop = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('active');
+            } else {
+                scrollTop.classList.remove('active');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+            
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        });
+
+        // Cookie Consent
+        const cookieConsent = document.querySelector('.cookie-consent');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.contact-card, .hours-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.contact-btn, .submit-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: ripple 0.6s ease-out;
+                `;
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Form validation enhancements
+        const formInputs = document.querySelectorAll('input, textarea, select');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.style.borderColor = 'var(--accent-color)';
+                input.style.boxShadow = '0 0 20px rgba(76, 175, 80, 0.3)';
+            });
+            
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.style.borderColor = 'rgba(76, 175, 80, 0.3)';
+                    input.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

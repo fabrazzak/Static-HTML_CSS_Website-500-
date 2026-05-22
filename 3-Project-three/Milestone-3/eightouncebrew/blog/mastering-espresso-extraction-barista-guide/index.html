@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Espresso Extraction: A Barista's Guide to Perfect Shots | Eight Ounce Brew Blog</title>
+    <meta name="description"
+        content="Learn the secrets of consistent espresso extraction from our technical expert. Discover how grind size, dose, and timing work together to create the perfect shot every time.">
+    <meta name="keywords"
+        content="espresso extraction, barista guide, perfect espresso shots, coffee brewing techniques, espresso troubleshooting, Eight Ounce Brew">
+    <link rel="canonical" href="https://eightouncebrew.com/blog/mastering-espresso-extraction-barista-guide/">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-brown: #3d2817;
+            --secondary-brown: #5c4033;
+            --accent-gold: #d4a574;
+            --dark-bg: #1a1410;
+            --cream: #f5e6d3;
+            --warm-white: #faf8f5;
+            --coffee-dark: #2b1810;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background (Same as home page) */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: radial-gradient(ellipse at top, #2b1810 0%, #1a1410 50%, #0f0a08 100%);
+            overflow: hidden;
+        }
+
+        /* Animated Particles */
+        .particle {
+            position: absolute;
+            background: rgba(212, 165, 116, 0.6);
+            border-radius: 50%;
+            animation: float-particle 15s ease-in-out infinite;
+        }
+
+        @keyframes float-particle {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+
+            25% {
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-200px) translateX(100px);
+                opacity: 0.8;
+            }
+
+            75% {
+                opacity: 0.4;
+            }
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            top: 40%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            top: 60%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            top: 30%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            top: 70%;
+            left: 85%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(6) {
+            width: 6px;
+            height: 6px;
+            top: 50%;
+            left: 90%;
+            animation-delay: 5s;
+        }
+
+        .particle:nth-child(7) {
+            width: 3px;
+            height: 3px;
+            top: 10%;
+            left: 50%;
+            animation-delay: 6s;
+        }
+
+        .particle:nth-child(8) {
+            width: 5px;
+            height: 5px;
+            top: 80%;
+            left: 45%;
+            animation-delay: 2.5s;
+        }
+
+        .particle:nth-child(9) {
+            width: 4px;
+            height: 4px;
+            top: 25%;
+            left: 60%;
+            animation-delay: 4.5s;
+        }
+
+        .particle:nth-child(10) {
+            width: 6px;
+            height: 6px;
+            top: 55%;
+            left: 25%;
+            animation-delay: 1.5s;
+        }
+
+        .particle:nth-child(11) {
+            width: 3px;
+            height: 3px;
+            top: 15%;
+            left: 70%;
+            animation-delay: 3.5s;
+        }
+
+        .particle:nth-child(12) {
+            width: 5px;
+            height: 5px;
+            top: 75%;
+            left: 65%;
+            animation-delay: 5.5s;
+        }
+
+        .particle:nth-child(13) {
+            width: 4px;
+            height: 4px;
+            top: 35%;
+            left: 35%;
+            animation-delay: 0.5s;
+        }
+
+        .particle:nth-child(14) {
+            width: 6px;
+            height: 6px;
+            top: 65%;
+            left: 75%;
+            animation-delay: 2.2s;
+        }
+
+        .particle:nth-child(15) {
+            width: 3px;
+            height: 3px;
+            top: 45%;
+            left: 5%;
+            animation-delay: 4.8s;
+        }
+
+        /* Coffee Steam Animation */
+        .steam-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .steam {
+            position: absolute;
+            bottom: -50px;
+            width: 4px;
+            height: 200px;
+            background: linear-gradient(to top,
+                    rgba(212, 165, 116, 0.7) 0%,
+                    rgba(212, 165, 116, 0.4) 50%,
+                    transparent 100%);
+            filter: blur(12px);
+            animation: steam-rise 10s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes steam-rise {
+            0% {
+                transform: translateY(0) translateX(0) scaleX(1);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateY(-500px) translateX(50px) scaleX(2.5);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-1000px) translateX(-30px) scaleX(4);
+            }
+        }
+
+        .steam:nth-child(16) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .steam:nth-child(17) {
+            left: 25%;
+            animation-delay: 2s;
+            height: 220px;
+        }
+
+        .steam:nth-child(18) {
+            left: 40%;
+            animation-delay: 4s;
+        }
+
+        .steam:nth-child(19) {
+            left: 55%;
+            animation-delay: 1s;
+            height: 210px;
+        }
+
+        .steam:nth-child(20) {
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        .steam:nth-child(21) {
+            left: 85%;
+            animation-delay: 5s;
+            height: 230px;
+        }
+
+        .steam:nth-child(22) {
+            left: 15%;
+            animation-delay: 6s;
+        }
+
+        .steam:nth-child(23) {
+            left: 50%;
+            animation-delay: 7s;
+            height: 240px;
+        }
+
+        .steam:nth-child(24) {
+            left: 30%;
+            animation-delay: 8s;
+            height: 200px;
+        }
+
+        .steam:nth-child(25) {
+            left: 65%;
+            animation-delay: 9s;
+        }
+
+        /* Floating Coffee Beans */
+        .coffee-bean {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(135deg, #5c4033 0%, #3d2817 50%, #2b1810 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: float-bean 25s ease-in-out infinite;
+            opacity: 0.5;
+            box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(212, 165, 116, 0.3);
+        }
+
+        .coffee-bean::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 3px;
+            background: #1a1410;
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes float-bean {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-150px) rotate(90deg);
+            }
+
+            50% {
+                transform: translateY(-80px) rotate(180deg);
+            }
+
+            75% {
+                transform: translateY(-200px) rotate(270deg);
+            }
+        }
+
+        .coffee-bean:nth-child(26) {
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+
+        .coffee-bean:nth-child(27) {
+            top: 25%;
+            left: 85%;
+            animation-delay: 3s;
+            animation-duration: 24s;
+        }
+
+        .coffee-bean:nth-child(28) {
+            top: 45%;
+            left: 5%;
+            animation-delay: 6s;
+            animation-duration: 22s;
+        }
+
+        .coffee-bean:nth-child(29) {
+            top: 65%;
+            left: 92%;
+            animation-delay: 9s;
+            animation-duration: 21s;
+        }
+
+        .coffee-bean:nth-child(30) {
+            top: 35%;
+            left: 75%;
+            animation-delay: 2s;
+            animation-duration: 23s;
+        }
+
+        .coffee-bean:nth-child(31) {
+            top: 75%;
+            left: 12%;
+            animation-delay: 5s;
+            animation-duration: 26s;
+        }
+
+        .coffee-bean:nth-child(32) {
+            top: 50%;
+            left: 50%;
+            animation-delay: 7s;
+            animation-duration: 19s;
+        }
+
+        .coffee-bean:nth-child(33) {
+            top: 55%;
+            left: 65%;
+            animation-delay: 4s;
+            animation-duration: 27s;
+        }
+
+        .coffee-bean:nth-child(34) {
+            top: 10%;
+            left: 40%;
+            animation-delay: 8s;
+            animation-duration: 18s;
+        }
+
+        .coffee-bean:nth-child(35) {
+            top: 80%;
+            left: 30%;
+            animation-delay: 1s;
+            animation-duration: 25s;
+        }
+
+        /* Animated Gradient Orbs */
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float-orb 18s ease-in-out infinite;
+        }
+
+        @keyframes float-orb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(150px, -150px) scale(1.3);
+            }
+
+            66% {
+                transform: translate(-80px, 80px) scale(0.7);
+            }
+        }
+
+        .orb-1 {
+            top: 15%;
+            left: 8%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.4) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            top: 55%;
+            right: 8%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(92, 64, 51, 0.4) 0%, transparent 70%);
+            animation-delay: 6s;
+        }
+
+        .orb-3 {
+            bottom: 5%;
+            left: 45%;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(61, 40, 23, 0.4) 0%, transparent 70%);
+            animation-delay: 12s;
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: rgba(29, 20, 16, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .top-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--cream);
+        }
+
+        .contact-item i {
+            color: var(--accent-gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--cream);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: rgba(45, 30, 20, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--accent-gold);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .cart-btn {
+            background: linear-gradient(135deg, var(--accent-gold), #c89055);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: var(--coffee-dark);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.5);
+        }
+
+        .cart-count {
+            background: var(--coffee-dark);
+            color: var(--accent-gold);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(212, 165, 116, 0.1);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: rgba(29, 20, 16, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 80px 30px 30px;
+            transition: var(--transition);
+            z-index: 2000;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(212, 165, 116, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--accent-gold);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .mobile-close:hover {
+            background: var(--accent-gold);
+            color: var(--coffee-dark);
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-menu-list a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-list a:hover {
+            color: var(--accent-gold);
+            padding-left: 10px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: rgba(29, 20, 16, 0.5);
+            padding: 20px 0;
+        }
+
+        .breadcrumb-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-list a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb-list a:hover {
+            color: var(--accent-gold);
+        }
+
+        .breadcrumb-separator {
+            color: var(--accent-gold);
+        }
+
+        .breadcrumb-current {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* Blog Post Header */
+        .blog-post-header {
+            padding: 80px 20px 40px;
+            background: linear-gradient(135deg, rgba(26, 20, 16, 0.8) 0%, rgba(43, 24, 16, 0.8) 100%);
+        }
+
+        .blog-post-header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .post-category {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-gold), #c89055);
+            color: var(--coffee-dark);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .blog-post-title {
+            font-size: 48px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--accent-gold), #e8c08b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: var(--cream);
+            opacity: 0.9;
+            flex-wrap: wrap;
+        }
+
+        .post-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-meta i {
+            color: var(--accent-gold);
+        }
+
+        .author-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--coffee-dark);
+            margin-right: 10px;
+        }
+
+        .post-excerpt {
+            font-size: 18px;
+            color: var(--cream);
+            opacity: 0.9;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Featured Image */
+        .featured-image-section {
+            padding: 40px 20px 0;
+        }
+
+        .featured-image-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Blog Content */
+        .blog-content {
+            padding: 60px 20px 40px;
+        }
+
+        .blog-content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            background: rgba(45, 30, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .main-content h2 {
+            font-size: 32px;
+            color: var(--accent-gold);
+            margin: 40px 0 20px 0;
+            font-weight: 700;
+        }
+
+        .main-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .main-content h3 {
+            font-size: 24px;
+            color: var(--accent-gold);
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .main-content p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--cream);
+        }
+
+        .main-content ul,
+        .main-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .main-content li {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            color: var(--cream);
+        }
+
+        .main-content blockquote {
+            background: rgba(212, 165, 116, 0.1);
+            border-left: 4px solid var(--accent-gold);
+            padding: 20px 30px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--cream);
+        }
+
+        .recipe-card {
+            background: rgba(29, 20, 16, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .recipe-card h4 {
+            color: var(--accent-gold);
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .recipe-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .recipe-step {
+            text-align: center;
+        }
+
+        .recipe-step strong {
+            color: var(--accent-gold);
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .troubleshooting-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(29, 20, 16, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .troubleshooting-table th,
+        .troubleshooting-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .troubleshooting-table th {
+            background: var(--accent-gold);
+            color: var(--coffee-dark);
+            font-weight: 700;
+        }
+
+        .troubleshooting-table td {
+            color: var(--cream);
+        }
+
+        .problem {
+            color: #f87171;
+            font-weight: 600;
+        }
+
+        .solution {
+            color: #4ade80;
+        }
+
+        /* Back to Blog Button */
+        .back-to-blog-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .back-to-blog-btn {
+            background: linear-gradient(135deg, var(--accent-gold), #c89055);
+            color: var(--coffee-dark);
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-to-blog-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(212, 165, 116, 0.6);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(92, 64, 51, 0.1));
+        }
+
+        .newsletter-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-content h2 {
+            font-size: 36px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .newsletter-content p {
+            font-size: 16px;
+            color: var(--cream);
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 18px 25px;
+            border-radius: 50px;
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            background: rgba(45, 30, 20, 0.6);
+            color: var(--cream);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(45, 30, 20, 0.8);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(245, 230, 211, 0.5);
+        }
+
+        .newsletter-btn {
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--accent-gold), #c89055);
+            border: none;
+            border-radius: 50px;
+            color: var(--coffee-dark);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(29, 20, 16, 0.95);
+            padding: 80px 20px 30px;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p {
+            color: var(--cream);
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+            text-align: center;
+            color: var(--cream);
+            opacity: 0.7;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: -100px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(45, 30, 20, 0.98), rgba(29, 20, 16, 0.98));
+            backdrop-filter: blur(20px);
+            color: var(--cream);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent-gold);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 320px;
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            top: 100px;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--coffee-dark);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .toast-close {
+            background: transparent;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            transform: rotate(90deg);
+            color: var(--cream);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .top-header {
+                display: none;
+            }
+
+            .main-content {
+                padding: 40px 30px;
+            }
+
+            .blog-post-title {
+                font-size: 36px;
+            }
+
+            .recipe-steps {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .blog-post-title {
+                font-size: 28px;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .main-content h2 {
+                font-size: 26px;
+            }
+
+            .main-content h3 {
+                font-size: 20px;
+            }
+
+            .recipe-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .troubleshooting-table {
+                font-size: 14px;
+            }
+
+            .troubleshooting-table th,
+            .troubleshooting-table td {
+                padding: 10px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .toast {
+                right: 15px;
+                min-width: 280px;
+                padding: 15px 20px;
+            }
+
+            .toast.show {
+                top: 80px;
+            }
+
+            .toast-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div id="particles-js">
+        <!-- Particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <!-- Gradient Orbs -->
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Steam Effects -->
+    <div class="steam-container">
+        <!-- Steam -->
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <!-- Coffee Beans -->
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+        <div class="coffee-bean"></div>
+    </div>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="top-header-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>9650 Harvest Hills Blvd N #1000, Calgary, AB</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 403-237-6608</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@eightouncebrew.com</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/EightOunceCoffee/" target="_blank" aria-label="Facebook"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/eightouncecoffee/" target="_blank" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/eight_ounce" target="_blank" aria-label="Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="/">
+                        <img src="/assets/images/eightoucnebrew.png" alt="Eight Ounce Coffee Logo" class="logo">
+                    </a>
+                </div>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/blog/" class="active">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="cart-btn" onclick="window.location.href='/cart/'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-close" id="mobileClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul class="mobile-menu-list">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop/">Shop</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <div class="breadcrumb-content">
+                <ul class="breadcrumb-list">
+                    <li><a href="/">Home</a></li>
+                    <li class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></li>
+                    <li class="breadcrumb-current">Mastering Espresso Extraction</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Blog Post Header -->
+        <section class="blog-post-header">
+            <div class="blog-post-header-content">
+                <span class="post-category">Brewing Tips</span>
+                <h1 class="blog-post-title">Mastering Espresso Extraction: A Barista's Guide to Perfect Shots</h1>
+                <div class="post-meta">
+                    <div class="post-meta-item">
+                        <div class="author-avatar">MC</div>
+                        <span>Mike Chen</span>
+                    </div>
+                    <div class="post-meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>September 10, 2025</span>
+                    </div>
+                    <div class="post-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>6 min read</span>
+                    </div>
+                </div>
+                <p class="post-excerpt">Learn the secrets of consistent espresso extraction from our technical expert.
+                    Discover how grind size, dose, and timing work together to create the perfect shot every time.</p>
+            </div>
+        </section>
+
+        <!-- Featured Image -->
+        <section class="featured-image-section">
+            <div class="featured-image-content">
+                <div class="featured-image">
+                    <img src="/assets/images/blog-espresso-techniques.webp" alt="Perfect Espresso Shot Extraction"
+                        onerror="this.src='/assets/images/placeholder-blog-hero.jpg'">
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Content -->
+        <section class="blog-content">
+            <div class="blog-content-wrapper">
+                <article class="main-content">
+                    <p>After fifteen years behind espresso machines and countless thousands of shots pulled, I can tell
+                        you that mastering espresso extraction is both an art and a science. It's the difference between
+                        that transcendent morning ritual and a disappointing cup that makes you question your life
+                        choices.</p>
+
+                    <p>The beauty of espresso lies in its unforgiving nature. Unlike other brewing methods that can hide
+                        minor flaws, espresso amplifies every variable. Get it right, and you're rewarded with liquid
+                        gold. Get it wrong, and... well, you'll know immediately.</p>
+
+                    <h2>The Holy Trinity: Dose, Grind, and Time</h2>
+
+                    <p>Every perfect espresso shot is built on three fundamental pillars that work in harmony. Master
+                        these, and you'll have the foundation for consistently excellent espresso.</p>
+
+                    <blockquote>
+                        "Espresso is like jazz music. It's all about the interplay between the elements, and when they
+                        come together perfectly, it's magic." - Andrea Illy
+                    </blockquote>
+
+                    <h3>Dose: Your Starting Point</h3>
+                    <p>Dose refers to the amount of ground coffee you use. For a double shot, most specialty coffee
+                        shops use between 18-22g of coffee. But here's the thing: consistency matters more than the
+                        exact number. Pick a dose that works for your basket and stick with it while you dial in the
+                        other variables.</p>
+
+                    <div class="recipe-card">
+                        <h4><i class="fas fa-coffee"></i> Standard Espresso Recipe</h4>
+                        <div class="recipe-steps">
+                            <div class="recipe-step">
+                                <strong>Dose:</strong>
+                                20g coffee
+                            </div>
+                            <div class="recipe-step">
+                                <strong>Yield:</strong>
+                                40g espresso
+                            </div>
+                            <div class="recipe-step">
+                                <strong>Time:</strong>
+                                25-30 seconds
+                            </div>
+                            <div class="recipe-step">
+                                <strong>Ratio:</strong>
+                                1:2 (coffee:espresso)
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Grind: The Great Modifier</h3>
+                    <p>Grind size is your primary tool for adjusting extraction speed. Too coarse, and water flows
+                        through too quickly, under-extracting and creating sour, weak shots. Too fine, and you'll
+                        over-extract, leading to bitter, harsh flavors.</p>
+
+                    <p>Think of grind size like the aperture on a camera lens. Small adjustments make dramatic
+                        differences. Start with a medium-fine grind (think table salt) and adjust from there.</p>
+
+                    <h3>Time: The Extraction Window</h3>
+                    <p>Extraction time is the result of your dose and grind size working together. For a standard double
+                        shot, you're aiming for 25-30 seconds from the moment you hit the button to when you stop the
+                        shot.</p>
+
+                    <p>But here's what most people get wrong: time is a result, not a target. If your shot tastes good
+                        at 22 seconds, don't change it just to hit 25 seconds.</p>
+
+                    <h2>Reading Your Shots: The Visual Cues</h2>
+
+                    <p>A properly extracted espresso shot tells a story through its flow. Here's what to look for:</p>
+
+                    <ul>
+                        <li><strong>The Start (0-5 seconds):</strong> Dark, thick drops that look like warm honey</li>
+                        <li><strong>The Body (5-20 seconds):</strong> Steady stream, mouse-tail thick, golden-brown
+                            color</li>
+                        <li><strong>The Finish (20-30 seconds):</strong> Stream begins to thin and lighten to blonde
+                        </li>
+                    </ul>
+
+                    <p>When you see the stream turn blonde and thin out significantly, that's your cue to stop.
+                        Continuing past this point adds mainly bitter compounds without beneficial flavors.</p>
+
+                    <h2>Troubleshooting Common Problems</h2>
+
+                    <table class="troubleshooting-table">
+                        <thead>
+                            <tr>
+                                <th>Problem</th>
+                                <th>Likely Cause</th>
+                                <th>Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="problem">Shot too fast (under 20 sec)</span></td>
+                                <td>Grind too coarse</td>
+                                <td><span class="solution">Grind finer</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="problem">Shot too slow (over 35 sec)</span></td>
+                                <td>Grind too fine</td>
+                                <td><span class="solution">Grind coarser</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="problem">Sour, weak taste</span></td>
+                                <td>Under-extracted</td>
+                                <td><span class="solution">Grind finer or increase dose</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="problem">Bitter, harsh taste</span></td>
+                                <td>Over-extracted</td>
+                                <td><span class="solution">Grind coarser or decrease dose</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="problem">Uneven extraction</span></td>
+                                <td>Poor distribution or tamping</td>
+                                <td><span class="solution">Improve puck preparation</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>The Importance of Fresh, Quality Coffee</h2>
+
+                    <p>Even perfect technique can't save stale or poor-quality coffee. For espresso, freshness is
+                        critical. Use coffee roasted within 2-4 weeks, and if possible, let it rest for 5-7 days after
+                        roasting to allow CO2 to degas.</p>
+
+                    <p>Single-origin coffees can make exceptional espresso, but blends are specifically designed to
+                        balance sweetness, acidity, and body in the concentrated format of espresso. Don't be afraid to
+                        experiment, but start with coffees designed for espresso.</p>
+
+                    <h2>Advanced Techniques: Taking It to the Next Level</h2>
+
+                    <h3>Distribution and Tamping</h3>
+                    <p>Even distribution of coffee grounds in the portafilter is crucial for even extraction. Use a
+                        distribution tool or the "Weiss Distribution Technique" (stirring with a thin tool) to break up
+                        clumps and create a level bed before tamping.</p>
+
+                    <p>When tamping, apply 30-40 pounds of pressure with a level, consistent motion. The goal isn't to
+                        compress the coffee into a hockey puck, but to create an even, stable surface for water to flow
+                        through uniformly.</p>
+
+                    <h3>Temperature and Pressure</h3>
+                    <p>Most espresso machines brew at 9 bars of pressure and 93-96°C (200-205°F). If your machine allows
+                        adjustment, lighter roasts often benefit from higher temperatures (95-96°C), while darker roasts
+                        prefer the lower end (93-94°C).</p>
+
+                    <h3>Pre-infusion</h3>
+                    <p>If your machine has pre-infusion capability, use it. A gentle 2-4 second pre-infusion at low
+                        pressure helps the coffee bloom and promotes more even extraction throughout the puck.</p>
+
+                    <h2>Common Mistakes to Avoid</h2>
+
+                    <ol>
+                        <li><strong>Chasing time instead of taste</strong> - Always prioritize flavor over hitting
+                            specific timing targets</li>
+                        <li><strong>Ignoring dose consistency</strong> - Weigh your coffee every time, don't rely on
+                            volume</li>
+                        <li><strong>Skipping the warm-up</strong> - Let your machine fully heat up before pulling shots
+                        </li>
+                        <li><strong>Using old coffee</strong> - Stale coffee makes stale espresso, no matter your
+                            technique</li>
+                        <li><strong>Not tasting systematically</strong> - Keep notes and taste with intention</li>
+                    </ol>
+
+                    <h2>Building Consistency: The Professional Approach</h2>
+
+                    <p>Consistency is what separates home enthusiasts from professional baristas. Here's how to build
+                        it:</p>
+
+                    <ul>
+                        <li><strong>Weigh everything:</strong> Dose, yield, and timing should all be measured</li>
+                        <li><strong>Use the same routine:</strong> Develop a consistent workflow and stick to it</li>
+                        <li><strong>Take notes:</strong> Record your settings and taste notes for different coffees</li>
+                        <li><strong>Practice daily:</strong> Consistency comes from repetition</li>
+                    </ul>
+
+                    <h2>The Final Sip</h2>
+
+                    <p>Mastering espresso extraction is a journey, not a destination. Even after decades of experience,
+                        I'm still learning nuances and discovering new flavors. The key is understanding the fundamental
+                        principles and then developing your palate to guide your adjustments.</p>
+
+                    <p>Remember: the best espresso is the one you enjoy. Use these guidelines as a starting point, but
+                        don't be afraid to adjust based on your taste preferences. Some people prefer slightly
+                        under-extracted shots for their brightness, while others love the richness of a longer
+                        extraction.</p>
+
+                    <blockquote>
+                        Ready to put these techniques into practice? Visit our Calgary showroom to try different
+                        espresso machines and grinders, or shop our selection of espresso-focused equipment online. Our
+                        team of coffee geeks is always here to help you dial in the perfect shot.
+                    </blockquote>
+                </article>
+            </div>
+        </section>
+
+        <!-- Back to Blog Button -->
+        <section class="back-to-blog-section">
+            <a href="/blog/" class="back-to-blog-btn">
+                <i class="fas fa-arrow-left"></i> Back to Blog
+            </a>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <h2>Master More Coffee Techniques</h2>
+                <p>Get expert brewing guides and equipment insights delivered to your inbox weekly.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="/">
+                        <img src="/assets/images/eightoucnebrew.png" alt="Eight Ounce Brew Logo" class="footer-logo">
+                    </a>
+                    <p>Eight Ounce Brew specializes in exclusive coffee equipment for Canadian baristas and coffee
+                        enthusiasts. All products are curated and barista approved.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/EightOunceCoffee/" target="_blank" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/eightouncecoffee/" target="_blank" aria-label="Instagram"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/eight_ounce" target="_blank" aria-label="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Visit Our Showroom</h3>
+                    <p>9650 Harvest Hills Blvd N #1000<br>Calgary, AB T3K 2H3<br>Canada</p>
+                    <p><strong>Phone:</strong> +1 403-237-6608<br>
+                        <strong>Email:</strong> info@eightouncebrew.com
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Eight Ounce Brew. All rights reserved. | Designed with <i class="fas fa-heart"
+                        style="color: var(--accent-gold);"></i> for coffee lovers</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title">Success!</div>
+            <div class="toast-message" id="toastMessage"></div>
+        </div>
+        <button class="toast-close" onclick="hideToast()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script>
+        // Cart Functionality
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountEl = document.querySelector('.cart-count');
+            if (cartCountEl) {
+                cartCountEl.textContent = count;
+            }
+        }
+
+        // Toast Functions
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.querySelector('.toast-title');
+            const toastMessage = document.getElementById('toastMessage');
+
+            if (toastTitle && toastMessage) {
+                toastTitle.textContent = title;
+                toastMessage.textContent = message;
+            }
+
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                hideToast();
+            }, 3000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('show');
+        }
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileClose = document.getElementById('mobileClose');
+
+        if (hamburger && mobileMenu && mobileClose) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            mobileClose.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.mobile-menu-list a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Newsletter Form
+        document.addEventListener('DOMContentLoaded', function () {
+            const newsletterForm = document.getElementById('newsletterForm');
+
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const emailInput = e.target.querySelector('input');
+                    const email = emailInput.value;
+
+                    showToast('Subscribed!', `Espresso tips will be sent to ${email}`);
+                    e.target.reset();
+                });
+            }
+
+            // Initialize cart count
+            updateCartCount();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart - The Gadget Crate</title>
+    <meta name="description" content="Review your shopping cart at The Gadget Crate. Premium music gear, instruments, and accessories for musicians of all levels.">
+    <style>
+        /* Internal CSS - Consistent with home page */
+        :root {
+            --primary-color: #5c2d91;
+            --secondary-color: #ff6b00;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .cart-icon {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e05d00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Cart specific styles */
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 992px) {
+            .cart-container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        .cart-items {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-summary {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            align-self: start;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .cart-empty i {
+            font-size: 5rem;
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+        }
+        
+        .cart-empty h2 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .cart-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-category {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .cart-item-remove:hover {
+            color: #dc3545;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: #f1f1f1;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0.3rem;
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        
+        .continue-shopping {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                grid-template-rows: auto auto;
+            }
+            
+            .cart-item-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">The<span>Gadget</span>Crate</a>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Products</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li class="cart-icon">
+                        <a href="/cart/"><i class="fas fa-shopping-cart"></i></a>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="section-title">Your Shopping Cart</h1>
+        
+        <div class="cart-container">
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- Cart items will be loaded via JavaScript -->
+                <div class="cart-empty" id="emptyCartMessage">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h2>Your cart is empty</h2>
+                    <p>Looks like you haven't added anything to your cart yet</p>
+                    <a href="/shop/" class="btn">Continue Shopping</a>
+                </div>
+            </div>
+            
+            <div class="cart-summary" id="cartSummaryContainer" style="display: none;">
+                <h2 class="summary-title">Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="cartShipping">Calculated at checkout</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span id="cartTax">Calculated at checkout</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Estimated Total</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="btn checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+                <a href="/shop/" class="continue-shopping">Continue Shopping</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>The Gadget Crate</h3>
+                    <p>Your one-stop shop for premium music gear and accessories. Quality products for musicians at every level.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/thegadgetcrate" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/thegadgetcrate" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/thegadgetcrate" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/thegadgetcrate" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="/shop/">All Products</a></li>
+                        <li><a href="/shop/?category=guitars">Guitars</a></li>
+                        <li><a href="/shop/?category=keyboards">Keyboards</a></li>
+                        <li><a href="/shop/?category=drums">Drums</a></li>
+                        <li><a href="/shop/?category=accessories">Accessories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="/terms/">Terms & Conditions</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/shipping/">Shipping Info</a></li>
+                        <li><a href="/returns/">Returns</a></li>
+                        <li><a href="/contact/">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>Schloßpl. 1,<br>08648 Bad Brambach<br>Germany</li>
+                        <li>Phone: +49 160 4697373</li>
+                        <li>Email: info@thegadgetcrate.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Gadget Crate. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Load cart items on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            updateCartCount();
+            
+            // Checkout button event
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    alert('Proceeding to checkout! This would redirect to a checkout page in a real implementation.');
+                });
+            }
+        });
+        
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const cartSummaryContainer = document.getElementById('cartSummaryContainer');
+            
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartSummaryContainer.style.display = 'none';
+                return;
+            }
+            
+            emptyCartMessage.style.display = 'none';
+            cartSummaryContainer.style.display = 'block';
+            
+            // Clear existing items
+            const existingItems = document.querySelectorAll('.cart-item');
+            existingItems.forEach(item => item.remove());
+            
+            // Add current cart items
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * (item.quantity || 1);
+                subtotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">${item.title}</h3>
+                        <p class="cart-item-category">${item.category}</p>
+                        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${(item.quantity || 1) - 1})">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity || 1}" min="1" 
+                                   onchange="updateQuantity(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${(item.quantity || 1) + 1})">+</button>
+                        </div>
+                    </div>
+                `;
+                cartItemsContainer.insertBefore(cartItem, emptyCartMessage);
+            });
+            
+            // Update summary
+            document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cartTotal').textContent = `$${subtotal.toFixed(2)}`;
+        }
+        
+        // Remove item from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+        }
+        
+        // Update item quantity
+        function updateQuantity(productId, newQuantity) {
+            newQuantity = parseInt(newQuantity);
+            if (newQuantity < 1) newQuantity = 1;
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+            }
+        }
+        
+        // Update cart count in header
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+                cartCount.textContent = totalItems;
+            }
+        }
+    </script>
+</body>
+</html>

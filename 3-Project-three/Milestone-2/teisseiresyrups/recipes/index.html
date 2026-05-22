@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+        content="drink recipes, cocktail recipes, mocktail recipes, syrup recipes, Teisseire recipes, bartender recipes, premium cocktails, flavored drink recipes">
+    <meta name="description"
+        content="Discover premium drink recipes crafted with Teisseire syrups. From classic cocktails to innovative mocktails, explore our collection of expertly crafted beverage recipes for every occasion.">
+    <link rel="canonical" href="https://teisseiresyrups.com/recipes/">
+    <title>Premium Drink Recipes - Teisseire Syrups | Cocktails & Mocktails</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            .toast {
+                right: 1rem;
+                max-width: 90%;
+            }
+        }
+
+        :root {
+            --primary-green: #2d5a3d;
+            --light-green: #4a8a5f;
+            --accent-green: #7bc96f;
+            --dark-bg: #1a1a1a;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(125, 201, 111, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+            display: block;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--accent-green);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .close-menu {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(45, 90, 61, 0.1);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--accent-green);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--light-green);
+            background-clip: content-box;
+        }
+
+        /* For Firefox */
+        .modal-content {
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-green) rgba(45, 90, 61, 0.1);
+        }
+
+        /* Ensure smooth scrolling */
+        .modal-content {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 60vh;
+                padding: 6rem 2rem 3rem;
+            }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(45, 90, 61, 0.2);
+            border: 1px solid rgba(125, 201, 111, 0.2);
+            border-radius: 25px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-green);
+            color: var(--dark-bg);
+            border-color: var(--accent-green);
+            transform: translateY(-2px);
+        }
+
+        /* Recipes Grid */
+        .section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .recipe-card {
+            background: rgba(45, 90, 61, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(125, 201, 111, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(125, 201, 111, 0.3);
+            border-color: var(--accent-green);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent-green);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card:hover .recipe-image img {
+            transform: scale(1.1);
+        }
+
+        .recipe-info {
+            padding: 1.5rem;
+        }
+
+        .recipe-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green);
+        }
+
+        .recipe-info p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .recipe-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(125, 201, 111, 0.2);
+            color: var(--accent-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(125, 201, 111, 0.3);
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(125, 201, 111, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--dark-bg);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-green);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .recipe-section {
+            margin-bottom: 2rem;
+        }
+
+        .recipe-section h3 {
+            color: var(--accent-green);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ingredients-list,
+        .method-list {
+            list-style: none;
+        }
+
+        .ingredients-list li {
+            background: rgba(45, 90, 61, 0.2);
+            margin-bottom: 0.5rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-green);
+            color: var(--text-light);
+        }
+
+        .method-list li {
+            background: rgba(45, 90, 61, 0.1);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--light-green);
+            color: var(--text-light);
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .method-list li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            background: var(--accent-green);
+            color: var(--dark-bg);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .method-list {
+            counter-reset: step-counter;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation delays for staggered effect */
+        .recipe-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .recipe-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .recipe-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .recipe-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .recipe-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .recipe-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .recipe-card:nth-child(7) {
+            animation-delay: 0.1s;
+        }
+
+        .recipe-card:nth-child(8) {
+            animation-delay: 0.2s;
+        }
+
+        .recipe-card:nth-child(9) {
+            animation-delay: 0.3s;
+        }
+
+        .recipe-card:nth-child(10) {
+            animation-delay: 0.4s;
+        }
+
+        .recipe-card:nth-child(11) {
+            animation-delay: 0.5s;
+        }
+
+        .recipe-card:nth-child(12) {
+            animation-delay: 0.6s;
+        }
+
+        .recipe-card:nth-child(13) {
+            animation-delay: 0.1s;
+        }
+
+        .recipe-card:nth-child(14) {
+            animation-delay: 0.2s;
+        }
+
+        .recipe-card:nth-child(15) {
+            animation-delay: 0.3s;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(125, 201, 111, 0.2);
+            color: var(--text-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                transition: right 0.3s ease;
+                align-items: flex-start;
+                border-left: 1px solid var(--accent-green);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .close-menu {
+                display: none !important;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: 1.5rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .filter-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Background -->
+    <div id="three-container"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="/" class="logo">
+                <img src="/assets/images/teisseiresyrups.png" alt="Teisseire Logo">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+                <li><a href="/">Home</a></li>
+                <li><a href="/recipes/" class="active">Recipes</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Drink Recipes</h1>
+            <p>Discover exceptional cocktails and mocktails crafted with authentic Teisseire flavors</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <button class="filter-btn active" data-filter="all">All Recipes</button>
+        <button class="filter-btn" data-filter="cocktail">Cocktails</button>
+        <button class="filter-btn" data-filter="mocktail">Mocktails</button>
+        <button class="filter-btn" data-filter="hot">Hot Drinks</button>
+        <button class="filter-btn" data-filter="cold">Cold Drinks</button>
+    </div>
+    <!-- Recipes Grid -->
+    <section class="section">
+        <div class="recipes-grid" id="recipesGrid">
+            <!-- Cookie Cappuccino -->
+            <div class="recipe-card" data-category="hot mocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/cookie-cappuccino.png" alt="Cookie Cappuccino">
+                </div>
+                <div class="recipe-info">
+                    <h3>Cookie Cappuccino</h3>
+                    <p>A cozy winter drink combining rich coffee with sweet cookie flavors and creamy foam.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Coffee</span>
+                        <span class="tag">Winter</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('cookie-cappuccino')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Spiced Tangerine Toddy -->
+            <div class="recipe-card" data-category="hot mocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/spiced-tangerine-toddy.jpg" alt="Spiced Tangerine Toddy">
+                </div>
+                <div class="recipe-info">
+                    <h3>Spiced Tangerine Toddy</h3>
+                    <p>Warming citrus toddy with aromatic spices, perfect for cold winter evenings.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Citrus</span>
+                        <span class="tag">Spiced</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('spiced-tangerine-toddy')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Orange Cookie Grog -->
+            <div class="recipe-card" data-category="hot cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/orange-cookie-grog.jpg" alt="Orange Cookie Grog">
+                </div>
+                <div class="recipe-info">
+                    <h3>Orange Cookie Grog</h3>
+                    <p>Classic winter warmer with orange and cookie flavors, spiked with warming spirits.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Orange</span>
+                        <span class="tag">Rum</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('orange-cookie-grog')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Peach Remedy -->
+            <div class="recipe-card" data-category="cold mocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/peach-remedy.jpg" alt="Peach Remedy">
+                </div>
+                <div class="recipe-info">
+                    <h3>Peach Remedy</h3>
+                    <p>Refreshing peach-based mocktail with herbal notes, perfect for summer afternoons.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Peach</span>
+                        <span class="tag">Refreshing</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('peach-remedy')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Winter Solstice -->
+            <div class="recipe-card" data-category="hot cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/winter-solstice.jpg" alt="Winter Solstice">
+                </div>
+                <div class="recipe-info">
+                    <h3>Winter Solstice</h3>
+                    <p>Elegant winter cocktail with warming spices and rich, complex flavors.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Spiced</span>
+                        <span class="tag">Whiskey</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('winter-solstice')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Diablo -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/diablo.png" alt="Diablo">
+                </div>
+                <div class="recipe-info">
+                    <h3>Diablo</h3>
+                    <p>Fiery cocktail with a perfect balance of heat and sweetness for adventurous palates.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Spicy</span>
+                        <span class="tag">Tequila</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('diablo')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Cherry Batanga -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/cherry-batanga.png" alt="Cherry Batanga">
+                </div>
+                <div class="recipe-info">
+                    <h3>Cherry Batanga</h3>
+                    <p>Mexican-inspired cocktail with cherry syrup and cola, simple yet sophisticated.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Cherry</span>
+                        <span class="tag">Tequila</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('cherry-batanga')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Black Sesame Oat Latte -->
+            <div class="recipe-card" data-category="hot mocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/black-sesame-oat-latte.jpg" alt="Black Sesame Oat Latte">
+                </div>
+                <div class="recipe-info">
+                    <h3>Black Sesame Oat Latte</h3>
+                    <p>Creamy oat latte with unique black sesame flavor, a modern café favorite.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Hot</span>
+                        <span class="tag">Latte</span>
+                        <span class="tag">Unique</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('black-sesame-oat-latte')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Cyclone -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/cyclone.jpg" alt="Cyclone">
+                </div>
+                <div class="recipe-info">
+                    <h3>Cyclone</h3>
+                    <p>Dynamic layered cocktail with swirling colors and bold tropical flavors.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Layered</span>
+                        <span class="tag">Tropical</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('cyclone')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Cardamom Spritz -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/cardamom-spritz.jpg" alt="Cardamom Spritz">
+                </div>
+                <div class="recipe-info">
+                    <h3>Cardamom Spritz</h3>
+                    <p>Elegant spritz with aromatic cardamom and bubbly prosecco for special occasions.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Spritz</span>
+                        <span class="tag">Prosecco</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('cardamom-spritz')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Bellini Revival -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/bellini-revival.jpg" alt="Bellini Revival">
+                </div>
+                <div class="recipe-info">
+                    <h3>Bellini Revival</h3>
+                    <p>Modern twist on the classic Bellini with enhanced peach flavors and premium prosecco.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Classic</span>
+                        <span class="tag">Peach</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('bellini-revival')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Jack & Rose -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/jack-and-rose.jpg" alt="Jack & Rose">
+                </div>
+                <div class="recipe-info">
+                    <h3>Jack & Rose</h3>
+                    <p>Romantic cocktail combining whiskey with delicate rose flavors and citrus notes.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Rose</span>
+                        <span class="tag">Whiskey</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('jack-and-rose')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Mango Bellini -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/mango-bellini.jpg" alt="Mango Bellini">
+                </div>
+                <div class="recipe-info">
+                    <h3>Mango Bellini</h3>
+                    <p>Tropical variation of the classic Bellini featuring luscious mango and sparkling wine.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Tropical</span>
+                        <span class="tag">Mango</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('mango-bellini')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Coconut Daiquiri -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/coconut-daiquiri.jpg" alt="Coconut Daiquiri">
+                </div>
+                <div class="recipe-info">
+                    <h3>Coconut Daiquiri</h3>
+                    <p>Creamy coconut daiquiri with white rum, perfect for beach-inspired cocktail hours.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Coconut</span>
+                        <span class="tag">Rum</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('coconut-daiquiri')">View Recipe</button>
+                </div>
+            </div>
+
+            <!-- Passion Fruit Martini -->
+            <div class="recipe-card" data-category="cold cocktail">
+                <div class="recipe-image">
+                    <img src="/assets/images/passion-fruit-martini.jpg" alt="Passion Fruit Martini">
+                </div>
+                <div class="recipe-info">
+                    <h3>Passion Fruit Martini</h3>
+                    <p>Sophisticated martini with exotic passion fruit flavors and premium vodka.</p>
+                    <div class="recipe-tags">
+                        <span class="tag">Cold</span>
+                        <span class="tag">Passion Fruit</span>
+                        <span class="tag">Vodka</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('passion-fruit-martini')">View Recipe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipe Modal -->
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">Recipe Name</h2>
+                <p id="modalDescription">Recipe description</p>
+            </div>
+            <div class="modal-body">
+                <div class="recipe-section">
+                    <h3><i class="fas fa-list"></i> Ingredients</h3>
+                    <ul class="ingredients-list" id="modalIngredients">
+                        <!-- Ingredients will be populated by JavaScript -->
+                    </ul>
+                </div>
+                <div class="recipe-section">
+                    <h3><i class="fas fa-tasks"></i> Method</h3>
+                    <ol class="method-list" id="modalMethod">
+                        <!-- Method steps will be populated by JavaScript -->
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="/assets/images/teisseiresyrups.png" alt="Teisseire Logo"
+                    style="height: 50px; margin-bottom: 1rem;">
+                <p>Crafting exceptional flavors since 1720. Premium syrups for beverage creators worldwide.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/mathieu_teisseire/" target="_blank" rel="noopener"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/mathieu-teisseire" target="_blank" rel="noopener"><i
+                            class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/recipes/">Recipes</a>
+                <a href="/blog/">Blog</a>
+                <a href="/about/">About Us</a>
+                <a href="/contact/">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <a href="/privacy/">Privacy Policy</a>
+                <a href="/terms/">Terms of Service</a>
+                <a href="/cookies/">Cookies Policy</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Bahnhofweg 7, 8940 Liezen, Austria</p>
+                <p><i class="fas fa-phone"></i> +43 3612 30010</p>
+                <p><i class="fas fa-envelope"></i> info@teisseiresyrups.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Teisseire Syrups. All rights reserved. Crafting memorable drinks since 1720.</p>
+        </div>
+    </footer>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Recipe Data
+        const recipes = {
+            'cookie-cappuccino': {
+                title: 'Cookie Cappuccino',
+                description: 'A cozy winter drink combining rich coffee with sweet cookie flavors and creamy foam.',
+                ingredients: [
+                    '30ml Teisseire Cookie Syrup',
+                    '200ml Hot Espresso Coffee',
+                    '100ml Steamed Milk',
+                    'Milk Foam',
+                    'Cookie Crumbs for garnish',
+                    'Cinnamon Powder'
+                ],
+                method: [
+                    'Brew a strong espresso coffee and pour into a large mug',
+                    'Add the cookie syrup and stir gently to combine',
+                    'Steam the milk until hot and frothy',
+                    'Pour the steamed milk into the coffee, holding back the foam',
+                    'Top with milk foam and sprinkle with cookie crumbs',
+                    'Dust lightly with cinnamon powder and serve immediately'
+                ]
+            },
+            'spiced-tangerine-toddy': {
+                title: 'Spiced Tangerine Toddy',
+                description: 'Warming citrus toddy with aromatic spices, perfect for cold winter evenings.',
+                ingredients: [
+                    '25ml Teisseire Tangerine Syrup',
+                    '200ml Hot Water',
+                    '1 Cinnamon Stick',
+                    '2 Whole Cloves',
+                    '1 Star Anise',
+                    'Fresh Orange Slice',
+                    'Honey to taste'
+                ],
+                method: [
+                    'Heat water with cinnamon stick, cloves, and star anise for 5 minutes',
+                    'Strain the spiced water into a heat-proof mug',
+                    'Add tangerine syrup and stir well',
+                    'Add honey to taste and stir until dissolved',
+                    'Garnish with a fresh orange slice and cinnamon stick',
+                    'Serve hot while aromatic spices are at their peak'
+                ]
+            },
+            'orange-cookie-grog': {
+                title: 'Orange Cookie Grog',
+                description: 'Classic winter warmer with orange and cookie flavors, spiked with warming spirits.',
+                ingredients: [
+                    '20ml Teisseire Orange Syrup',
+                    '15ml Teisseire Cookie Syrup',
+                    '50ml Dark Rum',
+                    '150ml Hot Water',
+                    '1 tbsp Butter',
+                    'Orange Zest',
+                    'Cinnamon Stick'
+                ],
+                method: [
+                    'Combine orange and cookie syrups in a heat-proof mug',
+                    'Add dark rum and stir to combine',
+                    'Pour hot water over the mixture',
+                    'Add butter and stir until melted and incorporated',
+                    'Garnish with fresh orange zest and cinnamon stick',
+                    'Serve immediately while hot and fragrant'
+                ]
+            },
+            'peach-remedy': {
+                title: 'Peach Remedy',
+                description: 'Refreshing peach-based mocktail with herbal notes, perfect for summer afternoons.',
+                ingredients: [
+                    '30ml Teisseire Peach Syrup',
+                    '150ml Sparkling Water',
+                    '50ml Fresh Lemon Juice',
+                    '30ml Elderflower Cordial',
+                    'Fresh Peach Slices',
+                    'Mint Leaves',
+                    'Ice Cubes'
+                ],
+                method: [
+                    'Fill a tall glass with ice cubes',
+                    'Add peach syrup and elderflower cordial',
+                    'Pour in fresh lemon juice and stir gently',
+                    'Top with sparkling water',
+                    'Garnish with fresh peach slices and mint leaves',
+                    'Stir once more and serve with a straw'
+                ]
+            },
+            'winter-solstice': {
+                title: 'Winter Solstice',
+                description: 'Elegant winter cocktail with warming spices and rich, complex flavors.',
+                ingredients: [
+                    '25ml Teisseire Cinnamon Syrup',
+                    '50ml Whiskey',
+                    '25ml Apple Juice',
+                    '15ml Lemon Juice',
+                    '2 Dashes Angostura Bitters',
+                    'Apple Slice',
+                    'Cinnamon Stick',
+                    'Orange Peel'
+                ],
+                method: [
+                    'Combine whiskey, cinnamon syrup, and apple juice in a shaker',
+                    'Add lemon juice and bitters',
+                    'Fill shaker with ice and shake vigorously',
+                    'Double strain into a chilled rocks glass over a large ice cube',
+                    'Express orange peel oils over the drink and drop in',
+                    'Garnish with apple slice and cinnamon stick'
+                ]
+            },
+            'diablo': {
+                title: 'Diablo',
+                description: 'Fiery cocktail with a perfect balance of heat and sweetness for adventurous palates.',
+                ingredients: [
+                    '20ml Teisseire Chili Syrup',
+                    '50ml Silver Tequila',
+                    '25ml Fresh Lime Juice',
+                    '15ml Triple Sec',
+                    '2 Dashes Hot Sauce',
+                    'Chili Salt for rim',
+                    'Lime Wheel',
+                    'Fresh Chili Slice'
+                ],
+                method: [
+                    'Rim glass with chili salt and set aside',
+                    'Combine tequila, chili syrup, and lime juice in shaker',
+                    'Add triple sec and hot sauce',
+                    'Fill with ice and shake hard for 15 seconds',
+                    'Double strain into prepared rocks glass over fresh ice',
+                    'Garnish with lime wheel and fresh chili slice'
+                ]
+            },
+            'cherry-batanga': {
+                title: 'Cherry Batanga',
+                description: 'Mexican-inspired cocktail with cherry syrup and cola, simple yet sophisticated.',
+                ingredients: [
+                    '25ml Teisseire Cherry Syrup',
+                    '50ml Silver Tequila',
+                    '15ml Fresh Lime Juice',
+                    '120ml Cola',
+                    'Lime Wedges',
+                    'Fresh Cherries',
+                    'Ice Cubes'
+                ],
+                method: [
+                    'Fill a highball glass with ice cubes',
+                    'Add tequila and cherry syrup',
+                    'Squeeze in fresh lime juice',
+                    'Top with cola and stir gently',
+                    'Garnish with lime wedges and fresh cherries',
+                    'Serve with a straw and knife (traditional batanga style)'
+                ]
+            },
+            'black-sesame-oat-latte': {
+                title: 'Black Sesame Oat Latte',
+                description: 'Creamy oat latte with unique black sesame flavor, a modern café favorite.',
+                ingredients: [
+                    '30ml Teisseire Black Sesame Syrup',
+                    '200ml Hot Espresso Coffee',
+                    '150ml Steamed Oat Milk',
+                    'Oat Milk Foam',
+                    'Toasted Sesame Seeds',
+                    'Cocoa Powder'
+                ],
+                method: [
+                    'Brew a double shot of espresso into a large mug',
+                    'Add black sesame syrup and stir to combine',
+                    'Steam oat milk until hot and creamy',
+                    'Pour steamed oat milk into the coffee, creating latte art if desired',
+                    'Top with oat milk foam',
+                    'Sprinkle with toasted sesame seeds and dust with cocoa powder'
+                ]
+            },
+            'cyclone': {
+                title: 'Cyclone',
+                description: 'Dynamic layered cocktail with swirling colors and bold tropical flavors.',
+                ingredients: [
+                    '20ml Teisseire Blue Curacao Syrup',
+                    '20ml Teisseire Coconut Syrup',
+                    '50ml White Rum',
+                    '25ml Pineapple Juice',
+                    '25ml Passion Fruit Juice',
+                    '15ml Lime Juice',
+                    'Crushed Ice',
+                    'Pineapple Wedge'
+                ],
+                method: [
+                    'Fill hurricane glass with crushed ice',
+                    'Combine rum, coconut syrup, and fruit juices in shaker',
+                    'Shake with ice and strain into glass',
+                    'Slowly pour blue curacao syrup down the side of the glass',
+                    'Use a bar spoon to create swirling effect',
+                    'Garnish with pineapple wedge and serve with straw'
+                ]
+            },
+            'cardamom-spritz': {
+                title: 'Cardamom Spritz',
+                description: 'Elegant spritz with aromatic cardamom and bubbly prosecco for special occasions.',
+                ingredients: [
+                    '20ml Teisseire Cardamom Syrup',
+                    '100ml Prosecco',
+                    '50ml Soda Water',
+                    '15ml Fresh Lemon Juice',
+                    'Lemon Twist',
+                    'Fresh Cardamom Pods',
+                    'Ice Cubes'
+                ],
+                method: [
+                    'Fill wine glass with ice cubes',
+                    'Add cardamom syrup and lemon juice',
+                    'Gently stir to combine',
+                    'Top with prosecco and soda water',
+                    'Garnish with lemon twist and cardamom pods',
+                    'Serve immediately while effervescent'
+                ]
+            },
+            'bellini-revival': {
+                title: 'Bellini Revival',
+                description: 'Modern twist on the classic Bellini with enhanced peach flavors and premium prosecco.',
+                ingredients: [
+                    '30ml Teisseire Peach Syrup',
+                    '120ml Premium Prosecco',
+                    '15ml Fresh Peach Puree',
+                    '10ml Elderflower Liqueur',
+                    'Fresh Peach Slice',
+                    'Edible Flower',
+                    'Ice (optional)'
+                ],
+                method: [
+                    'Chill champagne flute in freezer',
+                    'Combine peach syrup and fresh peach puree in flute',
+                    'Add elderflower liqueur',
+                    'Slowly top with prosecco to maintain bubbles',
+                    'Gently stir once to combine',
+                    'Garnish with peach slice and edible flower'
+                ]
+            },
+            'jack-and-rose': {
+                title: 'Jack & Rose',
+                description: 'Romantic cocktail combining whiskey with delicate rose flavors and citrus notes.',
+                ingredients: [
+                    '20ml Teisseire Rose Syrup',
+                    '50ml Bourbon Whiskey',
+                    '25ml Fresh Lemon Juice',
+                    '15ml Honey Syrup',
+                    '2 Dashes Rose Water',
+                    'Dried Rose Petals',
+                    'Lemon Twist'
+                ],
+                method: [
+                    'Combine bourbon, rose syrup, and lemon juice in shaker',
+                    'Add honey syrup and rose water',
+                    'Fill with ice and shake vigorously',
+                    'Double strain into chilled coupe glass',
+                    'Express lemon twist oils over drink',
+                    'Garnish with dried rose petals for elegant presentation'
+                ]
+            },
+            'mango-bellini': {
+                title: 'Mango Bellini',
+                description: 'Tropical variation of the classic Bellini featuring luscious mango and sparkling wine.',
+                ingredients: [
+                    '30ml Teisseire Mango Syrup',
+                    '120ml Prosecco',
+                    '20ml Fresh Mango Puree',
+                    '5ml Fresh Lime Juice',
+                    'Mango Slice',
+                    'Mint Sprig',
+                    'Edible Gold Flakes (optional)'
+                ],
+                method: [
+                    'Pre-chill champagne flute',
+                    'Add mango syrup and fresh mango puree to flute',
+                    'Add a splash of lime juice',
+                    'Slowly pour prosecco to maintain carbonation',
+                    'Stir very gently to combine',
+                    'Garnish with mango slice, mint sprig, and gold flakes'
+                ]
+            },
+            'coconut-daiquiri': {
+                title: 'Coconut Daiquiri',
+                description: 'Creamy coconut daiquiri with white rum, perfect for beach-inspired cocktail hours.',
+                ingredients: [
+                    '25ml Teisseire Coconut Syrup',
+                    '50ml White Rum',
+                    '25ml Fresh Lime Juice',
+                    '30ml Coconut Cream',
+                    '15ml Simple Syrup',
+                    'Toasted Coconut Flakes',
+                    'Lime Wheel'
+                ],
+                method: [
+                    'Combine rum, coconut syrup, and coconut cream in shaker',
+                    'Add lime juice and simple syrup',
+                    'Fill with ice and shake hard for 20 seconds',
+                    'Double strain into chilled coupe glass',
+                    'Rim glass with toasted coconut flakes',
+                    'Garnish with lime wheel and serve immediately'
+                ]
+            },
+            'passion-fruit-martini': {
+                title: 'Passion Fruit Martini',
+                description: 'Sophisticated martini with exotic passion fruit flavors and premium vodka.',
+                ingredients: [
+                    '25ml Teisseire Passion Fruit Syrup',
+                    '50ml Premium Vodka',
+                    '15ml Fresh Lime Juice',
+                    '10ml Vanilla Liqueur',
+                    '30ml Prosecco Float',
+                    'Half Passion Fruit',
+                    'Lime Zest'
+                ],
+                method: [
+                    'Combine vodka, passion fruit syrup, and lime juice in shaker',
+                    'Add vanilla liqueur and fill with ice',
+                    'Shake vigorously for 15 seconds',
+                    'Double strain into chilled martini glass',
+                    'Float prosecco on top using back of spoon',
+                    'Garnish with half passion fruit and lime zest'
+                ]
+            }
+        };
+
+        // Three.js Background - Same as homepage
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        const bubbles = [];
+        const bubbleCount = 25;
+
+        for (let i = 0; i < bubbleCount; i++) {
+            const geometry = new THREE.SphereGeometry(Math.random() * 0.5 + 0.3, 32, 32);
+            const material = new THREE.MeshPhongMaterial({
+                color: i % 2 === 0 ? 0x7bc96f : 0x4a8a5f,
+                transparent: true,
+                opacity: 0.3,
+                shininess: 100
+            });
+            const bubble = new THREE.Mesh(geometry, material);
+
+            bubble.position.x = (Math.random() - 0.5) * 50;
+            bubble.position.y = (Math.random() - 0.5) * 50;
+            bubble.position.z = (Math.random() - 0.5) * 50;
+
+            bubble.velocity = {
+                x: (Math.random() - 0.5) * 0.02,
+                y: Math.random() * 0.03 + 0.02,
+                z: (Math.random() - 0.5) * 0.02
+            };
+
+            scene.add(bubble);
+            bubbles.push(bubble);
+        }
+
+        const light1 = new THREE.DirectionalLight(0x7bc96f, 1);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const light2 = new THREE.DirectionalLight(0x4a8a5f, 0.8);
+        light2.position.set(-5, -5, -5);
+        scene.add(light2);
+
+        const ambientLight = new THREE.AmbientLight(0x4a8a5f, 0.4);
+        scene.add(ambientLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            bubbles.forEach(bubble => {
+                bubble.position.x += bubble.velocity.x;
+                bubble.position.y += bubble.velocity.y;
+                bubble.position.z += bubble.velocity.z;
+
+                if (bubble.position.y > 30) {
+                    bubble.position.y = -30;
+                }
+                if (Math.abs(bubble.position.x) > 30) {
+                    bubble.velocity.x *= -1;
+                }
+                if (Math.abs(bubble.position.z) > 30) {
+                    bubble.velocity.z *= -1;
+                }
+
+                bubble.rotation.x += 0.01;
+                bubble.rotation.y += 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Filter Functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const recipeCards = document.querySelectorAll('.recipe-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                recipeCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        if (categories.includes(filter)) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    }
+                });
+            });
+        });
+
+        // Modal Functionality
+        function openModal(recipeId) {
+            const modal = document.getElementById('recipeModal');
+            const recipe = recipes[recipeId];
+
+            if (recipe) {
+                document.getElementById('modalTitle').textContent = recipe.title;
+                document.getElementById('modalDescription').textContent = recipe.description;
+
+                // Populate ingredients
+                const ingredientsList = document.getElementById('modalIngredients');
+                ingredientsList.innerHTML = '';
+                recipe.ingredients.forEach(ingredient => {
+                    const li = document.createElement('li');
+                    li.textContent = ingredient;
+                    ingredientsList.appendChild(li);
+                });
+
+                // Populate method
+                const methodList = document.getElementById('modalMethod');
+                methodList.innerHTML = '';
+                recipe.method.forEach(step => {
+                    const li = document.createElement('li');
+                    li.textContent = step;
+                    methodList.appendChild(li);
+                });
+
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('recipeModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('recipeModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Valnera's wellness blog featuring self-care tips, mindfulness practices, and wellness product guides to help you live a more balanced life.">
+    <meta name="keywords" content="wellness blog, self-care tips, mindfulness, meditation, stress relief, healthy living, wellness advice, relaxation techniques">
+    <title>Wellness & Self-Care Blog | Valnera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #8e6c88;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: #6a4c65;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #8e6c88;
+            color: #8e6c88;
+        }
+
+        .btn-outline:hover {
+            background-color: #8e6c88;
+            color: white;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: #4a3a4a;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #8e6c88;
+            margin: 15px auto 0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4a3a4a;
+        }
+
+        .logo span {
+            color: #8e6c88;
+        }
+
+        nav ul {
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #8e6c88;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #8e6c88;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4a3a4a;
+        }
+
+        /* Blog Hero */
+        .blog-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .blog-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Blog Content */
+        .blog-content {
+            padding: 60px 0;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-card-content {
+            padding: 20px;
+        }
+
+        .blog-date {
+            color: #8e6c88;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-card-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .blog-excerpt {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background-color: #f0e6ef;
+            padding: 60px 0;
+        }
+
+        .featured-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .featured-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #4a3a4a;
+        }
+
+        .featured-date {
+            color: #8e6c88;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .featured-excerpt {
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 60px 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: #8e6c88;
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            margin-bottom: 15px;
+        }
+
+        .category-card p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Popular Posts */
+        .popular-posts {
+            background-color: #f0e6ef;
+            padding: 60px 0;
+        }
+
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .popular-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .popular-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .popular-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .popular-content {
+            padding: 20px;
+        }
+
+        .popular-date {
+            color: #8e6c88;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .popular-content h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 15px 25px;
+            background-color: #8e6c88;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Blog Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            transform: translateY(50px);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay.active .popup {
+            transform: translateY(0);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .close-popup:hover {
+            color: #333;
+        }
+
+        .popup-content {
+            margin-top: 20px;
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .popup-date {
+            color: #8e6c88;
+            margin-bottom: 10px;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .popup-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .popup-text p {
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4a3a4a;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #8e6c88;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #8e6c88;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #8e6c88;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .featured-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 0;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .blog-hero {
+                height: 50vh;
+                margin-top: 70px;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .blog-hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 4px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .blog-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .popup {
+                padding: 20px;
+            }
+            
+            .popup-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Val<span>nera</span></a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li>
+                        <a href="/shop/">
+                         <div class="cart-icon" id="cartIcon">
+                             <i class="fas fa-shopping-cart"></i>
+                             <span class="cart-count" id="cartCount">0</span>
+                         </div>
+                        </a>
+                     </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container blog-hero-content">
+            <h1>Wellness & Self-Care Blog</h1>
+            <p>Discover articles, tips, and guides to help you prioritize your well-being and create meaningful self-care rituals.</p>
+        </div>
+    </section>
+
+    <!-- Featured Post Section -->
+    <section class="featured-post">
+        <div class="container">
+            <h2 class="section-title">Featured Post</h2>
+            <div class="featured-container">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80" alt="Digital Detox">
+                </div>
+                <div class="featured-content">
+                    <p class="featured-date">April 10, 2025</p>
+                    <h2>The Art of Digital Detox: Reclaiming Your Attention</h2>
+                    <p class="featured-excerpt">In our hyperconnected world, learning to disconnect can be one of the most radical acts of self-care. This comprehensive guide explores practical strategies for reducing screen time, creating tech-free zones, and rediscovering the joy of offline activities.</p>
+                    <button class="btn read-more" data-id="1" data-title="The Art of Digital Detox: Reclaiming Your Attention" data-date="April 10, 2025" data-image="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80" data-content="<p>In our constantly connected world, taking regular breaks from digital devices has become essential for mental wellbeing. The average person checks their phone 58 times a day, with many of those checks occurring within just 30 minutes of waking up or going to sleep.</p><p>A digital detox doesn't necessarily mean going completely offline for days at a time (though that can be beneficial). Start with small, manageable changes like implementing phone-free zones or times in your home. The bedroom is an ideal place to begin - charge your phone outside the bedroom to resist the temptation of late-night scrolling.</p><p>Schedule regular 'tech sabbaths' - blocks of time where you disconnect completely. Even just a few hours on Sunday morning can provide mental space for reflection and connection with loved ones. Use this time for analog activities like reading physical books, journaling, or spending time in nature.</p><p>Notice how you feel during and after these periods of disconnection. Many people report feeling more present, less anxious, and more creatively inspired after just a short digital break.</p><h3>Practical Tips for Digital Detox</h3><ul><li>Turn off non-essential notifications</li><li>Use grayscale mode to make your phone less appealing</li><li>Establish tech-free meals</li><li>Try a 24-hour digital detox once a month</li><li>Replace social media scrolling with mindful activities</li></ul>">Read Full Article</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="blog-content">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+            <div class="blog-grid">
+                <!-- Blog Post 1 -->
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Morning Routine">
+                    </div>
+                    <div class="blog-card-content">
+                        <p class="blog-date">April 15, 2025</p>
+                        <h3>Creating a Morning Routine for Better Mental Health</h3>
+                        <p class="blog-excerpt">Discover how starting your day with intention can set a positive tone for your mental wellbeing and productivity throughout the day.</p>
+                        <button class="btn btn-outline read-more" data-id="2" data-title="Creating a Morning Routine for Better Mental Health" data-date="April 15, 2025" data-image="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-content="<p>Starting your day with intention can have a profound impact on your mental health. A well-crafted morning routine doesn't need to be complicated or time-consuming, but it should align with your personal needs and goals.</p><p>Begin by waking up at a consistent time each day, allowing yourself at least 15-30 minutes before you need to start your daily responsibilities. Hydrate first thing - keep a glass of water by your bed to drink upon waking. This simple act rehydrates your body after sleep and kickstarts your metabolism.</p><p>Consider incorporating mindfulness practices like meditation, deep breathing, or journaling. Even just 5 minutes of focused breathing can center your mind for the day ahead. Physical movement, whether it's stretching, yoga, or a short walk, helps awaken your body and release endorphins.</p><p>Most importantly, create a routine that feels nourishing rather than obligatory. Your morning ritual should be something you look forward to, not another item on your to-do list. Experiment with different elements until you find what works best for you.</p><h3>Sample Morning Routine</h3><ol><li>Wake up at 6:30am</li><li>Drink a glass of water</li><li>5 minutes of deep breathing</li><li>Gentle stretching or yoga</li><li>Healthy breakfast</li><li>Journal or set intentions for the day</li></ol>">Read More</button>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Aromatherapy">
+                    </div>
+                    <div class="blog-card-content">
+                        <p class="blog-date">March 28, 2025</p>
+                        <h3>The Science Behind Aromatherapy: More Than Just Pleasant Scents</h3>
+                        <p class="blog-excerpt">Explore how essential oils can influence your mood, stress levels, and even cognitive performance through the power of scent.</p>
+                        <button class="btn btn-outline read-more" data-id="3" data-title="The Science Behind Aromatherapy: More Than Just Pleasant Scents" data-date="March 28, 2025" data-image="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" data-content="<p>Aromatherapy has been used for centuries across various cultures, but modern science is now uncovering the mechanisms behind its effects. Essential oils contain volatile aromatic compounds that interact with our olfactory system and limbic system - the part of the brain involved in emotion, memory, and behavior.</p><p>Studies have shown that certain scents can have measurable effects on stress and anxiety levels. Lavender oil, for example, has been found to reduce cortisol levels and promote relaxation. Peppermint oil may enhance concentration and cognitive performance, while citrus scents like orange and lemon can have uplifting effects on mood.</p><p>These effects occur because when we inhale aromatic molecules, they travel through the nasal passages to the olfactory bulb, which has direct connections to the amygdala and hippocampus. This explains why scents can trigger powerful memories and emotional responses.</p><p>To incorporate aromatherapy into your routine, consider diffusing oils in your living space, adding them to bath water, or using them in massage oils. Always use high-quality, pure essential oils and dilute them properly before topical application.</p><h3>Best Essential Oils for Common Needs</h3><ul><li>Stress Relief: Lavender, Bergamot, Chamomile</li><li>Energy Boost: Peppermint, Rosemary, Lemon</li><li>Focus: Frankincense, Vetiver, Basil</li><li>Sleep: Cedarwood, Ylang Ylang, Clary Sage</li></ul>">Read More</button>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sleep Well">
+                    </div>
+                    <div class="blog-card-content">
+                        <p class="blog-date">March 20, 2025</p>
+                        <h3>10 Science-Backed Tips for Better Sleep</h3>
+                        <p class="blog-excerpt">Improve your sleep quality with these evidence-based strategies that go beyond just counting sheep.</p>
+                        <button class="btn btn-outline read-more" data-id="4" data-title="10 Science-Backed Tips for Better Sleep" data-date="March 20, 2025" data-image="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-content="<p>Quality sleep is foundational to overall wellbeing, yet many people struggle with getting enough restorative rest. These science-backed strategies can help you improve your sleep naturally.</p><p>1. Maintain a consistent sleep schedule, even on weekends. Our circadian rhythms thrive on regularity, and going to bed and waking up at the same times helps regulate your body's internal clock.</p><p>2. Create a bedtime routine. A relaxing pre-sleep ritual signals to your body that it's time to wind down. This might include reading, gentle stretching, or meditation.</p><p>3. Optimize your sleep environment. Keep your bedroom cool (around 65°F or 18°C), dark, and quiet. Consider blackout curtains, earplugs, or a white noise machine if needed.</p><p>4. Limit exposure to blue light in the evening. The blue light emitted by phones, tablets, and computers can suppress melatonin production. Use blue light filters or avoid screens 1-2 hours before bed.</p><p>5. Watch your caffeine intake. Caffeine can stay in your system for 6-8 hours, so avoid it in the late afternoon and evening.</p><p>6. Get regular exercise, but not too close to bedtime. Physical activity can promote better sleep, but vigorous exercise within 1-2 hours of bedtime may be stimulating.</p><p>7. Manage stress and anxiety. Techniques like journaling, deep breathing, or progressive muscle relaxation can quiet a racing mind at bedtime.</p><p>8. Be mindful of food and alcohol. Heavy meals close to bedtime can cause discomfort, and while alcohol might make you drowsy, it can disrupt sleep later in the night.</p><p>9. Consider natural sleep aids. Magnesium, glycine, and certain herbal teas (like chamomile or valerian root) may support relaxation and sleep.</p><p>10. If you can't sleep, get up. If you haven't fallen asleep after 20 minutes, get out of bed and do a quiet activity in dim light until you feel sleepy.</p>">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>Self-Care Practices</h3>
+                    <p>Discover rituals and routines to nurture your mind, body, and spirit.</p>
+                    <a href="/blog/" class="btn btn-outline">View Posts</a>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Mental Wellness</h3>
+                    <p>Explore strategies for managing stress, anxiety, and improving mental health.</p>
+                    <a href="/blog/" class="btn btn-outline">View Posts</a>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Natural Remedies</h3>
+                    <p>Learn about plant-based solutions and holistic approaches to wellness.</p>
+                    <a href="/blog/" class="btn btn-outline">View Posts</a>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Healthy Living</h3>
+                    <p>Tips for nutrition, movement, and creating a balanced lifestyle.</p>
+                    <a href="/blog/" class="btn btn-outline">View Posts</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Posts Section -->
+    <section class="popular-posts">
+        <div class="container">
+            <h2 class="section-title">Most Popular</h2>
+            <div class="popular-grid">
+                <div class="popular-card">
+                    <div class="popular-image">
+                        <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1526&q=80" alt="Journaling">
+                    </div>
+                    <div class="popular-content">
+                        <p class="popular-date">February 15, 2025</p>
+                        <h3>The Therapeutic Benefits of Journaling</h3>
+                        <button class="btn btn-outline read-more" data-id="5" data-title="The Therapeutic Benefits of Journaling" data-date="February 15, 2025" data-image="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1526&q=80" data-content="<p>Journaling is a powerful tool for self-reflection, emotional processing, and personal growth. The simple act of putting pen to paper can have profound effects on mental health and wellbeing.</p><p>Research has shown that expressive writing can help reduce stress, manage anxiety, and even improve immune function. By externalizing our thoughts and emotions, we create psychological distance that allows for greater clarity and perspective.</p><p>There are many approaches to therapeutic journaling. Gratitude journaling focuses on positive experiences and things we appreciate. Stream-of-consciousness writing encourages free expression without censorship. Prompt-based journaling provides structure with thought-provoking questions.</p><p>To establish a journaling practice, start small with just 5-10 minutes per day. Choose a time that works for you, whether it's first thing in the morning or before bed. Don't worry about grammar or style - this is for your eyes only. The key is consistency and honesty.</p><p>Journaling can be particularly helpful during challenging times, serving as a safe space to process difficult emotions. Many people find that solutions to problems emerge naturally through the writing process.</p><h3>Journaling Prompts to Get Started</h3><ul><li>What am I grateful for today?</li><li>What emotions am I currently feeling?</li><li>What challenges am I facing, and how might I approach them?</li><li>What would my ideal day look like?</li><li>What lessons have I learned recently?</li></ul>">Read More</button>
+                    </div>
+                </div>
+                
+                <div class="popular-card">
+                    <div class="popular-image">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80" alt="Digital Detox">
+                    </div>
+                    <div class="popular-content">
+                        <p class="popular-date">January 28, 2025</p>
+                        <h3>Digital Minimalism: Finding Balance in a Connected World</h3>
+                        <button class="btn btn-outline read-more" data-id="6" data-title="Digital Minimalism: Finding Balance in a Connected World" data-date="January 28, 2025" data-image="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80" data-content="<p>Digital minimalism is a philosophy of technology use that focuses on intentionally aligning your digital tools with your values, rather than mindlessly adopting every new app or platform.</p><p>The principles of digital minimalism include: identifying your core values and priorities, then evaluating which technologies best serve those purposes; eliminating optional technologies that don't make a meaningful contribution; and being mindful about how you use the technologies you keep.</p><p>To practice digital minimalism, start with a 30-day digital declutter. During this time, take a break from optional technologies in your life. After the declutter period, reintroduce technologies one at a time, evaluating their value and establishing usage standards.</p><p>Create tech-free zones in your home, such as the bedroom or dining table. Schedule regular digital sabbaths - periods where you disconnect completely. Use apps that track and limit your screen time if you need help establishing boundaries.</p><p>Digital minimalism isn't about rejecting technology altogether, but about using it with intention. The goal is to ensure your digital life supports, rather than detracts from, your real life.</p><h3>Benefits of Digital Minimalism</h3><ul><li>Reduced stress and anxiety</li><li>Improved focus and productivity</li><li>Better sleep quality</li><li>Stronger real-world relationships</li><li>More time for meaningful activities</li></ul>">Read More</button>
+                    </div>
+                </div>
+                
+                <div class="popular-card">
+                    <div class="popular-image">
+                        <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Aromatherapy">
+                    </div>
+                    <div class="popular-content">
+                        <p class="popular-date">January 15, 2025</p>
+                        <h3>Creating a Relaxing Home Sanctuary with Aromatherapy</h3>
+                        <button class="btn btn-outline read-more" data-id="7" data-title="Creating a Relaxing Home Sanctuary with Aromatherapy" data-date="January 15, 2025" data-image="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" data-content="<p>Your home environment plays a significant role in your overall wellbeing. By incorporating aromatherapy, you can transform your living space into a calming sanctuary that supports relaxation and stress relief.</p><p>Start by identifying the different areas of your home and how you want to feel in each space. Your bedroom might call for calming scents like lavender or chamomile, while your home office might benefit from focus-enhancing scents like rosemary or peppermint.</p><p>There are several ways to incorporate aromatherapy into your home. Essential oil diffusers disperse scent throughout a room. Reed diffusers provide a subtle, continuous fragrance. Room sprays offer a quick refresh. You can also add essential oils to cleaning products or make your own linen sprays.</p><p>Consider creating scent "zones" in your home. A relaxing blend in the bedroom, an uplifting citrus scent in the kitchen, and a grounding woody aroma in the living area. Rotate your scents seasonally to keep your environment feeling fresh.</p><p>Remember that less is often more with aromatherapy. Start with just a few drops of essential oil and increase if needed. Some people are more sensitive to scents than others, so be mindful of household members who may have sensitivities.</p><h3>Best Essential Oil Blends for Home</h3><ul><li>Relaxation: 3 drops lavender, 2 drops bergamot, 1 drop vetiver</li><li>Energy Boost: 3 drops orange, 2 drops peppermint, 1 drop rosemary</li><li>Focus: 3 drops frankincense, 2 drops lemon, 1 drop basil</li><li>Sleep: 3 drops cedarwood, 2 drops lavender, 1 drop marjoram</li></ul>">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2 class="section-title">Join Our Wellness Community</h2>
+            <p>Subscribe to receive the latest articles, self-care tips, and exclusive offers straight to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Valnera</h3>
+                    <p>Your destination for premium wellness and self-care experiences, delivered with care and intention.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://pinterest.com/" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms & Conditions</a></li>
+                        <li><a href="/contact/">Shipping Info</a></li>
+                        <li><a href="/contact/">Returns & Exchanges</a></li>
+                        <li><a href="/contact/">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 15 Arthur St, Darkan WA 6392, Australia</li>
+                        <li><i class="fas fa-phone"></i> +61418445879</li>
+                        <li><i class="fas fa-envelope"></i> hello@valnera.org</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Valnera. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog Popup -->
+    <div class="popup-overlay" id="blogPopup">
+        <div class="popup">
+            <button class="close-popup" id="closeBlogPopup">&times;</button>
+            <div class="popup-content" id="blogPopupContent">
+                <!-- Content will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cart Functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        
+        function updateCart() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Initialize cart
+        updateCart();
+        
+        // Blog Popup Functionality
+        const blogPopup = document.getElementById('blogPopup');
+        const closeBlogPopup = document.getElementById('closeBlogPopup');
+        const blogPopupContent = document.getElementById('blogPopupContent');
+        
+        document.querySelectorAll('.read-more').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const blogData = {
+                    title: e.target.dataset.title,
+                    date: e.target.dataset.date,
+                    image: e.target.dataset.image,
+                    content: e.target.dataset.content
+                };
+                
+                blogPopupContent.innerHTML = `
+                    <img src="${blogData.image}" alt="${blogData.title}" class="popup-image">
+                    <p class="popup-date">${blogData.date}</p>
+                    <h2>${blogData.title}</h2>
+                    <div class="popup-text">${blogData.content}</div>
+                `;
+                
+                blogPopup.classList.add('active');
+            });
+        });
+        
+        closeBlogPopup.addEventListener('click', () => {
+            blogPopup.classList.remove('active');
+        });
+        
+        // Close popup when clicking outside
+        blogPopup.addEventListener('click', (e) => {
+            if (e.target === blogPopup) {
+                blogPopup.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

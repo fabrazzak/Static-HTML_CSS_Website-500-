@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lodgely - Basketball Training App</title>
+    <meta name="description" content="Lodgely basketball app helps players improve their skills with personalized training programs and performance tracking.">
+    <meta name="keywords" content="basketball app, basketball training, basketball skills, basketball drills, basketball coaching, basketball analytics, Netherlands basketball">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Internal CSS */
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --accent-color: #f39c12;
+            --white: #ffffff;
+            --black: #000000;
+            --gray: #95a5a6;
+            --dark-gray: #7f8c8d;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2980b9;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-menu {
+            display: flex;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1790&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 180px 0 100px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--light-color);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        /* Services Preview */
+        .services-preview {
+            text-align: center;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: var(--light-color);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: var(--gray);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            text-align: center;
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .testimonial-item {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            margin: 0 15px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .testimonial-role {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Blog Highlights */
+        .blog-highlights {
+            background-color: var(--light-color);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .blog-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+        
+        .blog-content {
+            padding: 20px;
+        }
+        
+        .blog-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .blog-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .blog-excerpt {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .footer-links ul li a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-text {
+                flex: none;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 50px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Lodgely<span>Basket</span></a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Elevate Your Basketball Game</h1>
+                <p class="hero-subtitle">The ultimate basketball training app for players of all levels. Track your progress, get personalized drills, and join a community of passionate players.</p>
+                <div class="hero-buttons">
+                    <a href="/services/" class="btn">Get Started</a>
+                    <a href="/about/" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Overview Section -->
+    <section class="section about">
+        <div class="container">
+            <h2 class="section-title">About Lodgely Basketball</h2>
+            <p class="section-subtitle">We're revolutionizing basketball training with technology-driven solutions for players and coaches.</p>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Basketball team huddle">
+                </div>
+                <div class="about-text">
+                    <h3>Your Personal Basketball Coach</h3>
+                    <p>Founded in Zwolle, Netherlands, Lodgely Basketball was created by former professional players and tech enthusiasts who saw a gap in basketball training technology.</p>
+                    <p>Our mission is to make professional-level training accessible to everyone, regardless of skill level or location. We combine cutting-edge technology with proven basketball training methodologies.</p>
+                    <p>With over 50,000 active users across Europe, we're quickly becoming the go-to platform for serious basketball players looking to improve their game.</p>
+                    <a href="/about/" class="btn">Read Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="section services-preview">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive basketball training solutions tailored to your needs</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">Training App</h3>
+                    <p class="service-description">Personalized training programs with video tutorials, progress tracking, and performance analytics.</p>
+                    <a href="/services/" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="service-title">Video Analysis</h3>
+                    <p class="service-description">Upload your game footage and receive detailed feedback from our expert coaches.</p>
+                    <a href="/services/" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="service-title">Online Coaching</h3>
+                    <p class="service-description">One-on-one virtual coaching sessions with professional basketball trainers.</p>
+                    <a href="/services/" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Lodgely</h2>
+            <p class="section-subtitle">What makes our basketball training platform different</p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                    <h3 class="feature-title">Skill-Specific Drills</h3>
+                    <p class="feature-description">Target specific areas of your game with customized drill programs.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Progress Tracking</h3>
+                    <p class="feature-description">Monitor your improvement with detailed statistics and analytics.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Coaches</h3>
+                    <p class="feature-description">Learn from professional coaches with proven training methods.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3 class="feature-title">Global Community</h3>
+                    <p class="feature-description">Connect with basketball players from around the world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <p class="section-subtitle">Hear from basketball players who transformed their game with Lodgely</p>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-item">
+                    <p class="testimonial-text">"Lodgely's training app helped me improve my shooting percentage by 22% in just 3 months. The personalized drills made all the difference!"</p>
+                    <h4 class="testimonial-author">Mark van Dijk</h4>
+                    <p class="testimonial-role">College Player, Amsterdam</p>
+                </div>
+                
+                <div class="testimonial-item">
+                    <p class="testimonial-text">"As a coach, I recommend Lodgely to all my players. The video analysis feature is incredibly valuable for skill development."</p>
+                    <h4 class="testimonial-author">Sarah Janssen</h4>
+                    <p class="testimonial-role">Youth Basketball Coach, Rotterdam</p>
+                </div>
+                
+                <div class="testimonial-item">
+                    <p class="testimonial-text">"I went from bench player to starter after using Lodgely's training programs. The progress tracking kept me motivated throughout the season."</p>
+                    <h4 class="testimonial-author">Thomas Müller</h4>
+                    <p class="testimonial-role">High School Player, Utrecht</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Highlights Section -->
+    <section class="section blog-highlights">
+        <div class="container">
+            <h2 class="section-title">Latest Basketball Insights</h2>
+            <p class="section-subtitle">Read our expert articles on training, nutrition, and basketball strategy</p>
+            
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr9kH7xqIpvVKV_9Cid13RYzkBFWSYccDxkq-m17eE0Ztp-LtBgcI081ZzlqondEypmFQ&usqp=CAU" alt="Basketball player shooting">
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date">Jan 15, 2025</p>
+                        <h3 class="blog-title">5 Drills to Improve Your Shooting Accuracy</h3>
+                        <p class="blog-excerpt">Learn the most effective drills used by professional players to develop a consistent shot.</p>
+                        <a href="/blog/" class="btn">Read Article</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://ajrochon22.wordpress.com/wp-content/uploads/2021/04/img_7083.jpg?w=1504" alt="Basketball nutrition">
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date">Jan 8, 2025</p>
+                        <h3 class="blog-title">Nutrition for Basketball Players</h3>
+                        <p class="blog-excerpt">Discover the optimal diet to fuel your performance and recovery on the court.</p>
+                        <a href="/blog/" class="btn">Read Article</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://www.denverpost.com/wp-content/uploads/2016/05/20120104__SP03HOOPS__KG12768p1.jpg?w=423" alt="Basketball defense">
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date">Jan 1, 2025</p>
+                        <h3 class="blog-title">Defensive Strategies for Guards</h3>
+                        <p class="blog-excerpt">Master these defensive techniques to become a lockdown perimeter defender.</p>
+                        <a href="/blog/" class="btn">Read Article</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform Your Game?</h2>
+            <p class="cta-text">Join thousands of basketball players who are already using Lodgely to reach their full potential. Get started today or contact us with any questions.</p>
+            <a href="/contact/" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <a href="/" class="footer-logo">Lodgely<span>Basket</span></a>
+                    <p>The leading basketball training platform in Europe, helping players of all levels improve their skills .</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://youtube.com/" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/services/">Training App</a></li>
+                        <li><a href="/services/">Video Analysis</a></li>
+                        <li><a href="/services/">Online Coaching</a></li>
+                        <li><a href="/services/">Team Solutions</a></li>
+                        <li><a href="/services/">Youth Programs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone-alt"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@lodgely.org</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 - 18:00</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Lodgely Basketball. All Rights Reserved. <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Simple testimonial slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                testimonial.style.display = i === index ? 'block' : 'none';
+            });
+        }
+        
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }
+        
+        // Initialize
+        showTestimonial(0);
+        setInterval(nextTestimonial, 5000);
+        
+        // Add to cart simulation (for services page)
+        if (document.querySelector('.add-to-cart')) {
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const serviceName = this.getAttribute('data-service');
+                    alert(`"${serviceName}" has been added to your cart!`);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

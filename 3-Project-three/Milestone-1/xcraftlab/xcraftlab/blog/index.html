@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafting Blog - Tips, Tutorials & Inspiration | XCraftLab Estevan, SK</title>
+    <meta name="description"
+        content="Discover crafting tips, DIY tutorials, and creative inspiration on the XCraftLab blog. Learn about sustainable crafting, budget-friendly projects, upcycling techniques, and more from our expert team in Estevan, Saskatchewan.">
+    <meta name="keywords"
+        content="crafting blog, DIY tutorials, crafting tips, sustainable crafts, budget crafting, upcycling ideas, jewelry making, woodworking tips, painting techniques, craft inspiration">
+    <link rel="canonical" href="https://xcraftlab.com/blog/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-line:nth-child(1) { top: 0; }
+        .hamburger-line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger-line:nth-child(3) { bottom: 0; }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) { opacity: 0; }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(22, 32, 77, 0.95), rgba(118, 75, 162, 0.308));
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active { left: 0; }
+
+        .cart-count {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            height: 1px;
+            margin: 4rem 0;
+        }
+
+        /* Background Effects */
+        .full-page-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .particles-full-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .particles-layer-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .particles-layer-2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.2;
+        }
+
+        .particles-layer-3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            opacity: 0.1;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 25% 0%, rgba(102, 126, 234, 0.15), transparent 50%),
+                radial-gradient(ellipse at 75% 0%, rgba(118, 75, 162, 0.15), transparent 50%),
+                radial-gradient(ellipse at 0% 50%, rgba(255, 107, 107, 0.1), transparent 50%),
+                radial-gradient(ellipse at 100% 50%, rgba(78, 205, 196, 0.1), transparent 50%),
+                radial-gradient(ellipse at 0% 100%, rgba(255, 154, 158, 0.1), transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(250, 208, 196, 0.1), transparent 50%);
+            z-index: -4;
+            animation: meshFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes meshFloat {
+            0%, 100% { 
+                transform: translate(0px, 0px) rotate(0deg); 
+                filter: hue-rotate(0deg);
+            }
+            33% { 
+                transform: translate(30px, -30px) rotate(1deg); 
+                filter: hue-rotate(30deg);
+            }
+            66% { 
+                transform: translate(-20px, 20px) rotate(-1deg); 
+                filter: hue-rotate(60deg);
+            }
+        }
+
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(102, 126, 234, 0.1), transparent 40%);
+            pointer-events: none;
+        }
+
+        .floating-shape {
+            position: fixed;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatAround 15s linear infinite;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -50px) rotate(90deg); }
+            50% { transform: translate(-50px, -100px) rotate(180deg); }
+            75% { transform: translate(-100px, 50px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -6;
+            pointer-events: none;
+        }
+
+        .neural-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            height: 1px;
+            animation: neuralPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes neuralPulse {
+            0%, 100% { opacity: 0.1; transform: scaleX(0); }
+            50% { opacity: 0.3; transform: scaleX(1); }
+        }
+
+        .hero-title {
+            animation: heroTitleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes heroTitleGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(118, 75, 162, 0.4);
+            }
+        }
+
+        /* Blog specific styles */
+        .blog-card {
+            background: linear-gradient(145deg, #1e1e2e, #252538);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .blog-card:hover::before {
+            left: 100%;
+        }
+
+        .category-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .featured-badge {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #1a1a1a;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .blog-sidebar {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .recent-post-item {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .recent-post-item:hover {
+            border-left-color: #667eea;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .tag-cloud .tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tag-cloud .tag:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Newsletter signup */
+        .newsletter-signup {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pagination-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .pagination-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        /* Reading time indicator */
+        .reading-time {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Author info */
+        .author-info {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Section overlay effects */
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Mobile responsive blog grid */
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-sidebar {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Full Page Background Effects -->
+    <div class="full-page-bg" id="three-full-bg"></div>
+    
+    <!-- Multi-layered Particle Systems -->
+    <div class="particles-full-bg">
+        <div class="particles-layer-1" id="particles-layer-1"></div>
+        <div class="particles-layer-2" id="particles-layer-2"></div>
+        <div class="particles-layer-3" id="particles-layer-3"></div>
+    </div>
+    
+    <!-- Mesh Gradient Overlay -->
+    <div class="mesh-gradient"></div>
+    
+    <!-- Interactive Background -->
+    <div class="interactive-bg" id="interactive-bg"></div>
+    
+    <!-- Neural Network Lines -->
+    <div class="neural-network" id="neural-network"></div>
+    
+    <!-- Floating Geometric Shapes -->
+    <div id="floating-shapes"></div>
+
+    <!-- Cookie Consent -->
+    <div id="cookie-consent"
+        class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-gray-800 p-4 rounded-lg shadow-lg z-50 hidden">
+        <p class="text-sm mb-3">We use cookies to enhance your browsing experience. By continuing to use our site, you
+            agree to our cookie policy.</p>
+        <div class="flex gap-2">
+            <button onclick="acceptCookies()"
+                class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">Accept</button>
+            <button onclick="declineCookies()"
+                class="bg-gray-600 text-white px-4 py-2 rounded text-sm hover:bg-gray-700">Decline</button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+        <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-white hover:text-gray-300 text-2xl z-10">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="text-center">
+            <a href="/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Home</a>
+            <a href="/shop/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Shop</a>
+            <a href="/about/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">About</a>
+            <a href="/blog/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-blue-400 transition-colors">Blog</a>
+            <a href="/contact/" onclick="closeMobileMenu()"
+                class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed w-full z-40 bg-gray-900/95 backdrop-blur-md">
+        <!-- Top Header -->
+        <div class="bg-gray-800/90 py-2 hidden md:block">
+            <div class="container mx-auto px-4 flex justify-center items-center text-sm">
+                <div class="flex items-center space-x-4">
+                    <span class="flex items-center"><i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>440 King St,
+                        Estevan, SK S4A 2B4</span>
+                    <span class="flex items-center"><i class="fas fa-phone text-green-400 mr-2"></i>+1 306 637
+                        2550</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/">
+                    <img src="/assets/images/xcraftlab.png" alt="XCraftLab Logo" class="w-36 mr-3">
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-white hover:text-blue-400 font-medium transition-colors">Home</a>
+                <a href="/shop/" class="text-white hover:text-blue-400 font-medium transition-colors">Shop</a>
+                <a href="/about/" class="text-white hover:text-blue-400 font-medium transition-colors">About</a>
+                <a href="/blog/" class="text-blue-400 font-medium">Blog</a>
+                <a href="/contact/" class="text-white hover:text-blue-400 font-medium transition-colors">Contact</a>
+            </nav>
+
+            <!-- Cart & Mobile Menu -->
+            <div class="flex items-center space-x-4">
+                <button   class="relative p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                     <a href="/cart/">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count"
+                        class="cart-count absolute -top-1 -right-1 text-xs rounded-full px-1.5 py-0.5 text-white hidden">0</span>
+                    </a>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden hamburger-menu" onclick="toggleMobileMenu()">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="slide-in-left">
+                <h1 class="hero-title text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    Craft Inspiration
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    Discover expert tips, creative tutorials, and inspiring stories from the world of DIY crafting. Learn new techniques, save money, and unleash your creative potential with our comprehensive guides.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                    <button onclick="scrollToSection('latest-posts')"
+                        class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover-glow">
+                        Read Latest Posts <i class="fas fa-book-open ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 floating">
+            <i class="fas fa-chevron-down text-3xl text-blue-400"></i>
+        </div>
+    </section>
+
+    <!-- Main Blog Content -->
+    <section id="latest-posts" class="py-20 relative">
+        <div class="section-overlay"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <!-- Main Content Area -->
+                    <!-- Featured Post -->
+                    <div class="mb-16">
+                        <div class="text-center mb-8">
+                            <span class="text-blue-400 font-semibold text-sm uppercase tracking-wider">Featured Article</span>
+                            <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                                Editor's Pick
+                            </h2>
+                        </div>
+
+                        <article class="blog-card rounded-2xl overflow-hidden hover-glow transition-all duration-300">
+                            <div class="relative">
+                                <img src="/assets/images/blog-featured-upcycling.jpg" alt="The Art of Upcycling" class="w-full h-80 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="featured-badge px-3 py-1 rounded-full text-xs font-bold">
+                                        <i class="fas fa-star mr-1"></i> Featured
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-4 left-4">
+                                    <span class="category-tag">Sustainability</span>
+                                </div>
+                                <div class="absolute bottom-4 right-4 reading-time px-3 py-1 rounded-full text-xs">
+                                    <i class="fas fa-clock mr-1"></i> 8 min read
+                                </div>
+                            </div>
+                            <div class="p-8">
+                                <h3 class="text-2xl font-bold mb-4 hover:text-blue-400 transition-colors">
+                                    <a href="/blog/art-of-upcycling/">The Art of Upcycling: Transforming Trash into Treasure</a>
+                                </h3>
+                                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                                    Discover the creative and sustainable world of upcycling, where old, discarded items are transformed into beautiful, functional pieces. Learn techniques, find inspiration, and start your own upcycling journey.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <div class="author-info flex items-center p-3 rounded-lg">
+                                        <img src="/assets/images/team-sarah-founder.webp" alt="Sarah Mitchell" class="w-10 h-10 rounded-full mr-3">
+                                        <div>
+                                            <div class="font-semibold text-sm">Sarah Mitchell</div>
+                                            <div class="text-gray-400 text-xs">August 25, 2025</div>
+                                        </div>
+                                    </div>
+                                    <a href="/blog/art-of-upcycling/" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300">
+                                        Read More <i class="fas fa-arrow-right ml-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Blog Posts Grid -->
+                    <div class="mb-12">
+                        <h2 class="text-3xl font-bold mb-8 text-center">Latest Articles</h2>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-posts-grid">
+                            <!-- Blog posts will be loaded here -->
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar"
+        class="fixed right-0 top-0 h-full w-96 bg-gray-900 transform translate-x-full transition-transform duration-300 z-50 shadow-2xl">
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold">Shopping Cart</h3>
+                <button   class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-400 text-center">Your cart is empty</p>
+        </div>
+
+        <div class="border-t border-gray-700 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-bold">Total:</span>
+                <span id="cart-total" class="text-xl font-bold text-blue-400">$0.00</span>
+            </div>
+            <button onclick="location.href='/checkout/'"
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-3 rounded-lg font-semibold transition-all duration-300">
+                Checkout <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/90 pt-16 pb-8 relative">
+        <div class="section-overlay"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                    <img src="/assets/images/xcraftlab.png" alt="XCraftLab Logo" class="w-36 mr-3">
+                </a>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your premier destination for high-quality crafting supplies and
+                        creative inspiration in Estevan, Saskatchewan.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/shop/" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="/about/" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="/blog/" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="/contact/" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/privacy/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Privacy
+                                Policy</a></li>
+                        <li><a href="/terms/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Terms of
+                                Service</a></li>
+                        <li><a href="/cookies/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Cookie
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-400 mr-3"></i>
+                            440 King St, Estevan, SK S4A 2B4, Canada
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-phone text-green-400 mr-3"></i>
+                            +1 306 637 2550
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-envelope text-red-400 mr-3"></i>
+                            info@xcraftlab.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-gray-700 my-8">
+
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 XCraftLab. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="/privacy/" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                    <a href="/terms/" class="text-gray-400 hover:text-white">Terms of Service</a>
+                    <a href="/cookies/" class="text-gray-400 hover:text-white">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Blog posts data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Crafting on a Budget: Creative Ways to Save Money While Crafting",
+                slug: "crafting-on-budget",
+                excerpt: "Discover practical tips and creative strategies to pursue your crafting passion without breaking the bank. Learn how to find affordable materials, repurpose items, and maximize your crafting budget.",
+                content: "Crafting is a wonderful way to express your creativity and unwind, but it can sometimes feel expensive. However, with the right strategies and mindset, you can create beautiful projects without spending a fortune...",
+                image: "/assets/images/blog-budget-crafting.jpg",
+                author: "Elena Rodriguez",
+                authorImage: "/assets/images/team-elena-education.webp",
+                date: "August 25, 2025",
+                category: "Budget Crafting",
+                categorySlug: "budget-crafting",
+                tags: ["budget", "diy", "tips", "beginners"],
+                readTime: "6 min read",
+                featured: false
+            },
+            {
+                id: 2,
+                title: "Beginner's Guide to DIY Jewelry Making",
+                slug: "beginner-jewelry-making",
+                excerpt: "Start your jewelry making journey with this comprehensive guide. Learn essential techniques, required tools, and create your first stunning pieces with confidence.",
+                content: "Jewelry making is one of the most rewarding crafting hobbies, allowing you to create personalized accessories and gifts. Whether you're completely new to crafting or looking to expand your skills...",
+                image: "/assets/images/blog-jewelry-making.webp",
+                author: "Marcus Thompson",
+                authorImage: "/assets/images/team-marcus-operations.webp",
+                date: "August 20, 2025",
+                category: "Jewelry Making",
+                categorySlug: "jewelry-making",
+                tags: ["jewelry", "beginners", "tutorials", "diy"],
+                readTime: "12 min read",
+                featured: false
+            },
+            {
+                id: 3,
+                title: "Sustainable Crafting: Eco-Friendly Materials and Techniques",
+                slug: "sustainable-crafting-materials",
+                excerpt: "Explore environmentally conscious crafting options that reduce waste and support sustainable practices. Discover eco-friendly materials and techniques for guilt-free creativity.",
+                content: "As awareness of environmental issues grows, many crafters are looking for ways to pursue their passion while minimizing their ecological footprint. Sustainable crafting isn't just a trend...",
+                image: "/assets/images/blog-sustainable-crafting.webp",
+                author: "Sarah Mitchell",
+                authorImage: "/assets/images/team-sarah-founder.webp",
+                date: "August 18, 2025",
+                category: "Sustainability",
+                categorySlug: "sustainability",
+                tags: ["eco-friendly", "sustainability", "materials", "tips"],
+                readTime: "10 min read",
+                featured: false
+            }
+        ];
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('xcraftlab-cart')) || [];
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (cart.length > 0) {
+                cartCount.textContent = cart.length;
+                cartCount.classList.remove('hidden');
+
+                let total = 0;
+                cartItems.innerHTML = '';
+
+                cart.forEach(item => {
+                    total += item.price * item.quantity;
+                    cartItems.innerHTML += `
+                        <div class="flex items-center space-x-4 mb-4 p-4 bg-gray-800 rounded-lg">
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-sm">${item.name}</h4>
+                                <p class="text-blue-400">$${item.price.toFixed(2)}</p>
+                                <div class="flex items-center mt-2">
+                                    <button onclick="updateCartQuantity(${item.id}, -1)" class="bg-gray-700 px-2 py-1 rounded">-</button>
+                                    <span class="mx-2">${item.quantity}</span>
+                                    <button onclick="updateCartQuantity(${item.id}, 1)" class="bg-gray-700 px-2 py-1 rounded">+</button>
+                                    <button onclick="removeFromCart(${item.id})" class="ml-2 text-red-400 hover:text-red-300">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+            } else {
+                cartCount.classList.add('hidden');
+                cartItems.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+            }
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+                    updateCartUI();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cart-sidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            mobileMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Load blog posts
+        function loadBlogPosts() {
+            const grid = document.getElementById('blog-posts-grid');
+            
+            grid.innerHTML = blogPosts.map(post => `
+                <article class="blog-card rounded-2xl overflow-hidden hover-glow transition-all duration-300">
+                    <div class="relative">
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                        <div class="absolute bottom-4 left-4">
+                            <span class="category-tag">${post.category}</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4 reading-time px-3 py-1 rounded-full text-xs">
+                            <i class="fas fa-clock mr-1"></i> ${post.readTime}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 hover:text-blue-400 transition-colors">
+                            <a href="/blog/${post.slug}/">${post.title}</a>
+                        </h3>
+                        <p class="text-gray-300 mb-4 leading-relaxed">${post.excerpt}</p>
+                        <div class="flex items-center justify-between">
+                            <div class="author-info flex items-center p-2 rounded-lg">
+                                <img src="${post.authorImage}" alt="${post.author}" class="w-8 h-8 rounded-full mr-2">
+                                <div>
+                                    <div class="font-semibold text-xs">${post.author}</div>
+                                    <div class="text-gray-400 text-xs">${post.date}</div>
+                                </div>
+                            </div>
+                            <a href="/blog/${post.slug}/" class="text-blue-400 hover:text-blue-300 font-semibold text-sm">
+                                Read More <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <div class="flex flex-wrap gap-2">
+                                ${post.tags.map(tag => `
+                                    <a href="/blog/tag/${tag}/" class="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-400 hover:text-white hover:bg-gray-700 transition-colors">
+                                        #${tag}
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Enhanced Three.js Background
+        function initFullThreeJS() {
+            const container = document.getElementById('three-full-bg');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            const geometries = [
+                new THREE.IcosahedronGeometry(1, 0),
+                new THREE.OctahedronGeometry(1),
+                new THREE.TetrahedronGeometry(1),
+                new THREE.DodecahedronGeometry(1),
+                new THREE.TorusGeometry(1, 0.3, 8, 16)
+            ];
+
+            const materials = [
+                new THREE.MeshBasicMaterial({ 
+                    color: 0x667eea, 
+                    transparent: true, 
+                    opacity: 0.15,
+                    wireframe: true 
+                }),
+                new THREE.MeshBasicMaterial({ 
+                    color: 0x764ba2, 
+                    transparent: true, 
+                    opacity: 0.12,
+                    wireframe: false 
+                }),
+                new THREE.MeshBasicMaterial({ 
+                    color: 0xff6b6b, 
+                    transparent: true, 
+                    opacity: 0.1,
+                    wireframe: true 
+                })
+            ];
+
+            const meshes = [];
+            
+            for (let i = 0; i < 25; i++) {
+                const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+                const material = materials[Math.floor(Math.random() * materials.length)];
+                const mesh = new THREE.Mesh(geometry, material);
+                
+                mesh.position.x = (Math.random() - 0.5) * 80;
+                mesh.position.y = (Math.random() - 0.5) * 80;
+                mesh.position.z = (Math.random() - 0.5) * 80;
+                
+                mesh.rotation.x = Math.random() * Math.PI;
+                mesh.rotation.y = Math.random() * Math.PI;
+                
+                mesh.scale.setScalar(0.3 + Math.random() * 0.4);
+                
+                mesh.userData = {
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.01,
+                        y: (Math.random() - 0.5) * 0.01,
+                        z: (Math.random() - 0.5) * 0.01
+                    },
+                    floatSpeed: 0.0005 + Math.random() * 0.002,
+                    floatAmplitude: 1 + Math.random() * 2,
+                    originalY: mesh.position.y
+                };
+                
+                scene.add(mesh);
+                meshes.push(mesh);
+            }
+
+            camera.position.z = 40;
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let time = 0;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.01;
+
+                meshes.forEach((mesh, index) => {
+                    mesh.rotation.x += mesh.userData.rotationSpeed.x;
+                    mesh.rotation.y += mesh.userData.rotationSpeed.y;
+                    mesh.rotation.z += mesh.userData.rotationSpeed.z;
+                    
+                    mesh.position.y = mesh.userData.originalY + 
+                        Math.sin(time * mesh.userData.floatSpeed + index) * mesh.userData.floatAmplitude;
+                });
+
+                camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.01;
+                camera.position.y += (-mouseY * 0.005 - camera.position.y) * 0.01;
+                camera.lookAt(scene.position);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - window.innerWidth / 2) * 0.05;
+                mouseY = (event.clientY - window.innerHeight / 2) * 0.05;
+            });
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Multi-layered Particles
+        function initMultiLayerParticles() {
+            particlesJS('particles-layer-1', {
+                particles: {
+                    number: { value: 30 },
+                    color: { value: ['#667eea', '#764ba2', '#ff6b6b'] },
+                    shape: { type: ['circle', 'triangle'] },
+                    opacity: {
+                        value: 0.3,
+                        random: true,
+                        anim: { enable: true, speed: 1, opacity_min: 0.1 }
+                    },
+                    size: {
+                        value: 5,
+                        random: true,
+                        anim: { enable: true, speed: 2, size_min: 2 }
+                    },
+                    move: {
+                        enable: true,
+                        speed: 0.8,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'bounce',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'repulse' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        repulse: { distance: 100, duration: 0.4 },
+                        push: { particles_nb: 3 }
+                    }
+                }
+            });
+
+            particlesJS('particles-layer-2', {
+                particles: {
+                    number: { value: 40 },
+                    color: { value: ['#4ecdc4', '#ff9a9e'] },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: 0.2,
+                        random: false,
+                        anim: { enable: true, speed: 1.5, opacity_min: 0.05 }
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#667eea',
+                        opacity: 0.1,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 200,
+                            line_linked: { opacity: 0.3 }
+                        }
+                    }
+                }
+            });
+
+            particlesJS('particles-layer-3', {
+                particles: {
+                    number: { value: 60 },
+                    color: { value: '#ffffff' },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: 0.1,
+                        random: true
+                    },
+                    size: {
+                        value: 2,
+                        random: true
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1.5,
+                        direction: 'top',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                }
+            });
+        }
+
+        // Create floating geometric shapes
+        function createFloatingShapes() {
+            const container = document.getElementById('floating-shapes');
+            const shapes = ['◆', '▲', '●', '■', '✦', '◇'];
+            
+            for (let i = 0; i < 12; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'floating-shape';
+                shape.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.fontSize = (Math.random() * 12 + 8) + 'px';
+                shape.style.color = ['#667eea', '#764ba2', '#ff6b6b'][Math.floor(Math.random() * 3)];
+                shape.style.animationDelay = Math.random() * 15 + 's';
+                container.appendChild(shape);
+            }
+        }
+
+        // Create neural network lines
+        function createNeuralNetwork() {
+            const container = document.getElementById('neural-network');
+            
+            for (let i = 0; i < 8; i++) {
+                const line = document.createElement('div');
+                line.className = 'neural-line';
+                line.style.left = Math.random() * 100 + '%';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.width = (Math.random() * 200 + 100) + 'px';
+                line.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                line.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(line);
+            }
+        }
+
+        // Utility functions
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function subscribeNewsletter() {
+            const email = document.querySelector('#newsletter-signup input[type="email"]').value;
+            if (email && email.includes('@')) {
+                showNotification('Thank you for subscribing to our newsletter!', 'success');
+                document.querySelector('#newsletter-signup input[type="email"]').value = '';
+            } else {
+                showNotification('Please enter a valid email address.', 'error');
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg z-50 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white shadow-lg`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} mr-2"></i>
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Cookie consent functionality
+        function showCookieConsent() {
+            const consent = localStorage.getItem('cookie-consent');
+            if (!consent) {
+                document.getElementById('cookie-consent').classList.remove('hidden');
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'accepted');
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookie-consent', 'declined');
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartUI();
+            loadBlogPosts();
+            initFullThreeJS();
+            initMultiLayerParticles();
+            createFloatingShapes();
+            createNeuralNetwork();
+            showCookieConsent();
+
+            // Interactive background mouse tracking
+            document.addEventListener('mousemove', (event) => {
+                const interactiveBg = document.getElementById('interactive-bg');
+                const x = (event.clientX / window.innerWidth) * 100;
+                const y = (event.clientY / window.innerHeight) * 100;
+                interactiveBg.style.setProperty('--mouse-x', `${x}%`);
+                interactiveBg.style.setProperty('--mouse-y', `${y}%`);
+            });
+
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

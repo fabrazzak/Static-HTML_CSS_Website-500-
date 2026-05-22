@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies Policy - PlayCraftCade</title>
+    <meta name="description"
+        content="PlayCraftCade Cookies Policy. Learn how we use cookies and tracking technologies to enhance your experience at Bismarck's premier retro arcade.">
+    <meta name="keywords"
+        content="PlayCraftCade cookies policy, website cookies, tracking technologies, Bismarck arcade cookies">
+    <link rel="canonical" href="https://playcraftcade.com/cookies/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced glow effects for better readability */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Tron-style grid overlay */
+        .tron-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(255, 16, 240, 0.1) 100%);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.3;
+        }
+
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 255, 0.03) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 4;
+            animation: scanline-move 0.1s linear infinite;
+        }
+
+        @keyframes scanline-move {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Cookies page specific styles */
+        .cookies-content {
+            line-height: 1.7;
+        }
+
+        .cookies-content h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cookies-content h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cookies-content p {
+            margin-bottom: 1rem;
+        }
+
+        .cookies-content ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .cookies-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+            0%, 100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Cookie consent banner styles */
+        .cookie-consent {
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+        <canvas id="three-canvas"></canvas>
+        <div class="tron-overlay"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                 <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block hover:text-neon-pink transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-neon-yellow neon-glow-strong mb-6 pulse-neon">
+                        🍪 Cookies Policy
+                    </h1>
+                    <p class="text-xl text-neon-green mb-8 readable-text max-w-3xl mx-auto">
+                        Learn how we use cookies and tracking technologies to enhance your PlayCraftCade experience.
+                    </p>
+                    <div class="w-24 h-1 bg-neon-pink mx-auto floating"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cookies Policy Content -->
+        <section class="py-20 bg-black/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="bg-gradient-to-b from-retro-dark/40 to-black/60 p-8 rounded-lg border border-neon-yellow/30 backdrop-blur-sm cookies-content neon-border-soft">
+                    
+                    <div class="mb-8">
+                        <p class="text-neon-yellow font-bold text-lg mb-4 neon-glow-minimal">Last Updated: September 20 , 2025</p>
+                        <p class="text-gray-300 readable-text">
+                            This Cookies Policy explains how PlayCraftCade ("we," "our," or "us") uses cookies and similar tracking technologies on our website and digital services. By using our website, you consent to our use of cookies as described in this policy.
+                        </p>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">1. What Are Cookies?</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        Cookies are small text files that are stored on your device (computer, smartphone, or tablet) when you visit a website. They contain information that helps websites remember your preferences, login status, and other details to improve your browsing experience.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Types of Cookies</h3>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li><strong class="text-neon-green">Session Cookies:</strong> Temporary cookies that are deleted when you close your browser</li>
+                        <li><strong class="text-neon-green">Persistent Cookies:</strong> Cookies that remain on your device for a set period or until manually deleted</li>
+                        <li><strong class="text-neon-green">First-Party Cookies:</strong> Set directly by our website</li>
+                        <li><strong class="text-neon-green">Third-Party Cookies:</strong> Set by external services we use (analytics, advertising, etc.)</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">2. How We Use Cookies</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        We use cookies for various purposes to enhance your experience on our website and improve our services:
+                    </p>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Essential Cookies</h3>
+                    <p class="text-gray-300 readable-text">
+                        These cookies are necessary for our website to function properly and cannot be disabled:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Remember your shopping cart contents</li>
+                        <li>Keep you logged in to your account</li>
+                        <li>Remember your privacy and cookie preferences</li>
+                        <li>Enable secure payment processing</li>
+                        <li>Prevent spam and security threats</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Performance and Analytics Cookies</h3>
+                    <p class="text-gray-300 readable-text">
+                        These cookies help us understand how visitors interact with our website:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Track website traffic and user behavior</li>
+                        <li>Identify popular content and features</li>
+                        <li>Monitor website performance and loading speeds</li>
+                        <li>Help us improve our website design and functionality</li>
+                        <li>Generate reports on website usage patterns</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Functional Cookies</h3>
+                    <p class="text-gray-300 readable-text">
+                        These cookies enhance your website experience by remembering your preferences:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Remember your language and region settings</li>
+                        <li>Save your arcade game preferences</li>
+                        <li>Remember items you've viewed or added to favorites</li>
+                        <li>Customize content based on your interests</li>
+                        <li>Enable social media sharing features</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Marketing and Advertising Cookies</h3>
+                    <p class="text-gray-300 readable-text">
+                        These cookies help us deliver relevant advertisements and marketing messages:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Show you relevant ads on other websites</li>
+                        <li>Measure the effectiveness of our advertising campaigns</li>
+                        <li>Prevent you from seeing the same ads repeatedly</li>
+                        <li>Track conversions from our marketing efforts</li>
+                        <li>Enable targeted promotions based on your interests</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">3. Specific Cookies We Use</h2>
+                    
+                    <div class="bg-black/70 p-6 rounded-lg border border-neon-green/30 backdrop-blur-sm neon-border-soft">
+                        <h3 class="text-xl font-bold text-neon-green mb-4 neon-glow-minimal">PlayCraftCade Essential Cookies</h3>
+                        <ul class="list-disc text-gray-300 readable-text">
+                            <li><strong class="text-neon-yellow">playcraftcade-session:</strong> Maintains your session while browsing</li>
+                            <li><strong class="text-neon-yellow">playcraftcade-cart:</strong> Remembers items in your shopping cart</li>
+                            <li><strong class="text-neon-yellow">playcraftcade-auth:</strong> Keeps you logged in to your account</li>
+                            <li><strong class="text-neon-yellow">playcraftcade-preferences:</strong> Stores your site preferences</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-black/70 p-6 rounded-lg border border-neon-blue/30 backdrop-blur-sm neon-border-soft mt-6">
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Third-Party Service Cookies</h3>
+                        <ul class="list-disc text-gray-300 readable-text">
+                            <li><strong class="text-neon-yellow">Google Analytics:</strong> _ga, _ga_*, _gid - Website traffic analysis</li>
+                            <li><strong class="text-neon-yellow">Google Ads:</strong> _gcl_* - Ad performance tracking</li>
+                            <li><strong class="text-neon-yellow">Facebook Pixel:</strong> _fbp, _fbc - Social media advertising</li>
+                            <li><strong class="text-neon-yellow">Stripe:</strong> __stripe_* - Secure payment processing</li>
+                        </ul>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">4. Managing Your Cookie Preferences</h2>
+                    
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Browser Settings</h3>
+                    <p class="text-gray-300 readable-text">
+                        You can control cookies through your web browser settings. Here's how to manage cookies in popular browsers:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li><strong class="text-neon-green">Chrome:</strong> Settings > Privacy and Security > Cookies and other site data</li>
+                        <li><strong class="text-neon-green">Firefox:</strong> Preferences > Privacy & Security > Cookies and Site Data</li>
+                        <li><strong class="text-neon-green">Safari:</strong> Preferences > Privacy > Manage Website Data</li>
+                        <li><strong class="text-neon-green">Edge:</strong> Settings > Cookies and site permissions > Cookies and site data</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Cookie Consent Manager</h3>
+                    <p class="text-gray-300 readable-text">
+                        When you first visit our website, you'll see a cookie consent banner that allows you to:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Accept all cookies for the full website experience</li>
+                        <li>Reject non-essential cookies while keeping essential ones</li>
+                        <li>Customize your preferences by cookie category</li>
+                        <li>Change your preferences at any time</li>
+                    </ul>
+
+                    <div class="bg-gradient-to-r from-neon-yellow/10 to-neon-orange/10 rounded-lg border border-neon-yellow/30 neon-border-soft p-6 mt-6">
+                        <p class="text-gray-300 readable-text">
+                            <strong class="text-neon-yellow">Note:</strong> Disabling certain cookies may affect website functionality, including your ability to place orders, save preferences, or access certain features.
+                        </p>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">5. Other Tracking Technologies</h2>
+                    
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Web Beacons</h3>
+                    <p class="text-gray-300 readable-text">
+                        Small transparent images embedded in web pages or emails that help us track user behavior and email engagement.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Local Storage</h3>
+                    <p class="text-gray-300 readable-text">
+                        Browser storage that allows us to save data locally on your device for improved performance and user experience.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-neon-blue neon-glow-minimal">Session Storage</h3>
+                    <p class="text-gray-300 readable-text">
+                        Temporary storage that maintains information during your browsing session and is cleared when you close your browser.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">6. Third-Party Services</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        We use various third-party services that may set their own cookies:
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-black/70 p-4 rounded-lg border border-neon-green/30 backdrop-blur-sm">
+                            <h4 class="text-lg font-bold text-neon-green mb-2">Analytics Services</h4>
+                            <ul class="text-sm text-gray-300 readable-text">
+                                <li>• Google Analytics</li>
+                                <li>• Google Tag Manager</li>
+                                <li>• Hotjar (heatmaps)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black/70 p-4 rounded-lg border border-neon-blue/30 backdrop-blur-sm">
+                            <h4 class="text-lg font-bold text-neon-blue mb-2">Social Media</h4>
+                            <ul class="text-sm text-gray-300 readable-text">
+                                <li>• Facebook Pixel</li>
+                                <li>• Instagram Insights</li>
+                                <li>• Twitter Analytics</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black/70 p-4 rounded-lg border border-neon-pink/30 backdrop-blur-sm">
+                            <h4 class="text-lg font-bold text-neon-pink mb-2">Payment Processing</h4>
+                            <ul class="text-sm text-gray-300 readable-text">
+                                <li>• Stripe</li>
+                                <li>• PayPal</li>
+                                <li>• Square</li>
+                            </ul>
+                        </div>
+                        <div class="bg-black/70 p-4 rounded-lg border border-neon-orange/30 backdrop-blur-sm">
+                            <h4 class="text-lg font-bold text-neon-orange mb-2">Communication</h4>
+                            <ul class="text-sm text-gray-300 readable-text">
+                                <li>• Mailchimp</li>
+                                <li>• LiveChat</li>
+                                <li>• Twilio</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">7. International Transfers</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        Some of our third-party service providers may be located outside of Canada. When you consent to cookies, you also consent to the transfer of your data to these international services, which may have different privacy laws than Canada.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">8. Updates to This Policy</h2>
+                    
+                    <p class="text-gray-300 readable-text">
+                        We may update this Cookies Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of significant changes by:
+                    </p>
+                    <ul class="list-disc text-gray-300 readable-text">
+                        <li>Posting the updated policy on our website</li>
+                        <li>Updating the "Last Updated" date</li>
+                        <li>Showing a new cookie consent banner if necessary</li>
+                        <li>Sending email notifications for major changes</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-neon-pink neon-glow-minimal">9. Contact Us</h2>
+                    
+                    <div class="bg-black/70 p-6 rounded-lg border border-neon-green/30 backdrop-blur-sm neon-border-soft floating">
+                        <p class="text-gray-300 readable-text mb-4">
+                            If you have questions about our use of cookies or this Cookies Policy, please contact us:
+                        </p>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p><strong class="text-neon-green neon-glow-minimal">PlayCraftCade</strong></p>
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">+1 (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:privacy@playcraftcade.com" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">privacy@playcraftcade.com</a></p>
+                            <p>🌐 <a href="https://playcraftcade.com" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">playcraftcade.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-gradient-to-r from-neon-yellow/10 to-neon-green/10 rounded-lg border border-neon-yellow/30 neon-border-soft">
+                        <h3 class="text-xl font-bold text-neon-yellow neon-glow-minimal mb-4">🍪 Sweet & Simple!</h3>
+                        <p class="text-gray-300 readable-text">
+                            We use cookies to make your PlayCraftCade experience as awesome as our arcade games! They help us remember your preferences, keep your cart full of goodies, and serve you the most relevant content. Just like our retro games, we keep things fun but fair!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cookie Consent Banner -->
+        <div id="cookie-consent" class="cookie-consent fixed bottom-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-t border-neon-yellow/50 p-4">
+            <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex-1">
+                    <p class="text-gray-300 readable-text">
+                        🍪 We use cookies to enhance your PlayCraftCade experience! By continuing to browse, you agree to our use of cookies.
+                        <a href="/cookies/" class="text-neon-yellow hover:text-neon-pink hover-glow transition-colors underline ml-2">Learn More</a>
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                    <button id="cookie-reject" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition-colors">
+                        Essential Only
+                    </button>
+                    <button id="cookie-accept" class="bg-neon-yellow text-black px-6 py-2 rounded-lg hover:bg-neon-green transition-colors font-bold">
+                        Accept All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <a href="/">
+                             <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                        </a>
+                        <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style pizzeria,
+                            and
+                            craft beer destination.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/thecraftcade/"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/thecraftcade"
+                                class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            </li>
+                            <li><a href="/food-and-drink/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food &
+                                    Drink</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/privacy/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/"
+                                    class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms &
+                                    Conditions</a></li>
+                            <li><a href="/cookies/"
+                                    class="text-neon-yellow hover:text-neon-orange hover-glow transition-colors">Cookies
+                                    Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                        <div class="space-y-2 text-gray-300 readable-text">
+                            <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                            <p>📞 <a href="tel:+12042843602"
+                                    class="hover:text-neon-pink hover-glow transition-colors">+1
+                                    (204) 284-3602</a></p>
+                            <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                    class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                    <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        // Cookie consent functionality
+        function initializeCookieConsent() {
+            const consentBanner = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const rejectBtn = document.getElementById('cookie-reject');
+            
+            // Check if user has already made a choice
+            const cookieConsent = localStorage.getItem('playcraftcade-cookie-consent');
+            
+            if (!cookieConsent) {
+                // Show banner after 2 seconds
+                setTimeout(() => {
+                    consentBanner.classList.add('show');
+                }, 2000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('playcraftcade-cookie-consent', 'accepted');
+                consentBanner.classList.remove('show');
+                console.log('Cookies accepted - All tracking enabled');
+            });
+
+            rejectBtn.addEventListener('click', () => {
+                localStorage.setItem('playcraftcade-cookie-consent', 'essential-only');
+                consentBanner.classList.remove('show');
+                console.log('Essential cookies only - Limited tracking');
+            });
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Three.js scene with proper error handling
+        function initThreeJS() {
+            try {
+                const canvas = document.getElementById('three-canvas');
+                if (!canvas || !window.THREE) {
+                    console.log('Three.js not loaded or canvas not found');
+                    return;
+                }
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+
+                // Create cookie-themed arcade elements
+                const cookieElements = [];
+                
+                // Cookie shapes (cylinders representing cookies)
+                const cookieGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.1, 12);
+                const cookieMaterials = [
+                    new THREE.MeshBasicMaterial({ color: 0xd2691e, transparent: true, opacity: 0.7 }), // chocolate chip
+                    new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.7 }), // golden
+                    new THREE.MeshBasicMaterial({ color: 0xf4a460, transparent: true, opacity: 0.7 })  // sandy brown
+                ];
+
+                for (let i = 0; i < 20; i++) {
+                    const material = cookieMaterials[i % cookieMaterials.length];
+                    const cookie = new THREE.Mesh(cookieGeometry, material);
+                    cookie.position.set(
+                        (Math.random() - 0.5) * 90,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    cookie.rotation.set(
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI
+                    );
+                    cookie.userData = {
+                        type: 'cookie',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.02,
+                            y: (Math.random() - 0.5) * 0.02,
+                            z: (Math.random() - 0.5) * 0.02
+                        },
+                        floatSpeed: Math.random() * 0.005 + 0.003
+                    };
+                    scene.add(cookie);
+                    cookieElements.push(cookie);
+                }
+
+                // Data tracking symbols (small cubes representing data)
+                const dataGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+                const dataMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0x00ffff, 
+                    transparent: true, 
+                    opacity: 0.6
+                });
+
+                for (let i = 0; i < 30; i++) {
+                    const data = new THREE.Mesh(dataGeometry, dataMaterial);
+                    data.position.set(
+                        (Math.random() - 0.5) * 100,
+                        (Math.random() - 0.5) * 60,
+                        (Math.random() - 0.5) * 50
+                    );
+                    data.userData = {
+                        type: 'data',
+                        speed: Math.random() * 0.02 + 0.01,
+                        offset: Math.random() * Math.PI * 2,
+                        originalY: data.position.y
+                    };
+                    scene.add(data);
+                    cookieElements.push(data);
+                }
+
+                // Preference settings (gear-like octahedrons)
+                const settingsGeometry = new THREE.OctahedronGeometry(0.3);
+                const settingsMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0xff10f0, 
+                    transparent: true, 
+                    opacity: 0.5
+                });
+
+                for (let i = 0; i < 12; i++) {
+                    const settings = new THREE.Mesh(settingsGeometry, settingsMaterial);
+                    settings.position.set(
+                        (Math.random() - 0.5) * 80,
+                        (Math.random() - 0.5) * 50,
+                        (Math.random() - 0.5) * 40
+                    );
+                    settings.userData = {
+                        type: 'settings',
+                        rotationSpeed: {
+                            x: (Math.random() - 0.5) * 0.03,
+                            y: (Math.random() - 0.5) * 0.03,
+                            z: (Math.random() - 0.5) * 0.03
+                        }
+                    };
+                    scene.add(settings);
+                    cookieElements.push(settings);
+                }
+
+                // Analytics charts (flat rectangles)
+                const chartGeometry = new THREE.PlaneGeometry(0.6, 0.4);
+                const chartMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0x39ff14, 
+                    transparent: true, 
+                    opacity: 0.6
+                });
+
+                for (let i = 0; i < 15; i++) {
+                    const chart = new THREE.Mesh(chartGeometry, chartMaterial);
+                    chart.position.set(
+                        (Math.random() - 0.5) * 85,
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 45
+                    );
+                    chart.rotation.set(
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI,
+                        Math.random() * Math.PI
+                    );
+                    chart.userData = {
+                        type: 'chart',
+                        speed: Math.random() * 0.015 + 0.008,
+                        offset: Math.random() * Math.PI * 2,
+                        originalY: chart.position.y
+                    };
+                    scene.add(chart);
+                    cookieElements.push(chart);
+                }
+
+                camera.position.z = 30;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const time = Date.now() * 0.001;
+
+                    cookieElements.forEach((element, index) => {
+                        if (element.userData.type === 'cookie') {
+                            // Rotating cookies
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                            element.position.y += Math.sin(time * element.userData.floatSpeed + index) * 0.05;
+                        } else if (element.userData.type === 'data') {
+                            // Pulsing data cubes
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.speed + element.userData.offset) * 2;
+                            const scale = 1 + Math.sin(time * 5 + index) * 0.4;
+                            element.scale.set(scale, scale, scale);
+                        } else if (element.userData.type === 'settings') {
+                            // Spinning settings
+                            element.rotation.x += element.userData.rotationSpeed.x;
+                            element.rotation.y += element.userData.rotationSpeed.y;
+                            element.rotation.z += element.userData.rotationSpeed.z;
+                        } else if (element.userData.type === 'chart') {
+                            // Floating charts
+                            element.position.y = element.userData.originalY + Math.sin(time * element.userData.speed + element.userData.offset) * 3;
+                            element.rotation.y += 0.01;
+                        }
+
+                        // General drift
+                        element.position.x += Math.sin(time * 0.0001 + index) * 0.02;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+            } catch (error) {
+                console.error('Three.js initialization error:', error);
+            }
+        }
+
+        // Initialize Particles.js with proper error handling
+        function initParticles() {
+            try {
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js not loaded');
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 45, density: { enable: true, value_area: 800 } },
+                        color: { 
+                            value: ['#ffff00', '#ffd700', '#ff8c00', '#00ffff', '#ff10f0'] 
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: { width: 1, color: '#ffffff' }
+                        },
+                        opacity: {
+                            value: 0.4,
+                            random: true,
+                            anim: { 
+                                enable: true, 
+                                speed: 1, 
+                                opacity_min: 0.1 
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: { 
+                                enable: true, 
+                                speed: 2, 
+                                size_min: 0.5 
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#ffff00',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1.2,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: { 
+                                distance: 100, 
+                                duration: 0.4 
+                            },
+                            push: { 
+                                particles_nb: 4 
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                initializeMobileMenu();
+                initializeCookieConsent();
+                updateCartCount();
+                
+                // Small delay to ensure libraries are loaded
+                setTimeout(() => {
+                    initThreeJS();
+                    initParticles();
+                }, 100);
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

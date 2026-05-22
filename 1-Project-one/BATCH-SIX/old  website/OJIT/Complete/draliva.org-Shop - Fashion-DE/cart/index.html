@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart - Draliva Fashion Shop</title>
+    <meta
+      name="description"
+      content="Review your items and proceed to checkout. Draliva offers premium fashion clothing and accessories."
+    />
+    <meta
+      name="keywords"
+      content="shopping cart, fashion checkout, draliva cart, clothing purchase"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2a2a2a;
+        --secondary-color: #e83e8c;
+        --accent-color: #f8f9fa;
+        --text-color: #333;
+        --light-text: #777;
+        --white: #fff;
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        background-color: #d42d7b;
+        color: var(--white);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--secondary-color);
+        color: var(--secondary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color);
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      nav ul {
+        display: flex;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        font-size: 15px;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      /* Page Banner */
+      .page-banner {
+        background: url("https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80")
+          no-repeat center center/cover;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-top: 70px;
+      }
+
+      .page-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .banner-content {
+        position: relative;
+        z-index: 1;
+        color: var(--white);
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .banner-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      /* Cart Section */
+      .cart-section {
+        padding: 60px 0;
+      }
+
+      .cart-container {
+        display: flex;
+        gap: 40px;
+        margin-top: 30px;
+      }
+
+      .cart-items {
+        flex: 2;
+      }
+
+      .cart-summary {
+        flex: 1;
+      }
+
+      .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .cart-table th {
+        text-align: left;
+        padding: 15px 10px;
+        border-bottom: 2px solid var(--accent-color);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+
+      .cart-table td {
+        padding: 20px 10px;
+        border-bottom: 1px solid var(--accent-color);
+        vertical-align: middle;
+      }
+
+      .product-cell {
+        display: flex;
+        align-items: center;
+      }
+
+      .product-img {
+        width: 80px;
+        height: 80px;
+        margin-right: 20px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+      }
+
+      .product-info p {
+        font-size: 0.9rem;
+        color: var(--light-text);
+      }
+
+      .quantity-control {
+        display: flex;
+        align-items: center;
+      }
+
+      .quantity-btn {
+        width: 30px;
+        height: 30px;
+        background-color: var(--accent-color);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .quantity-input {
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        margin: 0 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      .remove-btn {
+        color: var(--light-text);
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .remove-btn:hover {
+        color: var(--secondary-color);
+      }
+
+      .price {
+        font-weight: 600;
+      }
+
+      .discount-price {
+        color: var(--secondary-color);
+      }
+
+      .original-price {
+        text-decoration: line-through;
+        color: var(--light-text);
+        font-size: 0.9rem;
+        margin-left: 5px;
+      }
+
+      .cart-summary-card {
+        background-color: var(--accent-color);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .summary-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .summary-row.total {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
+      }
+
+      .coupon-form {
+        margin-top: 30px;
+      }
+
+      .coupon-input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .continue-shopping {
+        display: inline-block;
+        margin-top: 30px;
+        color: var(--secondary-color);
+        font-weight: 500;
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 50px 0;
+      }
+
+      .empty-cart-icon {
+        font-size: 5rem;
+        color: var(--accent-color);
+        margin-bottom: 20px;
+      }
+
+      .empty-cart h2 {
+        margin-bottom: 20px;
+      }
+
+      /* Checkout Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background-color: var(--white);
+        max-width: 600px;
+        margin: 50px auto;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.8);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .close-modal:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--accent-color);
+      }
+
+      .modal-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .modal-body {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(232, 62, 140, 0.1);
+      }
+
+      .form-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .modal-footer {
+        padding: 20px;
+        border-top: 1px solid var(--accent-color);
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-col h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--secondary-color);
+      }
+
+      .footer-col p {
+        margin-bottom: 15px;
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: var(--white);
+        opacity: 0.8;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-5px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .banner-content h1 {
+          font-size: 2rem;
+        }
+
+        .cart-container {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-padding {
+          padding: 60px 0;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 70px);
+          background-color: var(--white);
+          transition: var(--transition);
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          padding: 30px;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .product-cell {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .product-img {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .cart-table th {
+          display: none;
+        }
+
+        .cart-table td {
+          display: block;
+          padding: 10px;
+          text-align: right;
+        }
+
+        .cart-table td::before {
+          content: attr(data-label);
+          float: left;
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 0.8rem;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .banner-content h1 {
+          font-size: 1.8rem;
+        }
+
+        .btn {
+          padding: 10px 20px;
+          font-size: 13px;
+        }
+
+        .modal-content {
+          margin: 20px auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Dral<span>iva</span></a>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <a href="/cart/">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">3</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+      <div class="banner-content">
+        <h1>Your Shopping Cart</h1>
+      </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section section-padding">
+      <div class="container">
+        <div class="cart-container">
+          <div class="cart-items">
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Cart Item 1 -->
+                <tr>
+                  <td data-label="Product">
+                    <div class="product-cell">
+                      <div class="product-img">
+                        <img
+                          src="https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                          alt="Summer Floral Dress"
+                        />
+                      </div>
+                      <div class="product-info">
+                        <h3>Summer Floral Dress</h3>
+                        <p>Size: M | Color: Pink</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-label="Price">
+                    <span class="price discount-price">$89.99</span>
+                    <span class="original-price">$109.99</span>
+                  </td>
+                  <td data-label="Quantity">
+                    <div class="quantity-control">
+                      <button class="quantity-btn minus">-</button>
+                      <input
+                        type="number"
+                        class="quantity-input"
+                        value="1"
+                        min="1"
+                      />
+                      <button class="quantity-btn plus">+</button>
+                    </div>
+                  </td>
+                  <td data-label="Total" class="price">$89.99</td>
+                  <td data-label="Remove">
+                    <button class="remove-btn">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Cart Item 2 -->
+                <tr>
+                  <td data-label="Product">
+                    <div class="product-cell">
+                      <div class="product-img">
+                        <img
+                          src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1636&q=80"
+                          alt="Classic Denim Jacket"
+                        />
+                      </div>
+                      <div class="product-info">
+                        <h3>Classic Denim Jacket</h3>
+                        <p>Size: L | Color: Blue</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-label="Price" class="price">$129.99</td>
+                  <td data-label="Quantity">
+                    <div class="quantity-control">
+                      <button class="quantity-btn minus">-</button>
+                      <input
+                        type="number"
+                        class="quantity-input"
+                        value="1"
+                        min="1"
+                      />
+                      <button class="quantity-btn plus">+</button>
+                    </div>
+                  </td>
+                  <td data-label="Total" class="price">$129.99</td>
+                  <td data-label="Remove">
+                    <button class="remove-btn">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Cart Item 3 -->
+                <tr>
+                  <td data-label="Product">
+                    <div class="product-cell">
+                      <div class="product-img">
+                        <img
+                          src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                          alt="Elegant Silk Blouse"
+                        />
+                      </div>
+                      <div class="product-info">
+                        <h3>Elegant Silk Blouse</h3>
+                        <p>Size: S | Color: White</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-label="Price" class="price">$79.99</td>
+                  <td data-label="Quantity">
+                    <div class="quantity-control">
+                      <button class="quantity-btn minus">-</button>
+                      <input
+                        type="number"
+                        class="quantity-input"
+                        value="2"
+                        min="1"
+                      />
+                      <button class="quantity-btn plus">+</button>
+                    </div>
+                  </td>
+                  <td data-label="Total" class="price">$159.98</td>
+                  <td data-label="Remove">
+                    <button class="remove-btn">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <a href="/shop/" class="btn btn-outline continue-shopping">
+              <i class="fas fa-arrow-left"></i> Continue Shopping
+            </a>
+          </div>
+
+          <div class="cart-summary">
+            <div class="cart-summary-card">
+              <h3 class="summary-title">Order Summary</h3>
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <span class="price">$379.96</span>
+              </div>
+              <div class="summary-row">
+                <span>Shipping</span>
+                <span>Free</span>
+              </div>
+              <div class="summary-row">
+                <span>Tax</span>
+                <span class="price">$30.40</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total</span>
+                <span class="price">$410.36</span>
+              </div>
+
+              <form class="coupon-form">
+                <input
+                  type="text"
+                  class="coupon-input"
+                  placeholder="Enter coupon code"
+                />
+                <button type="submit" class="btn btn-outline">Apply</button>
+              </form>
+
+              <button id="checkoutBtn" class="btn checkout-btn">
+                Proceed to Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+          <h2>Complete Your Purchase</h2>
+        </div>
+        <div class="modal-body">
+          <form id="checkoutForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  class="form-control"
+                  placeholder="Enter your first name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="form-control"
+                  placeholder="Enter your last name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                class="form-control"
+                placeholder="Enter your phone number"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="address">Shipping Address</label>
+              <input
+                type="text"
+                id="address"
+                class="form-control"
+                placeholder="Street address"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  class="form-control"
+                  placeholder="Enter your city"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="zip">ZIP Code</label>
+                <input
+                  type="text"
+                  id="zip"
+                  class="form-control"
+                  placeholder="Enter ZIP code"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="country">Country</label>
+              <select id="country" class="form-control" required>
+                <option value="">Select Country</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="Italy">Italy</option>
+                <option value="Spain">Spain</option>
+                <option value="UK">United Kingdom</option>
+                <option value="USA">United States</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="payment">Payment Method</label>
+              <div class="payment-options">
+                <label class="payment-option">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="credit-card"
+                    checked
+                    required
+                  />
+                  <span>Credit Card</span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="paypal" />
+                  <span>PayPal</span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="bank-transfer" />
+                  <span>Bank Transfer</span>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline" id="cancelCheckout">Cancel</button>
+          <button class="btn" id="confirmCheckout">Place Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <!-- Column 1 -->
+          <div class="footer-col">
+            <h3>Draliva</h3>
+            <p>
+              Premium fashion for the modern individual. Quality, style, and
+              sustainability at the core of everything we do.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="footer-col">
+            <h3>Customer Service</h3>
+            <ul class="footer-links">
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+              <li><a href="/">Shipping Policy</a></li>
+              <li><a href="/">Returns & Exchanges</a></li>
+              <li><a href="/faq/">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="footer-col">
+            <h3>Contact Info</h3>
+            <p>Schloßpl. 1, 08648 Bad Brambach, Germany</p>
+            <p>Phone: +49 160 4697373</p>
+            <p>Email: info@draliva.org</p>
+            <p>Open: Mon-Fri, 9:00-18:00</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Draliva. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = mainNav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Close mobile menu when clicking a link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mainNav.classList.contains("active")) {
+            mainNav.classList.remove("active");
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      });
+
+      // Quantity Controls
+      const quantityBtns = document.querySelectorAll(".quantity-btn");
+      quantityBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const input = btn.parentElement.querySelector(".quantity-input");
+          let value = parseInt(input.value);
+
+          if (btn.classList.contains("plus")) {
+            value++;
+          } else if (btn.classList.contains("minus") && value > 1) {
+            value--;
+          }
+
+          input.value = value;
+          updateCartTotal();
+        });
+      });
+
+      // Remove Item
+      const removeBtns = document.querySelectorAll(".remove-btn");
+      removeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.closest("tr").remove();
+          updateCartTotal();
+          updateCartCount();
+        });
+      });
+
+      // Update Cart Total
+      function updateCartTotal() {
+        const cartItems = document.querySelectorAll("tbody tr");
+        let subtotal = 0;
+
+        cartItems.forEach((item) => {
+          const price = parseFloat(
+            item.querySelector(".price").textContent.replace("$", "")
+          );
+          const quantity = parseInt(
+            item.querySelector(".quantity-input").value
+          );
+          subtotal += price * quantity;
+        });
+
+        const tax = subtotal * 0.08; // 8% tax
+        const total = subtotal + tax;
+
+        document.querySelector(
+          ".summary-row:nth-child(1) .price"
+        ).textContent = `$${subtotal.toFixed(2)}`;
+        document.querySelector(
+          ".summary-row:nth-child(3) .price"
+        ).textContent = `$${tax.toFixed(2)}`;
+        document.querySelector(
+          ".summary-row.total .price"
+        ).textContent = `$${total.toFixed(2)}`;
+      }
+
+      // Update Cart Count
+      function updateCartCount() {
+        const cartItems = document.querySelectorAll("tbody tr");
+        document.querySelector(".cart-count").textContent = cartItems.length;
+      }
+
+      // Checkout Modal
+      const checkoutBtn = document.getElementById("checkoutBtn");
+      const checkoutModal = document.getElementById("checkoutModal");
+      const closeModal = document.querySelector(".close-modal");
+      const cancelCheckout = document.getElementById("cancelCheckout");
+
+      checkoutBtn.addEventListener("click", () => {
+        checkoutModal.style.display = "block";
+        document.body.style.overflow = "hidden";
+      });
+
+      closeModal.addEventListener("click", () => {
+        checkoutModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+
+      cancelCheckout.addEventListener("click", () => {
+        checkoutModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+
+      window.addEventListener("click", (e) => {
+        if (e.target === checkoutModal) {
+          checkoutModal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+
+      // Form Submission
+      const checkoutForm = document.getElementById("checkoutForm");
+      const confirmCheckout = document.getElementById("confirmCheckout");
+
+      confirmCheckout.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (checkoutForm.checkValidity()) {
+          // Here you would typically send the form data to your server
+          // For this example, we'll just show a success message
+          alert("Thank you for your order! Your items will be shipped soon.");
+          checkoutModal.style.display = "none";
+          document.body.style.overflow = "auto";
+          checkoutForm.reset();
+        } else {
+          checkoutForm.reportValidity();
+        }
+      });
+
+      // Initialize cart values
+      updateCartTotal();
+    </script>
+  </body>
+</html>

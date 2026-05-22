@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Basketball News | Baseline Brief</title>
+    <meta name="description" content="Get the latest updates on NBA, EuroLeague, WNBA and international basketball news, scores, and analysis.">
+    <meta name="keywords" content="NBA news, basketball updates, EuroLeague scores, WNBA highlights, basketball analysis, player stats">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Internal CSS - Same as home page with additions for news page */
+        :root {
+            --primary-color: #ff5e14;
+            --secondary-color: #1e3a8a;
+            --dark-color: #111827;
+            --light-color: #f3f4f6;
+            --text-color: #374151;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            color: var(--dark-color);
+            text-transform: uppercase;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--primary-color);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: var(--dark-color);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        /* News Page Specific Styles */
+        .news-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .news-hero-content h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .news-section {
+            padding: 60px 0;
+        }
+        
+        .news-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .news-articles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .article-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .article-card:hover .article-img img {
+            transform: scale(1.1);
+        }
+        
+        .article-content {
+            padding: 20px;
+        }
+        
+        .article-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            font-size: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .article-date {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            padding: 8px 15px;
+            background-color: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        /* Featured Article */
+        .featured-article {
+            grid-column: span 3;
+            display: flex;
+            gap: 30px;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .featured-img {
+            flex: 1;
+            min-height: 300px;
+            overflow: hidden;
+        }
+        
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-content .article-category {
+            background-color: var(--primary-color);
+        }
+        
+        .featured-content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+        
+        .newsletter-form button {
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #e04e0c;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--white);
+            margin-bottom: 25px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: #d1d5db;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .news-articles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-article {
+                grid-column: span 2;
+                flex-direction: column;
+            }
+            
+            .featured-img {
+                min-height: 200px;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                transition: all 0.5s ease;
+                z-index: 999;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 30px;
+            }
+            
+            nav ul li {
+                margin: 0 0 20px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .news-hero h1 {
+                font-size: 36px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 4px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .news-articles {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-article {
+                grid-column: span 1;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">BASELINE<span>BRIEF</span></a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- News Hero Section -->
+    <section class="news-hero">
+        <div class="container news-hero-content">
+            <h1>Latest Basketball News</h1>
+            <p>Stay updated with the most recent developments in the world of basketball</p>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="container">
+            
+            
+            <div class="news-articles">
+                <!-- Featured Article -->
+                <div class="featured-article">
+                    <div class="featured-img">
+                        <img src="https://cdn.nba.com/manage/2020/10/2020_finals-preview-graphic-2-784x441.jpg" alt="NBA Finals">
+                    </div>
+                    <div class="featured-content">
+                        <span class="article-category">NBA</span>
+                        <span class="article-date">Jan 15, 2025</span>
+                        <h2>NBA Finals Preview: Breaking Down the Championship Matchup</h2>
+                        <p>A comprehensive look at the two teams battling for the Larry O'Brien Trophy, with expert analysis on key matchups and X-factors that could decide the series.</p>
+                        <a href="/news/" class="btn btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+                
+                <!-- Regular Articles -->
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Rising star">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">EuroLeague</span>
+                        <span class="article-date">Jan 12, 2025</span>
+                        <h3>EuroLeague's Rising Star: The Making of a Phenom</h3>
+                        <p>How this 19-year-old guard is taking European basketball by storm and drawing NBA attention with his exceptional playmaking and scoring ability.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1484482340112-e1e2682b4856?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="WNBA">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">WNBA</span>
+                        <span class="article-date">Jan 10, 2025</span>
+                        <h3>WNBA Free Agency: Biggest Moves and What They Mean</h3>
+                        <p>A comprehensive look at how the offseason roster changes will impact the upcoming WNBA season and championship odds.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://media.bleacherreport.com/image/upload/v1700598601/yocfjx3gv7fkhwpcokkw.jpg" alt="Player statistics">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Analysis</span>
+                        <span class="article-date">Jan 8, 2025</span>
+                        <h3>Advanced Stats: The Most Underrated Players This Season</h3>
+                        <p>Using advanced metrics to identify players who are making significant contributions that don't always show up in traditional box scores.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Live game coverage">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">International</span>
+                        <span class="article-date">Jan 5, 2025</span>
+                        <h3>FIBA World Cup Qualifiers: Surprise Performers</h3>
+                        <p>Unexpected players stepping up in the qualifiers for the 2025 FIBA Basketball World Cup, with several lesser-known names making strong cases for roster spots.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Basketball analysis">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">NBA</span>
+                        <span class="article-date">Jan 3, 2025</span>
+                        <h3>Midseason Report: NBA Award Predictions</h3>
+                        <p>Our experts weigh in on who's leading the race for MVP, Rookie of the Year, Defensive Player of the Year and other major awards at the season's midpoint.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated With Our Newsletter</h2>
+            <p>Get the latest basketball news, analysis and exclusive content delivered straight to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Baseline Brief</h3>
+                    <p>Your premier source for comprehensive basketball coverage from around the world.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">News</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>News Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="/news/">NBA</a></li>
+                        <li><a href="/news/">EuroLeague</a></li>
+                        <li><a href="/news/">WNBA</a></li>
+                        <li><a href="/news/">International</a></li>
+                        <li><a href="/news/">Analysis</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <p>Level 10/50 Pitt St, Sydney NSW 2000, Australia</p>
+                    <p>Phone: +61280807900</p>
+                    <p>Email: info@baselinebrief.org</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Baseline Brief. All Rights Reserved. | <a style="color: white;" href="/privacy/">Privacy Policy</a> | <a style="color: white;" href="/terms/">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                }
+            });
+        });
+        
+        // Filter buttons functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In a real implementation, this would filter the articles
+            });
+        });
+        
+        // Pagination buttons functionality
+        const pageBtns = document.querySelectorAll('.page-btn');
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                pageBtns.forEach(b => b.classList.remove('active'));
+                if (!btn.textContent.includes('Next')) {
+                    btn.classList.add('active');
+                }
+                // In a real implementation, this would load the selected page
+            });
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterForm.reset();
+        });
+    </script>
+</body>
+</html>

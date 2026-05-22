@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draliva - Fashion Shop</title>
+    <meta
+      name="description"
+      content="Draliva offers premium fashion clothing and accessories for men and women. Shop the latest trends in our online store."
+    />
+    <meta
+      name="keywords"
+      content="fashion, clothing, shop, online store, dresses, shirts, accessories, draliva, trendy fashion"
+    />
+    <link rel="stylesheet" href="./css/cart.css" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2a2a2a;
+        --secondary-color: #e83e8c;
+        --accent-color: #f8f9fa;
+        --text-color: #333;
+        --light-text: #777;
+        --white: #fff;
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        background-color: #d42d7b;
+        color: var(--white);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--secondary-color);
+        color: var(--secondary-color);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color);
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo span {
+        color: var(--secondary-color);
+      }
+
+      nav ul {
+        display: flex;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        font-weight: 500;
+        font-size: 15px;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary-color);
+        transition: var(--transition);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .cart-icon {
+        position: relative;
+        margin-left: 30px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: url("https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/blogs/12099/images/75520de-17d3-7882-a7ef-d68376b74cc_Blog_posts_18_.jpg")
+          no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-top: 70px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        color: var(--white);
+        max-width: 600px;
+      }
+
+      .hero-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      /* About Section */
+      .about {
+        background-color: var(--accent-color);
+      }
+
+      .about-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        margin-top: 50px;
+      }
+
+      .about-img {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      .about-text p {
+        margin-bottom: 20px;
+        color: var(--light-text);
+      }
+
+      /* Featured Products */
+      .featured-products .section-title {
+        margin-bottom: 50px;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .product-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-img {
+        height: 300px;
+        overflow: hidden;
+      }
+
+      .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-img img {
+        transform: scale(1.05);
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .product-price {
+        font-weight: 600;
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      /* Why Choose Us */
+      .why-choose-us {
+        background-color: var(--accent-color);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .feature-item {
+        text-align: center;
+        padding: 30px 20px;
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .feature-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+
+      .feature-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+
+      /* Testimonials */
+      .testimonials .section-title {
+        margin-bottom: 50px;
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .testimonial-card {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .testimonial-card::before {
+        content: '"';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 5rem;
+        color: rgba(232, 62, 140, 0.1);
+        font-family: "Playfair Display", serif;
+        line-height: 1;
+      }
+
+      .testimonial-content {
+        margin-bottom: 20px;
+        font-style: italic;
+        color: var(--light-text);
+        position: relative;
+        z-index: 1;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+      }
+
+      .author-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      .author-info p {
+        font-size: 0.8rem;
+        color: var(--light-text);
+      }
+
+      /* Blog Highlights */
+      .blog-highlights .section-title {
+        margin-bottom: 50px;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .blog-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .blog-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .blog-card:hover .blog-img img {
+        transform: scale(1.05);
+      }
+
+      .blog-info {
+        padding: 20px;
+      }
+
+      .blog-date {
+        font-size: 0.8rem;
+        color: var(--light-text);
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .blog-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .blog-excerpt {
+        color: var(--light-text);
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0;
+      }
+
+      .newsletter .section-title {
+        color: var(--white);
+      }
+
+      .newsletter .section-title::after {
+        background-color: var(--white);
+      }
+
+      .newsletter p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+        text-align: center;
+        opacity: 0.8;
+      }
+
+      .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        font-size: 1rem;
+      }
+
+      .newsletter-form button {
+        padding: 15px 25px;
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+        transition: var(--transition);
+      }
+
+      .newsletter-form button:hover {
+        background-color: #d42d7b;
+      }
+
+      /* Contact CTA */
+      .contact-cta {
+        background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80")
+          no-repeat center center/cover;
+        padding: 100px 0;
+        text-align: center;
+        position: relative;
+        color: var(--white);
+      }
+
+      .contact-cta::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(42, 42, 42, 0.8);
+      }
+
+      .contact-cta .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .contact-cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .contact-cta p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+        opacity: 0.9;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px 0 20px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-col h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-col h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--secondary-color);
+      }
+
+      .footer-col p {
+        margin-bottom: 15px;
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: var(--white);
+        opacity: 0.8;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+        color: var(--secondary-color);
+        padding-left: 5px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-5px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background-color: var(--white);
+        max-width: 800px;
+        margin: 50px auto;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.8);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .close-modal:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      .modal-body {
+        padding: 40px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .hero-content h1 {
+          font-size: 2.8rem;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+
+        .about-img,
+        .about-text {
+          flex: none;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-padding {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .hero-content h1 {
+          font-size: 2.2rem;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 70px);
+          background-color: var(--white);
+          transition: var(--transition);
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          padding: 30px;
+        }
+
+        nav ul li {
+          margin: 15px 0;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .newsletter-form input {
+          border-radius: 4px;
+          margin-bottom: 10px;
+        }
+
+        .newsletter-form button {
+          border-radius: 4px;
+        }
+
+        .contact-cta h2 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-content h1 {
+          font-size: 1.8rem;
+        }
+
+        .btn {
+          padding: 10px 20px;
+          font-size: 13px;
+        }
+
+        .modal-body {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="/" class="logo">Dral<span>iva</span></a>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav id="mainNav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="cart-icon">
+          <button type="button" id="cartIcon">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Discover Your Perfect Style</h1>
+          <p>
+            Explore our exclusive collection of premium fashion pieces designed
+            to elevate your wardrobe and express your unique personality.
+          </p>
+          <a href="/shop/" class="btn">Shop Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section-padding">
+      <div class="container">
+        <h2 class="section-title">About Draliva</h2>
+        <div class="about-content">
+          <div class="about-img">
+            <img
+              src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+              alt="Draliva Fashion Store"
+            />
+          </div>
+          <div class="about-text">
+            <h2>Our Fashion Journey</h2>
+            <p>
+              Founded in 2020, Draliva has quickly become a leading name in
+              contemporary fashion. Our mission is to provide high-quality,
+              stylish clothing that combines comfort with cutting-edge design.
+            </p>
+            <p>
+              We carefully curate each collection to ensure our customers have
+              access to the latest trends while maintaining timeless elegance.
+              Our team of designers works tirelessly to create pieces that
+              inspire confidence and self-expression.
+            </p>
+            <a href="/about/" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products section-padding">
+      <div class="container">
+        <h2 class="section-title">Featured Collections</h2>
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://gorurghash.com/wp-content/uploads/2021/04/605A5141.jpg"
+                alt="Summer Floral Dress"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Summer Floral Dress</h3>
+              <span class="product-price">$89.99</span>
+              <button class="btn btn-add-to-cart" data-product="1">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1636&q=80"
+                alt="Classic Denim Jacket"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Classic Denim Jacket</h3>
+              <span class="product-price">$129.99</span>
+              <button class="btn btn-add-to-cart" data-product="2">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Elegant Silk Blouse"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Elegant Silk Blouse</h3>
+              <span class="product-price">$79.99</span>
+              <button class="btn btn-add-to-cart" data-product="3">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img
+                src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1526&q=80"
+                alt="Tailored Wool Pants"
+              />
+            </div>
+            <div class="product-info">
+              <h3>Tailored Wool Pants</h3>
+              <span class="product-price">$109.99</span>
+              <button class="btn btn-add-to-cart" data-product="4">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center" style="margin-top: 40px">
+          <a href="/shop/" class="btn btn-outline">View All Products</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose-us section-padding">
+      <div class="container">
+        <h2 class="section-title">Why Choose Draliva</h2>
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>Premium Quality</h3>
+            <p>
+              We source only the finest materials and work with skilled artisans
+              to create clothing that lasts.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3>Sustainable Fashion</h3>
+            <p>
+              Our eco-friendly production methods minimize environmental impact
+              without compromising style.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3>Fast Shipping</h3>
+            <p>
+              Receive your order within 2-3 business days with our express
+              shipping options.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h3>Easy Returns</h3>
+            <p>
+              Not satisfied? Our hassle-free return policy ensures you can shop
+              with confidence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials section-padding">
+      <div class="container">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                I absolutely love my new dress from Draliva! The quality is
+                exceptional and it fits perfectly. I've received so many
+                compliments already.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://randomuser.me/api/portraits/women/43.jpg"
+                  alt="Sarah Johnson"
+                />
+              </div>
+              <div class="author-info">
+                <h4>Sarah Johnson</h4>
+                <p>Berlin, Germany</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                The customer service at Draliva is outstanding. They helped me
+                find exactly what I was looking for and the shipping was
+                incredibly fast.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="Michael Chen"
+                />
+              </div>
+              <div class="author-info">
+                <h4>Michael Chen</h4>
+                <p>Paris, France</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                I've been shopping with Draliva for over a year now and their
+                collections keep getting better. The attention to detail is
+                remarkable.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-img">
+                <img
+                  src="https://randomuser.me/api/portraits/women/65.jpg"
+                  alt="Emma Rodriguez"
+                />
+              </div>
+              <div class="author-info">
+                <h4>Emma Rodriguez</h4>
+                <p>Madrid, Spain</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Highlights -->
+    <section class="blog-highlights section-padding">
+      <div class="container">
+        <h2 class="section-title">Fashion Insights</h2>
+        <div class="blog-grid">
+          <!-- Blog 1 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Summer Trends"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-date">Jan 15, 2025</span>
+              <h3>Top Summer Fashion Trends for 2025</h3>
+              <p class="blog-excerpt">
+                Discover the must-have styles and colors that will dominate this
+                summer's fashion scene.
+              </p>
+              <a href="/blog/" class="btn btn-outline">Read More</a>
+            </div>
+          </div>
+
+          <!-- Blog 2 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Sustainable Fashion"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-date">March 28, 2025</span>
+              <h3>The Rise of Sustainable Fashion</h3>
+              <p class="blog-excerpt">
+                How eco-conscious brands are changing the industry and what you
+                can do to support the movement.
+              </p>
+              <a href="/blog/" class="btn btn-outline">Read More</a>
+            </div>
+          </div>
+
+          <!-- Blog 3 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img
+                src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                alt="Wardrobe Essentials"
+              />
+            </div>
+            <div class="blog-info">
+              <span class="blog-date">April 10, 2025</span>
+              <h3>10 Wardrobe Essentials Every Woman Needs</h3>
+              <p class="blog-excerpt">
+                Build a versatile closet with these timeless pieces that work
+                for any occasion.
+              </p>
+              <a href="/blog/" class="btn btn-outline">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <div class="container">
+        <h2 class="section-title">Stay Updated</h2>
+        <p>
+          Subscribe to our newsletter to receive exclusive offers, fashion tips,
+          and updates on new arrivals.
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+      <div class="container">
+        <h2>Have Questions?</h2>
+        <p>
+          Our fashion consultants are ready to help you find the perfect pieces
+          for your wardrobe.
+        </p>
+        <a href="/contact/" class="btn">Contact Us</a>
+      </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+      <div class="cart-modal-header">
+        <h2>Your Shopping Cart</h2>
+        <button class="close-cart-modal">&times;</button>
+      </div>
+      <div class="cart-modal-body">
+        <div class="cart-items" id="cartItems">
+          <!-- Cart items will be dynamically inserted here -->
+        </div>
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">$0.00</span>
+          </div>
+          <button class="btn" id="checkoutBtn" style="width: 100%">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+      <div class="checkout-modal-content">
+        <span class="close-modal">&times;</span>
+
+        <div class="checkout-steps">
+          <div class="checkout-step active" data-step="1">Shipping</div>
+          <div class="checkout-step" data-step="2">Payment</div>
+          <div class="checkout-step" data-step="3">Confirmation</div>
+        </div>
+
+        <div class="checkout-body">
+          <!-- Step 1: Shipping Information -->
+          <div class="checkout-step-content" id="step1">
+            <h2>Shipping Information</h2>
+            <form id="shippingForm">
+              <div class="checkout-form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" required />
+              </div>
+
+              <div class="checkout-form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required />
+              </div>
+
+              <div class="checkout-form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" required />
+              </div>
+
+              <div class="checkout-form-row">
+                <div class="checkout-form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" required />
+                </div>
+
+                <div class="checkout-form-group">
+                  <label for="zip">ZIP Code</label>
+                  <input type="text" id="zip" required />
+                </div>
+              </div>
+
+              <div class="checkout-form-group">
+                <label for="country">Country</label>
+                <select id="country" required>
+                  <option value="">Select Country</option>
+                  <option value="US">United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="CA">Canada</option>
+                </select>
+              </div>
+
+              <div class="checkout-form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required />
+              </div>
+
+              <div class="checkout-actions">
+                <button
+                  type="button"
+                  class="btn checkout-back-btn"
+                  id="cancelCheckout"
+                >
+                  Cancel
+                </button>
+                <button type="button" class="btn" id="nextToPayment">
+                  Continue to Payment
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step 2: Payment Information -->
+          <div class="checkout-step-content" id="step2" style="display: none">
+            <h2>Payment Method</h2>
+
+            <div class="payment-methods">
+              <div class="payment-method active">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="creditCard"
+                  value="creditCard"
+                  checked
+                />
+                <div class="payment-method-icon">
+                  <i class="far fa-credit-card"></i>
+                </div>
+                <div class="payment-method-details">
+                  <div class="payment-method-title">Credit Card</div>
+                  <div class="payment-method-desc">
+                    Pay with Visa, Mastercard, or American Express
+                  </div>
+                </div>
+              </div>
+
+              <div class="payment-method">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="paypal"
+                  value="paypal"
+                />
+                <div class="payment-method-icon">
+                  <i class="fab fa-paypal"></i>
+                </div>
+                <div class="payment-method-details">
+                  <div class="payment-method-title">PayPal</div>
+                  <div class="payment-method-desc">
+                    Pay with your PayPal account
+                  </div>
+                </div>
+              </div>
+
+              <div class="payment-method">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="bankTransfer"
+                  value="bankTransfer"
+                />
+                <div class="payment-method-icon">
+                  <i class="fas fa-university"></i>
+                </div>
+                <div class="payment-method-details">
+                  <div class="payment-method-title">Bank Transfer</div>
+                  <div class="payment-method-desc">Direct bank transfer</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Credit Card Form (shown when credit card is selected) -->
+            <div id="creditCardForm" style="margin-top: 20px">
+              <div class="checkout-form-group">
+                <label for="cardNumber">Card Number</label>
+                <input
+                  type="text"
+                  id="cardNumber"
+                  placeholder="1234 5678 9012 3456"
+                />
+              </div>
+
+              <div class="checkout-form-row">
+                <div class="checkout-form-group">
+                  <label for="expiryDate">Expiry Date</label>
+                  <input type="text" id="expiryDate" placeholder="MM/YY" />
+                </div>
+
+                <div class="checkout-form-group">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" placeholder="123" />
+                </div>
+              </div>
+
+              <div class="checkout-form-group">
+                <label for="cardName">Name on Card</label>
+                <input type="text" id="cardName" />
+              </div>
+            </div>
+
+            <div class="order-summary">
+              <div class="order-summary-title">Order Summary</div>
+
+              <div class="order-summary-item">
+                <span>Subtotal:</span>
+                <span id="checkoutSubtotal">$0.00</span>
+              </div>
+
+              <div class="order-summary-item">
+                <span>Shipping:</span>
+                <span>$5.99</span>
+              </div>
+
+              <div class="order-summary-item order-summary-total">
+                <span>Total:</span>
+                <span id="checkoutTotal">$0.00</span>
+              </div>
+            </div>
+
+            <div class="checkout-actions">
+              <button
+                type="button"
+                class="btn checkout-back-btn"
+                id="backToShipping"
+              >
+                Back
+              </button>
+              <button type="button" class="btn" id="placeOrder">
+                Place Order
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Order Confirmation -->
+          <div class="checkout-step-content" id="step3" style="display: none">
+            <div class="checkout-success">
+              <i class="fas fa-check-circle"></i>
+              <h2>Thank You For Your Order!</h2>
+              <p>
+                Your order has been placed successfully. We've sent a
+                confirmation email with your order details.
+              </p>
+              <p>
+                Order Number:
+                <strong>#DRAL-<span id="orderNumber">12345</span></strong>
+              </p>
+              <button class="btn" id="continueShopping">
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <!-- Column 1 -->
+          <div class="footer-col">
+            <h3>Draliva</h3>
+            <p>
+              Premium fashion for the modern individual. Quality, style, and
+              sustainability at the core of everything we do.
+            </p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://pinterest.com/"
+                target="_blank"
+                aria-label="Pinterest"
+                ><i class="fab fa-pinterest-p"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop/">Shop</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="footer-col">
+            <h3>Customer Service</h3>
+            <ul class="footer-links">
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li>
+              <li><a href="/">Shipping Policy</a></li>
+              <li><a href="/">Returns & Exchanges</a></li>
+              <li><a href="/">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="footer-col">
+            <h3>Contact Info</h3>
+            <p>Schloßpl. 1, 08648 Bad Brambach, Germany</p>
+            <p>Phone: +49 160 4697373</p>
+            <p>Email: info@draliva.org</p>
+            <p>Open: Mon-Fri, 9:00-18:00</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Draliva. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Blog Modal -->
+    <div class="modal" id="blogModal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+          <h2>Blog Post Title</h2>
+          <p>Blog post content goes here...</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+        mobileMenuBtn.innerHTML = mainNav.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+
+      // Close mobile menu when clicking a link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mainNav.classList.contains("active")) {
+            mainNav.classList.remove("active");
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      });
+
+      // Modal functionality for blog posts
+      const blogReadMoreBtns = document.querySelectorAll(
+        ".blog-card .btn-outline"
+      );
+      const blogModal = document.getElementById("blogModal");
+      const closeModal = document.querySelector(".close-modal");
+
+      blogReadMoreBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          blogModal.style.display = "block";
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      closeModal.addEventListener("click", () => {
+        blogModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+
+      window.addEventListener("click", (e) => {
+        if (e.target === blogModal) {
+          blogModal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+
+      // Simple cart count functionality
+      const addToCartBtns = document.querySelectorAll(".product-card .btn");
+      const cartCount = document.querySelector(".cart-count");
+      let count = 0;
+
+      addToCartBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          count++;
+          cartCount.textContent = count;
+
+          // Show added to cart notification
+          const notification = document.createElement("div");
+          notification.style.position = "fixed";
+          notification.style.bottom = "20px";
+          notification.style.right = "20px";
+          notification.style.backgroundColor = "var(--secondary-color)";
+          notification.style.color = "white";
+          notification.style.padding = "10px 20px";
+          notification.style.borderRadius = "4px";
+          notification.style.zIndex = "1000";
+          notification.style.boxShadow = "0 3px 10px rgba(0,0,0,0.2)";
+          notification.textContent = "Item added to cart!";
+
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            notification.style.opacity = "0";
+            notification.style.transition = "opacity 0.5s ease";
+            setTimeout(() => {
+              document.body.removeChild(notification);
+            }, 500);
+          }, 2000);
+        });
+      });
+    </script>
+    <script src="./js/cart.js"></script>
+  </body>
+</html>

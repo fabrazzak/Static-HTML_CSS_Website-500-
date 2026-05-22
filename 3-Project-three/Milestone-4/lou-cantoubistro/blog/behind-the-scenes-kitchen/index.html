@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behind the Scenes: A Day in Our Parisian Kitchen | Lou Cantou Blog</title>
+    <meta name="description" content"Step behind the curtain at Lou Cantou and discover the rhythm of our kitchen from early morning market visits to the final plating.">
+    <meta name="keywords" content="Parisian kitchen, restaurant behind scenes, French cooking process, bistro kitchen, chef's daily routine, Paris restaurant kitchen, culinary preparation, French cuisine preparation">
+    <link rel="canonical" href="https://lou-cantoubistro.com/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #c19a6b;
+            --secondary-color: #8b4513;
+            --accent-color: #d4af37;
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --medium-bg: #1a1a1a;
+            --light-text: #f5f5f5;
+            --medium-text: #cccccc;
+            --dark-text: #333333;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --border-radius: 8px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        /* Custom Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            position: relative;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(193, 154, 107, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(193, 154, 107, 0.5);
+        }
+
+        /* Blog Hero Section */
+        .blog-detail-hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .blog-detail-hero-content {
+            text-align: center;
+            z-index: 10;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .blog-detail-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--light-text);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            color: var(--medium-text);
+            font-size: 1.1rem;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Blog Content Section */
+        .blog-content-section {
+            padding: 80px 0;
+            background-color: var(--darker-bg);
+        }
+
+        .blog-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-image-full {
+            height: 500px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius);
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .blog-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--medium-text);
+        }
+
+        .blog-text p {
+            margin-bottom: 25px;
+        }
+
+        .blog-text h2 {
+            font-size: 2.2rem;
+            margin: 50px 0 25px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .blog-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .blog-text h3 {
+            font-size: 1.6rem;
+            margin: 40px 0 20px;
+            color: var(--light-text);
+        }
+
+        .blog-text blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 30px;
+            margin: 40px 0;
+            font-style: italic;
+            color: var(--medium-text);
+            font-size: 1.2rem;
+        }
+
+        .timeline-section {
+            margin: 50px 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: var(--medium-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .timeline-time {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .team-spotlight {
+            background-color: var(--medium-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin: 50px 0;
+            box-shadow: var(--box-shadow);
+        }
+
+        .team-spotlight h3 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .member-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            color: var(--light-text);
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            color: var(--primary-color);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .image-grid-item {
+            height: 300px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: var(--box-shadow);
+        }
+
+        .kitchen-secret {
+            background-color: var(--medium-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin: 40px 0;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .kitchen-secret h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .conclusion-box {
+            background-color: var(--medium-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin: 50px 0;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .conclusion-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Navigation Buttons */
+        .blog-navigation {
+            padding: 60px 0;
+            background-color: var(--dark-bg);
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background-color: var(--medium-bg);
+            border-radius: 50px;
+            transition: var(--transition);
+            color: var(--light-text);
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(193, 154, 107, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: var(--medium-text);
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--medium-bg);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-text);
+        }
+
+        /* 3D Background */
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .blog-detail-hero h1 {
+                font-size: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--darker-bg);
+                padding: 100px 30px 30px;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .blog-detail-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .blog-detail-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-image-full {
+                height: 300px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background -->
+    <div id="three-container"></div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+              <img src="/images/logo.png" alt="Lou Cantou - Parisian Bistro" style="height: 48px;">
+            </a>
+            
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/menus/">Menus</a></li>
+                    <li><a href="/gallery/">Gallery</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/booking/" class="btn">Reserve</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Detail Hero Section -->
+    <section class="blog-detail-hero">
+        <div class="blog-detail-hero-content">
+            <h1>Behind the Scenes: A Day in Our Parisian Kitchen</h1>
+            <div class="blog-meta">
+                <span><i class="far fa-calendar"></i> September 5, 2025</span>
+                <span><i class="far fa-user"></i> Chef Antoine</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+            </div>
+            <a href="/booking/" class="btn">Reserve Your Table</a>
+        </div>
+    </section>
+
+    <!-- Blog Content Section -->
+    <section class="blog-content-section">
+        <div class="container">
+            <div class="blog-content">
+                <div class="blog-image-full">
+                    <img src="/images/blog-three.jpg" alt="blog-three" style="width: 100%; height: 100%; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                </div>
+                
+                <div class="blog-text">
+                    <p>While our guests enjoy the warm ambiance and exquisite flavors of Lou Cantou, there's a whole world of activity happening behind the kitchen doors. Today, I invite you to step behind the curtain and experience a day in our Parisian kitchen—from the first light of dawn to the final plate served in the evening.</p>
+                    
+                    <p>This is where the magic happens, where raw ingredients are transformed into the dishes that define our bistro, and where a team of dedicated professionals works in perfect harmony to create unforgettable dining experiences.</p>
+                    
+                    <h2>The Morning Rhythm: Preparation and Precision</h2>
+                    
+                    <div class="timeline-section">
+                        <div class="timeline-item">
+                            <div class="timeline-time">6:00 AM</div>
+                            <div class="timeline-content">
+                                <h4>Market Fresh Delivery</h4>
+                                <p>The day begins before sunrise with deliveries from our trusted suppliers. Fresh vegetables from Rungis Market, artisanal cheeses from Normandy, sustainably caught seafood from Brittany, and premium meats from local farms arrive at our doorstep. Each ingredient is inspected with care, ensuring only the finest quality makes it to your plate.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">7:30 AM</div>
+                            <div class="timeline-content">
+                                <h4>Mise en Place</h4>
+                                <p>As the kitchen team arrives, the symphony of preparation begins. Knives are sharpened, stations are sanitized, and the meticulous process of "mise en place" commences. Vegetables are chopped, stocks are simmered, sauces are prepared, and doughs are proofed. This French culinary principle of "everything in its place" is the foundation of our efficient service.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                    
+                    <h3>The Art of Butchery and Fabrication</h3>
+                    
+                    <p>One of the most skilled tasks in our kitchen is butchery. Our chefs break down whole animals with precision, respecting the craft and minimizing waste. This morning, we're working on ducks for confit, beef for bourguignon, and whole fish for today's special. Each cut is made with intention, understanding how different parts will contribute to various dishes throughout the day.</p>
+                    
+                    <blockquote>
+                        "Respect for ingredients begins with how we handle them. A perfectly butchered piece of meat or a carefully filleted fish shows respect for the animal and the craft of cooking."
+                    </blockquote>
+                    
+                    <h2>The Lunch Service: Controlled Chaos</h2>
+                    
+                    <div class="timeline-section">
+                        <div class="timeline-item">
+                            <div class="timeline-time">11:30 AM</div>
+                            <div class="timeline-content">
+                                <h4>Final Preparations</h4>
+                                <p>The kitchen transforms as we approach lunch service. Stations are fully stocked, tasting spoons are laid out, and the team gathers for a brief meeting to discuss reservations, special requests, and any last-minute menu adjustments. The energy shifts from methodical preparation to focused anticipation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">12:00 PM</div>
+                            <div class="timeline-content">
+                                <h4>Service Begins</h4>
+                                <p>The first tickets start printing. "Two steak frites, one medium-rare, one medium. One mushroom risotto, gluten-free. Three Coq au Vin." The kitchen erupts into controlled motion. The sauté station sizzles, the grill station flames up, and the pastry station begins plating desserts. Calls of "Oui, chef!" echo through the kitchen as orders are acknowledged and executed.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kitchen-secret">
+                        <h3>Kitchen Secret</h3>
+                        <p>Our secret to perfect steak frites? The potatoes are blanched in duck fat before their final fry, creating an impossibly crisp exterior and fluffy interior that pairs perfectly with our herb butter-topped steaks.</p>
+                    </div>
+                    
+                    <h2>Meet the Team</h2>
+                    
+                    <div class="team-spotlight">
+                        <h3>The Heart of Our Kitchen</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                               
+                                <h4 class="member-name">Chef Antoine</h4>
+                                <p class="member-role">Executive Chef</p>
+                                <p>With 15 years of experience in Parisian kitchens, Chef Antoine brings both tradition and innovation to every dish.</p>
+                            </div>
+                            <div class="team-member">
+                               
+                                <h4 class="member-name">Marie</h4>
+                                <p class="member-role">Sous Chef</p>
+                                <p>Marie oversees the sauce station, ensuring every emulsion is perfect and every reduction reaches its full potential.</p>
+                            </div>
+                            <div class="team-member">
+                                
+                                <h4 class="member-name">Pierre</h4>
+                                <p class="member-role">Pastry Chef</p>
+                                <p>Pierre's desserts are works of art, balancing classic French techniques with contemporary presentations.</p>
+                            </div>
+                            <div class="team-member">
+                                
+                                <h4 class="member-name">Luc</h4>
+                                <p class="member-role">Commis Chef</p>
+                                <p>The newest member of our team, Luc brings fresh energy and is learning the foundations of French cooking.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2>The Afternoon Interlude: Reflection and Preparation</h2>
+                    
+                    <p>Between lunch and dinner service, the kitchen undergoes a transformation. The team takes a well-deserved break while the cleaning crew ensures every surface sparkles. This quiet period is when we taste, adjust, and plan. Sauces are refined, new dishes are tested, and we discuss how to make the evening service even better than lunch.</p>
+                    
+                   
+                    
+                    <h2>The Dinner Service: Culinary Theater</h2>
+                    
+                    <div class="timeline-section">
+                        <div class="timeline-item">
+                            <div class="timeline-time">6:00 PM</div>
+                            <div class="timeline-content">
+                                <h4>Evening Preparations</h4>
+                                <p>The kitchen reawakens for dinner service. Fresh ingredients replace those used during lunch, stations are reorganized for the evening's anticipated dishes, and the team gathers for a family meal—a tradition where we all eat together before service begins.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">7:00 PM</div>
+                            <div class="timeline-content">
+                                <h4>The Dinner Rush</h4>
+                                <p>As Paris lights up outside, our kitchen reaches its peak energy. The dinner service is more elaborate, with guests often ordering multiple courses and taking their time to enjoy the experience. The pace is intense but controlled, with each dish receiving meticulous attention before it leaves the kitchen.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>The Final Touches</h3>
+                    
+                    <p>Every plate that leaves our kitchen undergoes a final inspection. Garnishes are placed with tweezers, sauces are drizzled with artistic precision, and temperatures are verified. This attention to detail is what separates a good meal from an exceptional one.</p>
+                    
+                    <div class="kitchen-secret">
+                        <h3>Kitchen Secret</h3>
+                        <p>Our signature Coq au Vin marinates for 48 hours before cooking, allowing the wine and aromatics to fully penetrate the meat, resulting in unparalleled depth of flavor.</p>
+                    </div>
+                    
+                    <h2>The Final Curtain: Closing with Care</h2>
+                    
+                    <p>As the last guests depart and the final orders are served, the kitchen begins its closing rituals. Stations are broken down, equipment is cleaned and sanitized, and leftovers are properly stored. The team gathers for a debrief, discussing what worked well and what can be improved tomorrow.</p>
+                    
+                    <div class="conclusion-box">
+                        <h3>The Heartbeat of Lou Cantou</h3>
+                        <p>Our kitchen is more than just a place where food is prepared—it's the heartbeat of Lou Cantou. It's where tradition meets innovation, where individual skills combine to create something greater than the sum of their parts, and where the love for French cuisine is expressed in every dish we serve.</p>
+                        <p style="margin-top: 15px;">The next time you dine with us, know that behind the swinging kitchen doors, a dedicated team has poured their skill, passion, and attention into creating your experience. From the first chop of the morning to the final wipe-down at night, every moment in our kitchen is dedicated to honoring the rich tradition of Parisian bistro cooking while creating new memories for our guests.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                     <a href="/" class="logo">
+              <img src="/images/logo.png" alt="Lou Cantou - Parisian Bistro" style="height: 48px; margin-bottom: 15px;">
+            </a>
+                    <p>Authentic Parisian bistro in the heart of the 9th arrondissement, offering traditional French cuisine and a curated selection of wines.</p>
+                     
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/menus/">Menus</a></li>
+                        <li><a href="/gallery/">Gallery</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 35 Cité d'Antin, 75009 Paris</li>
+                        <li><i class="fas fa-phone"></i> 09 88 40 20 95</li>
+                        <li><i class="fas fa-envelope"></i> info@lou-cantoubistro.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Opening Hours</h3>
+                    <ul>
+                        <li>Monday - Friday: 12:00 PM - 11:00 PM</li>
+                        <li>Saturday - Sunday: 12:00 PM - 11:00 PM</li>
+                        <li>Last orders at 9:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Lou Cantou. All rights reserved. | <a href="/privacy/">Privacy Policy</a> | <a href="/terms/">Terms of Service</a> | <a href="/cookies/">Cookie Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.menu-toggle').classList.remove('active');
+                document.querySelector('nav').classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(18, 18, 18, 0.95)';
+                header.style.padding = '10px 0';
+            } else {
+                header.style.background = 'rgba(18, 18, 18, 0.9)';
+                header.style.padding = '20px 0';
+            }
+        });
+
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#c19a6b" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#8b4513",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Three.js Background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create floating geometric shapes
+        const geometry = new THREE.IcosahedronGeometry(1, 0);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0xc19a6b, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.1
+        });
+
+        const shapes = [];
+        for (let i = 0; i < 15; i++) {
+            const shape = new THREE.Mesh(geometry, material);
+            shape.position.x = Math.random() * 20 - 10;
+            shape.position.y = Math.random() * 20 - 10;
+            shape.position.z = Math.random() * 20 - 10;
+            shape.rotation.x = Math.random() * Math.PI;
+            shape.rotation.y = Math.random() * Math.PI;
+            shapes.push(shape);
+            scene.add(shape);
+        }
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            shapes.forEach(shape => {
+                shape.rotation.x += 0.005;
+                shape.rotation.y += 0.005;
+            });
+            
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

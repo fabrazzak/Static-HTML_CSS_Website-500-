@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServeWatch - Latest Tennis News & Updates</title>
+    <meta name="description" content="Get the latest tennis news, match results, player stats, and tournament updates from around the world.">
+    <meta name="keywords" content="tennis news, ATP, WTA, Grand Slam, tennis scores, tennis tournaments, tennis players, servewatch">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 700;
+            color: #1a3e72;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6b00;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background-color: #e05d00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #ff6b00;
+            color: #ff6b00;
+        }
+        
+        .btn-outline:hover {
+            background-color: #ff6b00;
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a3e72;
+        }
+        
+        .logo span {
+            color: #ff6b00;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff6b00;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a3e72;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://imgresizer.eurosport.com/unsafe/1200x0/filters:format(jpeg)/origin-imgresizer.eurosport.com/2020/06/05/2828661-58338248-2560-1440.jpg');
+            background-size: cover;
+            background-position: center top;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Services Preview */
+        .services-preview {
+            padding: 80px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* Why Choose Us */
+        .why-us {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .feature {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            color: #ff6b00;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+        }
+        
+        /* News Highlights */
+        .news-highlights {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .news-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            padding: 80px 0;
+            background: linear-gradient(rgba(26, 62, 114, 0.9), rgba(26, 62, 114, 0.9)), 
+                        url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .contact-cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a3e72;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: #ff6b00;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #ff6b00;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #ff6b00;
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-contact i {
+            color: #ff6b00;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .services-grid, 
+            .testimonial-grid,
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-grid, 
+            .testimonial-grid,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Serve<span>Watch</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/tournaments/">Tournaments</a></li>
+                    <li><a href="/players/">Players</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Your Ultimate Source for Tennis News</h1>
+            <p>Stay updated with the latest matches, player stats, and tournament highlights from around the world.</p>
+            <a href="/news/" class="btn">Explore Latest News</a>
+        </div>
+    </section>
+
+    <!-- About Overview -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">About ServeWatch</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Bringing You Comprehensive Tennis Coverage</h3>
+                    <p>ServeWatch is dedicated to providing tennis enthusiasts with up-to-date news, in-depth analysis, and comprehensive coverage of all major tournaments. Our team of passionate tennis experts works around the clock to bring you the most relevant and engaging content.</p>
+                    <p>Founded in 2023, we've quickly become a trusted source for tennis fans worldwide, offering unique insights and perspectives on the game we all love.</p>
+                    <a href="/about/" class="btn btn-outline">Learn More About Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tennis players competing">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="services-preview">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="https://images.tennis.com/image/private/t_16-9_768/f_auto/tenniscom-prd/efw14awxhivgtl0nf7kh.jpg" alt="Live Scores" class="service-img">
+                    <div class="service-content">
+                        <h3>Live Scores & Results</h3>
+                        <p>Get real-time updates on matches from all major tournaments with our comprehensive live scoring system.</p>
+                        <a href="/about/" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcw1nf6Wks9NkdaE1YF-DWSVZdZfQzQiKeCg&s" alt="Player Stats" class="service-img">
+                    <div class="service-content">
+                        <h3>Player Statistics</h3>
+                        <p>Dive deep into player performance metrics, rankings, and historical data for all your favorite tennis stars.</p>
+                        <a href="/about/" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://tenniskhelo.com/blog/wp-content/uploads/2024/07/The-Ultimate-Guide-to-Organizing-a-Successful-Tennis-Tournament.jpg" alt="Tournament Info" class="service-img">
+                    <div class="service-content">
+                        <h3>Tournament Guides</h3>
+                        <p>Complete information on upcoming tournaments including schedules, draws, and venue details.</p>
+                        <a href="/about/" class="btn btn-outline">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Why Tennis Fans Choose ServeWatch</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Real-time Updates</h3>
+                        <p>We provide lightning-fast updates on matches, scores, and breaking news so you never miss a moment.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>In-depth Analysis</h3>
+                        <p>Our expert analysts break down matches and player performances with detailed statistics and insights.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Global Coverage</h3>
+                        <p>From Grand Slams to Challenger events, we cover tournaments at all levels around the world.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Mobile Friendly</h3>
+                        <p>Access our content seamlessly on any device, whether you're at home or on the go.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Readers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"ServeWatch has become my go-to source for tennis news. The coverage is comprehensive and the analysis is always spot-on."</p>
+                    <p class="testimonial-author">- Emma R., Rotterdam</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I love the real-time updates during matches. It's like having a personal tennis assistant keeping me informed."</p>
+                    <p class="testimonial-author">- Thomas L., Amsterdam</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The player statistics section is incredibly detailed. As a coach, I find this information invaluable for my work."</p>
+                    <p class="testimonial-author">- Coach M. van Dijk, The Hague</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Highlights -->
+    <section class="news-highlights">
+        <div class="container">
+            <h2 class="section-title">Latest Tennis News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202306/wimbledon-sixteen_nine.jpg?VersionId=ajphj2XSpdtuYb5GCvqaH4bfF1b.Dgch&size=690:388" alt="Wimbledon" class="news-img">
+                    <div class="news-content">
+                        <p class="news-date">Jan 15, 2025</p>
+                        <h3>Wimbledon Announces Record Prize Money for 2025</h3>
+                        <p>The All England Club has revealed a 10% increase in total prize money for this year's championships.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Player Rivalry" class="news-img">
+                    <div class="news-content">
+                        <p class="news-date">Jan 12, 2025</p>
+                        <h3>Rising Stars to Watch in the 2025 Season</h3>
+                        <p>We profile five young players who could make a big impact on the ATP and WTA tours this year.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="https://i.cbc.ca/1.5910106.1613053485!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/nadal-rafael-110211.jpg?im=Resize%3D780" alt="Australian Open" class="news-img">
+                    <div class="news-content">
+                        <p class="news-date">Jan 8, 2025</p>
+                        <h3>Australian Open: Early Round Upsets Shake Up Draw</h3>
+                        <p>Several top seeds have fallen in the opening rounds of the season's first Grand Slam.</p>
+                        <a href="/news/" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Have Questions or Feedback?</h2>
+            <p>We'd love to hear from you! Whether you have a question about our coverage or want to suggest improvements, our team is ready to assist.</p>
+            <a href="/contact/" class="btn">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Serve<span>Watch</span></div>
+                    <p>Your premier source for comprehensive tennis news, scores, and analysis from around the globe.</p>
+                    <div class="social-links">
+                    <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+               
+                    </div>
+
+                  </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">Latest News</a></li>
+                        <li><a href="/tournaments/">Tournaments</a></li>
+                        <li><a href="/players/">Player Rankings</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                       <li><a href="/contact/">FAQ</a></li>
+                        <li><a href="/contact/">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Blijmarkt 20, 8011 NE Zwolle, Netherlands</p>
+                    <p><i class="fas fa-phone"></i> +31 572 388 188</p>
+                    <p><i class="fas fa-envelope"></i> info@servewatch.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ServeWatch. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

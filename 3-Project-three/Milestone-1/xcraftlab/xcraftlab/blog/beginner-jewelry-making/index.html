@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner's Guide to DIY Jewelry Making | XCraftLab Blog</title>
+    <meta name="description"
+        content="Start your jewelry making journey with this comprehensive beginner's guide. Learn essential techniques, required tools, and create your first stunning pieces with confidence from XCraftLab experts.">
+    <meta name="keywords"
+        content="jewelry making, DIY jewelry, beginner jewelry tutorial, jewelry tools, handmade jewelry, jewelry techniques, wire wrapping, beading, jewelry supplies">
+    <link rel="canonical" href="https://xcraftlab.com/blog/beginner-jewelry-making/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hamburger-menu {
+            position: relative;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-line:nth-child(1) { top: 0; }
+        .hamburger-line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger-line:nth-child(3) { bottom: 0; }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) { opacity: 0; }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(22, 32, 77, 0.95), rgba(118, 75, 162, 0.308));
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active { left: 0; }
+
+        .cart-count {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Background Effects */
+        .full-page-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .particles-full-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 25% 0%, rgba(102, 126, 234, 0.15), transparent 50%),
+                radial-gradient(ellipse at 75% 0%, rgba(118, 75, 162, 0.15), transparent 50%),
+                radial-gradient(ellipse at 0% 50%, rgba(255, 107, 107, 0.1), transparent 50%),
+                radial-gradient(ellipse at 100% 50%, rgba(78, 205, 196, 0.1), transparent 50%);
+            z-index: -4;
+            animation: meshFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes meshFloat {
+            0%, 100% { 
+                transform: translate(0px, 0px) rotate(0deg); 
+                filter: hue-rotate(0deg);
+            }
+            33% { 
+                transform: translate(30px, -30px) rotate(1deg); 
+                filter: hue-rotate(30deg);
+            }
+            66% { 
+                transform: translate(-20px, 20px) rotate(-1deg); 
+                filter: hue-rotate(60deg);
+            }
+        }
+
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(102, 126, 234, 0.1), transparent 40%);
+            pointer-events: none;
+        }
+
+        /* Blog post specific styles */
+        .blog-content {
+            background: linear-gradient(145deg, #1e1e2e, #252538);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+            color: #e2e8f0;
+        }
+
+        .blog-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #cbd5e0;
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            color: #cbd5e0;
+            line-height: 1.6;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #a0aec0;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .author-bio {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .related-post {
+            background: linear-gradient(145deg, #1e1e2e, #252538);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .related-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .social-share-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .social-share-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        .table-of-contents {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .table-of-contents li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table-of-contents li:last-child {
+            border-bottom: none;
+        }
+
+        .table-of-contents a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .table-of-contents a:hover {
+            color: #667eea;
+        }
+
+        /* Tool showcase grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #667eea;
+        }
+
+        /* Project showcase */
+        .project-showcase {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <!-- Background Effects -->
+    <div class="full-page-bg" id="three-full-bg"></div>
+    <div class="particles-full-bg" id="particles-bg"></div>
+    <div class="mesh-gradient"></div>
+    <div class="interactive-bg" id="interactive-bg"></div>
+
+    <!-- Cookie Consent -->
+    <div id="cookie-consent"
+        class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-gray-800 p-4 rounded-lg shadow-lg z-50 hidden">
+        <p class="text-sm mb-3">We use cookies to enhance your browsing experience.</p>
+        <div class="flex gap-2">
+            <button onclick="acceptCookies()" class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">Accept</button>
+            <button onclick="declineCookies()" class="bg-gray-600 text-white px-4 py-2 rounded text-sm hover:bg-gray-700">Decline</button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-white hover:text-gray-300 text-2xl z-10">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="text-center">
+            <a href="/" onclick="closeMobileMenu()" class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Home</a>
+            <a href="/shop/" onclick="closeMobileMenu()" class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Shop</a>
+            <a href="/about/" onclick="closeMobileMenu()" class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">About</a>
+            <a href="/blog/" onclick="closeMobileMenu()" class="block text-3xl font-bold mb-8 text-blue-400 transition-colors">Blog</a>
+            <a href="/contact/" onclick="closeMobileMenu()" class="block text-3xl font-bold mb-8 text-white hover:text-blue-300 transition-colors">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed w-full z-40 bg-gray-900/95 backdrop-blur-md">
+        <div class="bg-gray-800/90 py-2 hidden md:block">
+            <div class="container mx-auto px-4 flex justify-center items-center text-sm">
+                <div class="flex items-center space-x-4">
+                    <span class="flex items-center"><i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>440 King St, Estevan, SK S4A 2B4</span>
+                    <span class="flex items-center"><i class="fas fa-phone text-green-400 mr-2"></i>+1 306 637 2550</span>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/">
+                    <img src="/assets/images/xcraftlab.png" alt="XCraftLab Logo" class="w-36 mr-3">
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-white hover:text-blue-400 font-medium transition-colors">Home</a>
+                <a href="/shop/" class="text-white hover:text-blue-400 font-medium transition-colors">Shop</a>
+                <a href="/about/" class="text-white hover:text-blue-400 font-medium transition-colors">About</a>
+                <a href="/blog/" class="text-blue-400 font-medium">Blog</a>
+                <a href="/contact/" class="text-white hover:text-blue-400 font-medium transition-colors">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button   class="relative p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="cart-count absolute -top-1 -right-1 text-xs rounded-full px-1.5 py-0.5 text-white hidden">0</span>
+                </button>
+                <div class="md:hidden hamburger-menu" onclick="toggleMobileMenu()">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-32">
+        <!-- Breadcrumb -->
+        <section class="py-8 relative">
+            <div class="container mx-auto px-4">
+                <nav class="flex items-center space-x-2 text-sm">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <i class="fas fa-chevron-right text-gray-600"></i>
+                    <a href="/blog/" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                    <i class="fas fa-chevron-right text-gray-600"></i>
+                    <span class="text-blue-400">Beginner's Guide to DIY Jewelry Making</span>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Article Header -->
+        <section class="py-12 relative">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold">Jewelry Making</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                        Beginner's Guide to DIY Jewelry Making
+                    </h1>
+                    <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-gray-400">
+                        <div class="flex items-center">
+                            <img src="/assets/images/team-marcus-operations.webp" alt="Marcus Thompson" class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <div class="font-semibold text-white">Marcus Thompson</div>
+                                <div class="text-sm">Jewelry Making Expert</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6">
+                            <span><i class="fas fa-calendar mr-2"></i>August 20, 2025</span>
+                            <span><i class="fas fa-clock mr-2"></i>12 min read</span>
+                            <span><i class="fas fa-eye mr-2"></i>3.2k views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Image -->
+        <section class="py-8 relative">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <img src="/assets/images/blog-jewelry-making.webp" alt="Jewelry Making Workspace" 
+                        class="w-full h-96 object-cover rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="py-12 relative">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <article class="blog-content rounded-2xl p-8 md:p-12">
+                        <!-- Table of Contents -->
+                        <div class="table-of-contents mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-white">Table of Contents</h3>
+                            <ul>
+                                <li><a href="#introduction">Getting Started with Jewelry Making</a></li>
+                                <li><a href="#essential-tools">Essential Tools and Equipment</a></li>
+                                <li><a href="#basic-materials">Basic Materials and Supplies</a></li>
+                                <li><a href="#fundamental-techniques">Fundamental Techniques</a></li>
+                                <li><a href="#first-projects">Your First Projects</a></li>
+                                <li><a href="#tips-troubleshooting">Tips and Troubleshooting</a></li>
+                                <li><a href="#conclusion">Next Steps in Your Journey</a></li>
+                            </ul>
+                        </div>
+
+                        <div id="introduction">
+                            <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                                Jewelry making is one of the most rewarding and versatile crafting hobbies you can pursue. Whether you're drawn to creating delicate earrings, statement necklaces, or meaningful gifts for loved ones, the art of jewelry making offers endless possibilities for personal expression and creativity.
+                            </p>
+
+                            <p>
+                                This comprehensive guide will take you through everything you need to know to start your jewelry making journey. From selecting your first tools to mastering basic techniques, we'll cover the fundamentals that will set you up for success in this beautiful craft.
+                            </p>
+
+                            <blockquote>
+                                "Jewelry making is not just about creating beautiful accessories—it's about telling stories, preserving memories, and expressing your unique artistic vision through wearable art."
+                            </blockquote>
+
+                            <p>
+                                The beauty of jewelry making lies in its accessibility. You don't need expensive equipment or years of training to create stunning pieces. With basic tools, quality materials, and patience, you can begin crafting jewelry that rivals professionally made pieces.
+                            </p>
+                        </div>
+
+                        <h2 id="essential-tools">Essential Tools and Equipment</h2>
+                        
+                        <p>
+                            Starting with the right tools is crucial for your success in jewelry making. While the list might seem overwhelming at first, you can begin with a basic toolkit and gradually expand as your skills and interests develop.
+                        </p>
+
+                        <h3>Must-Have Tools for Beginners</h3>
+                        
+                        <div class="tools-grid">
+                            <div class="tool-card">
+                                <i class="fas fa-cut text-3xl text-blue-400 mb-2"></i>
+                                <h4 class="font-semibold mb-2">Wire Cutters</h4>
+                                <p class="text-sm text-gray-300">Essential for cutting wire and trimming excess material cleanly.</p>
+                            </div>
+                            <div class="tool-card">
+                                <i class="fas fa-wrench text-3xl text-purple-400 mb-2"></i>
+                                <h4 class="font-semibold mb-2">Round Nose Pliers</h4>
+                                <p class="text-sm text-gray-300">Perfect for creating loops, curves, and spiral designs in wire.</p>
+                            </div>
+                            <div class="tool-card">
+                                <i class="fas fa-tools text-3xl text-green-400 mb-2"></i>
+                                <h4 class="font-semibold mb-2">Flat Nose Pliers</h4>
+                                <p class="text-sm text-gray-300">Ideal for gripping, bending, and straightening wire and components.</p>
+                            </div>
+                            <div class="tool-card">
+                                <i class="fas fa-ruler text-3xl text-yellow-400 mb-2"></i>
+                                <h4 class="font-semibold mb-2">Measuring Tools</h4>
+                                <p class="text-sm text-gray-300">Rulers, calipers, and sizing tools for precise measurements.</p>
+                            </div>
+                        </div>
+
+                        <h3>Additional Tools for Expanding Skills</h3>
+                        <ul>
+                            <li><strong>Chain Nose Pliers:</strong> Versatile for detailed work and tight spaces</li>
+                            <li><strong>Crimping Pliers:</strong> Essential for secure crimp connections</li>
+                            <li><strong>Jump Ring Pliers:</strong> Specialized for opening and closing jump rings</li>
+                            <li><strong>Wire Files:</strong> For smoothing sharp wire ends</li>
+                            <li><strong>Mandrels:</strong> For creating consistent shapes and sizes</li>
+                            <li><strong>Work Surface:</strong> A dedicated mat or board for your projects</li>
+                        </ul>
+
+                        <h2 id="basic-materials">Basic Materials and Supplies</h2>
+
+                        <p>
+                            Understanding different materials is key to successful jewelry making. Each material has unique properties that affect both the creation process and the final product's durability and appearance.
+                        </p>
+
+                        <h3>Wire Types and Gauges</h3>
+                        <p>
+                            Wire is the backbone of most jewelry projects. It comes in various metals, gauges (thicknesses), and hardness levels. For beginners, we recommend starting with:
+                        </p>
+
+                        <ul>
+                            <li><strong>20-22 gauge wire:</strong> Perfect for most earrings and delicate work</li>
+                            <li><strong>18-20 gauge wire:</strong> Ideal for bracelets and necklace components</li>
+                            <li><strong>16-18 gauge wire:</strong> Great for structural elements and heavy-duty projects</li>
+                        </ul>
+
+                        <h3>Popular Wire Materials</h3>
+                        <ul>
+                            <li><strong>Copper Wire:</strong> Affordable, easy to work with, develops beautiful patina</li>
+                            <li><strong>Silver-Filled Wire:</strong> More affordable than sterling silver, maintains color</li>
+                            <li><strong>Sterling Silver Wire:</strong> Premium choice for professional-quality pieces</li>
+                            <li><strong>Gold-Filled Wire:</strong> Luxurious appearance without the full cost of solid gold</li>
+                        </ul>
+
+                        <h3>Beads and Gemstones</h3>
+                        <p>
+                            Beads add color, texture, and visual interest to your jewelry. Popular options for beginners include:
+                        </p>
+
+                        <ul>
+                            <li><strong>Glass Beads:</strong> Affordable, wide variety of colors and finishes</li>
+                            <li><strong>Crystal Beads:</strong> Add sparkle and elegance to any design</li>
+                            <li><strong>Gemstone Beads:</strong> Natural beauty with unique characteristics</li>
+                            <li><strong>Pearl Beads:</strong> Classic elegance for timeless pieces</li>
+                        </ul>
+
+                        <h2 id="fundamental-techniques">Fundamental Techniques</h2>
+
+                        <p>
+                            Mastering basic techniques is essential for creating professional-looking jewelry. These foundational skills will serve as building blocks for more complex projects as your abilities develop.
+                        </p>
+
+                        <h3>Wire Wrapping Basics</h3>
+                        <p>
+                            Wire wrapping is one of the most versatile techniques in jewelry making. It allows you to create connections, secure beads, and add decorative elements without soldering.
+                        </p>
+
+                        <div class="project-showcase">
+                            <h4 class="text-xl font-semibold mb-4 text-center">
+                                <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                Basic Wire Loop Tutorial
+                            </h4>
+                            <ol class="space-y-3">
+                                <li><strong>Step 1:</strong> Cut 2-3 inches of wire using your cutters</li>
+                                <li><strong>Step 2:</strong> Use round nose pliers to grip the wire about 1/4 inch from the end</li>
+                                <li><strong>Step 3:</strong> Bend the wire over the top jaw of the pliers to create a 90-degree angle</li>
+                                <li><strong>Step 4:</strong> Rotate the pliers and continue wrapping to complete the loop</li>
+                                <li><strong>Step 5:</strong> Trim excess wire and file smooth if needed</li>
+                            </ol>
+                        </div>
+
+                        <h3>Jump Ring Connections</h3>
+                        <p>
+                            Jump rings are small metal rings used to connect jewelry components. Learning to open and close them properly is crucial for creating secure, professional connections.
+                        </p>
+
+                        <h3>Crimping Technique</h3>
+                        <p>
+                            Crimping provides a secure way to attach clasps and finish stringing projects. Proper crimping technique ensures your jewelry will withstand regular wear and last for years.
+                        </p>
+
+                        <h2 id="first-projects">Your First Projects</h2>
+
+                        <p>
+                            Starting with simple projects builds confidence and allows you to practice fundamental techniques without becoming overwhelmed. Here are three beginner-friendly projects to get you started.
+                        </p>
+
+                        <h3>Project 1: Simple Wire-Wrapped Earrings</h3>
+                        <div class="project-showcase">
+                            <p class="mb-4"><strong>Time Required:</strong> 30-45 minutes | <strong>Skill Level:</strong> Beginner</p>
+                            <p class="mb-4"><strong>Materials Needed:</strong></p>
+                            <ul class="mb-4">
+                                <li>2 matching beads or stones</li>
+                                <li>4 inches of 20-gauge wire</li>
+                                <li>Pair of ear wires</li>
+                            </ul>
+                            <p>
+                                This project teaches basic wire wrapping while creating a beautiful, wearable piece. The simple design allows you to focus on technique while producing earrings you'll be proud to wear or gift.
+                            </p>
+                        </div>
+
+                        <h3>Project 2: Beaded Stretch Bracelet</h3>
+                        <div class="project-showcase">
+                            <p class="mb-4"><strong>Time Required:</strong> 45-60 minutes | <strong>Skill Level:</strong> Beginner</p>
+                            <p class="mb-4"><strong>Materials Needed:</strong></p>
+                            <ul class="mb-4">
+                                <li>Assorted beads (enough for 7-8 inch bracelet)</li>
+                                <li>Stretch cord or elastic beading wire</li>
+                                <li>Crimp covers (optional)</li>
+                            </ul>
+                            <p>
+                                Perfect for practicing bead selection and color coordination while creating a comfortable, versatile accessory that complements any outfit.
+                            </p>
+                        </div>
+
+                        <h3>Project 3: Wire-Wrapped Pendant</h3>
+                        <div class="project-showcase">
+                            <p class="mb-4"><strong>Time Required:</strong> 1-2 hours | <strong>Skill Level:</strong> Beginner to Intermediate</p>
+                            <p class="mb-4"><strong>Materials Needed:</strong></p>
+                            <ul class="mb-4">
+                                <li>One focal stone or large bead</li>
+                                <li>12 inches of 20-gauge wire</li>
+                                <li>Chain or cord for necklace</li>
+                            </ul>
+                            <p>
+                                This project combines multiple techniques and creates a stunning focal piece for a necklace. It's an excellent way to practice more complex wire wrapping while creating something truly special.
+                            </p>
+                        </div>
+
+                        <h2 id="tips-troubleshooting">Tips and Troubleshooting</h2>
+
+                        <p>
+                            Every jewelry maker encounters challenges when starting out. Here are common issues beginners face and practical solutions to overcome them.
+                        </p>
+
+                        <h3>Common Beginner Mistakes and Solutions</h3>
+                        <ul>
+                            <li><strong>Problem:</strong> Loops are uneven or misshapen
+                                <br><strong>Solution:</strong> Practice makes perfect. Use consistent pressure and positioning on your pliers.</li>
+                            <li><strong>Problem:</strong> Wire breaks during manipulation
+                                <br><strong>Solution:</strong> Work slowly and avoid over-bending. Choose appropriate wire gauge for your project.</li>
+                            <li><strong>Problem:</strong> Sharp wire ends scratch skin
+                                <br><strong>Solution:</strong> Always file wire ends smooth or tuck them inside wrapped sections.</li>
+                            <li><strong>Problem:</strong> Jewelry turns skin green
+                                <br><strong>Solution:</strong> Use higher quality metals or apply clear nail polish as a barrier.</li>
+                        </ul>
+
+                        <h3>Professional Finishing Tips</h3>
+                        <p>
+                            The difference between amateur and professional-looking jewelry often lies in the finishing details:
+                        </p>
+
+                        <ul>
+                            <li>Always work harden your wire connections for durability</li>
+                            <li>Use proper tension when creating wrapped loops</li>
+                            <li>Check all connections twice before considering a piece complete</li>
+                            <li>Store your jewelry properly to prevent tarnishing and damage</li>
+                            <li>Document your successful designs for future reference</li>
+                        </ul>
+
+                        <h2 id="conclusion">Next Steps in Your Jewelry Making Journey</h2>
+
+                        <p>
+                            Congratulations on taking the first steps into the wonderful world of jewelry making! You now have the foundation knowledge to begin creating beautiful, personalized pieces that reflect your unique style and creativity.
+                        </p>
+
+                        <p>
+                            As you continue to develop your skills, remember that every expert was once a beginner. Don't be discouraged by initial challenges—they're part of the learning process. Each project you complete will teach you something new and bring you closer to mastering this rewarding craft.
+                        </p>
+
+                        <h3>Continuing Your Education</h3>
+                        <p>
+                            Consider these next steps to further develop your jewelry making skills:
+                        </p>
+
+                        <ul>
+                            <li>Join local jewelry making groups or online communities</li>
+                            <li>Take advanced workshops to learn specialized techniques</li>
+                            <li>Experiment with different materials and styles</li>
+                            <li>Study the work of professional jewelry makers for inspiration</li>
+                            <li>Document your progress with photos and notes</li>
+                        </ul>
+
+                        <p>
+                            Remember, jewelry making is as much about the journey as the destination. Enjoy the process of creating, learning, and growing as an artist. Your unique perspective and creativity are what will make your jewelry truly special.
+                        </p>
+
+                        <blockquote>
+                            "The best jewelry tells a story. Let your creativity flow, and allow each piece you create to reflect a part of your personal journey and artistic vision."
+                        </blockquote>
+                    </article>
+
+                    <!-- Related Posts -->
+                    <div class="mt-16">
+                        <h2 class="text-3xl font-bold text-center mb-12">Related Articles</h2>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <article class="related-post rounded-2xl overflow-hidden">
+                                <img src="/assets/images/blog-featured-upcycling.jpg" alt="Art of Upcycling" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold mb-3 hover:text-blue-400 transition-colors">
+                                        <a href="/blog/art-of-upcycling/">The Art of Upcycling: Transforming Trash into Treasure</a>
+                                    </h3>
+                                    <p class="text-gray-300 text-sm mb-4">Discover the creative and sustainable world of upcycling where old items become beautiful treasures.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-400">
+                                        <span>August 25, 2025</span>
+                                        <span>8 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="related-post rounded-2xl overflow-hidden">
+                                <img src="/assets/images/blog-budget-crafting.jpg" alt="Budget Crafting" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold mb-3 hover:text-blue-400 transition-colors">
+                                        <a href="/blog/crafting-on-budget/">Crafting on a Budget: Creative Ways to Save</a>
+                                    </h3>
+                                    <p class="text-gray-300 text-sm mb-4">Learn practical strategies to pursue your crafting passion without breaking the bank.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-400">
+                                        <span>August 25, 2025</span>
+                                        <span>6 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="related-post rounded-2xl overflow-hidden">
+                                <img src="/assets/images/blog-sustainable-crafting.webp" alt="Sustainable Crafting" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold mb-3 hover:text-blue-400 transition-colors">
+                                        <a href="/blog/sustainable-crafting-materials/">Sustainable Crafting Materials Guide</a>
+                                    </h3>
+                                    <p class="text-gray-300 text-sm mb-4">Discover eco-friendly materials that reduce environmental impact while maintaining quality.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-400">
+                                        <span>August 18, 2025</span>
+                                        <span>10 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-gray-900 transform translate-x-full transition-transform duration-300 z-50 shadow-2xl">
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold">Shopping Cart</h3>
+                <button   class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-400 text-center">Your cart is empty</p>
+        </div>
+        <div class="border-t border-gray-700 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-bold">Total:</span>
+                <span id="cart-total" class="text-xl font-bold text-blue-400">$0.00</span>
+            </div>
+            <button onclick="location.href='/checkout/'" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-3 rounded-lg font-semibold transition-all duration-300">
+                Checkout <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/90 pt-16 pb-8 relative mt-20">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <a href="/">
+                    <img src="/assets/images/xcraftlab.png" alt="XCraftLab Logo" class="w-36 mr-3">
+                </a>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your premier destination for high-quality crafting supplies and creative inspiration in Estevan, Saskatchewan.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/shop/" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="/about/" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="/blog/" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="/contact/" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Legal Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/privacy/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Privacy
+                                Policy</a></li>
+                        <li><a href="/terms/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Terms of
+                                Service</a></li>
+                        <li><a href="/cookies/"
+                                class="text-gray-300 hover:text-green-400 transition-colors duration-300">Cookie
+                                Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4">Contact Info</h4>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-400 mr-3"></i>
+                            440 King St, Estevan, SK S4A 2B4, Canada
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-phone text-green-400 mr-3"></i>
+                            +1 306 637 2550
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-envelope text-red-400 mr-3"></i>
+                            info@xcraftlab.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-gray-700 my-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 XCraftLab. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="/privacy/" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                    <a href="/terms/" class="text-gray-400 hover:text-white">Terms of Service</a>
+                    <a href="/cookies/" class="text-gray-400 hover:text-white">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('xcraftlab-cart')) || [];
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (cart.length > 0) {
+                cartCount.textContent = cart.length;
+                cartCount.classList.remove('hidden');
+
+                let total = 0;
+                cartItems.innerHTML = '';
+
+                cart.forEach(item => {
+                    total += item.price * item.quantity;
+                    cartItems.innerHTML += `
+                        <div class="flex items-center space-x-4 mb-4 p-4 bg-gray-800 rounded-lg">
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-sm">${item.name}</h4>
+                                <p class="text-blue-400">$${item.price.toFixed(2)}</p>
+                                <div class="flex items-center mt-2">
+                                    <button onclick="updateCartQuantity(${item.id}, -1)" class="bg-gray-700 px-2 py-1 rounded">-</button>
+                                    <span class="mx-2">${item.quantity}</span>
+                                    <button onclick="updateCartQuantity(${item.id}, 1)" class="bg-gray-700 px-2 py-1 rounded">+</button>
+                                    <button onclick="removeFromCart(${item.id})" class="ml-2 text-red-400 hover:text-red-300">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+            } else {
+                cartCount.classList.add('hidden');
+                cartItems.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+            }
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+                    updateCartUI();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('xcraftlab-cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cart-sidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+            mobileMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Social sharing functions
+        function shareOnFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function shareOnTwitter() {
+            const text = "Check out this comprehensive beginner's guide to jewelry making from XCraftLab!";
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function shareOnPinterest() {
+            window.open(`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&description=Beginner's Guide to DIY Jewelry Making - Learn Essential Techniques`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            showNotification('Link copied to clipboard!', 'success');
+        }
+
+        // Progress bar
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        }
+
+        // Background effects
+        function initBackgroundEffects() {
+            // Three.js background
+            const container = document.getElementById('three-full-bg');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            const geometries = [
+                new THREE.IcosahedronGeometry(1, 0),
+                new THREE.OctahedronGeometry(1),
+                new THREE.TetrahedronGeometry(1)
+            ];
+
+            const materials = [
+                new THREE.MeshBasicMaterial({ color: 0x667eea, transparent: true, opacity: 0.1, wireframe: true }),
+                new THREE.MeshBasicMaterial({ color: 0x764ba2, transparent: true, opacity: 0.08, wireframe: false })
+            ];
+
+            const meshes = [];
+            
+            for (let i = 0; i < 15; i++) {
+                const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+                const material = materials[Math.floor(Math.random() * materials.length)];
+                const mesh = new THREE.Mesh(geometry, material);
+                
+                mesh.position.set(
+                    (Math.random() - 0.5) * 50,
+                    (Math.random() - 0.5) * 50,
+                    (Math.random() - 0.5) * 50
+                );
+                
+                mesh.userData = {
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.01,
+                        y: (Math.random() - 0.5) * 0.01
+                    }
+                };
+                
+                scene.add(mesh);
+                meshes.push(mesh);
+            }
+
+            camera.position.z = 30;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                meshes.forEach(mesh => {
+                    mesh.rotation.x += mesh.userData.rotationSpeed.x;
+                    mesh.rotation.y += mesh.userData.rotationSpeed.y;
+                });
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Particles
+            particlesJS('particles-bg', {
+                particles: {
+                    number: { value: 50 },
+                    color: { value: ['#667eea', '#764ba2'] },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: 0.2,
+                        random: true
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 150,
+                            line_linked: { opacity: 0.4 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg z-50 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white shadow-lg`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function showCookieConsent() {
+            const consent = localStorage.getItem('cookie-consent');
+            if (!consent) {
+                document.getElementById('cookie-consent').classList.remove('hidden');
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'accepted');
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookie-consent', 'declined');
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartUI();
+            initBackgroundEffects();
+            showCookieConsent();
+            
+            window.addEventListener('scroll', updateProgressBar);
+            
+            document.addEventListener('mousemove', (event) => {
+                const interactiveBg = document.getElementById('interactive-bg');
+                const x = (event.clientX / window.innerWidth) * 100;
+                const y = (event.clientY / window.innerHeight) * 100;
+                interactiveBg.style.setProperty('--mouse-x', `${x}%`);
+                interactiveBg.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
+    </script>
+</body>
+
+</html>

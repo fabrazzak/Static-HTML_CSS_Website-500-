@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage your Minecoinscard account, view order history, and access your digital codes.">
+    <meta name="keywords" content="minecraft account, order history, minecoins, digital codes, account settings, minecraft marketplace">
+    <meta name="title" content="My Account - Minecoinscard">
+    <link rel="canonical" href="https://minecoinscard.com/account/">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <title>My Account - Minecoinscard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #4CAF50;
+            --dark-bg: #0a0e1a;
+            --card-bg: #1a1f35;
+            --accent-blue: #00d4ff;
+            --accent-purple: #9c27b0;
+            --accent-orange: #ff6348;
+            --text-light: #e0e0e0;
+            --text-gray: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.3rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: linear-gradient(135deg, #ff4757, #ff6348);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 71, 87, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(76, 175, 80, 0.4);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .account-hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+            position: relative;
+        }
+
+        .account-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .account-hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .section {
+            padding: 80px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        .account-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .account-sidebar {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .user-profile {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0 auto 1rem;
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .user-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .user-email {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .account-menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .menu-link:hover, .menu-link.active {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--primary-green);
+            color: var(--accent-blue);
+        }
+
+        .menu-icon {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .account-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(10, 14, 26, 0.5);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .orders-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background: rgba(10, 14, 26, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .order-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .order-id {
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        .order-date {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+        }
+
+        .status-pending {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+            border: 1px solid #ffa500;
+        }
+
+        .order-items {
+            margin-bottom: 1rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+        }
+
+        .item-price {
+            color: var(--text-gray);
+        }
+
+        .order-total {
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .digital-codes-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .code-card {
+            background: rgba(10, 14, 26, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .code-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .code-product {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .code-status {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+        }
+
+        .code-value {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            border: 1px dashed var(--accent-blue);
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 14, 26, 0.5);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            outline: none;
+        }
+
+        .bonus-section {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(0, 212, 255, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(156, 39, 176, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .bonus-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .bonus-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bonus-title {
+            font-size: 1.3rem;
+            color: var(--text-light);
+        }
+
+        .bonus-content {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .bonus-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0.5rem 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-gray);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        footer {
+            background: rgba(10, 14, 26, 0.95);
+            padding: 4rem 2rem 2rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 31, 53, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            z-index: 9999;
+            border-top: 2px solid var(--primary-green);
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cookie-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: white;
+        }
+
+        .cookie-decline {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .account-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .account-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: rgba(10, 14, 26, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                transition: right 0.5s ease;
+                border-left: 2px solid rgba(0, 212, 255, 0.3);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .account-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .account-hero p {
+                font-size: 1.1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 50px 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="canvas-container"></div>
+    
+    <div class="content-wrapper">
+        <header>
+            <nav class="nav-container">
+                <a href="/" class="logo">
+                    <img src="/images/logo.png" alt="Minecoinscard Logo" style="height: 56px;">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li class="account-nav"><a href="/account/">Account</a></li>
+                    <li><a href="javascript:void(0)" onclick="logout()">Logout</a></li>
+                    <li>
+                        <a href="/cart/" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Account Hero Section -->
+        <section class="account-hero">
+            <h1>My Account</h1>
+            <p>Manage your profile, orders, and digital codes</p>
+        </section>
+
+        <!-- Account Section -->
+        <section class="section">
+            <div class="account-container">
+                <!-- Sidebar -->
+                <div class="account-sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="user-name" id="userName">Loading...</h3>
+                        <p class="user-email" id="userEmail">Loading...</p>
+                    </div>
+
+                    <ul class="account-menu">
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link active" data-section="dashboard">
+                                <i class="fas fa-tachometer-alt menu-icon"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link" data-section="orders">
+                                <i class="fas fa-shopping-bag menu-icon"></i>
+                                <span>Order History</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link" data-section="codes">
+                                <i class="fas fa-key menu-icon"></i>
+                                <span>Digital Codes</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link" data-section="profile">
+                                <i class="fas fa-user-edit menu-icon"></i>
+                                <span>Profile Settings</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link" data-section="security">
+                                <i class="fas fa-shield-alt menu-icon"></i>
+                                <span>Security</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Main Content -->
+                <div class="account-content">
+                    <!-- Dashboard Section -->
+                    <div class="content-section active" id="dashboard">
+                        <div class="content-header">
+                            <h2 class="content-title">Dashboard</h2>
+                        </div>
+
+                        <!-- Welcome Bonus Section -->
+                        <div class="bonus-section">
+                            <div class="bonus-header">
+                                <div class="bonus-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <h3 class="bonus-title">Welcome Bonus Active!</h3>
+                            </div>
+                            <div class="bonus-content">
+                                <p>You have received <span class="bonus-amount">500 FREE Minecoins</span> as part of your welcome bonus. 
+                                This bonus will be automatically applied to your first purchase over $20.</p>
+                            </div>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="totalOrders">0</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="totalSpent">$0.00</div>
+                                <div class="stat-label">Total Spent</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="activeCodes">0</div>
+                                <div class="stat-label">Active Codes</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="memberSince">0</div>
+                                <div class="stat-label">Days as Member</div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Orders -->
+                        <h3 style="margin-bottom: 1rem;">Recent Orders</h3>
+                        <div class="orders-grid" id="recentOrders">
+                            <!-- Recent orders will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Orders Section -->
+                    <div class="content-section" id="orders">
+                        <div class="content-header">
+                            <h2 class="content-title">Order History</h2>
+                        </div>
+                        <div class="orders-grid" id="allOrders">
+                            <!-- All orders will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Digital Codes Section -->
+                    <div class="content-section" id="codes">
+                        <div class="content-header">
+                            <h2 class="content-title">Digital Codes</h2>
+                        </div>
+                        <div class="digital-codes-grid" id="digitalCodes">
+                            <!-- Digital codes will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div class="content-section" id="profile">
+                        <div class="content-header">
+                            <h2 class="content-title">Profile Settings</h2>
+                        </div>
+                        <form id="profileForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-input" name="firstName" id="firstName">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-input" name="lastName" id="lastName">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" name="email" id="profileEmail" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" name="phone" id="phone">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <select class="form-input" name="country" id="country">
+                                        <option value="">Select Country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div class="content-section" id="security">
+                        <div class="content-header">
+                            <h2 class="content-title">Security Settings</h2>
+                        </div>
+                        <form id="securityForm">
+                            <div class="form-group">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-input" name="currentPassword">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-input" name="newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-input" name="confirmPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-key"></i>
+                                <span>Update Password</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Minecoinscard</h3>
+                    <p>Your trusted platform for purchasing Minecraft coins, bundles, and digital content. We provide instant delivery and secure transactions.</p>
+                     
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/cookies/">Cookies Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@minecoinscard.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (819) 824-3146</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 490 Chem. de Vassan<br>Val-d'Or, QC J9P 0C1<br>Canada</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Minecoinscard.com. All rights reserved.</p>
+                <p>We are not an affiliate agency. All products are sold independently through our platform.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. <a href="/cookies/" style="color: var(--accent-blue);">Learn more</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
+                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Account functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthentication();
+            initAccount();
+        });
+
+        // Check if user is authenticated
+        function checkAuthentication() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                window.location.href = '/login/';
+                return;
+            }
+            loadUserData();
+        }
+
+        // Load user data
+        function loadUserData() {
+            const userData = JSON.parse(localStorage.getItem('userData')) || {};
+            const currentOrder = JSON.parse(localStorage.getItem('currentOrder'));
+            
+            // Update user info
+            document.getElementById('userName').textContent = userData.fullName || 'User';
+            document.getElementById('userEmail').textContent = userData.email || 'user@example.com';
+            document.getElementById('profileEmail').value = userData.email || '';
+            
+            // Process any pending order
+            if (currentOrder) {
+                processOrder(currentOrder);
+            }
+            
+            // Load account data
+            loadAccountData();
+        }
+
+        // Process completed order
+        function processOrder(order) {
+            // Save order to order history
+            const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+            orders.unshift(order);
+            localStorage.setItem('userOrders', JSON.stringify(orders));
+            
+            // Generate digital codes for the order
+            const codes = JSON.parse(localStorage.getItem('userCodes')) || [];
+            order.cart.forEach(item => {
+                for (let i = 0; i < item.quantity; i++) {
+                    codes.push({
+                        id: generateCodeId(),
+                        productName: item.name,
+                        code: generateDigitalCode(),
+                        orderId: order.orderId,
+                        date: new Date().toISOString(),
+                        status: 'active'
+                    });
+                }
+            });
+            localStorage.setItem('userCodes', JSON.stringify(codes));
+            
+            // Clear current order
+            localStorage.removeItem('currentOrder');
+            
+            // Show success message
+            showNotification('Order processed successfully! Digital codes are now available.');
+        }
+
+        // Generate random code ID
+        function generateCodeId() {
+            return 'CODE_' + Date.now() + Math.random().toString(36).substr(2, 5).toUpperCase();
+        }
+
+        // Generate digital code
+        function generateDigitalCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 16; i++) {
+                if (i > 0 && i % 4 === 0) code += '-';
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        // Load account data
+        function loadAccountData() {
+            const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+            const codes = JSON.parse(localStorage.getItem('userCodes')) || [];
+            const userData = JSON.parse(localStorage.getItem('userData')) || {};
+            
+            // Update stats
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('totalSpent').textContent = '$' + orders.reduce((sum, order) => sum + parseFloat(order.total || 0), 0).toFixed(2);
+            document.getElementById('activeCodes').textContent = codes.filter(code => code.status === 'active').length;
+            
+            // Calculate days as member
+            const regDate = new Date(userData.registrationDate || new Date());
+            const today = new Date();
+            const days = Math.floor((today - regDate) / (1000 * 60 * 60 * 24));
+            document.getElementById('memberSince').textContent = days;
+            
+            // Load recent orders (last 3)
+            loadRecentOrders(orders.slice(0, 3));
+            
+            // Load all orders
+            loadAllOrders(orders);
+            
+            // Load digital codes
+            loadDigitalCodes(codes);
+            
+            // Load profile data
+            loadProfileData(userData);
+        }
+
+        // Load recent orders
+        function loadRecentOrders(orders) {
+            const container = document.getElementById('recentOrders');
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>No Orders Yet</h3>
+                        <p>Start shopping to see your orders here</p>
+                        <a href="/shop/" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Start Shopping</span>
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Order #${order.orderId}</div>
+                            <div class="order-date">${new Date(order.date).toLocaleDateString()}</div>
+                        </div>
+                        <div class="order-status status-completed">Completed</div>
+                    </div>
+                    <div class="order-items">
+                        ${order.cart.map(item => `
+                            <div class="order-item">
+                                <span class="item-name">${item.name}</span>
+                                <span class="item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-total">Total: $${order.total}</div>
+                </div>
+            `).join('');
+        }
+
+        // Load all orders
+        function loadAllOrders(orders) {
+            const container = document.getElementById('allOrders');
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>No Orders Found</h3>
+                        <p>You haven't placed any orders yet</p>
+                        <a href="/shop/" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Browse Shop</span>
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Order #${order.orderId}</div>
+                            <div class="order-date">${new Date(order.date).toLocaleDateString()}</div>
+                        </div>
+                        <div class="order-status status-completed">Completed</div>
+                    </div>
+                    <div class="order-items">
+                        ${order.cart.map(item => `
+                            <div class="order-item">
+                                <span class="item-name">${item.name} x${item.quantity}</span>
+                                <span class="item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-total">Total: $${order.total}</div>
+                </div>
+            `).join('');
+        }
+
+        // Load digital codes
+        function loadDigitalCodes(codes) {
+            const container = document.getElementById('digitalCodes');
+            if (codes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3>No Digital Codes</h3>
+                        <p>Your digital codes will appear here after purchase</p>
+                        <a href="/shop/" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Get Codes</span>
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = codes.map(code => `
+                <div class="code-card">
+                    <div class="code-header">
+                        <div class="code-product">${code.productName}</div>
+                        <div class="code-status">${code.status}</div>
+                    </div>
+                    <div class="code-value">${code.code}</div>
+                    <div class="code-actions">
+                        <button class="btn btn-primary" onclick="copyCode('${code.code}')">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy Code</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="redeemCode('${code.id}')">
+                            <i class="fas fa-check"></i>
+                            <span>Mark as Used</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load profile data
+        function loadProfileData(userData) {
+            document.getElementById('firstName').value = userData.firstName || '';
+            document.getElementById('lastName').value = userData.lastName || '';
+            document.getElementById('phone').value = userData.phone || '';
+            document.getElementById('country').value = userData.country || '';
+        }
+
+        // Copy code to clipboard
+        function copyCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification('Code copied to clipboard!');
+            });
+        }
+
+        // Mark code as used
+        function redeemCode(codeId) {
+            const codes = JSON.parse(localStorage.getItem('userCodes')) || [];
+            const codeIndex = codes.findIndex(code => code.id === codeId);
+            if (codeIndex !== -1) {
+                codes[codeIndex].status = 'used';
+                localStorage.setItem('userCodes', JSON.stringify(codes));
+                loadDigitalCodes(codes);
+                showNotification('Code marked as used!');
+            }
+        }
+
+        // Initialize account page
+        function initAccount() {
+            // Menu navigation
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    
+                    // Update active menu item
+                    document.querySelectorAll('.menu-link').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(section).classList.add('active');
+                });
+            });
+            
+            // Profile form
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const userData = JSON.parse(localStorage.getItem('userData')) || {};
+                
+                // Update user data
+                userData.firstName = formData.get('firstName');
+                userData.lastName = formData.get('lastName');
+                userData.phone = formData.get('phone');
+                userData.country = formData.get('country');
+                
+                localStorage.setItem('userData', JSON.stringify(userData));
+                showNotification('Profile updated successfully!');
+            });
+            
+            // Security form
+            document.getElementById('securityForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showNotification('Password updated successfully!');
+                this.reset();
+            });
+            
+            updateCartCount();
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = '/';
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--primary-green);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Update cart count in header
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                cartCount.textContent = totalItems;
+            }
+        }
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        // Cookie functions
+        function showCookieBanner() {
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (!cookieConsent) {
+                setTimeout(() => {
+                    const cookieBanner = document.getElementById('cookieBanner');
+                    if (cookieBanner) {
+                        cookieBanner.classList.add('show');
+                    }
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            const cookieBanner = document.getElementById('cookieBanner');
+            if (cookieBanner) {
+                cookieBanner.classList.remove('show');
+            }
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            const cookieBanner = document.getElementById('cookieBanner');
+            if (cookieBanner) {
+                cookieBanner.classList.remove('show');
+            }
+        }
+
+        // Three.js animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        const canvasContainer = document.getElementById('canvas-container');
+        if (canvasContainer) {
+            canvasContainer.appendChild(renderer.domElement);
+        }
+
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0x4CAF50,
+            emissive: 0x00d4ff,
+            emissiveIntensity: 0.2,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.3
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.005;
+            torusKnot.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            torusKnot.rotation.z = scrolled * 0.001;
+        });
+
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize everything
+        animate();
+        showCookieBanner();
+    </script>
+</body>
+</html>

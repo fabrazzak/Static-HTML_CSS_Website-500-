@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Bismarck's Arcade Scene: The PlayCraftCade Story - PlayCraftCade Blog</title>
+    <meta name="description"
+        content="Go behind the scenes and discover how PlayCraftCade came to life in Bismarck, North Dakota. From sourcing authentic vintage arcade machines to creating the perfect retro atmosphere.">
+    <meta name="keywords"
+        content="PlayCraftCade story, Bismarck arcade, North Dakota gaming, arcade restoration, vintage arcade machines, retro gaming culture, arcade business, gaming community">
+    <link rel="canonical" href="https://playcraftcade.com/blog/building-bismarck-arcade-scene/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="Building Bismarck's Arcade Scene: The PlayCraftCade Story">
+    <meta property="og:description"
+        content="Discover how PlayCraftCade came to life and brought arcade culture to the heart of North Dakota.">
+    <meta property="og:image" content="https://playcraftcade.com/assets/images/building-arcade-scene.jpg">
+    <meta property="og:url" content="https://playcraftcade.com/blog/building-bismarck-arcade-scene/">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff10f0',
+                        'neon-blue': '#00ffff',
+                        'neon-green': '#39ff14',
+                        'neon-yellow': '#ffff00',
+                        'neon-orange': '#ff8c00',
+                        'retro-purple': '#8a2be2',
+                        'dark-bg': '#0a0a0a',
+                        'retro-dark': '#1a1a2e'
+                    },
+                    fontFamily: {
+                        'retro': ['Orbitron', 'monospace'],
+                        'pixel': ['Press Start 2P', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Background effects container */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ensure content is above background effects */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Consistent glow effects like blog page */
+        .neon-glow-strong {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow-soft {
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .neon-glow-minimal {
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px currentColor, inset 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border-soft {
+            box-shadow: 0 0 8px currentColor, inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .retro-grid {
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .pulse-neon {
+            animation: pulseNeon 3s infinite;
+        }
+
+        @keyframes pulseNeon {
+
+            0%,
+            100% {
+                text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+            }
+
+            50% {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+
+        /* Better text readability */
+        .readable-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle hover effects */
+        .hover-glow:hover {
+            text-shadow: 0 0 5px currentColor;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* Canvas positioning */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Blog content styles */
+        .blog-content {
+            line-height: 1.8;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 2rem 0 1rem 0;
+            color: #39ff14;
+            text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0 1rem 0;
+            color: #ffff00;
+            text-shadow: 0 0 2px currentColor;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: #e5e5e5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            color: #e5e5e5;
+            list-style-type: disc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #39ff14;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            background: rgba(57, 255, 20, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .story-showcase {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(255, 255, 0, 0.1));
+            border: 2px solid #39ff14;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 8px #39ff14, inset 0 0 8px rgba(57, 255, 20, 0.05);
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .milestone-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .milestone-card:hover {
+            border-color: #39ff14;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        }
+
+        .journey-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 0, 0.05);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 0, 0.2);
+        }
+
+        .journey-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 3rem;
+            height: 3rem;
+            background: #39ff14;
+            color: black;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px #39ff14;
+            font-size: 1.5rem;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .blog-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .arcade-cabinet {
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.15), rgba(57, 255, 20, 0.1));
+            border: 1px solid rgba(255, 255, 0, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #39ff14, #ffff00);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .team-member {
+            background: rgba(57, 255, 20, 0.05);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-retro">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div id="particles-js"></div>
+    </div>
+
+    <!-- All content wrapped in content-layer -->
+    <div class="content-layer">
+        <!-- Header -->
+        <header class="relative z-50">
+            <!-- Main Navigation -->
+            <nav class="bg-black/90 backdrop-blur-sm border-b border-neon-blue/30">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center py-4">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Navigation -->
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="hover:text-neon-pink hover-glow transition-colors">Home</a>
+                            <a href="/food-and-drink/" class="hover:text-neon-pink hover-glow transition-colors">Food &
+                                Drink</a>
+                            <a href="/about/" class="hover:text-neon-pink hover-glow transition-colors">About</a>
+                            <a href="/blog/" class="text-neon-blue hover-glow transition-colors">Blog</a>
+                            <a href="/contact/" class="hover:text-neon-pink hover-glow transition-colors">Contact</a>
+                            <a href="/cart/"
+                                class="bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold">
+                                🛒 Cart (<span id="cart-count">0</span>)
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger -->
+                        <div class="md:hidden">
+                            <button class="hamburger text-neon-pink focus:outline-none" id="mobile-menu-toggle">
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line1"></div>
+                                <div class="w-6 h-0.5 bg-current mb-1 hamburger-line line2"></div>
+                                <div class="w-6 h-0.5 bg-current hamburger-line line3"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="md:hidden bg-black/95 backdrop-blur-sm border-t border-neon-blue/30 hidden"
+                    id="mobile-menu">
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="/" class="block hover:text-neon-pink transition-colors">Home</a>
+                        <a href="/food-and-drink/" class="block hover:text-neon-pink transition-colors">Food & Drink</a>
+                        <a href="/about/" class="block hover:text-neon-pink transition-colors">About</a>
+                        <a href="/blog/" class="block text-neon-blue transition-colors">Blog</a>
+                        <a href="/contact/" class="block hover:text-neon-pink transition-colors">Contact</a>
+                        <a href="/cart/"
+                            class="block bg-neon-pink text-black px-4 py-2 rounded-lg hover:bg-neon-blue transition-colors font-bold w-fit">
+                            🛒 Cart (<span class="cart-count-mobile">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Breadcrumb -->
+        <nav class="bg-black/50 backdrop-blur-sm py-4">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center space-x-2 text-sm">
+                    <a href="/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">Home</a>
+                    <span class="text-gray-400">></span>
+                    <a href="/blog/" class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">Blog</a>
+                    <span class="text-gray-400">></span>
+                    <span class="text-gray-400">Building Bismarck's Arcade Scene</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Article Header -->
+        <section class="py-12 bg-gradient-to-b from-retro-dark/80 to-black/80">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <span class="category-tag bg-neon-green text-black neon-border-soft">
+                            🏗️ Behind the Scenes
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-neon-green neon-glow-soft mb-6 leading-tight">
+                        Building Bismarck's Arcade Scene: The PlayCraftCade Story
+                    </h1>
+                    <div class="flex flex-wrap justify-center items-center gap-6 text-gray-300 mb-8 readable-text">
+                        <div class="flex items-center gap-2">
+                            <span>👤</span>
+                            <span>The PlayCraftCade Team</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span>📅</span>
+                            <span>December 15, 2024</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span>⏱️</span>
+                            <span>7 min read</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span>👁️</span>
+                            <span>1,742 views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <article class="py-12 bg-gradient-to-b from-black/80 to-retro-dark/80 retro-grid backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-black/70 rounded-lg border border-neon-green/30 p-8 neon-border-soft">
+                        <!-- Hero Image -->
+                        <div class="mb-8">
+                            <img src="/assets/images/building-arcade-scene.jpg" alt="Building PlayCraftCade in Bismarck"
+                                class="w-full h-96 object-cover rounded-lg border-2 border-neon-green/50">
+                        </div>
+
+                        <div class="blog-content">
+                            <p class="text-xl text-neon-green mb-6 font-bold neon-glow-minimal">
+                                Every great arcade has a story, and PlayCraftCade's journey from dream to reality is one
+                                of passion, perseverance, and the unwavering belief that Bismarck, North Dakota deserved
+                                something truly special. This is our story – the challenges we faced, the victories we
+                                celebrated, and how we built more than just an arcade.
+                            </p>
+
+                            <h2>🌟 The Dream Begins</h2>
+                            <p>
+                                It all started with a simple observation: Bismarck had amazing restaurants, great
+                                nightlife, and a thriving community, but it was missing something that could bring
+                                people together across all ages and backgrounds. We envisioned a place where a
+                                grandfather could teach his grandson the art of pinball, where friends could bond over
+                                Street Fighter matches, and where families could create lasting memories over great food
+                                and classic games.
+                            </p>
+
+                            <p>
+                                The idea wasn't just to open another entertainment venue – it was to create a cultural
+                                hub that celebrated the golden age of arcade gaming while serving up authentic
+                                experiences that couldn't be replicated at home. We wanted to build something that
+                                honored the past while embracing the future.
+                            </p>
+
+                            <h2>🎯 The Vision Takes Shape</h2>
+                            <p>
+                                From the beginning, we knew PlayCraftCade had to be more than just a collection of old
+                                games. We wanted to create a complete experience that combined three passions: authentic
+                                arcade gaming, exceptional food, and innovative craft beer service.
+                            </p>
+
+                            <div class="story-showcase">
+                                <h3 class="text-2xl font-bold text-neon-green mb-6 neon-glow-soft">🎮 Our Core Vision
+                                </h3>
+
+                                <div class="milestone-grid">
+                                    <div class="milestone-card">
+                                        <h4 class="text-xl font-bold text-neon-yellow mb-3">🕹️ Authentic Gaming</h4>
+                                        <p class="text-gray-300">
+                                            Source and restore original arcade cabinets to museum-quality standards,
+                                            ensuring every game plays exactly as it did during the golden age.
+                                        </p>
+                                    </div>
+
+                                    <div class="milestone-card">
+                                        <h4 class="text-xl font-bold text-neon-yellow mb-3">🍕 Exceptional Food</h4>
+                                        <p class="text-gray-300">
+                                            Serve authentic New York-style pizza that rivals anything found in the Big
+                                            Apple, using traditional techniques and premium ingredients.
+                                        </p>
+                                    </div>
+
+                                    <div class="milestone-card">
+                                        <h4 class="text-xl font-bold text-neon-yellow mb-3">🍺 Innovative Beer Service
+                                        </h4>
+                                        <p class="text-gray-300">
+                                            Pioneer self-pour beer wall technology in North Dakota, giving customers
+                                            unprecedented control over their craft beer experience.
+                                        </p>
+                                    </div>
+
+                                    <div class="milestone-card">
+                                        <h4 class="text-xl font-bold text-neon-yellow mb-3">🏠 Community Hub</h4>
+                                        <p class="text-gray-300">
+                                            Create a welcoming space where gaming culture can flourish and where people
+                                            of all ages can connect over shared experiences.
+                                        </p>
+                                    </div>
+
+                                    <div class="milestone-card">
+                                        <h4 class="text-xl font-bold text-neon-yellow mb-3">🎨 Retro Atmosphere</h4>
+                                        <p class="text-gray-300">
+                                            Design an environment that transports visitors back to the golden age of
+                                            arcade gaming with authentic sights, sounds, and energy.
+                                        </p>
+                                    </div>
+
+                                    <div class="milestone-card">
+                                        <h4 class="text-xl font-bold text-neon-yellow mb-3">📈 Quality Over Quantity
+                                        </h4>
+                                        <p class="text-gray-300">
+                                            Focus on doing fewer things exceptionally well rather than spreading
+                                            resources thin across too many concepts.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2>🔍 The Hunt for Perfect Machines</h2>
+                            <p>
+                                Building an authentic arcade meant finding authentic machines – and that was easier said
+                                than done. Original arcade cabinets from the golden age are becoming increasingly rare,
+                                and those that remain are often in various states of disrepair.
+                            </p>
+
+                            <p>
+                                Our journey took us across the country, from abandoned warehouses in California to
+                                collector basements in New York. We learned to distinguish between original cabinets and
+                                reproductions, to identify signs of proper restoration versus quick fixes, and to
+                                negotiate with collectors who were as passionate about preserving gaming history as we
+                                were.
+                            </p>
+
+                            <div class="space-y-4 mt-6">
+                                <div class="journey-step">
+                                    <div class="journey-icon">🔎</div>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-neon-yellow mb-2">The Search Process</h4>
+                                        <p>Every machine had to meet our strict criteria: original hardware when
+                                            possible, authentic artwork, proper CRT monitors, and working condition. We
+                                            traveled thousands of miles to inspect potential acquisitions.</p>
+                                    </div>
+                                </div>
+
+                                <div class="journey-step">
+                                    <div class="journey-icon">🔧</div>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-neon-yellow mb-2">Restoration Challenges</h4>
+                                        <p>Many machines required extensive restoration. We partnered with skilled
+                                            technicians who specialized in vintage arcade hardware, learning the
+                                            intricate details of each system's quirks and requirements.</p>
+                                    </div>
+                                </div>
+
+                                <div class="journey-step">
+                                    <div class="journey-icon">🎨</div>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-neon-yellow mb-2">Artwork Preservation</h4>
+                                        <p>Original cabinet artwork was often faded or damaged. We worked with artists
+                                            who specialized in arcade restoration to recreate missing elements while
+                                            preserving as much original material as possible.</p>
+                                    </div>
+                                </div>
+
+                                <div class="journey-step">
+                                    <div class="journey-icon">📱</div>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-neon-yellow mb-2">Modern Upgrades</h4>
+                                        <p>While maintaining authenticity, we selectively added modern conveniences like
+                                            LED coin door lighting and improved wiring, always ensuring changes were
+                                            reversible and didn't compromise the original experience.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>🏗️ Creating the Perfect Space</h2>
+                        <p>
+                            Finding the right location in Bismarck was crucial to our success. We needed a space large
+                            enough to accommodate 80+ arcade machines, a full commercial kitchen, and our innovative
+                            beer wall, while still maintaining the intimate atmosphere that makes arcade gaming special.
+                        </p>
+
+                        <p>
+                            After months of searching, we found our home – a space with the perfect combination of size,
+                            accessibility, and character. But finding the space was just the beginning. Transforming it
+                            into PlayCraftCade required months of careful planning and construction.
+                        </p>
+
+                        <div class="arcade-cabinet">
+                            <h3 class="text-xl font-bold text-neon-yellow mb-3 neon-glow-minimal">🏢 Space Planning &
+                                Design</h3>
+                            <p class="text-gray-300 mb-3">
+                                Every square foot of PlayCraftCade was designed with purpose. We studied the flow
+                                patterns of successful arcades, analyzed sight lines for optimal game placement, and
+                                considered acoustics to ensure that the cacophony of games created atmosphere rather
+                                than noise.
+                            </p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">Design Phase: 85% Historical Research, 15% Innovation
+                            </p>
+                        </div>
+
+                        <h3>Key Design Elements:</h3>
+                        <ul>
+                            <li><strong>Lighting Design:</strong> Carefully balanced ambient lighting that captures the
+                                feel of classic arcades while ensuring comfortable gameplay</li>
+                            <li><strong>Sound Management:</strong> Acoustic treatments that allow each game's audio to
+                                shine without creating overwhelming noise</li>
+                            <li><strong>Traffic Flow:</strong> Strategic placement of high-traffic games and clear
+                                pathways to prevent bottlenecks</li>
+                            <li><strong>Social Spaces:</strong> Designated areas for spectating, socializing, and
+                                enjoying food and drinks</li>
+                            <li><strong>Authentic Atmosphere:</strong> Period-appropriate décor and memorabilia that
+                                transport visitors to the golden age</li>
+                        </ul>
+
+                        <h2>👥 Building the Dream Team</h2>
+                        <p>
+                            PlayCraftCade's success isn't just about games and food – it's about the passionate team of
+                            individuals who bring the experience to life every day. Building this team was one of our
+                            most important challenges and greatest achievements.
+                        </p>
+
+                        <blockquote>
+                            "We didn't just hire employees; we found fellow enthusiasts who shared our vision and
+                            passion for creating something special in Bismarck." - PlayCraftCade Management Team
+                        </blockquote>
+
+                        <div class="grid md:grid-cols-2 gap-6 my-8">
+                            <div class="team-member">
+                                <h4 class="text-lg font-bold text-neon-green mb-2">🍕 Kitchen Team</h4>
+                                <p class="text-sm text-gray-300">
+                                    Led by experienced pizza artisans who trained in authentic NY techniques. Every team
+                                    member understands that great pizza requires precision, patience, and passion.
+                                </p>
+                            </div>
+
+                            <div class="team-member">
+                                <h4 class="text-lg font-bold text-neon-green mb-2">🔧 Tech Team</h4>
+                                <p class="text-sm text-gray-300">
+                                    Skilled technicians who maintain our arcade machines and beer wall technology. They
+                                    combine old-school repair knowledge with modern technical skills.
+                                </p>
+                            </div>
+
+                            <div class="team-member">
+                                <h4 class="text-lg font-bold text-neon-green mb-2">🍺 Beer Specialists</h4>
+                                <p class="text-sm text-gray-300">
+                                    Certified beer servers who understand craft beer styles and can guide customers
+                                    through our rotating selection of 20 taps.
+                                </p>
+                            </div>
+
+                            <div class="team-member">
+                                <h4 class="text-lg font-bold text-neon-green mb-2">🎮 Gaming Ambassadors</h4>
+                                <p class="text-sm text-gray-300">
+                                    Passionate gamers who can teach newcomers, facilitate tournaments, and share the
+                                    history and strategies of classic arcade games.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h2>🚧 Overcoming Challenges</h2>
+                        <p>
+                            Building PlayCraftCade wasn't without its obstacles. From supply chain issues during the
+                            pandemic to the complexities of implementing cutting-edge beer technology in North Dakota,
+                            every challenge taught us valuable lessons and made us stronger.
+                        </p>
+
+                        <h3>Major Challenges We Faced:</h3>
+                        <ul>
+                            <li><strong>Equipment Shortages:</strong> The pandemic created delays in arcade machine
+                                deliveries and restaurant equipment installation</li>
+                            <li><strong>Regulatory Navigation:</strong> Working with local authorities to approve our
+                                innovative self-pour beer system</li>
+                            <li><strong>Skilled Labor Shortage:</strong> Finding technicians experienced in both vintage
+                                arcade repair and modern food service equipment</li>
+                            <li><strong>Supply Chain Disruptions:</strong> Securing consistent supplies of specialty
+                                ingredients and craft beer during uncertain times</li>
+                            <li><strong>Technology Integration:</strong> Seamlessly blending retro gaming with modern
+                                payment and management systems</li>
+                        </ul>
+
+                        <h2>🎉 Opening Day and Beyond</h2>
+                        <p>
+                            After months of planning, construction, and preparation, opening day finally arrived. The
+                            response from the Bismarck community exceeded our wildest expectations. Lines formed before
+                            we opened, and the energy in the room was electric as people experienced something truly new
+                            in their city.
+                        </p>
+
+                        <p>
+                            But opening was just the beginning. We've continued to evolve and improve based on customer
+                            feedback and our own observations. We've added new games, refined our food offerings,
+                            expanded our beer selection, and most importantly, built relationships with our customers
+                            that go far beyond simple transactions.
+                        </p>
+
+                        <h3>Milestones Since Opening:</h3>
+                        <ul>
+                            <li><strong>Month 1:</strong> Served our 1,000th pizza slice</li>
+                            <li><strong>Month 3:</strong> Hosted our first arcade tournament with 50+ participants</li>
+                            <li><strong>Month 6:</strong> Expanded to 80+ arcade machines</li>
+                            <li><strong>Month 9:</strong> Launched our loyalty program and mobile app</li>
+                            <li><strong>Month 12:</strong> Celebrated our first anniversary with record-breaking
+                                attendance</li>
+                        </ul>
+
+                        <h2>🌟 Impact on Bismarck's Culture</h2>
+                        <p>
+                            What we're most proud of isn't just the business we've built – it's the impact PlayCraftCade
+                            has had on Bismarck's cultural landscape. We've watched shy kids become confident gamers,
+                            seen friendships form over fighting games, and witnessed multiple generations bonding over
+                            shared gaming experiences.
+                        </p>
+
+                        <p>
+                            We've become a gathering place for the local gaming community, hosting tournaments, leagues,
+                            and special events that bring people together. Our space has become a venue for birthday
+                            parties, corporate events, and casual hangouts that create lasting memories.
+                        </p>
+
+                        <div class="story-showcase">
+                            <h3 class="text-2xl font-bold text-neon-green mb-4 neon-glow-soft">📊 Community Impact by
+                                the Numbers</h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold text-neon-yellow">50,000+</div>
+                                    <div class="text-sm text-gray-300">Visitors in Year One</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold text-neon-yellow">25</div>
+                                    <div class="text-sm text-gray-300">Tournaments Hosted</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold text-neon-yellow">200+</div>
+                                    <div class="text-sm text-gray-300">Birthday Parties</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>🔮 Looking to the Future</h2>
+                        <p>
+                            PlayCraftCade's story is far from over. We continue to dream big and plan for the future.
+                            We're constantly seeking new games to add to our collection, exploring new food and beverage
+                            offerings, and finding innovative ways to enhance the customer experience.
+                        </p>
+
+                        <p>
+                            We're also committed to preserving gaming history for future generations. Every machine we
+                            restore, every game we maintain, and every story we share contributes to keeping the golden
+                            age of arcade gaming alive and accessible.
+                        </p>
+
+                        <h3>Upcoming Projects and Goals:</h3>
+                        <ul>
+                            <li><strong>Expansion Plans:</strong> Adding more rare and unique arcade machines to our
+                                collection</li>
+                            <li><strong>Community Programs:</strong> Educational workshops on gaming history and arcade
+                                machine restoration</li>
+                            <li><strong>Tournament Series:</strong> Organized competitive gaming events with prizes and
+                                recognition</li>
+                            <li><strong>Preservation Efforts:</strong> Documenting and sharing the history of each
+                                machine in our collection</li>
+                            <li><strong>Partnerships:</strong> Collaborating with other gaming venues and preservation
+                                organizations</li>
+                        </ul>
+
+                        <h2>🤝 Join Our Story</h2>
+                        <p>
+                            The story of PlayCraftCade isn't just our story – it's Bismarck's story, and it's the story
+                            of everyone who walks through our doors. Every high score achieved, every pizza shared,
+                            every beer tasted, and every friendship formed adds another chapter to our ongoing
+                            narrative.
+                        </p>
+
+                        <p>
+                            We invite you to become part of our story. Whether you're a gaming veteran looking to relive
+                            the glory days, a newcomer curious about arcade culture, or a family seeking a unique
+                            entertainment experience, PlayCraftCade has something special waiting for you.
+                        </p>
+
+                        <h2>🎮 The Legacy Continues</h2>
+                        <p>
+                            Building PlayCraftCade was never just about creating a business – it was about creating a
+                            legacy. We've built something that celebrates the past while embracing the present,
+                            something that brings people together and creates lasting memories.
+                        </p>
+
+                        <p>
+                            Every day, we see the impact of what we've created. Children experience the joy of classic
+                            games for the first time, adults rediscover childhood favorites, and families create new
+                            traditions around shared gaming experiences. This is the true measure of our success.
+                        </p>
+
+                        <p>
+                            Come visit us at PlayCraftCade in Bismarck and become part of our continuing story.
+                            Experience the games that defined generations, taste authentic NY-style pizza crafted with
+                            care, sample craft beers from our innovative self-pour wall, and discover why we believe
+                            that some experiences can't be replicated – they can only be lived.
+                        </p>
+
+                        <p>
+                            Thank you for joining us on this incredible journey. The best is yet to come, and we can't
+                            wait to see what the next chapter holds for PlayCraftCade and the Bismarck gaming community
+                            we're so proud to serve.
+                        </p>
+                    </div>
+
+                    <!-- Author Bio -->
+                    <div
+                        class="mt-12 p-6 bg-gradient-to-r from-neon-green/10 to-neon-yellow/10 rounded-lg border border-neon-green/30 neon-border-soft">
+                        <div class="flex items-start gap-4">
+                           
+                            <div>
+                                <h3 class="text-xl font-bold text-neon-green mb-2 neon-glow-minimal">The PlayCraftCade
+                                    Team</h3>
+                                <p class="text-gray-300 readable-text">
+                                    PlayCraftCade was built by a passionate team of gaming enthusiasts, food lovers, and
+                                    community builders who shared a vision of creating something special in Bismarck,
+                                    North Dakota. From arcade restoration experts to pizza artisans, every team member
+                                    contributes to the unique experience that makes PlayCraftCade more than just an
+                                    entertainment venue.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="mt-8">
+                        <h3 class="text-lg font-bold text-neon-blue mb-4 neon-glow-minimal">Tags:</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="category-tag bg-neon-green text-black neon-border-soft">#PlayCraftCadeStory</span>
+                            <span class="category-tag bg-neon-green text-black neon-border-soft">#BismarckArcade</span>
+                            <span
+                                class="category-tag bg-neon-green text-black neon-border-soft">#ArcadeRestoration</span>
+                            <span
+                                class="category-tag bg-neon-green text-black neon-border-soft">#NorthDakotaGaming</span>
+                            <span
+                                class="category-tag bg-neon-green text-black neon-border-soft">#CommunityBuilding</span>
+                            <span class="category-tag bg-neon-green text-black neon-border-soft">#BehindTheScenes</span>
+                            <span
+                                class="category-tag bg-neon-green text-black neon-border-soft">#EntrepreneurshipStory</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </article>
+
+    <!-- Related Posts -->
+    <section class="py-20 bg-gradient-to-b from-retro-dark/80 to-black/80 retro-grid backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-neon-yellow neon-glow-soft mb-12 text-center pulse-neon">🔥
+                More from PlayCraftCade</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Related Post 1 -->
+                <article
+                    class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-neon-orange/30 hover:border-neon-orange overflow-hidden neon-border-soft">
+                    <img src="/assets/images/perfect-ny-pizza.webp" alt="Perfect NY Pizza"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="category-tag bg-neon-orange text-black mb-3">Pizza Craft</span>
+                        <h3 class="text-xl font-bold text-neon-orange mb-3 neon-glow-minimal">Perfect New York-Style
+                            Pizza</h3>
+                        <p class="text-gray-300 text-sm mb-4 readable-text">Discover the authentic techniques and
+                            ingredients that make our pizza exceptional...</p>
+                        <a href="/blog/perfect-ny-style-pizza/"
+                            class="text-neon-orange hover:text-neon-yellow transition-colors font-bold hover-glow">Read
+                            More →</a>
+                    </div>
+                </article>
+
+                <!-- Related Post 2 -->
+                <article
+                    class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-neon-pink/30 hover:border-neon-pink overflow-hidden neon-border-soft">
+                    <img src="/assets/images/arcade-history-hero.webp" alt="Golden Age Arcade"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="category-tag bg-neon-pink text-black mb-3">Gaming History</span>
+                        <h3 class="text-xl font-bold text-neon-pink mb-3 neon-glow-minimal">Golden Age of Arcade Gaming
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-4 readable-text">Journey through gaming history from the late
+                            1970s to early 1990s...</p>
+                        <a href="/blog/golden-age-arcade-gaming/"
+                            class="text-neon-pink hover:text-neon-yellow transition-colors font-bold hover-glow">Read
+                            More →</a>
+                    </div>
+                </article>
+
+                <!-- Related Post 3 -->
+                <article
+                    class="blog-card bg-gradient-to-b from-retro-purple/30 to-black/70 rounded-lg border border-neon-blue/30 hover:border-neon-blue overflow-hidden neon-border-soft">
+                    <img src="/assets/images/craft-beer-revolution.jpg" alt="Craft Beer Revolution"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="category-tag bg-neon-blue text-black mb-3">Craft Beer</span>
+                        <h3 class="text-xl font-bold text-neon-blue mb-3 neon-glow-minimal">The Craft Beer Revolution
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-4 readable-text">How self-pour technology is changing the
+                            craft beer experience...</p>
+                        <a href="/blog/craft-beer-revolution/"
+                            class="text-neon-blue hover:text-neon-yellow transition-colors font-bold hover-glow">Read
+                            More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/90 border-t border-neon-blue/30 py-12 backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/">
+                         <img class="h-16 object-cover" src="/assets/images/logo.png" alt="logo">
+                    </a>
+                    <p class="text-gray-300 mb-4 readable-text mt-2">Bismarck's premier retro arcade, NY-style pizzeria,
+                        and craft beer destination.</p>
+                    <div class="flex space-x-3">
+                        <a href="https://www.facebook.com/TheCraftCadeBismarck/"
+                            class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/thecraftcade/"
+                            class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/thecraftcade"
+                            class="text-neon-blue hover:text-neon-pink hover-glow transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Home</a>
+                        </li>
+                        <li><a href="/food-and-drink/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Food & Drink</a>
+                        </li>
+                        <li><a href="/about/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">About</a></li>
+                        <li><a href="/blog/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Blog</a></li>
+                        <li><a href="/contact/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/privacy/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Privacy
+                                Policy</a></li>
+                        <li><a href="/terms/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Terms &
+                                Conditions</a></li>
+                        <li><a href="/cookies/"
+                                class="text-gray-300 hover:text-neon-pink hover-glow transition-colors">Cookies
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-neon-blue mb-4 neon-glow-minimal">Contact Info</h3>
+                    <div class="space-y-2 text-gray-300 readable-text">
+                        <p>📍 1382 Pembina Hwy<br>Winnipeg, MB R3T 2B4</p>
+                        <p>📞 <a href="tel:+12042843602" class="hover:text-neon-pink hover-glow transition-colors">+1
+                                (204) 284-3602</a></p>
+                        <p>✉️ <a href="mailto:info@playcraftcade.com"
+                                class="hover:text-neon-pink hover-glow transition-colors">info@playcraftcade.com</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-neon-blue/30 mt-8 pt-8 text-center">
+                <p class="text-gray-300 mb-4 md:mb-0">© 2025 The PlayCraftCade. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('playcraftcade-cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl) cartCountEl.textContent = count;
+            const mobileCount = document.querySelector('.cart-count-mobile');
+            if (mobileCount) mobileCount.textContent = count;
+        }
+
+        // Mobile menu toggle
+        function initializeMobileMenu() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize Particles.js - Fixed version
+        function initParticles() {
+            try {
+                // Check if particles.js is loaded
+                if (typeof particlesJS === 'undefined') {
+                    console.log('Particles.js library not loaded. Retrying...');
+                    setTimeout(initParticles, 500); // Retry after 500ms
+                    return;
+                }
+
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 30,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: ['#ff10f0', '#00ffff', '#39ff14', '#ffff00', '#ff8c00']
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: {
+                                width: 1,
+                                color: '#ffffff'
+                            }
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1
+                            }
+                        },
+                        size: {
+                            value: 2,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.5
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 120,
+                            color: '#00ffff',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 0.8,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: {
+                                distance: 80,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 2
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+                console.log('Particles.js initialized successfully');
+
+            } catch (error) {
+                console.error('Particles.js initialization error:', error);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                initializeMobileMenu();
+                updateCartCount();
+
+                // Initialize particles after a small delay to ensure library is loaded
+                setTimeout(() => {
+                    initParticles();
+                }, 100);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+
+        // Fallback: Try to initialize particles when the library loads
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                if (typeof particlesJS !== 'undefined') {
+                    initParticles();
+                }
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

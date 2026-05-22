@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - The Soak Wash</title>
+    <meta name="description"
+        content="Review your Soak products and complete your purchase. Secure checkout for eco-friendly laundry soap and fabric care products.">
+    <meta name="keywords" content="shopping cart, checkout, soak products, laundry soap, secure payment">
+    <link rel="canonical" href="https://thesoakwash.com/cart/">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0a0a0a 100%);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #threejs-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .card-dark {
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border: 1px solid #333;
+            backdrop-filter: blur(20px);
+        }
+
+        .card-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-neon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        .cart-item {
+            background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 1px solid #333;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        }
+
+        .quantity-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #3b82f6;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quantity-input {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid #333;
+            color: white;
+            text-align: center;
+            width: 60px;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            width: 28px;
+            height: 22px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .8s ease-in-out;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 10px;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 20px;
+            transform-origin: left center;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -2px;
+            left: 6px;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 24px;
+            left: 6px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(45, 45, 45, 0.98));
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-close:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-close i {
+            color: #3b82f6;
+            font-size: 18px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .section-dark {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-cart-icon {
+            font-size: 6rem;
+            color: #374151;
+            margin-bottom: 2rem;
+        }
+
+        .cart-summary {
+            background: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 2rem;
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .remove-btn {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Three.js Background -->
+    <div id="threejs-container"></div>
+
+    <!-- Particles.js Background -->
+    <div id="particles-js"></div>
+
+    <div class="content">
+        <!-- Header -->
+        <header class="relative">
+            <!-- Top Header -->
+            <div class="card-dark py-3 border-b border-gray-700 hidden lg:block">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-center items-center text-gray-300 text-sm">
+                        <div class="flex items-center space-x-6">
+                            <span class="gradient-text font-semibold">FREE SHIPPING ON ORDERS OVER $60</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Header -->
+            <nav class="card-dark py-4 border-b border-gray-700">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center justify-between">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="/">
+                                <img src="/assets/images/thesoakwash.png" alt="The Soak Wash" class="w-40">
+                            </a>
+                        </div>
+
+                        <!-- Desktop Menu -->
+                        <ul class="hidden lg:flex items-center space-x-8 text-white font-medium">
+                            <li><a href="/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Home</a>
+                            </li>
+                            <li><a href="/shop/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Shop</a>
+                            </li>
+                            <li><a href="/about/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">About</a>
+                            </li>
+                            <li><a href="/blog/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Blog</a>
+                            </li>
+                            <li><a href="/contact/"
+                                    class="hover:text-blue-400 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all hover:after:w-full">Contact</a>
+                            </li>
+                        </ul>
+
+                        <!-- Cart & Mobile Menu -->
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <button onclick="toggleCart()" class="text-blue-400 p-2 relative">
+                                    <i class="fas fa-shopping-cart text-xl"></i>
+                                    <span id="cartCount" class="cart-badge">0</span>
+                                </button>
+                            </div>
+
+                            <!-- Mobile Hamburger -->
+                            <div class="lg:hidden">
+                                <div class="hamburger" onclick="toggleMobileMenu()">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu">
+                <!-- Close Button -->
+                <div class="mobile-menu-close" onclick="closeMobileMenu()">
+                    <i class="fas fa-times"></i>
+                </div>
+
+                <div class="flex flex-col items-center justify-center h-full space-y-8 text-white text-2xl font-light">
+                    <a href="/" class="hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Home</a>
+                    <a href="/shop/" class="hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Shop</a>
+                    <a href="/about/" class="hover:text-blue-400 transition-colors"
+                        onclick="closeMobileMenu()">About</a>
+                    <a href="/blog/" class="hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Blog</a>
+                    <a href="/contact/" class="hover:text-blue-400 transition-colors"
+                        onclick="closeMobileMenu()">Contact</a>
+                    <div class="flex space-x-6 pt-8">
+                        <a href="https://www.facebook.com/soakwash" class="text-2xl hover:text-blue-400">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/soakwash" class="text-2xl hover:text-blue-400">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/soakwash/" class="text-2xl hover:text-pink-400">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <section class="py-8 section-dark">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center space-x-2 text-gray-400">
+                    <a href="/" class="hover:text-white transition-colors">Home</a>
+                    <i class="fas fa-chevron-right text-sm"></i>
+                    <span class="text-white">Shopping Cart</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Page Header -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="text-center" data-aos="fade-up">
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        Shopping <span class="gradient-text">Cart</span>
+                    </h1>
+                    <p class="text-xl text-gray-400">Review your selected products and proceed to checkout</p>
+                </div>
+            </div>
+        </section>
+        <!-- Cart Content -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div id="cartContent" class="grid lg:grid-cols-3 gap-12">
+                    <!-- Cart Items -->
+                    <div class="lg:col-span-2">
+                        <!-- Empty Cart State -->
+                        <div id="emptyCart" class="empty-cart card-dark rounded-3xl" style="display: none;">
+                            <i class="fas fa-shopping-cart empty-cart-icon"></i>
+                            <h3 class="text-3xl font-bold text-white mb-4">Your Cart is Empty</h3>
+                            <p class="text-gray-400 text-lg mb-8">Looks like you haven't added any products to your cart
+                                yet.</p>
+                            <button onclick="window.location.href='/shop/'"
+                                class="btn-neon text-white px-10 py-4 rounded-full text-lg font-semibold transition-all">
+                                Continue Shopping
+                            </button>
+                        </div>
+
+                        <!-- Cart Items List -->
+                        <div id="cartItems" class="space-y-6">
+                            <!-- Cart items will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="lg:col-span-1">
+                        <div class="cart-summary" data-aos="fade-left">
+                            <h3 class="text-2xl font-bold text-white mb-6">Order Summary</h3>
+
+                            <div class="summary-row">
+                                <span class="text-gray-400">Subtotal</span>
+                                <span class="text-white" id="subtotal">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span class="text-gray-400">Shipping</span>
+                                <span class="text-white" id="shipping">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span class="text-gray-400">Tax</span>
+                                <span class="text-white" id="tax">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span class="gradient-text">Total</span>
+                                <span class="gradient-text" id="total">$0.00</span>
+                            </div>
+
+                            
+                            <!-- Checkout Button -->
+                            <button onclick="proceedToCheckout()" id="checkoutBtn"
+                                class="w-full btn-neon text-white py-4 rounded-full text-lg font-semibold mt-8 transition-all">
+                                Proceed to Checkout
+                            </button>
+
+                            <!-- Continue Shopping -->
+                            <button onclick="window.location.href='/shop/'"
+                                class="w-full border border-gray-500 text-gray-300 py-3 rounded-full text-lg font-semibold hover:bg-gray-700 transition-all mt-4">
+                                Continue Shopping
+                            </button>
+
+                            <!-- Security Info -->
+                            <div class="mt-8 text-center">
+                                <div class="flex items-center justify-center space-x-2 text-gray-400 text-sm">
+                                    <i class="fas fa-shield-alt text-green-400"></i>
+                                    <span>Secure SSL Encrypted Checkout</span>
+                                </div>
+                                <div class="flex items-center justify-center space-x-4 mt-4">
+                                    <i class="fab fa-cc-visa text-2xl text-gray-400"></i>
+                                    <i class="fab fa-cc-mastercard text-2xl text-gray-400"></i>
+                                    <i class="fab fa-cc-amex text-2xl text-gray-400"></i>
+                                    <i class="fab fa-paypal text-2xl text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Products -->
+        <section class="py-20 section-dark">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
+                        You Might Also <span class="gradient-text">Love</span>
+                    </h2>
+                    <p class="text-lg text-gray-400">Complete your Soak experience with these popular products</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-dark rounded-2xl overflow-hidden card-glow" data-aos="fade-up"
+                        data-aos-delay="100">
+                        <div class="relative">
+                            <img src="/assets/images/soak-laundry-soap.jpg" alt="Soak Laundry Soap Wild Mint"
+                                class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2">Soak Laundry Soap</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Wild Mint</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold gradient-text">$34.00</span>
+                                <button
+                                    onclick="addToCart('soak-wild-mint', 'Soak Laundry Soap - Wild Mint', 34.00, '/assets/images/soak-laundry-soap.jpg')"
+                                    class="btn-neon text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-dark rounded-2xl overflow-hidden card-glow" data-aos="fade-up"
+                        data-aos-delay="200">
+                        <div class="relative">
+                            <img src="/assets/images/minisoak-travel-pack.jpg" alt="Minisoak Travel Pack"
+                                class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2">Minisoak Travel Pack</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Scentless</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold gradient-text">$11.00</span>
+                                <button
+                                    onclick="addToCart('minisoak-travel', 'Minisoak Travel Pack', 11.00, '/assets/images/minisoak-travel-pack.jpg')"
+                                    class="btn-neon text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-dark rounded-2xl overflow-hidden card-glow" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <div class="relative">
+                            <img src="/assets/images/flatter-ironing-spray.jpg" alt="Flatter Spray" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2">Flatter Ironing Spray</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Wild Mint</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold gradient-text">$22.00</span>
+                                <button
+                                    onclick="addToCart('flatter-spray', 'Flatter Ironing Spray', 22.00, '/assets/images/flatter-ironing-spray.jpg')"
+                                    class="btn-neon text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-dark rounded-2xl overflow-hidden card-glow" data-aos="fade-up"
+                        data-aos-delay="400">
+                        <div class="relative">
+                            <img src="/assets/images/hand-washing.jpg" alt="Hand Washing Kit"
+                                class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2">Hand-Washing Kit</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Pineapple Grove</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold gradient-text">$58.00</span>
+                                <button
+                                    onclick="addToCart('washing-kit', 'Hand-Washing Starter Kit', 58.00, '/assets/images/hand-washing.jpg')"
+                                    class="btn-neon text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="section-dark py-20">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-12 mb-16">
+                    <div>
+                        <img src="/assets/images/thesoakwash.png" alt="The Soak Wash" class="h-12 w-auto mb-6">
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            The gentle, no-rinse laundry soap that's revolutionizing fabric care worldwide.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="https://www.facebook.com/soakwash"
+                                class="text-gray-400 hover:text-blue-400 transition-colors text-xl">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://x.com/soakwash"
+                                class="text-gray-400 hover:text-blue-400 transition-colors text-xl">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://www.pinterest.com/soakwash/"
+                                class="text-gray-400 hover:text-red-400 transition-colors text-xl">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                            <a href="https://www.instagram.com/soakwash/"
+                                class="text-gray-400 hover:text-pink-400 transition-colors text-xl">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                            <li><a href="/shop/" class="text-gray-400 hover:text-white transition-colors">Shop</a></li>
+                            <li><a href="/about/" class="text-gray-400 hover:text-white transition-colors">About</a>
+                            </li>
+                            <li><a href="/blog/" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                            <li><a href="/contact/" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">Legal</h3>
+                        <ul class="space-y-4">
+                            <li><a href="/privacy/" class="text-gray-400 hover:text-white transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="/terms/" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+                            </li>
+                            <li><a href="/cookies/" class="text-gray-400 hover:text-white transition-colors">Cookies</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">Contact Info</h3>
+                        <div class="space-y-4 text-gray-400">
+                            <p class="flex items-start">
+                                <i class="fas fa-map-marker-alt mr-3 mt-1 text-blue-400"></i>
+                                2762 King Edward St,<br>Winnipeg, MB R2R 2R2, Canada
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                                info@thesoakwash.com
+                            </p>
+                            <p class="text-sm text-gray-500 mt-6">#soakworthy @soakwash</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-700 pt-8 text-center">
+                    <p class="text-gray-400">Copyright © 2025 Soak Wash Inc. Proudly Made in Canada with ❤️</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
+        // Particles.js Configuration
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 40, density: { enable: true, value_area: 800 } },
+                color: { value: ["#3b82f6", "#06b6d4", "#8b5cf6"] },
+                shape: { type: "circle" },
+                opacity: { value: 0.2, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.1,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 150, line_linked: { opacity: 0.3 } },
+                    push: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Three.js Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('threejs-container').appendChild(renderer.domElement);
+
+        // Create geometric shapes
+        const shapes = [];
+
+        const icoGeometry = new THREE.IcosahedronGeometry(6, 1);
+        const icoMaterial = new THREE.MeshBasicMaterial({
+            color: 0x3b82f6,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const icosahedron = new THREE.Mesh(icoGeometry, icoMaterial);
+        icosahedron.position.set(-15, 8, -25);
+        scene.add(icosahedron);
+        shapes.push(icosahedron);
+
+        const octaGeometry = new THREE.OctahedronGeometry(8);
+        const octaMaterial = new THREE.MeshBasicMaterial({
+            color: 0x06b6d4,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.12
+        });
+        const octahedron = new THREE.Mesh(octaGeometry, octaMaterial);
+        octahedron.position.set(20, -10, -30);
+        scene.add(octahedron);
+        shapes.push(octahedron);
+
+        camera.position.z = 40;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            shapes.forEach((shape, index) => {
+                shape.rotation.x += 0.003 * (index + 1);
+                shape.rotation.y += 0.002 * (index + 1);
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('soakCart')) || [];
+        let appliedPromo = JSON.parse(localStorage.getItem('appliedPromo')) || null;
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function renderCartItems() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            if (cart.length === 0) {
+                cartItemsContainer.style.display = 'none';
+                emptyCart.style.display = 'block';
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = '0.5';
+                return;
+            }
+
+            emptyCart.style.display = 'none';
+            cartItemsContainer.style.display = 'block';
+            checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
+
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="cart-item p-6 flex items-center space-x-6" data-aos="fade-up">
+                    <div class="flex-shrink-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-xl font-bold text-white mb-2">${item.name}</h3>
+                        <p class="text-gray-400 mb-4">Premium quality fabric care</p>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-3">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)" ${item.quantity <= 1 ? 'disabled' : ''}>
+                                    <i class="fas fa-minus text-sm"></i>
+                                </button>
+                                <input type="number" value="${item.quantity}" min="1" max="99" 
+                                    class="quantity-input" onchange="setQuantity('${item.id}', this.value)">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">
+                                    <i class="fas fa-plus text-sm"></i>
+                                </button>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-2xl font-bold gradient-text">$${(item.price * item.quantity).toFixed(2)}</p>
+                                <p class="text-gray-400 text-sm">$${item.price.toFixed(2)} each</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <button class="remove-btn" onclick="removeFromCart('${item.id}')">
+                            <i class="fas fa-trash text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let discount = 0;
+
+            if (appliedPromo) {
+                discount = subtotal * (appliedPromo.discount / 100);
+            }
+
+            const discountedSubtotal = subtotal - discount;
+            const shipping = discountedSubtotal >= 60 ? 0 : 9.99;
+            const tax = discountedSubtotal * 0.13; // 13% tax rate
+            const total = discountedSubtotal + shipping + tax;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+
+            // Show discount row if applicable
+            const existingDiscount = document.querySelector('.discount-row');
+            if (existingDiscount) {
+                existingDiscount.remove();
+            }
+
+            if (discount > 0) {
+                const summaryContainer = document.querySelector('.cart-summary');
+                const discountRow = document.createElement('div');
+                discountRow.className = 'summary-row discount-row';
+                discountRow.innerHTML = `
+                    <span class="text-green-400">Discount (${appliedPromo.code})</span>
+                    <span class="text-green-400">-$${discount.toFixed(2)}</span>
+                `;
+                summaryContainer.insertBefore(discountRow, summaryContainer.querySelector('.summary-row:nth-child(3)'));
+            }
+        }
+
+        function addToCart(id, name, price, image) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+            localStorage.setItem('soakCart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+            showNotification('Product added to cart successfully!', 'success');
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('soakCart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+            showNotification('Product removed from cart', 'success');
+        }
+
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + change);
+                localStorage.setItem('soakCart', JSON.stringify(cart));
+                updateCartCount();
+                renderCartItems();
+            }
+        }
+
+        function setQuantity(id, newQuantity) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity = Math.max(1, parseInt(newQuantity) || 1);
+                localStorage.setItem('soakCart', JSON.stringify(cart));
+                updateCartCount();
+                renderCartItems();
+            }
+        }
+
+        function applyPromoCode() {
+            const promoInput = document.getElementById('promoCode');
+            const promoMessage = document.getElementById('promoMessage');
+            const code = promoInput.value.trim().toUpperCase();
+
+            // Mock promo codes
+            const promoCodes = {
+                'SAVE10': { discount: 10, description: '10% off your order' },
+                'WELCOME15': { discount: 15, description: '15% off for new customers' },
+                'SOAK20': { discount: 20, description: '20% off Soak products' }
+            };
+
+            if (promoCodes[code]) {
+                appliedPromo = { code, ...promoCodes[code] };
+                localStorage.setItem('appliedPromo', JSON.stringify(appliedPromo));
+                promoMessage.innerHTML = `<span class="text-green-400"><i class="fas fa-check mr-2"></i>${appliedPromo.description} applied!</span>`;
+                promoInput.value = '';
+                updateCartSummary();
+                showNotification('Promo code applied successfully!', 'success');
+            } else {
+                promoMessage.innerHTML = `<span class="text-red-400"><i class="fas fa-times mr-2"></i>Invalid promo code</span>`;
+                showNotification('Invalid promo code', 'error');
+            }
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty', 'error');
+                return;
+            }
+            // In a real app, this would redirect to checkout
+            showNotification('Redirecting to checkout...', 'success');
+            setTimeout(() => {
+                window.location.href = '/checkout/';
+            }, 1500);
+        }
+
+        function toggleCart() {
+            // Already on cart page, do nothing or scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Notification system
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg text-white font-semibold transform transition-all duration-300 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartCount();
+            renderCartItems();
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (e) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const hamburger = document.querySelector('.hamburger');
+                const closeButton = document.querySelector('.mobile-menu-close');
+
+                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && !closeButton.contains(e.target) && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Prevent menu close when clicking inside menu content
+            document.getElementById('mobileMenu').addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+
+            // Enable enter key for promo code
+            document.getElementById('promoCode').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    applyPromoCode();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

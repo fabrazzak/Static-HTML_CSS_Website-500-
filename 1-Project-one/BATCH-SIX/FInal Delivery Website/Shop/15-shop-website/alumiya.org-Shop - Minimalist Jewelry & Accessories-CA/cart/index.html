@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Alumiya</title>
+    <meta name="description" content="Your shopping cart at Alumiya. Review your selected minimalist jewelry pieces before checkout.">
+    <meta name="keywords" content="shopping cart, jewelry cart, checkout, minimalist jewelry, Alumiya cart">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #333333;
+            --secondary-color: #a38f84;
+            --accent-color: #e8d5c0;
+            --light-color: #f8f8f8;
+            --dark-color: #222222;
+            --text-color: #555555;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 15px auto 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-menu {
+            display: flex;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+   .nav-icons a {
+            margin-left: 20px;
+            font-size: 1.2rem;    margin-right: 40px;
+
+        }
+        
+        .nav-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .cart-count {
+            position: relative;
+        }
+        
+        .cart-count span {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: url('https://images.unsplash.com/photo-1516762689617-e1cffcef479d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1511&q=80') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            margin-top: 70px;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--accent-color);
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb span {
+            margin: 0 10px;
+        }
+        
+        /* Cart Content */
+        .cart-content {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .cart-items-container {
+            flex: 2;
+        }
+        
+        .cart-summary {
+            flex: 1;
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 8px;
+            height: fit-content;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+            padding-left: 30px;
+        }
+        
+        .cart-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-price {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: var(--light-color);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .cart-item-remove {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cart-item-remove:hover {
+            color: #ff0000;
+        }
+        
+        .cart-summary h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .summary-total {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .empty-cart i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Checkout Popup */
+        .checkout-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .checkout-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .checkout-popup-content {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            border-radius: 8px;
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .checkout-popup.active .checkout-popup-content {
+            transform: translateY(0);
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+        
+        .close-popup:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Checkout Form */
+        .checkout-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        /* Thank You Message */
+        .thank-you-message {
+            text-align: center;
+            padding: 80px 0;
+            display: none;
+        }
+        
+        .thank-you-message i {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .cart-content {
+                flex-direction: column;
+            }
+            
+            .cart-summary {
+                margin-top: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: var(--transition);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .cart-item-details {
+                padding-left: 0;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .checkout-popup-content {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Alumiya<span>.</span></a>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-icons">
+                <a href="/cart/" class="cart-count" id="cartIcon" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span id="cartCounter">0</span>
+                </a>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container page-header-content">
+            <h1>Your Shopping Cart</h1>
+            <div class="breadcrumb">
+                <a href="/">Home</a>
+                <span>/</span>
+                <a href="/cart/">Cart</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="section">
+        <div class="container">
+            <div class="cart-content">
+                <div class="cart-items-container" id="cartItemsContainer">
+                    <!-- Cart items will be loaded here via JavaScript -->
+                </div>
+                
+                <div class="cart-summary" id="cartSummary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Estimated Total</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                    <button id="proceedToCheckout" class="btn" style="width: 100%;">Proceed to Checkout</button>
+                    <a href="/shop/" class="btn btn-outline" style="width: 100%; margin-top: 15px;">Continue Shopping</a>
+                </div>
+            </div>
+            
+            <!-- Thank You Message (hidden by default) -->
+            <div class="thank-you-message" id="thankYouMessage">
+                <i class="fas fa-check-circle"></i>
+                <h2>Thank You for Your Order!</h2>
+                <p>Your order has been placed successfully. We'll contact you soon with order details.</p>
+                <a href="/shop/" class="btn" style="margin-top: 30px;">Continue Shopping</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Popup -->
+    <div class="checkout-popup" id="checkoutPopup">
+        <div class="checkout-popup-content">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <h2 class="section-title">Checkout Information</h2>
+            <form id="checkoutForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Shipping Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip">ZIP/Postal Code</label>
+                        <input type="text" id="zip" name="zip" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="UK">United Kingdom</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Order Notes (Optional)</label>
+                    <textarea id="notes" name="notes" rows="2"></textarea>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="/" class="footer-logo">Alumiya<span>.</span></a>
+                    <p>Handcrafted minimalist jewelry designed for everyday elegance. Ethically sourced materials, timeless designs.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://pinterest.com/" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Wood Buffalo, AB T9K 2Z1, Canada</p>
+                    <p><i class="fas fa-phone"></i> +17808282905</p>
+                    <p><i class="fas fa-envelope"></i> hello@alumiya.org</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alumiya. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Cart Functionality
+        const cartCounter = document.getElementById('cartCounter');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const subtotalElement = document.getElementById('subtotal');
+        const totalElement = document.getElementById('total');
+        const checkoutPopup = document.getElementById('checkoutPopup');
+        const closePopup = document.getElementById('closePopup');
+        const proceedToCheckout = document.getElementById('proceedToCheckout');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+        const cartSummary = document.getElementById('cartSummary');
+        
+        // Initialize cart
+        function initCart() {
+            const cart = JSON.parse(localStorage.getItem('alumiya-cart')) || [];
+            updateCartCounter();
+            renderCartItems(cart);
+            
+            if (cart.length === 0) {
+                showEmptyCart();
+            }
+        }
+        
+        // Update cart counter
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('alumiya-cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+        }
+        
+        // Render cart items
+        function renderCartItems(cart) {
+            if (cart.length === 0) {
+                showEmptyCart();
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach((item, index) => {
+                // Ensure price is a number (handle both string "$89.00" and number 89)
+                const price = typeof item.price === 'string' ? 
+                             parseFloat(item.price.replace('$', '')) : 
+                             item.price;
+                const itemTotal = price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">${item.name}</h3>
+                        <p class="cart-item-price">$${price.toFixed(2)}</p>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease-btn" data-index="${index}">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-index="${index}">
+                            <button class="quantity-btn increase-btn" data-index="${index}">+</button>
+                        </div>
+                        <p class="cart-item-remove" data-index="${index}">Remove</p>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Update totals
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            totalElement.textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Show the summary section
+            cartSummary.style.display = 'block';
+            
+            // Add event listeners
+            addCartEventListeners();
+        }
+        
+        // Show empty cart message
+        function showEmptyCart() {
+            cartItemsContainer.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Your cart is empty</h3>
+                    <p>Looks like you haven't added anything to your cart yet</p>
+                    <a href="/shop/" class="btn" style="margin-top: 20px;">Continue Shopping</a>
+                </div>
+            `;
+            
+            // Hide summary if cart is empty
+            cartSummary.style.display = 'none';
+        }
+        
+        // Add event listeners to cart items
+        function addCartEventListeners() {
+            // Quantity decrease buttons
+            document.querySelectorAll('.decrease-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    updateQuantity(index, -1);
+                });
+            });
+            
+            // Quantity increase buttons
+            document.querySelectorAll('.increase-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    updateQuantity(index, 1);
+                });
+            });
+            
+            // Quantity input changes
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    const newQuantity = parseInt(e.target.value);
+                    setQuantity(index, newQuantity);
+                });
+            });
+            
+            // Remove buttons
+            document.querySelectorAll('.cart-item-remove').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index');
+                    removeFromCart(index);
+                });
+            });
+        }
+        
+        // Update item quantity
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(localStorage.getItem('alumiya-cart')) || [];
+            const newQuantity = cart[index].quantity + change;
+            
+            if (newQuantity < 1) {
+                removeFromCart(index);
+                return;
+            }
+            
+            cart[index].quantity = newQuantity;
+            localStorage.setItem('alumiya-cart', JSON.stringify(cart));
+            renderCartItems(cart);
+            updateCartCounter();
+        }
+        
+        // Set specific quantity
+        function setQuantity(index, quantity) {
+            if (quantity < 1) {
+                removeFromCart(index);
+                return;
+            }
+            
+            const cart = JSON.parse(localStorage.getItem('alumiya-cart')) || [];
+            cart[index].quantity = quantity;
+            localStorage.setItem('alumiya-cart', JSON.stringify(cart));
+            renderCartItems(cart);
+            updateCartCounter();
+        }
+        
+        // Remove item from cart
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('alumiya-cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('alumiya-cart', JSON.stringify(cart));
+            
+            if (cart.length === 0) {
+                showEmptyCart();
+            } else {
+                renderCartItems(cart);
+            }
+            
+            updateCartCounter();
+            showNotification('Item removed from cart');
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = 'var(--secondary-color)';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '4px';
+            notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            notification.style.zIndex = '1000';
+            notification.style.animation = 'fadeIn 0.3s ease';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+        
+        // Toggle checkout popup
+        function toggleCheckoutPopup() {
+            const cart = JSON.parse(localStorage.getItem('alumiya-cart')) || [];
+            if (cart.length === 0) {
+                showNotification('Your cart is empty');
+                return;
+            }
+            
+            checkoutPopup.classList.toggle('active');
+            document.body.style.overflow = checkoutPopup.classList.contains('active') ? 'hidden' : 'auto';
+        }
+        
+        // Close popup when clicking outside
+        checkoutPopup.addEventListener('click', (e) => {
+            if (e.target === checkoutPopup) {
+                toggleCheckoutPopup();
+            }
+        });
+        
+        // Close popup when clicking close button
+        closePopup.addEventListener('click', toggleCheckoutPopup);
+        
+        // Proceed to checkout button
+        proceedToCheckout.addEventListener('click', toggleCheckoutPopup);
+        
+        // Handle checkout form submission
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real implementation, you would process the order here
+            // For this example, we'll just show the thank you message
+            
+            // Hide the popup
+            toggleCheckoutPopup();
+            
+            // Hide the cart content
+            document.querySelector('.cart-content').style.display = 'none';
+            
+            // Show the thank you message
+            thankYouMessage.style.display = 'block';
+            
+            // Clear the cart
+            localStorage.removeItem('alumiya-cart');
+            updateCartCounter();
+            
+            // Show success notification
+            showNotification('Order placed successfully!');
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            initCart();
+            
+            // Add animation styles for notifications
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; transform: translateY(0); }
+                    to { opacity: 0; transform: translateY(20px); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

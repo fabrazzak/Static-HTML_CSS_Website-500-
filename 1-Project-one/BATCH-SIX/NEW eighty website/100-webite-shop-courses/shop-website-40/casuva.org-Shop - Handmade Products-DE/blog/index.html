@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog - Casuva | Handmade Stories & Inspiration</title>
+    <link rel="stylesheet" href="../css/cart.css" />
+    <style>
+      /* Reusing the same styles from homepage for consistency */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      :root {
+        --primary: #8b5a2b;
+        --secondary: #f5e8d0;
+        --accent: #d4a76a;
+        --text: #333333;
+        --light: #ffffff;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      /* Header Styles - Same as Homepage */
+      header {
+        background-color: var(--light);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .cart-icon {
+        font-size: 1.5rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      /* Blog Page Specific Styles */
+      .page-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
+            no-repeat center center/cover;
+        height: 40vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--light);
+      }
+
+      .page-header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .breadcrumb {
+        padding: 1rem 5%;
+        background-color: var(--secondary);
+      }
+
+      .breadcrumb a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+
+      /* Blog Content */
+      .blog-content {
+        padding: 5rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 1rem;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--accent);
+      }
+
+      /* Articles Grid */
+      .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+      }
+
+      .article-card {
+        background-color: var(--light);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .article-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .article-image {
+        height: 250px;
+        overflow: hidden;
+      }
+
+      .article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .article-card:hover .article-image img {
+        transform: scale(1.1);
+      }
+
+      .article-info {
+        padding: 2rem;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        color: var(--accent);
+        font-size: 0.9rem;
+      }
+
+      .article-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .article-excerpt {
+        margin-bottom: 1.5rem;
+      }
+
+      .read-more {
+        display: inline-block;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .read-more:hover {
+        color: var(--accent);
+      }
+
+      .read-more::after {
+        content: "→";
+        margin-left: 0.5rem;
+        transition: margin-left 0.3s;
+      }
+
+      .read-more:hover::after {
+        margin-left: 1rem;
+      }
+
+      /* Categories Sidebar */
+      .blog-container {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 3rem;
+      }
+
+      .sidebar {
+        padding: 2rem;
+        background-color: var(--secondary);
+        border-radius: 8px;
+        height: fit-content;
+      }
+
+      .sidebar-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--accent);
+      }
+
+      .categories-list {
+        list-style: none;
+      }
+
+      .categories-list li {
+        margin-bottom: 1rem;
+      }
+
+      .categories-list a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.3s;
+        display: block;
+        padding: 0.5rem 0;
+      }
+
+      .categories-list a:hover {
+        color: var(--accent);
+        padding-left: 0.5rem;
+      }
+
+      .categories-list a::before {
+        content: "•";
+        color: var(--accent);
+        margin-right: 0.5rem;
+      }
+
+      .popular-posts {
+        margin-top: 3rem;
+      }
+
+      .popular-post {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        align-items: center;
+      }
+
+      .popular-post img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .popular-post h4 {
+        font-size: 1rem;
+      }
+
+      .popular-post a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .popular-post a:hover {
+        color: var(--accent);
+      }
+
+      /* Newsletter Subscription */
+      .blog-newsletter {
+        background-color: var(--primary);
+        color: var(--light);
+        padding: 4rem 5%;
+        margin-top: 5rem;
+        text-align: center;
+      }
+
+      .blog-newsletter h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-newsletter p {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+
+      .blog-newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .blog-newsletter-form input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 30px 0 0 30px;
+        font-size: 1rem;
+      }
+
+      .blog-newsletter-form button {
+        padding: 0.8rem 2rem;
+        background-color: var(--accent);
+        color: var(--light);
+        border: none;
+        border-radius: 0 30px 30px 0;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .blog-newsletter-form button:hover {
+        background-color: var(--secondary);
+        color: var(--primary);
+      }
+
+      /* Footer - Same as Homepage */
+      footer {
+        background-color: var(--primary);
+        color: var(--light);
+        padding: 3rem 5%;
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-column ul li a {
+        color: var(--secondary);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--light);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-links a {
+        color: var(--light);
+        background-color: var(--accent);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .social-links a:hover {
+        background-color: var(--light);
+        color: var(--primary);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 3rem;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 992px) {
+        .blog-container {
+          grid-template-columns: 1fr;
+        }
+
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Popup Content */
+      .popup-content {
+        background-color: var(--light);
+        width: 90%;
+        max-width: 900px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 8px;
+        padding: 3rem;
+        position: relative;
+        transform: translateY(50px);
+        transition: transform 0.3s ease;
+      }
+
+      .popup-overlay.active .popup-content {
+        transform: translateY(0);
+      }
+
+      .popup-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: var(--primary);
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      .popup-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+      }
+
+      .popup-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+      }
+
+      .popup-title {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+
+      .popup-text {
+        margin-bottom: 2rem;
+        line-height: 1.8;
+      }
+
+      .popup-text p {
+        margin-bottom: 1.5rem;
+      }
+
+      /* Responsive adjustments for popup */
+      @media (max-width: 768px) {
+        .popup-content {
+          padding: 2rem 1.5rem;
+        }
+
+        .popup-image {
+          height: 250px;
+        }
+
+        .popup-title {
+          font-size: 1.5rem;
+        }
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      header {
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 5%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .logo span {
+        color: #e67e22;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #e67e22;
+      }
+
+      .cart-icon {
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: #333;
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+      }
+
+      .hamburger .bar {
+        height: 3px;
+        width: 100%;
+        background-color: #333;
+        border-radius: 10px;
+      }
+
+      /* Mobile Responsive Styles */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+          z-index: 20;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          height: 100vh;
+          background-color: #fff;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2rem;
+          transition: right 0.5s ease;
+          box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+          z-index: 10;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: none;
+          z-index: 5;
+        }
+
+        .overlay.active {
+          display: block;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav class="navbar">
+        <a href="/terms/" class="logo">Casu<span>va</span></a>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/shop/">Shop</a>
+          <a href="/about/">About</a>
+          <a href="/blog/">Blog</a>
+          <a href="/contact/">Contact</a>
+        </div>
+        <div class="cart-icon" id="cartIcon">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div>
+        <h1>Handmade Stories</h1>
+        <p>Discover the art behind our crafts</p>
+      </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb"><a href="/">Home</a>/<span>Blog</span></div>
+
+    <!-- Blog Content -->
+    <div class="blog-content">
+      <div class="section-title">
+        <h2>Latest Articles</h2>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="articles-grid">
+        <!-- Article 1 -->
+        <article class="article-card">
+          <div class="article-image">
+            <img
+              src="https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Pottery making"
+            />
+          </div>
+          <div class="article-info">
+            <div class="article-meta">
+              <span>Jan 15, 2025</span>
+              <span>5 min read</span>
+            </div>
+            <h3>
+              The Ancient Art of Pottery: Techniques Passed Through Generations
+            </h3>
+            <p class="article-excerpt">
+              Discover how traditional pottery techniques have evolved yet
+              remained fundamentally unchanged for centuries, and meet the
+              artisans keeping these methods alive.
+            </p>
+            <a href="javascript.:void()" class="read-more" data-popup="popup1"
+              >Read more</a
+            >
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="article-card">
+          <div class="article-image">
+            <img
+              src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Sustainable materials"
+            />
+          </div>
+          <div class="article-info">
+            <div class="article-meta">
+              <span>March 28, 2025</span>
+              <span>4 min read</span>
+            </div>
+            <h3>
+              Sustainable Materials in Handicrafts: Better for Art and Earth
+            </h3>
+            <p class="article-excerpt">
+              Explore how artisans are turning to eco-friendly materials without
+              compromising on quality or beauty in their craftwork.
+            </p>
+            <a href="javascript.:void()" class="read-more" data-popup="popup2"
+              >Read more</a
+            >
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="article-card">
+          <div class="article-image">
+            <img
+              src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Weaving process"
+            />
+          </div>
+          <div class="article-info">
+            <div class="article-meta">
+              <span>April 10, 2025</span>
+              <span>6 min read</span>
+            </div>
+            <h3>Weaving Communities Together: The Social Impact of Handmade</h3>
+            <p class="article-excerpt">
+              How traditional weaving cooperatives are empowering women and
+              preserving cultural heritage in rural communities worldwide.
+            </p>
+            <a href="javascript.:void()" class="read-more" data-popup="popup3"
+              >Read more</a
+            >
+          </div>
+        </article>
+      </div>
+
+      <!-- Popup 1 Content -->
+      <div class="popup-overlay" id="popup1">
+        <div class="popup-content">
+          <button class="popup-close">&times;</button>
+          <img
+            src="https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            alt="Pottery making"
+            class="popup-image"
+          />
+          <div class="popup-meta">
+            <span>Ja 15, 2025</span>
+            <span>5 min read</span>
+          </div>
+          <h2 class="popup-title">
+            The Ancient Art of Pottery: Techniques Passed Through Generations
+          </h2>
+          <div class="popup-text">
+            <p>
+              Pottery is one of the oldest human inventions, dating back to at
+              least 24,000 BC. This ancient craft has been passed down through
+              generations, with techniques remaining remarkably consistent even
+              as tools and materials have evolved.
+            </p>
+
+            <p>
+              At Casuva, we work with master potters who employ traditional
+              methods like coil building, slab construction, and wheel throwing.
+              Each piece begins as raw clay, carefully selected for its
+              properties. The clay is then wedged to remove air bubbles - a
+              process that can take hours for large quantities.
+            </p>
+
+            <p>
+              One of our featured artisans, Maria Gonzalez from Jalisco, Mexico,
+              still uses the same techniques her great-grandmother taught her.
+              "The rhythm of the wheel is like a heartbeat," she says. "When I'm
+              throwing clay, I feel connected to all the potters who came before
+              me."
+            </p>
+
+            <p>
+              The decoration techniques are equally fascinating. Sgraffito
+              (scratching through a surface to reveal a lower layer), mishima
+              (inlaying slip into carved lines), and terra sigillata (applying a
+              refined slip that polishes to a high sheen) are just a few methods
+              our artisans use to create unique surface designs.
+            </p>
+
+            <p>
+              After forming, pieces are dried slowly to prevent cracking, then
+              fired in kilns. The final step is often glazing and a second
+              firing. Some traditional potters still use wood-fired kilns, which
+              create unique atmospheric effects impossible to replicate in
+              modern electric kilns.
+            </p>
+
+            <p>
+              By preserving these techniques, we're not just creating beautiful
+              functional objects - we're keeping cultural heritage alive. Each
+              Casuva pottery piece carries with it centuries of knowledge and
+              tradition.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popup 2 Content -->
+      <div class="popup-overlay" id="popup2">
+        <div class="popup-content">
+          <button class="popup-close">&times;</button>
+          <img
+            src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            alt="Sustainable materials"
+            class="popup-image"
+          />
+          <div class="popup-meta">
+            <span>March 28, 2025</span>
+            <span>4 min read</span>
+          </div>
+          <h2 class="popup-title">
+            Sustainable Materials in Handicrafts: Better for Art and Earth
+          </h2>
+          <div class="popup-text">
+            <p>
+              In an era of increasing environmental awareness, artisans
+              worldwide are returning to traditional, sustainable materials and
+              methods. These eco-friendly choices often result in higher quality
+              products with unique characteristics that mass-produced items
+              can't match.
+            </p>
+
+            <p>
+              Natural dyes are making a comeback in textile arts. Instead of
+              synthetic dyes that pollute waterways, artisans are using plants
+              like indigo, madder root, and weld. These botanical dyes create
+              rich, complex colors that change subtly with each batch. Our
+              partner weavers in Guatemala use over 20 different plants to
+              achieve their vibrant palette.
+            </p>
+
+            <p>
+              For woodworking, sustainably harvested timber and reclaimed wood
+              are becoming standard. Many of our woodworkers source fallen trees
+              or use wood from urban tree removal programs. "There's something
+              special about giving new life to wood that would otherwise be
+              discarded," says furniture maker James Wilson from Oregon.
+            </p>
+
+            <p>
+              In ceramics, lead-free glazes and locally sourced clays reduce the
+              environmental impact. Some potters are even experimenting with
+              alternative firing methods that use less energy, like pit firing
+              or solar-powered kilns.
+            </p>
+
+            <p>
+              Basketry materials offer some of the most sustainable options.
+              Willow, rattan, bamboo, and other fast-growing plants can be
+              harvested without harming the plant. "We only take what we need,
+              and the plants grow back stronger," explains basket maker Leila
+              Nkosi from South Africa.
+            </p>
+
+            <p>
+              At Casuva, we believe sustainability isn't just about materials -
+              it's about supporting traditional knowledge systems that have
+              always valued careful resource use. By choosing handmade, you're
+              investing in both beautiful objects and a healthier planet.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popup 3 Content -->
+      <div class="popup-overlay" id="popup3">
+        <div class="popup-content">
+          <button class="popup-close">&times;</button>
+          <img
+            src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            alt="Weaving process"
+            class="popup-image"
+          />
+          <div class="popup-meta">
+            <span>April 10, 2025</span>
+            <span>6 min read</span>
+          </div>
+          <h2 class="popup-title">
+            Weaving Communities Together: The Social Impact of Handmade
+          </h2>
+          <div class="popup-text">
+            <p>
+              Beyond creating beautiful textiles, weaving cooperatives around
+              the world are strengthening communities and preserving cultural
+              traditions. These collectives provide economic opportunities while
+              maintaining art forms that might otherwise disappear.
+            </p>
+
+            <p>
+              In Oaxaca, Mexico, the Vida Nueva women's cooperative has
+              transformed the lives of its members. Founded in 1996 by a group
+              of Zapotec women, the cooperative provides fair wages and a
+              supportive community. "Before, we wove only for our families,"
+              explains co-founder Margarita López. "Now we earn income while
+              teaching our daughters these ancient patterns."
+            </p>
+
+            <p>
+              Similar stories emerge from Bhutan, where weaving is a national
+              art form. The Royal Textile Academy trains young women in
+              traditional techniques while incorporating modern business skills.
+              This ensures both the survival of Bhutanese patterns and economic
+              independence for weavers.
+            </p>
+
+            <p>
+              In Ghana, the Bolgatanga Basket Weavers Association has united
+              hundreds of artisans. By working collectively, they've gained
+              access to international markets while maintaining fair labor
+              practices. The income supports education for children in the
+              community and healthcare for elders.
+            </p>
+
+            <p>
+              These cooperatives often become centers for broader social change.
+              Many offer childcare during work hours, literacy programs, and
+              health education. The Peruvian collective Awamaki has expanded
+              from weaving to offering microloans and sustainable tourism
+              experiences.
+            </p>
+
+            <p>
+              When you purchase a handwoven item from Casuva, you're supporting
+              this ecosystem of cultural preservation and community development.
+              Each textile carries not just the artistry of its maker, but the
+              strength of the collective that made its creation possible.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div>
+        <aside class="sidebar">
+          <div class="sidebar-widget">
+            <h3 class="sidebar-title">Categories</h3>
+            <ul class="categories-list">
+              <li><a href="/blog/">Artisan Stories</a></li>
+              <li><a href="/blog/">Craft Techniques</a></li>
+              <li><a href="/blog/">Sustainable Materials</a></li>
+              <li><a href="/blog/">Product Care</a></li>
+              <li><a href="/blog/">Behind the Scenes</a></li>
+              <li><a href="/blog/">Cultural Heritage</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-widget popular-posts">
+            <h3 class="sidebar-title">Popular Posts</h3>
+            <div class="popular-post">
+              <img
+                src="https://2.bp.blogspot.com/-md-UpByMwSM/T8UuIgQ6iLI/AAAAAAAAAxY/qaowRELIDEo/s1600/03_goertz_prairie+soil+profile+in+plush_full+small.jpg"
+                alt="Popular post"
+              />
+              <h4>
+                <a href="/blog/"
+                  >The Slow Craft Movement: Why Handmade Matters</a
+                >
+              </h4>
+            </div>
+            <div class="popular-post">
+              <img
+                src="https://tse4.mm.bing.net/th/id/OIP.wKo3uJj2rm9W2BfGafrjowHaLf?rs=1&pid=ImgDetMain"
+                alt="Popular post"
+              />
+              <h4>
+                <a href="/blog/"
+                  >Natural Dyeing Techniques From Around the World</a
+                >
+              </h4>
+            </div>
+            <div class="popular-post">
+              <img
+                src="https://tse2.mm.bing.net/th/id/OIP.ZytKEjW5jhxbLeFAoHqQ0QHaHa?rs=1&pid=ImgDetMain"
+                alt="Popular post"
+              />
+              <h4>
+                <a href="/blog/">Caring for Your Handmade Wood Products</a>
+              </h4>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <section class="blog-newsletter">
+      <h3>Join Our Creative Community</h3>
+      <p>
+        Subscribe to receive stories about our artisans, crafting techniques,
+        and exclusive offers.
+      </p>
+      <form class="blog-newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Casuva</h3>
+          <p>
+            Bringing you the finest handmade products crafted with love and
+            tradition.
+          </p>
+          <div class="social-links"></div>
+        </div>
+        <div class="footer-column">
+          <h3>Shop</h3>
+          <ul></ul>
+        </div>
+        <div class="footer-column">
+          <h3>About</h3>
+          <ul>
+            <li><a href="/about/">Our Story</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Help</h3>
+          <ul>
+            <li><a href="/terms/">Terms & Conditions</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/contact/">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Casuva. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Cart Popup -->
+    <div class="cart-popup" id="cartPopup">
+      <div class="cart-header">
+        <h3>Your Shopping Cart</h3>
+        <button class="close-cart" id="closeCart">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be added here dynamically -->
+        <p class="empty-cart-message">Your cart is empty</p>
+      </div>
+
+      <div class="cart-summary" id="cartSummary" style="display: none">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping:</span>
+          <span>Free</span>
+        </div>
+        <div class="summary-row summary-total">
+          <span>Total:</span>
+          <span id="cartTotal">$0.00</span>
+        </div>
+      </div>
+
+      <div class="cart-actions" id="cartActions" style="display: none">
+        <a href="/shop/" class="btn btn-outline">Continue Shopping</a>
+        <button class="btn btn-primary" id="proceedToCheckout">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Checkout Form Popup -->
+    <div class="checkout-popup" id="checkoutPopup">
+      <div class="checkout-form-container">
+        <button class="close-checkout" id="closeCheckout">
+          <i class="fas fa-times"></i>
+        </button>
+        <form class="checkout-form" id="checkoutForm">
+          <h3>Checkout</h3>
+
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+
+          <div class="form-group">
+            <label for="address">Shipping Address</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Order Notes (Optional)</label>
+            <textarea id="notes" name="notes" rows="2"></textarea>
+          </div>
+
+          <div class="payment-info">
+            <p>
+              <i class="fas fa-info-circle"></i> Payment will be made upon
+              delivery
+            </p>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirmation Popup -->
+    <div class="confirmation-popup" id="confirmationPopup">
+      <div class="confirmation-content">
+        <div class="confirmation-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Thank You!</h3>
+        <p>
+          Your order has been successfully placed. We will contact you soon with
+          the delivery details.
+        </p>
+        <button class="btn btn-primary" id="closeConfirmation">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+    <script src="../js/cart.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get all read more buttons
+        const readMoreButtons = document.querySelectorAll(".read-more");
+        const popupOverlays = document.querySelectorAll(".popup-overlay");
+        const closeButtons = document.querySelectorAll(".popup-close");
+
+        // Add click event to each read more button
+        readMoreButtons.forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.preventDefault();
+            const popupId = this.getAttribute("data-popup");
+            const popup = document.getElementById(popupId);
+
+            // Show the corresponding popup
+            popup.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent scrolling
+          });
+        });
+
+        // Add click event to close buttons
+        closeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const popup = this.closest(".popup-overlay");
+            popup.classList.remove("active");
+            document.body.style.overflow = ""; // Re-enable scrolling
+          });
+        });
+
+        // Close popup when clicking outside content
+        popupOverlays.forEach((overlay) => {
+          overlay.addEventListener("click", function (e) {
+            if (e.target === this) {
+              this.classList.remove("active");
+              document.body.style.overflow = ""; // Re-enable scrolling
+            }
+          });
+        });
+
+        // Close popup with Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            popupOverlays.forEach((overlay) => {
+              overlay.classList.remove("active");
+              document.body.style.overflow = ""; // Re-enable scrolling
+            });
+          }
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        const overlay = document.querySelector(".overlay");
+
+        function toggleMenu() {
+          navLinks.classList.toggle("active");
+          overlay.classList.toggle("active");
+          document.body.style.overflow = navLinks.classList.contains("active")
+            ? "hidden"
+            : "auto";
+        }
+
+        hamburger.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", toggleMenu);
+
+        // Close menu when clicking on a nav link
+        const links = document.querySelectorAll(".nav-links a");
+        links.forEach((link) => {
+          link.addEventListener("click", () => {
+            if (navLinks.classList.contains("active")) {
+              toggleMenu();
+            }
+          });
+        });
+
+        // Handle resize to reset menu state when switching between mobile and desktop
+        window.addEventListener("resize", function () {
+          if (
+            window.innerWidth > 768 &&
+            navLinks.classList.contains("active")
+          ) {
+            navLinks.classList.remove("active");
+            overlay.classList.remove("active");
+            document.body.style.overflow = "auto";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
